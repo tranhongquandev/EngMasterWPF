@@ -4,7 +4,7 @@
    ```
     git clone https://github.com/tranhongquandev/EngMasterWPF
    ```
-2. Restore Nuget Packages with command
+2. Restore Nuget Packages with command in path : ``` {path}/EngMasterWPF/ ```
     ```
     dotnet restore
     ```
