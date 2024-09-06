@@ -23,5 +23,7 @@ namespace EngMasterWPF.Views
         {
             InitializeComponent();
         }
+
+       
     }
 }

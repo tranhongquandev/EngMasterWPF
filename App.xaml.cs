@@ -1,4 +1,5 @@
-﻿using System.Configuration;
+﻿using EngMasterWPF.Views;
+using System.Configuration;
 using System.Data;
 using System.Windows;
 
@@ -14,6 +15,8 @@ namespace EngMasterWPF
         {
             base.OnStartup(e);
             var installServices = new Installer.InstallServices();
+            AuthWindow authWindow = new AuthWindow();
+            authWindow.ShowDialog();
         }
     }
 

@@ -31,6 +31,10 @@ namespace EngMasterWPF.Installer
             services.AddDbContext<EngMasterDbContext>(options => options.UseSqlServer(configuration.GetConnectionString("DefaultConnection")));
             services.AddScoped<IUnitOfWork, UnitOfWork>();
             services.AddScoped(typeof(IBaseRepository<>), typeof(BaseRepository<>));
+            services.AddScoped<IAuthRepository, AuthRepository>();
+
+
+
             #endregion
 
             return services.BuildServiceProvider();

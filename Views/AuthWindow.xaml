@@ -3,13 +3,159 @@
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
     xmlns:local="clr-namespace:EngMasterWPF.Views"
+    xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    Title="EngMaster - Đăng nhập"
+    xmlns:uc="clr-namespace:EngMasterWPF.CustomControlUI"
+    Name="authWindow"
+    Title=""
     Width="450"
-    Height="450"
-    ResizeMode="CanResize"
+    Height="550"
+    AllowsTransparency="True"
+    Background="Transparent"
+    FontFamily="{DynamicResource MaterialDesignFont}"
+    Foreground="#201F1D"
+    ResizeMode="NoResize"
+    TextElement.FontSize="13"
+    TextElement.FontWeight="Regular"
+    TextElement.Foreground="{DynamicResource MaterialDesignBody}"
+    TextOptions.TextFormattingMode="Ideal"
+    TextOptions.TextRenderingMode="Auto"
     WindowStartupLocation="CenterScreen"
+    WindowStyle="None"
     mc:Ignorable="d">
-    <Grid />
+
+    <Window.Resources>
+        <DropShadowEffect
+            x:Key="z-depth1"
+            BlurRadius="5"
+            Direction="270"
+            ShadowDepth="1"
+            Color="#CCCCCC" />
+    </Window.Resources>
+
+
+    <Border
+        Margin="10"
+        Background="White"
+        CornerRadius="20"
+        Effect="{StaticResource z-depth1}">
+
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+
+            <uc:UIControlBar Grid.Row="0" Tag="{Binding Title, ElementName=authWindow}" />
+
+            <Grid Grid.Row="1">
+
+                <StackPanel
+                    Width="410"
+                    HorizontalAlignment="Center"
+                    VerticalAlignment="Center"
+                    Orientation="Vertical">
+                    <Image
+                        Width="90"
+                        Height="90"
+                        Source="https://t4.ftcdn.net/jpg/06/51/17/31/360_F_651173115_XoIqzKWv1aXy6wY9xUuYCWGezD6ncBsz.jpg"
+                        Stretch="Fill">
+                        <Image.Clip>
+                            <EllipseGeometry
+                                Center="45,45"
+                                RadiusX="45"
+                                RadiusY="45" />
+                        </Image.Clip>
+                    </Image>
+
+                    <TextBlock
+                        Margin="0,20,0,5"
+                        HorizontalAlignment="Center"
+                        FontSize="26"
+                        FontWeight="Bold"
+                        Text="Welcome Back!" />
+                    <TextBlock
+                        HorizontalAlignment="Center"
+                        FontSize="11"
+                        FontWeight="Normal"
+                        Text="Chào mừng trở lại! Vui lòng đăng nhập để tiếp tục" />
+
+                    <Grid Margin="30,40,30,20" HorizontalAlignment="Stretch">
+
+                        <Border CornerRadius="20" />
+                        <TextBox
+                            x:Name="Username"
+                            Padding="10,15"
+                            materialDesign:HintAssist.Background="White"
+                            materialDesign:HintAssist.FloatingScale="0.9"
+                            materialDesign:HintAssist.Foreground="#201F1D"
+                            materialDesign:HintAssist.HelperTextFontSize="14"
+                            materialDesign:HintAssist.Hint="Tên tài khoản"
+                            materialDesign:TextFieldAssist.UnderlineBrush="#201F1D"
+                            Style="{StaticResource MaterialDesignOutlinedTextBox}"
+                            Text="{Binding UserName, UpdateSourceTrigger=PropertyChanged}" />
+
+                    </Grid>
+                    <Grid Margin="30,0,30,20" HorizontalAlignment="Stretch">
+                        <Border CornerRadius="20" />
+
+                        <PasswordBox
+                            x:Name="FilledRevealPasswordBox"
+                            Padding="10,15"
+                            materialDesign:HintAssist.Background="White"
+                            materialDesign:HintAssist.FloatingScale="0.9"
+                            materialDesign:HintAssist.Foreground="#201F1D"
+                            materialDesign:HintAssist.HelperTextFontSize="14"
+                            materialDesign:HintAssist.Hint="Mật khẩu"
+                            materialDesign:TextFieldAssist.UnderlineBrush="#201F1D"
+                            BorderThickness="1"
+                            FontSize="14"
+                            Style="{StaticResource MaterialDesignOutlinedRevealPasswordBox}">
+                            <i:Interaction.Triggers>
+                                <i:EventTrigger EventName="SelectionChanged">
+                                    <i:InvokeCommandAction Command="{Binding PasswordBoxChanged}" CommandParameter="{Binding ElementName=FilledRevealPasswordBox}" />
+                                </i:EventTrigger>
+                            </i:Interaction.Triggers>
+                        </PasswordBox>
+
+                    </Grid>
+
+
+                    <Button
+                        Height="48"
+                        Margin="30,0,30,10"
+                        Padding="15,2"
+                        materialDesign:ButtonAssist.CornerRadius="5"
+                        Background="#201F1D"
+                        Command="{Binding LoginCommand}"
+                        CommandParameter="{Binding ElementName=authWindow}"
+                        Content="ĐĂNG NHẬP"
+                        FontSize="12"
+                        Foreground="White"
+                        IsDefault="True"
+                        IsEnabled="{Binding DataContext.ControlsEnabled, RelativeSource={RelativeSource FindAncestor, AncestorType=Window}}"
+                        Style="{StaticResource MaterialDesignRaisedButton}" />
+
+                    <StackPanel HorizontalAlignment="Center" Orientation="Horizontal">
+                        <TextBlock VerticalAlignment="Center">
+                            <TextBlock.Text>Không truy cập được tài khoản?</TextBlock.Text>
+                        </TextBlock>
+                        <Button
+                            Padding="2,0"
+                            VerticalAlignment="Center"
+                            Background="Transparent"
+                            Content="Quên mật khẩu" />
+                    </StackPanel>
+                </StackPanel>
+
+
+            </Grid>
+        </Grid>
+
+    </Border>
+
+
+
 </Window>

@@ -7,7 +7,7 @@ using System.Windows.Input;
 
 namespace EngMasterWPF.Utilities
 {
-   public class ReplayCommand(Action<object?> execute, Func<object?, bool> canExecute) : ICommand
+   public class RelayCommand(Func<object?, bool> canExecute,Action<object?> execute) : ICommand
    {
         private Action<object?> _execute = execute;
         private Func<object?, bool> _canExecute = canExecute;
@@ -29,5 +29,29 @@ namespace EngMasterWPF.Utilities
         }
 
         
+    }
+
+    public class RelayCommand<T>(Func<T?, bool> canExecute, Action<T?> execute) : ICommand
+    {
+        private Action<T?> _execute = execute;
+        private Func<T?, bool> _canExecute = canExecute;
+
+        public event EventHandler? CanExecuteChanged
+        {
+            add => CommandManager.RequerySuggested += value;
+            remove => CommandManager.RequerySuggested -= value;
+        }
+
+        public bool CanExecute(object? parameter)
+        {
+            return _canExecute == null || _canExecute((T)parameter!);
+        }
+
+        public void Execute(object? parameter)
+        {
+            _execute((T)parameter!);
+        }
+
+
     }
 }
