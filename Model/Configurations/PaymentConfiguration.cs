@@ -20,7 +20,7 @@ namespace EngMasterWPF.Model.Configurations
 
             builder.HasOne(x => x.PaymentMethod).WithMany(x => x.Payments).HasForeignKey(x => x.PaymentMethodId);
             builder.HasOne(x => x.Class).WithMany(x => x.Payments).HasForeignKey(x => x.ClassId);
-            builder.HasOne(x => x.Student).WithMany(x => x.Payments).HasForeignKey(x => x.StudentId);
+            builder.HasOne(x => x.UserAccounts).WithMany(x => x.Payments).HasForeignKey(x => x.StudentId);
             builder.HasOne(x => x.Status).WithOne(x => x.Payments).HasForeignKey<Payment>(x => x.PaymentStatusId);
         }
     }

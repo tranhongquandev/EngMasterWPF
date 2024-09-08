@@ -18,16 +18,16 @@ namespace EngMasterWPF.Model.Entities
         public DateTime StartDate { get; set; }
         public DateTime EndDate { get; set; }
 
-        public int TeacherId { get; set; }
+        
         public int CourseId { get; set; }
 
-        public Teacher? Teacher { get; set; }
+        
 
         public Course? Course { get; set; }
 
         public ICollection<ClassWeekday>? ClassWeekdays { get; set; }
 
-        public ICollection<ClassStudent>? ClassStudents { get; set; }
+        public ICollection<UserClass>? UserClasses { get; set; }
 
         public ICollection<Payment>? Payments { get; set; }
     }

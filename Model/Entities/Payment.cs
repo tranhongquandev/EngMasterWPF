@@ -28,7 +28,7 @@ namespace EngMasterWPF.Model.Entities
 
         public PaymentStatus? Status { get; set; }
 
-        public Student? Student { get; set; }
+        public UserAccounts? UserAccounts { get; set; }
 
         public Class? Class { get; set; }
     }

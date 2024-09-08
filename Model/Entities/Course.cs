@@ -27,7 +27,7 @@ namespace EngMasterWPF.Model.Entities
         public Level? Level { get; set; }
         public Category? Category { get; set; }
 
-        public ICollection<Class> Classes { get; set; }
+        public ICollection<Class>? Classes { get; set; }
 
     }
 }

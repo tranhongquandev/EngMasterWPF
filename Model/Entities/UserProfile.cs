@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace EngMasterWPF.Model.Entities
 {
-    public class Staff
+    public class UserProfile
     {
         public int Id { get; set; }
 
@@ -16,7 +16,7 @@ namespace EngMasterWPF.Model.Entities
 
         public string? Email { get; set; }
 
-        public string? Phone { get; set; }
+        public int? Phone { get; set; }
 
         public string? Address { get; set; }
 
@@ -26,10 +26,10 @@ namespace EngMasterWPF.Model.Entities
 
         public DateTime? BirthDate { get; set; }
 
-        public int StaffRoleId { get; set; }
+        
 
-        public StaffAccount? StaffAccount { get; set; }
+        public UserAccounts? UserAccounts { get; set; }
 
-        public StaffRoles? StaffRoles { get; set; }
+        
     }
 }

@@ -6,13 +6,13 @@ using System.Threading.Tasks;
 
 namespace EngMasterWPF.Model.Entities
 {
-    public class ClassStudent
+    public class UserClass
     {
         public int Id { get; set; }
         public int ClassId { get; set; }
-        public int StudentId { get; set; }
+        public int UserAccountId { get; set; }
 
         public Class? Class { get; set; }
-        public Student? Student { get; set; }
+        public UserAccounts? UserAccounts { get; set; }
     }
 }

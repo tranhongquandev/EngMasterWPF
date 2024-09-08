@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace EngMasterWPF.Migrations
 {
     [DbContext(typeof(EngMasterDbContext))]
-    [Migration("20240906071359_InitDb")]
+    [Migration("20240908130935_InitDb")]
     partial class InitDb
     {
         /// <inheritdoc />
@@ -75,39 +75,16 @@ namespace EngMasterWPF.Migrations
                     b.Property<DateTime>("StartDate")
                         .HasColumnType("datetime2");
 
-                    b.Property<int>("TeacherId")
+                    b.Property<int?>("UserAccountsId")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
 
                     b.HasIndex("CourseId");
 
-                    b.HasIndex("TeacherId");
+                    b.HasIndex("UserAccountsId");
 
                     b.ToTable("Classes");
-                });
-
-            modelBuilder.Entity("EngMasterWPF.Model.Entities.ClassStudent", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<int>("ClassId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("StudentId")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("ClassId");
-
-                    b.HasIndex("StudentId");
-
-                    b.ToTable("ClassStudents");
                 });
 
             modelBuilder.Entity("EngMasterWPF.Model.Entities.ClassWeekday", b =>
@@ -257,7 +234,7 @@ namespace EngMasterWPF.Migrations
                     b.Property<DateTime>("PaymentDate")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("datetime2")
-                        .HasDefaultValue(new DateTime(2024, 9, 6, 7, 13, 59, 369, DateTimeKind.Utc).AddTicks(3474));
+                        .HasDefaultValue(new DateTime(2024, 9, 8, 13, 9, 35, 589, DateTimeKind.Utc).AddTicks(7238));
 
                     b.Property<int>("PaymentMethodId")
                         .HasColumnType("int");
@@ -362,7 +339,76 @@ namespace EngMasterWPF.Migrations
                         });
                 });
 
-            modelBuilder.Entity("EngMasterWPF.Model.Entities.Staff", b =>
+            modelBuilder.Entity("EngMasterWPF.Model.Entities.UserAccounts", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<bool>("IsActive")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("PasswordHash")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("UserProfileId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("UserRoleId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Username")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("UserProfileId")
+                        .IsUnique();
+
+                    b.HasIndex("UserRoleId");
+
+                    b.ToTable("UserAccounts");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            IsActive = true,
+                            PasswordHash = "$2a$13$gpDadfAGd87FzkjDdGr/6etetMYimUWCp8.lYG3B8XMzB2ZnYJbca",
+                            UserProfileId = 1,
+                            UserRoleId = 1,
+                            Username = "admin"
+                        });
+                });
+
+            modelBuilder.Entity("EngMasterWPF.Model.Entities.UserClass", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<int>("ClassId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("UserAccountId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ClassId");
+
+                    b.HasIndex("UserAccountId");
+
+                    b.ToTable("UserClasses");
+                });
+
+            modelBuilder.Entity("EngMasterWPF.Model.Entities.UserProfile", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -371,17 +417,15 @@ namespace EngMasterWPF.Migrations
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<string>("Address")
-                        .HasMaxLength(150)
-                        .HasColumnType("nvarchar(150)");
+                        .HasMaxLength(120)
+                        .HasColumnType("nvarchar(120)");
 
                     b.Property<DateTime?>("BirthDate")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("datetime2")
-                        .HasDefaultValue(new DateTime(2024, 9, 6, 7, 13, 59, 370, DateTimeKind.Utc).AddTicks(6766));
+                        .HasColumnType("datetime2");
 
                     b.Property<string>("City")
-                        .HasMaxLength(50)
-                        .HasColumnType("nvarchar(50)");
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
 
                     b.Property<string>("Email")
                         .IsRequired()
@@ -398,86 +442,34 @@ namespace EngMasterWPF.Migrations
                         .HasMaxLength(100)
                         .HasColumnType("nvarchar(100)");
 
-                    b.Property<string>("Phone")
+                    b.Property<int?>("Phone")
+                        .IsRequired()
                         .HasMaxLength(20)
-                        .HasColumnType("nvarchar(20)");
-
-                    b.Property<int>("StaffRoleId")
-                        .HasColumnType("int");
-
-                    b.Property<int?>("StaffRolesId")
                         .HasColumnType("int");
 
                     b.Property<string>("State")
-                        .HasMaxLength(50)
-                        .HasColumnType("nvarchar(50)");
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("StaffRolesId");
-
-                    b.ToTable("Staffs");
+                    b.ToTable("UserProfiles");
 
                     b.HasData(
                         new
                         {
                             Id = 1,
                             Address = "123 Đường ABC",
-                            City = "Hồ Chí Minh",
+                            City = "Hà Nội",
                             Email = "engmaster.admin@gmail.com",
                             FirstName = "Quản trị",
                             LastName = "viên",
-                            Phone = "0123456789",
-                            StaffRoleId = 1,
+                            Phone = 123456789,
                             State = "Việt Nam"
                         });
                 });
 
-            modelBuilder.Entity("EngMasterWPF.Model.Entities.StaffAccount", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<string>("Password")
-                        .IsRequired()
-                        .HasMaxLength(100)
-                        .HasColumnType("nvarchar(100)");
-
-                    b.Property<int>("StaffId")
-                        .HasColumnType("int");
-
-                    b.Property<string>("Username")
-                        .IsRequired()
-                        .HasMaxLength(100)
-                        .HasColumnType("nvarchar(100)");
-
-                    b.Property<bool>("isActive")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("bit")
-                        .HasDefaultValue(true);
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("StaffId")
-                        .IsUnique();
-
-                    b.ToTable("StaffAccounts");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            Password = "1234567890@aA",
-                            StaffId = 1,
-                            Username = "engmaster.admin",
-                            isActive = true
-                        });
-                });
-
-            modelBuilder.Entity("EngMasterWPF.Model.Entities.StaffRoles", b =>
+            modelBuilder.Entity("EngMasterWPF.Model.Entities.UserRoles", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -491,12 +483,11 @@ namespace EngMasterWPF.Migrations
                         .HasColumnType("nvarchar(50)");
 
                     b.Property<int>("Rank")
-                        .HasMaxLength(50)
                         .HasColumnType("int");
 
                     b.HasKey("Id");
 
-                    b.ToTable("StaffRoles");
+                    b.ToTable("UserRoles");
 
                     b.HasData(
                         new
@@ -504,172 +495,25 @@ namespace EngMasterWPF.Migrations
                             Id = 1,
                             Name = "Admin",
                             Rank = 1
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Name = "Staff",
+                            Rank = 2
+                        },
+                        new
+                        {
+                            Id = 3,
+                            Name = "Teacher",
+                            Rank = 3
+                        },
+                        new
+                        {
+                            Id = 4,
+                            Name = "Student",
+                            Rank = 4
                         });
-                });
-
-            modelBuilder.Entity("EngMasterWPF.Model.Entities.Student", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<string>("Address")
-                        .HasMaxLength(150)
-                        .HasColumnType("nvarchar(150)");
-
-                    b.Property<DateTime>("BirthDate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("City")
-                        .HasMaxLength(50)
-                        .HasColumnType("nvarchar(50)");
-
-                    b.Property<string>("Email")
-                        .IsRequired()
-                        .HasMaxLength(100)
-                        .HasColumnType("nvarchar(100)");
-
-                    b.Property<string>("FirstName")
-                        .IsRequired()
-                        .HasMaxLength(100)
-                        .HasColumnType("nvarchar(100)");
-
-                    b.Property<string>("LastName")
-                        .IsRequired()
-                        .HasMaxLength(100)
-                        .HasColumnType("nvarchar(100)");
-
-                    b.Property<string>("Phone")
-                        .HasMaxLength(20)
-                        .HasColumnType("nvarchar(20)");
-
-                    b.Property<string>("State")
-                        .HasMaxLength(50)
-                        .HasColumnType("nvarchar(50)");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Students");
-                });
-
-            modelBuilder.Entity("EngMasterWPF.Model.Entities.StudentAccount", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<string>("Password")
-                        .IsRequired()
-                        .HasMaxLength(100)
-                        .HasColumnType("nvarchar(100)");
-
-                    b.Property<int>("StudentId")
-                        .HasColumnType("int");
-
-                    b.Property<string>("Username")
-                        .IsRequired()
-                        .HasMaxLength(100)
-                        .HasColumnType("nvarchar(100)");
-
-                    b.Property<bool>("isActive")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("bit")
-                        .HasDefaultValue(true);
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("StudentId")
-                        .IsUnique();
-
-                    b.ToTable("StudentAccounts");
-                });
-
-            modelBuilder.Entity("EngMasterWPF.Model.Entities.Teacher", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<string>("Address")
-                        .HasMaxLength(150)
-                        .HasColumnType("nvarchar(150)");
-
-                    b.Property<DateTime>("BirthDate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("City")
-                        .HasMaxLength(50)
-                        .HasColumnType("nvarchar(50)");
-
-                    b.Property<string>("Description")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Email")
-                        .IsRequired()
-                        .HasMaxLength(100)
-                        .HasColumnType("nvarchar(100)");
-
-                    b.Property<string>("FirstName")
-                        .IsRequired()
-                        .HasMaxLength(100)
-                        .HasColumnType("nvarchar(100)");
-
-                    b.Property<string>("LastName")
-                        .IsRequired()
-                        .HasMaxLength(100)
-                        .HasColumnType("nvarchar(100)");
-
-                    b.Property<string>("Phone")
-                        .HasMaxLength(20)
-                        .HasColumnType("nvarchar(20)");
-
-                    b.Property<string>("State")
-                        .HasMaxLength(50)
-                        .HasColumnType("nvarchar(50)");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Teachers");
-                });
-
-            modelBuilder.Entity("EngMasterWPF.Model.Entities.TeacherAccount", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<string>("Password")
-                        .IsRequired()
-                        .HasMaxLength(100)
-                        .HasColumnType("nvarchar(100)");
-
-                    b.Property<int>("TeacherId")
-                        .HasColumnType("int");
-
-                    b.Property<string>("Username")
-                        .IsRequired()
-                        .HasMaxLength(100)
-                        .HasColumnType("nvarchar(100)");
-
-                    b.Property<bool>("isActive")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("bit")
-                        .HasDefaultValue(true);
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("TeacherId")
-                        .IsUnique();
-
-                    b.ToTable("TeacherAccounts");
                 });
 
             modelBuilder.Entity("EngMasterWPF.Model.Entities.Weekday", b =>
@@ -698,34 +542,11 @@ namespace EngMasterWPF.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("EngMasterWPF.Model.Entities.Teacher", "Teacher")
+                    b.HasOne("EngMasterWPF.Model.Entities.UserAccounts", null)
                         .WithMany("Classes")
-                        .HasForeignKey("TeacherId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("UserAccountsId");
 
                     b.Navigation("Course");
-
-                    b.Navigation("Teacher");
-                });
-
-            modelBuilder.Entity("EngMasterWPF.Model.Entities.ClassStudent", b =>
-                {
-                    b.HasOne("EngMasterWPF.Model.Entities.Class", "Class")
-                        .WithMany("ClassStudents")
-                        .HasForeignKey("ClassId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("EngMasterWPF.Model.Entities.Student", "Student")
-                        .WithMany("ClassStudents")
-                        .HasForeignKey("StudentId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Class");
-
-                    b.Navigation("Student");
                 });
 
             modelBuilder.Entity("EngMasterWPF.Model.Entities.ClassWeekday", b =>
@@ -794,7 +615,7 @@ namespace EngMasterWPF.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("EngMasterWPF.Model.Entities.Student", "Student")
+                    b.HasOne("EngMasterWPF.Model.Entities.UserAccounts", "UserAccounts")
                         .WithMany("Payments")
                         .HasForeignKey("StudentId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -806,49 +627,45 @@ namespace EngMasterWPF.Migrations
 
                     b.Navigation("Status");
 
-                    b.Navigation("Student");
+                    b.Navigation("UserAccounts");
                 });
 
-            modelBuilder.Entity("EngMasterWPF.Model.Entities.Staff", b =>
+            modelBuilder.Entity("EngMasterWPF.Model.Entities.UserAccounts", b =>
                 {
-                    b.HasOne("EngMasterWPF.Model.Entities.StaffRoles", "StaffRoles")
-                        .WithMany("Staffs")
-                        .HasForeignKey("StaffRolesId");
-
-                    b.Navigation("StaffRoles");
-                });
-
-            modelBuilder.Entity("EngMasterWPF.Model.Entities.StaffAccount", b =>
-                {
-                    b.HasOne("EngMasterWPF.Model.Entities.Staff", "Staff")
-                        .WithOne("StaffAccount")
-                        .HasForeignKey("EngMasterWPF.Model.Entities.StaffAccount", "StaffId")
+                    b.HasOne("EngMasterWPF.Model.Entities.UserProfile", "UserProfile")
+                        .WithOne("UserAccounts")
+                        .HasForeignKey("EngMasterWPF.Model.Entities.UserAccounts", "UserProfileId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("Staff");
-                });
-
-            modelBuilder.Entity("EngMasterWPF.Model.Entities.StudentAccount", b =>
-                {
-                    b.HasOne("EngMasterWPF.Model.Entities.Student", "Student")
-                        .WithOne("StudentAccount")
-                        .HasForeignKey("EngMasterWPF.Model.Entities.StudentAccount", "StudentId")
+                    b.HasOne("EngMasterWPF.Model.Entities.UserRoles", "UserRoles")
+                        .WithMany("UserAccounts")
+                        .HasForeignKey("UserRoleId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("Student");
+                    b.Navigation("UserProfile");
+
+                    b.Navigation("UserRoles");
                 });
 
-            modelBuilder.Entity("EngMasterWPF.Model.Entities.TeacherAccount", b =>
+            modelBuilder.Entity("EngMasterWPF.Model.Entities.UserClass", b =>
                 {
-                    b.HasOne("EngMasterWPF.Model.Entities.Teacher", "Teacher")
-                        .WithOne("TeacherAccount")
-                        .HasForeignKey("EngMasterWPF.Model.Entities.TeacherAccount", "TeacherId")
+                    b.HasOne("EngMasterWPF.Model.Entities.Class", "Class")
+                        .WithMany("UserClasses")
+                        .HasForeignKey("ClassId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("Teacher");
+                    b.HasOne("EngMasterWPF.Model.Entities.UserAccounts", "UserAccounts")
+                        .WithMany("UserClasses")
+                        .HasForeignKey("UserAccountId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Class");
+
+                    b.Navigation("UserAccounts");
                 });
 
             modelBuilder.Entity("EngMasterWPF.Model.Entities.Category", b =>
@@ -858,11 +675,11 @@ namespace EngMasterWPF.Migrations
 
             modelBuilder.Entity("EngMasterWPF.Model.Entities.Class", b =>
                 {
-                    b.Navigation("ClassStudents");
-
                     b.Navigation("ClassWeekdays");
 
                     b.Navigation("Payments");
+
+                    b.Navigation("UserClasses");
                 });
 
             modelBuilder.Entity("EngMasterWPF.Model.Entities.Course", b =>
@@ -890,30 +707,23 @@ namespace EngMasterWPF.Migrations
                     b.Navigation("Payments");
                 });
 
-            modelBuilder.Entity("EngMasterWPF.Model.Entities.Staff", b =>
-                {
-                    b.Navigation("StaffAccount");
-                });
-
-            modelBuilder.Entity("EngMasterWPF.Model.Entities.StaffRoles", b =>
-                {
-                    b.Navigation("Staffs");
-                });
-
-            modelBuilder.Entity("EngMasterWPF.Model.Entities.Student", b =>
-                {
-                    b.Navigation("ClassStudents");
-
-                    b.Navigation("Payments");
-
-                    b.Navigation("StudentAccount");
-                });
-
-            modelBuilder.Entity("EngMasterWPF.Model.Entities.Teacher", b =>
+            modelBuilder.Entity("EngMasterWPF.Model.Entities.UserAccounts", b =>
                 {
                     b.Navigation("Classes");
 
-                    b.Navigation("TeacherAccount");
+                    b.Navigation("Payments");
+
+                    b.Navigation("UserClasses");
+                });
+
+            modelBuilder.Entity("EngMasterWPF.Model.Entities.UserProfile", b =>
+                {
+                    b.Navigation("UserAccounts");
+                });
+
+            modelBuilder.Entity("EngMasterWPF.Model.Entities.UserRoles", b =>
+                {
+                    b.Navigation("UserAccounts");
                 });
 
             modelBuilder.Entity("EngMasterWPF.Model.Entities.Weekday", b =>

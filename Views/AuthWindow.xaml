@@ -8,6 +8,7 @@
     xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:uc="clr-namespace:EngMasterWPF.CustomControlUI"
+    xmlns:viewmodel="clr-namespace:EngMasterWPF.ViewModel"
     Name="authWindow"
     Title=""
     Width="450"
@@ -26,6 +27,10 @@
     WindowStyle="None"
     mc:Ignorable="d">
 
+    <Window.DataContext>
+        <viewmodel:AuthVM />
+    </Window.DataContext>
+
     <Window.Resources>
         <DropShadowEffect
             x:Key="z-depth1"
@@ -37,9 +42,9 @@
 
 
     <Border
-        Margin="10"
+        Margin="2"
         Background="White"
-        CornerRadius="20"
+        CornerRadius="10"
         Effect="{StaticResource z-depth1}">
 
         <Grid>
@@ -95,10 +100,10 @@
                             materialDesign:HintAssist.Hint="Tên tài khoản"
                             materialDesign:TextFieldAssist.UnderlineBrush="#201F1D"
                             Style="{StaticResource MaterialDesignOutlinedTextBox}"
-                            Text="{Binding UserName, UpdateSourceTrigger=PropertyChanged}" />
+                            Text="{Binding Username, UpdateSourceTrigger=PropertyChanged}" />
 
                     </Grid>
-                    <Grid Margin="30,0,30,20" HorizontalAlignment="Stretch">
+                    <Grid Margin="30,0,30,10" HorizontalAlignment="Stretch">
                         <Border CornerRadius="20" />
 
                         <PasswordBox
@@ -114,13 +119,18 @@
                             FontSize="14"
                             Style="{StaticResource MaterialDesignOutlinedRevealPasswordBox}">
                             <i:Interaction.Triggers>
-                                <i:EventTrigger EventName="SelectionChanged">
-                                    <i:InvokeCommandAction Command="{Binding PasswordBoxChanged}" CommandParameter="{Binding ElementName=FilledRevealPasswordBox}" />
+                                <i:EventTrigger EventName="PasswordChanged">
+                                    <i:InvokeCommandAction Command="{Binding PasswordChangedCommand}" CommandParameter="{Binding ElementName=FilledRevealPasswordBox}" />
                                 </i:EventTrigger>
                             </i:Interaction.Triggers>
                         </PasswordBox>
 
                     </Grid>
+
+                    <TextBlock
+                        Margin="30,0,0,10"
+                        Foreground="Red"
+                        Text="{Binding ErrorMsg, UpdateSourceTrigger=PropertyChanged}" />
 
 
                     <Button
@@ -135,7 +145,6 @@
                         FontSize="12"
                         Foreground="White"
                         IsDefault="True"
-                        IsEnabled="{Binding DataContext.ControlsEnabled, RelativeSource={RelativeSource FindAncestor, AncestorType=Window}}"
                         Style="{StaticResource MaterialDesignRaisedButton}" />
 
                     <StackPanel HorizontalAlignment="Center" Orientation="Horizontal">

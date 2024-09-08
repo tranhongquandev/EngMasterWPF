@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace EngMasterWPF.Model.Entities
 {
-    public class StaffRoles
+    public class UserRoles
     {
         public int Id { get; set; }
 
@@ -14,6 +14,6 @@ namespace EngMasterWPF.Model.Entities
 
         public int Rank { get; set; }
 
-        public ICollection<Staff>? Staffs { get; set; }
+        public ICollection<UserAccounts>? UserAccounts { get; set; }
     }
 }

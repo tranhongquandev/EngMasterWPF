@@ -80,58 +80,37 @@ namespace EngMasterWPF.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "StaffRoles",
+                name: "UserProfiles",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    FirstName = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
+                    LastName = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
+                    Email = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
+                    Phone = table.Column<int>(type: "int", maxLength: 20, nullable: false),
+                    Address = table.Column<string>(type: "nvarchar(120)", maxLength: 120, nullable: true),
+                    City = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: true),
+                    State = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: true),
+                    BirthDate = table.Column<DateTime>(type: "datetime2", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_UserProfiles", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "UserRoles",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Name = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
-                    Rank = table.Column<int>(type: "int", maxLength: 50, nullable: false)
+                    Rank = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_StaffRoles", x => x.Id);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "Students",
-                columns: table => new
-                {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    FirstName = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
-                    LastName = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
-                    Email = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
-                    Phone = table.Column<string>(type: "nvarchar(20)", maxLength: 20, nullable: true),
-                    Address = table.Column<string>(type: "nvarchar(150)", maxLength: 150, nullable: true),
-                    City = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: true),
-                    State = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: true),
-                    BirthDate = table.Column<DateTime>(type: "datetime2", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Students", x => x.Id);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "Teachers",
-                columns: table => new
-                {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    FirstName = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
-                    LastName = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
-                    Description = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Email = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
-                    Phone = table.Column<string>(type: "nvarchar(20)", maxLength: 20, nullable: true),
-                    Address = table.Column<string>(type: "nvarchar(150)", maxLength: 150, nullable: true),
-                    City = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: true),
-                    State = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: true),
-                    BirthDate = table.Column<DateTime>(type: "datetime2", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Teachers", x => x.Id);
+                    table.PrimaryKey("PK_UserRoles", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -185,72 +164,30 @@ namespace EngMasterWPF.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Staffs",
+                name: "UserAccounts",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    FirstName = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
-                    LastName = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
-                    Email = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
-                    Phone = table.Column<string>(type: "nvarchar(20)", maxLength: 20, nullable: true),
-                    Address = table.Column<string>(type: "nvarchar(150)", maxLength: 150, nullable: true),
-                    City = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: true),
-                    State = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: true),
-                    BirthDate = table.Column<DateTime>(type: "datetime2", nullable: true, defaultValue: new DateTime(2024, 9, 6, 7, 13, 59, 370, DateTimeKind.Utc).AddTicks(6766)),
-                    StaffRoleId = table.Column<int>(type: "int", nullable: false),
-                    StaffRolesId = table.Column<int>(type: "int", nullable: true)
+                    Username = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    PasswordHash = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    IsActive = table.Column<bool>(type: "bit", nullable: false),
+                    UserProfileId = table.Column<int>(type: "int", nullable: false),
+                    UserRoleId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Staffs", x => x.Id);
+                    table.PrimaryKey("PK_UserAccounts", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Staffs_StaffRoles_StaffRolesId",
-                        column: x => x.StaffRolesId,
-                        principalTable: "StaffRoles",
-                        principalColumn: "Id");
-                });
-
-            migrationBuilder.CreateTable(
-                name: "StudentAccounts",
-                columns: table => new
-                {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    Username = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
-                    Password = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
-                    StudentId = table.Column<int>(type: "int", nullable: false),
-                    isActive = table.Column<bool>(type: "bit", nullable: false, defaultValue: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_StudentAccounts", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_StudentAccounts_Students_StudentId",
-                        column: x => x.StudentId,
-                        principalTable: "Students",
+                        name: "FK_UserAccounts_UserProfiles_UserProfileId",
+                        column: x => x.UserProfileId,
+                        principalTable: "UserProfiles",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "TeacherAccounts",
-                columns: table => new
-                {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    Username = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
-                    Password = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
-                    TeacherId = table.Column<int>(type: "int", nullable: false),
-                    isActive = table.Column<bool>(type: "bit", nullable: false, defaultValue: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_TeacherAccounts", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_TeacherAccounts_Teachers_TeacherId",
-                        column: x => x.TeacherId,
-                        principalTable: "Teachers",
+                        name: "FK_UserAccounts_UserRoles_UserRoleId",
+                        column: x => x.UserRoleId,
+                        principalTable: "UserRoles",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
@@ -267,8 +204,8 @@ namespace EngMasterWPF.Migrations
                     Price = table.Column<decimal>(type: "decimal(18,2)", nullable: false, defaultValue: 0m),
                     StartDate = table.Column<DateTime>(type: "datetime2", nullable: false),
                     EndDate = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    TeacherId = table.Column<int>(type: "int", nullable: false),
-                    CourseId = table.Column<int>(type: "int", nullable: false)
+                    CourseId = table.Column<int>(type: "int", nullable: false),
+                    UserAccountsId = table.Column<int>(type: "int", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -280,59 +217,10 @@ namespace EngMasterWPF.Migrations
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_Classes_Teachers_TeacherId",
-                        column: x => x.TeacherId,
-                        principalTable: "Teachers",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "StaffAccounts",
-                columns: table => new
-                {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    Username = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
-                    Password = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
-                    isActive = table.Column<bool>(type: "bit", nullable: false, defaultValue: true),
-                    StaffId = table.Column<int>(type: "int", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_StaffAccounts", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_StaffAccounts_Staffs_StaffId",
-                        column: x => x.StaffId,
-                        principalTable: "Staffs",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "ClassStudents",
-                columns: table => new
-                {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    ClassId = table.Column<int>(type: "int", nullable: false),
-                    StudentId = table.Column<int>(type: "int", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_ClassStudents", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_ClassStudents_Classes_ClassId",
-                        column: x => x.ClassId,
-                        principalTable: "Classes",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_ClassStudents_Students_StudentId",
-                        column: x => x.StudentId,
-                        principalTable: "Students",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        name: "FK_Classes_UserAccounts_UserAccountsId",
+                        column: x => x.UserAccountsId,
+                        principalTable: "UserAccounts",
+                        principalColumn: "Id");
                 });
 
             migrationBuilder.CreateTable(
@@ -369,7 +257,7 @@ namespace EngMasterWPF.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    PaymentDate = table.Column<DateTime>(type: "datetime2", nullable: false, defaultValue: new DateTime(2024, 9, 6, 7, 13, 59, 369, DateTimeKind.Utc).AddTicks(3474)),
+                    PaymentDate = table.Column<DateTime>(type: "datetime2", nullable: false, defaultValue: new DateTime(2024, 9, 8, 13, 9, 35, 589, DateTimeKind.Utc).AddTicks(7238)),
                     PaymentCode = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Amount = table.Column<decimal>(type: "decimal(18,2)", nullable: false, defaultValue: 0m),
                     PaymentStatusId = table.Column<int>(type: "int", nullable: false),
@@ -399,9 +287,35 @@ namespace EngMasterWPF.Migrations
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_Payments_Students_StudentId",
+                        name: "FK_Payments_UserAccounts_StudentId",
                         column: x => x.StudentId,
-                        principalTable: "Students",
+                        principalTable: "UserAccounts",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "UserClasses",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    ClassId = table.Column<int>(type: "int", nullable: false),
+                    UserAccountId = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_UserClasses", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_UserClasses_Classes_ClassId",
+                        column: x => x.ClassId,
+                        principalTable: "Classes",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_UserClasses_UserAccounts_UserAccountId",
+                        column: x => x.UserAccountId,
+                        principalTable: "UserAccounts",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
@@ -429,19 +343,25 @@ namespace EngMasterWPF.Migrations
                 });
 
             migrationBuilder.InsertData(
-                table: "StaffRoles",
+                table: "UserProfiles",
+                columns: new[] { "Id", "Address", "BirthDate", "City", "Email", "FirstName", "LastName", "Phone", "State" },
+                values: new object[] { 1, "123 Đường ABC", null, "Hà Nội", "engmaster.admin@gmail.com", "Quản trị", "viên", 123456789, "Việt Nam" });
+
+            migrationBuilder.InsertData(
+                table: "UserRoles",
                 columns: new[] { "Id", "Name", "Rank" },
-                values: new object[] { 1, "Admin", 1 });
+                values: new object[,]
+                {
+                    { 1, "Admin", 1 },
+                    { 2, "Staff", 2 },
+                    { 3, "Teacher", 3 },
+                    { 4, "Student", 4 }
+                });
 
             migrationBuilder.InsertData(
-                table: "Staffs",
-                columns: new[] { "Id", "Address", "City", "Email", "FirstName", "LastName", "Phone", "StaffRoleId", "StaffRolesId", "State" },
-                values: new object[] { 1, "123 Đường ABC", "Hồ Chí Minh", "engmaster.admin@gmail.com", "Quản trị", "viên", "0123456789", 1, null, "Việt Nam" });
-
-            migrationBuilder.InsertData(
-                table: "StaffAccounts",
-                columns: new[] { "Id", "Password", "StaffId", "Username", "isActive" },
-                values: new object[] { 1, "1234567890@aA", 1, "engmaster.admin", true });
+                table: "UserAccounts",
+                columns: new[] { "Id", "IsActive", "PasswordHash", "UserProfileId", "UserRoleId", "Username" },
+                values: new object[] { 1, true, "$2a$13$gpDadfAGd87FzkjDdGr/6etetMYimUWCp8.lYG3B8XMzB2ZnYJbca", 1, 1, "admin" });
 
             migrationBuilder.CreateIndex(
                 name: "IX_Classes_CourseId",
@@ -449,19 +369,9 @@ namespace EngMasterWPF.Migrations
                 column: "CourseId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Classes_TeacherId",
+                name: "IX_Classes_UserAccountsId",
                 table: "Classes",
-                column: "TeacherId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_ClassStudents_ClassId",
-                table: "ClassStudents",
-                column: "ClassId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_ClassStudents_StudentId",
-                table: "ClassStudents",
-                column: "StudentId");
+                column: "UserAccountsId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_ClassWeekdays_ClassId",
@@ -530,35 +440,30 @@ namespace EngMasterWPF.Migrations
                 column: "StudentId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_StaffAccounts_StaffId",
-                table: "StaffAccounts",
-                column: "StaffId",
+                name: "IX_UserAccounts_UserProfileId",
+                table: "UserAccounts",
+                column: "UserProfileId",
                 unique: true);
 
             migrationBuilder.CreateIndex(
-                name: "IX_Staffs_StaffRolesId",
-                table: "Staffs",
-                column: "StaffRolesId");
+                name: "IX_UserAccounts_UserRoleId",
+                table: "UserAccounts",
+                column: "UserRoleId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_StudentAccounts_StudentId",
-                table: "StudentAccounts",
-                column: "StudentId",
-                unique: true);
+                name: "IX_UserClasses_ClassId",
+                table: "UserClasses",
+                column: "ClassId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_TeacherAccounts_TeacherId",
-                table: "TeacherAccounts",
-                column: "TeacherId",
-                unique: true);
+                name: "IX_UserClasses_UserAccountId",
+                table: "UserClasses",
+                column: "UserAccountId");
         }
 
         /// <inheritdoc />
         protected override void Down(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.DropTable(
-                name: "ClassStudents");
-
             migrationBuilder.DropTable(
                 name: "ClassWeekdays");
 
@@ -566,19 +471,10 @@ namespace EngMasterWPF.Migrations
                 name: "Payments");
 
             migrationBuilder.DropTable(
-                name: "StaffAccounts");
-
-            migrationBuilder.DropTable(
-                name: "StudentAccounts");
-
-            migrationBuilder.DropTable(
-                name: "TeacherAccounts");
+                name: "UserClasses");
 
             migrationBuilder.DropTable(
                 name: "Weekdays");
-
-            migrationBuilder.DropTable(
-                name: "Classes");
 
             migrationBuilder.DropTable(
                 name: "PaymentMethods");
@@ -587,19 +483,13 @@ namespace EngMasterWPF.Migrations
                 name: "PaymentStatus");
 
             migrationBuilder.DropTable(
-                name: "Staffs");
-
-            migrationBuilder.DropTable(
-                name: "Students");
+                name: "Classes");
 
             migrationBuilder.DropTable(
                 name: "Courses");
 
             migrationBuilder.DropTable(
-                name: "Teachers");
-
-            migrationBuilder.DropTable(
-                name: "StaffRoles");
+                name: "UserAccounts");
 
             migrationBuilder.DropTable(
                 name: "Categories");
@@ -609,6 +499,12 @@ namespace EngMasterWPF.Migrations
 
             migrationBuilder.DropTable(
                 name: "Levels");
+
+            migrationBuilder.DropTable(
+                name: "UserProfiles");
+
+            migrationBuilder.DropTable(
+                name: "UserRoles");
         }
     }
 }

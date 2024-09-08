@@ -17,7 +17,7 @@ namespace EngMasterWPF.Model.Configurations
             builder.Property(x => x.Name).IsRequired().HasMaxLength(100);
             builder.Property(x => x.Description).HasMaxLength(250);
             builder.Property(x => x.Price).HasDefaultValue(0).HasColumnType("decimal(18,2)");
-            builder.HasOne(x => x.Teacher).WithMany(x => x.Classes).HasForeignKey(x => x.TeacherId);
+      
             builder.HasOne(x => x.Course).WithMany(x => x.Classes).HasForeignKey(x => x.CourseId);
             
         }

@@ -9,13 +9,13 @@ using System.Threading.Tasks;
 
 namespace EngMasterWPF.Model.Configurations
 {
-    public class ClassStudentConfiguration : IEntityTypeConfiguration<ClassStudent>
+    public class UserClassConfiguration : IEntityTypeConfiguration<UserClass>
     {
-        public void Configure(EntityTypeBuilder<ClassStudent> builder)
+        public void Configure(EntityTypeBuilder<UserClass> builder)
         {
             builder.HasKey(x => x.Id);
-            builder.HasOne(x => x.Class).WithMany(x => x.ClassStudents).HasForeignKey(x => x.ClassId);
-            builder.HasOne(x => x.Student).WithMany(x => x.ClassStudents).HasForeignKey(x => x.StudentId);
+            builder.HasOne(x => x.Class).WithMany(x => x.UserClasses).HasForeignKey(x => x.ClassId);
+            builder.HasOne(x => x.UserAccounts).WithMany(x => x.UserClasses).HasForeignKey(x => x.UserAccountId);
         }
     }
 }

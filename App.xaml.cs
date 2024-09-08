@@ -1,4 +1,5 @@
 ﻿using EngMasterWPF.Views;
+using Microsoft.Extensions.DependencyInjection;
 using System.Configuration;
 using System.Data;
 using System.Windows;
@@ -14,8 +15,8 @@ namespace EngMasterWPF
         protected override void OnStartup(StartupEventArgs e)
         {
             base.OnStartup(e);
-            var installServices = new Installer.InstallServices();
-            AuthWindow authWindow = new AuthWindow();
+            var services = Installer.InstallServices.Instance;
+            AuthWindow authWindow = services.serviceProvider.GetRequiredService<AuthWindow>()!;
             authWindow.ShowDialog();
         }
     }

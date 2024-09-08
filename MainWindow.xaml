@@ -6,29 +6,52 @@
     xmlns:local="clr-namespace:EngMasterWPF"
     xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:uc="clr-namespace:EngMasterWPF.CustomControlUI"
     xmlns:vm="clr-namespace:EngMasterWPF.ViewModel"
     Title="EngMaster - Uy tín hàng đầu"
-    Width="800"
-    Height="450"
+    Width="1366"
+    Height="768"
+    AllowsTransparency="True"
+    Background="Transparent"
+    ResizeMode="NoResize"
     WindowStartupLocation="CenterScreen"
+    WindowStyle="None"
     mc:Ignorable="d">
     <Window.DataContext>
         <vm:NavigationVM />
     </Window.DataContext>
 
-    <Grid>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="Auto" />
-            <RowDefinition Height="*" />
-        </Grid.RowDefinitions>
+    <Window.Resources>
+        <DropShadowEffect
+            x:Key="z-depth1"
+            BlurRadius="5"
+            Direction="270"
+            ShadowDepth="1"
+            Color="#CCCCCC" />
+    </Window.Resources>
 
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="Auto" />
-            <ColumnDefinition Width="*" />
-        </Grid.ColumnDefinitions>
+    <Border
+        Margin="2"
+        Background="White"
+        CornerRadius="10"
+        Effect="{StaticResource z-depth1}">
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
 
-        <!--  Menu Side Bar  -->
-        <Grid Grid.Column="0" Width="240" />
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
 
-    </Grid>
+            <uc:UIControlBar Grid.ColumnSpan="2" />
+
+            <!--  Menu Side Bar  -->
+            <Grid Grid.Column="0" Width="240" />
+
+        </Grid>
+    </Border>
+
 </Window>
