@@ -8,3 +8,8 @@
     ```
     dotnet restore
     ```
+3. Login Admin accounts
+```
+username : admin
+password : admin123
+```
