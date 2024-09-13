@@ -8,8 +8,20 @@
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesign3.Defaults.xaml" />
+                <ResourceDictionary Source="/Utilities/DataTemplate.xaml" />
+
 
             </ResourceDictionary.MergedDictionaries>
+            <FontFamily x:Key="RobototLight">/Assets/Fonts/Roboto-Light.ttf#Roboto</FontFamily>
+            <FontFamily x:Key="RobotoThin">/Assets/Fonts/Roboto-Thin.ttf#Roboto</FontFamily>
+            <FontFamily x:Key="RobotoRegular">/Assets/Fonts/Roboto-Regular.ttf#Roboto</FontFamily>
+            <FontFamily x:Key="RobotoMedium">/Assets/Fonts/Roboto-Medium.ttf#Roboto</FontFamily>
+            <FontFamily x:Key="RobotoBold">/Assets/Fonts/Roboto-Bold.ttf#Roboto</FontFamily>
+
         </ResourceDictionary>
+
+
     </Application.Resources>
+
+
 </Application>

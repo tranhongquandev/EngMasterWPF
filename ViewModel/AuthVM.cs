@@ -17,7 +17,13 @@ namespace EngMasterWPF.ViewModel
     {
         private string _username = string.Empty;
         private string _password = string.Empty;
-        
+
+        private bool _isSubmit = false;
+        public bool IsSubmit { get => _isSubmit; set { _isSubmit = value; OnPropertyChanged(); } }
+
+        private bool _isCanLogin = false;
+        public bool IsCanLogin { get => _isCanLogin; set { _isCanLogin = value; OnPropertyChanged(); } }
+
         private string _errorMsg = string.Empty;
         public string ErrorMsg { get => _errorMsg ; private set { _errorMsg = value; OnPropertyChanged(); } }
 
@@ -45,46 +51,73 @@ namespace EngMasterWPF.ViewModel
 
         private bool CanLogin()
         {
-            return !string.IsNullOrEmpty(Username) && !string.IsNullOrEmpty(Password);
+            
+            if (!string.IsNullOrEmpty(Username) && !string.IsNullOrEmpty(Password))
+            {
+                IsCanLogin = true;
+                return true;
+            }
+            return false;
         }
 
-        private void LoginCommandHandler(Window sender)
+        private async void LoginCommandHandler(Window sender)
         {
+            // Set IsSubmit to true
+            IsSubmit = true;
+
+            // Get repository
             var services = Installer.InstallServices.Instance.serviceProvider;
 
             IAuthRepository _authRepository = services.GetRequiredService<IAuthRepository>();
 
-            //Check username
-            var user = _authRepository.Find(x => x.Username == Username);
+            await Task.Delay(3000);
 
-            if (user.Count() <= 0)
+            //Check username
+            try
             {
-                ErrorMsg = "Tài khoản không tồn tại. Vui lòng thử lại!";
-                return;
-            }
-            if (user.Any(x => x.IsActive == false))
-            {
-                ErrorMsg = "Tài khoản đang bị khóa. Vui lòng liên hệ quản trị viên!";
-                return;
-            }
-            else
-            {
-                //Check password
-                var PasswordHashDB = user.Select( x => x.PasswordHash);
-                if (BCrypt.Net.BCrypt.EnhancedVerify(Password, PasswordHashDB.First()))
+
+                 var user =  _authRepository.Find(x => x.Username == Username);
+
+                if (user.Count() <= 0)
                 {
-                    ErrorMsg = string.Empty;
-                    var mainWindow = services.GetRequiredService<MainWindow>();
-                    sender.Close();
-                    mainWindow.ShowDialog();
+                    
+                    ErrorMsg = "Tài khoản không tồn tại. Vui lòng thử lại!";
+                    IsSubmit = false;
+                    return;
+                }
+                if (user.Any(x => x.IsActive == false))
+                {
+                    ErrorMsg = "Tài khoản đang bị khóa. Vui lòng liên hệ quản trị viên!";
+                    IsSubmit = false;
+
+                    return;
                 }
                 else
                 {
-                    ErrorMsg = "Mật khẩu không đúng. Vui lòng thử lại!";
-                    return;
-                }  
-            }
+                    //Check password
+                    var PasswordHashDB = user.Select(x => x.PasswordHash);
+                    if (BCrypt.Net.BCrypt.EnhancedVerify(Password, PasswordHashDB.First()))
+                    {
+                        ErrorMsg = string.Empty;
+                        var mainWindow = services.GetRequiredService<MainWindow>();
+                        sender.Close();
+                        mainWindow.ShowDialog();
+                    }
+                    else
+                    {
+                        ErrorMsg = "Mật khẩu không đúng. Vui lòng thử lại!";
+                        return;
+                    }
+                }
 
+            }
+            catch
+            {
+                MessageBox.Show("Có lỗi xảy ra. Vui lòng thử lại sau!", "Lỗi", MessageBoxButton.OK, MessageBoxImage.Error);
+                IsSubmit = false;
+                return;
+            }
+           
         }
     }
 }

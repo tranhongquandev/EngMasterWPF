@@ -82,13 +82,22 @@
 
                     </StackPanel.Resources>
 
-                    <Button Command="{Binding MinimizeWindowCommand}" CommandParameter="{Binding ElementName=ControlBar}">
+                    <Button
+                        Command="{Binding MinimizeWindowCommand}"
+                        CommandParameter="{Binding ElementName=ControlBar}"
+                        Cursor="Hand">
                         <materialDesign:PackIcon Kind="Minus" Style="{StaticResource CustomPackIconStyle}" />
                     </Button>
-                    <Button Command="{Binding MaximizeWindowCommand}" CommandParameter="{Binding ElementName=ControlBar}">
+                    <Button
+                        Command="{Binding MaximizeWindowCommand}"
+                        CommandParameter="{Binding ElementName=ControlBar}"
+                        Cursor="Hand">
                         <materialDesign:PackIcon Kind="CropSquare" Style="{StaticResource CustomPackIconStyle}" />
                     </Button>
-                    <Button Command="{Binding CloseCommand}" CommandParameter="{Binding ElementName=ControlBar}">
+                    <Button
+                        Command="{Binding CloseCommand}"
+                        CommandParameter="{Binding ElementName=ControlBar}"
+                        Cursor="Hand">
                         <materialDesign:PackIcon Kind="Close" Style="{StaticResource CustomPackIconStyle}" />
                     </Button>
                 </StackPanel>

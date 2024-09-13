@@ -8,11 +8,11 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:uc="clr-namespace:EngMasterWPF.CustomControlUI"
     xmlns:vm="clr-namespace:EngMasterWPF.ViewModel"
-    Title="EngMaster - Uy tín hàng đầu"
     Width="1366"
     Height="768"
     AllowsTransparency="True"
     Background="Transparent"
+    FontFamily="{StaticResource RobotoRegular}"
     ResizeMode="NoResize"
     WindowStartupLocation="CenterScreen"
     WindowStyle="None"
@@ -21,21 +21,14 @@
         <vm:NavigationVM />
     </Window.DataContext>
 
-    <Window.Resources>
-        <DropShadowEffect
-            x:Key="z-depth1"
-            BlurRadius="5"
-            Direction="270"
-            ShadowDepth="1"
-            Color="#CCCCCC" />
-    </Window.Resources>
+
 
     <Border
         Margin="2"
         Background="White"
         CornerRadius="10"
-        Effect="{StaticResource z-depth1}">
-        <Grid>
+        Effect="{StaticResource MaterialDesignElevationShadow1}">
+        <Grid Background="White">
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto" />
                 <RowDefinition Height="*" />
@@ -43,15 +36,454 @@
 
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="Auto" />
                 <ColumnDefinition Width="*" />
             </Grid.ColumnDefinitions>
 
-            <uc:UIControlBar Grid.ColumnSpan="2" />
+            <uc:UIControlBar Grid.Column="2" />
+
+
 
             <!--  Menu Side Bar  -->
-            <Grid Grid.Column="0" Width="240" />
+
+            <Border
+                x:Name="SideBar"
+                Grid.RowSpan="2"
+                Grid.Column="0"
+                Background="Transparent"
+                BorderBrush="LightGray"
+                BorderThickness="0,0,1,0">
+
+                <Border.Resources>
+                    <Style TargetType="Border">
+                        <Style.Triggers>
+                            <DataTrigger Binding="{Binding IsSideBarOpen}" Value="false">
+                                <Setter Property="Width" Value="50" />
+                                <DataTrigger.EnterActions>
+                                    <BeginStoryboard>
+                                        <Storyboard>
+                                            <DoubleAnimation
+                                                Storyboard.TargetProperty="Width"
+                                                From="200"
+                                                To="50"
+                                                Duration="0:0:0.3" />
+                                        </Storyboard>
+                                    </BeginStoryboard>
+                                </DataTrigger.EnterActions>
+                                <DataTrigger.ExitActions>
+                                    <BeginStoryboard>
+                                        <Storyboard>
+                                            <DoubleAnimation
+                                                Storyboard.TargetProperty="Width"
+                                                From="50"
+                                                To="200"
+                                                Duration="0:0:0.3" />
+                                        </Storyboard>
+                                    </BeginStoryboard>
+                                </DataTrigger.ExitActions>
+                            </DataTrigger>
+                            <DataTrigger Binding="{Binding IsSideBarOpen}" Value="true">
+                                <Setter Property="Width" Value="200" />
+
+                            </DataTrigger>
+
+
+                        </Style.Triggers>
+                    </Style>
+                </Border.Resources>
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="*" />
+                        <RowDefinition Height="Auto" />
+                    </Grid.RowDefinitions>
+
+                    <StackPanel Orientation="Vertical">
+                        <StackPanel.Resources>
+                            <Style TargetType="Image">
+                                <Style.Triggers>
+                                    <DataTrigger Binding="{Binding IsSideBarOpen}" Value="false">
+                                        <Setter Property="Opacity" Value="0" />
+                                    </DataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                            <Style x:Key="ToggleButtonStyle" TargetType="Button">
+
+                                <Style.Triggers>
+                                    <DataTrigger Binding="{Binding IsSideBarOpen}" Value="false">
+                                        <Setter Property="Margin" Value="0,5,10,0" />
+                                    </DataTrigger>
+                                    <DataTrigger Binding="{Binding IsSideBarOpen}" Value="true">
+                                        <Setter Property="Margin" Value="0,5,7,0" />
+                                    </DataTrigger>
+
+
+                                </Style.Triggers>
+                            </Style>
+
+                        </StackPanel.Resources>
+                        <Button
+                            HorizontalAlignment="Right"
+                            VerticalAlignment="Top"
+                            Background="Transparent"
+                            BorderBrush="{x:Null}"
+                            BorderThickness="0"
+                            Command="{Binding ToggleSideBarCommand}"
+                            Cursor="Hand"
+                            Style="{StaticResource ToggleButtonStyle}">
+
+                            <materialDesign:PackIcon
+                                Width="25"
+                                Height="25"
+                                VerticalAlignment="Center"
+                                Kind="Menu" />
+
+                        </Button>
+                        <Image
+                            x:Name="Logo"
+                            Width="110"
+                            Height="120"
+                            Margin="0,10,0,0"
+                            HorizontalAlignment="Center"
+                            VerticalAlignment="Center"
+                            DockPanel.Dock="Left"
+                            Source="/Assets/Img/Engmaster.png"
+                            Stretch="Uniform" />
+                    </StackPanel>
+
+                    <StackPanel
+                        Grid.Row="1"
+                        Margin="0,15,0,0"
+                        VerticalAlignment="Top"
+                        Orientation="Vertical">
+                        <StackPanel.Resources>
+                            <Style TargetType="TextBlock">
+                                <Style.Triggers>
+                                    <DataTrigger Binding="{Binding IsSideBarOpen}" Value="false">
+                                        <Setter Property="Opacity" Value="0" />
+                                    </DataTrigger>
+                                    <DataTrigger Binding="{Binding IsSideBarOpen}" Value="true">
+                                        <Setter Property="Opacity" Value="1" />
+                                    </DataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                            <Style TargetType="Grid">
+                                <Style.Triggers>
+                                    <DataTrigger Binding="{Binding IsSideBarOpen}" Value="false">
+                                        <Setter Property="Margin" Value="13,0,0,0" />
+                                    </DataTrigger>
+                                    <DataTrigger Binding="{Binding IsSideBarOpen}" Value="true">
+                                        <Setter Property="Margin" Value="30,0,40,0" />
+                                    </DataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </StackPanel.Resources>
+                        <!--  Home  -->
+                        <uc:NavigationButton Command="{Binding HomeCommand}" Cursor="Hand">
+                            <Grid>
+                                <materialDesign:PackIcon
+                                    Width="25"
+                                    Height="25"
+                                    HorizontalAlignment="Left"
+                                    VerticalAlignment="Center"
+                                    Foreground="#201F1D"
+                                    Kind="GoogleAnalytics" />
+                                <TextBlock
+                                    Margin="35,0,0,0"
+                                    HorizontalAlignment="Left"
+                                    VerticalAlignment="Center"
+                                    FontFamily="{StaticResource RobotoMedium}"
+                                    FontSize="14"
+                                    Foreground="#201F1D"
+                                    Text="Trang chủ" />
+                            </Grid>
+                        </uc:NavigationButton>
+                        <!--  Student  -->
+                        <uc:NavigationButton Command="{Binding StudentCommand}" Cursor="Hand">
+                            <Grid>
+                                <materialDesign:PackIcon
+                                    Width="25"
+                                    Height="25"
+                                    HorizontalAlignment="Left"
+                                    VerticalAlignment="Center"
+                                    Foreground="#201F1D"
+                                    Kind="AccountMultipleOutline" />
+                                <TextBlock
+                                    Margin="35,0,0,0"
+                                    HorizontalAlignment="Left"
+                                    VerticalAlignment="Center"
+                                    FontFamily="{StaticResource RobotoMedium}"
+                                    FontSize="14"
+                                    Foreground="#201F1D"
+                                    Text="Học viên" />
+                            </Grid>
+                        </uc:NavigationButton>
+                        <!--  Teacher  -->
+                        <uc:NavigationButton Command="{Binding TeacherCommand}" Cursor="Hand">
+                            <Grid>
+                                <materialDesign:PackIcon
+                                    Width="25"
+                                    Height="25"
+                                    HorizontalAlignment="Left"
+                                    VerticalAlignment="Center"
+                                    Foreground="#201F1D"
+                                    Kind="SchoolOutline" />
+                                <TextBlock
+                                    Margin="35,0,0,0"
+                                    HorizontalAlignment="Left"
+                                    VerticalAlignment="Center"
+                                    FontFamily="{StaticResource RobotoMedium}"
+                                    FontSize="14"
+                                    Foreground="#201F1D"
+                                    Text="Giảng viên" />
+                            </Grid>
+                        </uc:NavigationButton>
+                        <!--  Course  -->
+                        <uc:NavigationButton Command="{Binding CourseCommand}" Cursor="Hand">
+                            <Grid>
+                                <materialDesign:PackIcon
+                                    Width="25"
+                                    Height="25"
+                                    HorizontalAlignment="Left"
+                                    VerticalAlignment="Center"
+                                    Foreground="#201F1D"
+                                    Kind="BookOpenOutline" />
+                                <TextBlock
+                                    Margin="35,0,0,0"
+                                    HorizontalAlignment="Left"
+                                    VerticalAlignment="Center"
+                                    FontFamily="{StaticResource RobotoMedium}"
+                                    FontSize="14"
+                                    Foreground="#201F1D"
+                                    Text="Khóa học" />
+                            </Grid>
+                        </uc:NavigationButton>
+                        <!--  Grade  -->
+                        <uc:NavigationButton Command="{Binding GradeCommand}" Cursor="Hand">
+                            <Grid>
+                                <materialDesign:PackIcon
+                                    Width="25"
+                                    Height="25"
+                                    HorizontalAlignment="Left"
+                                    VerticalAlignment="Center"
+                                    Foreground="#201F1D"
+                                    Kind="HumanMaleBoard" />
+                                <TextBlock
+                                    Margin="35,0,0,0"
+                                    HorizontalAlignment="Left"
+                                    VerticalAlignment="Center"
+                                    FontFamily="{StaticResource RobotoMedium}"
+                                    FontSize="14"
+                                    Foreground="#201F1D"
+                                    Text="Lớp học" />
+                            </Grid>
+                        </uc:NavigationButton>
+                        <!--  Notification  -->
+                        <uc:NavigationButton Command="{Binding NotifyCommand}" Cursor="Hand">
+                            <Grid>
+                                <materialDesign:PackIcon
+                                    Width="25"
+                                    Height="25"
+                                    HorizontalAlignment="Left"
+                                    VerticalAlignment="Center"
+                                    Foreground="#201F1D"
+                                    Kind="BellOutline" />
+                                <TextBlock
+                                    Margin="35,0,0,0"
+                                    HorizontalAlignment="Left"
+                                    VerticalAlignment="Center"
+                                    FontFamily="{StaticResource RobotoMedium}"
+                                    FontSize="14"
+                                    Foreground="#201F1D"
+                                    Text="Thông báo" />
+                            </Grid>
+                        </uc:NavigationButton>
+
+                    </StackPanel>
+
+                    <!--  Avatar  -->
+                    <Grid Grid.Row="2">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto" />
+                            <ColumnDefinition Width="Auto" />
+                        </Grid.ColumnDefinitions>
+
+                        <Grid.Resources>
+                            <Style TargetType="Grid">
+                                <Style.Triggers>
+                                    <DataTrigger Binding="{Binding IsSideBarOpen}" Value="false">
+                                        <Setter Property="Margin" Value="5,0,0,15" />
+                                    </DataTrigger>
+                                    <DataTrigger Binding="{Binding IsSideBarOpen}" Value="true">
+                                        <Setter Property="Margin" Value="25,0,0,15" />
+                                    </DataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                            <Style TargetType="StackPanel">
+                                <Style.Triggers>
+                                    <DataTrigger Binding="{Binding IsSideBarOpen}" Value="false">
+                                        <Setter Property="Visibility" Value="Collapsed" />
+                                    </DataTrigger>
+                                </Style.Triggers>
+                            </Style>
+
+                        </Grid.Resources>
+
+                        <Image
+                            Grid.Column="0"
+                            Width="40"
+                            Height="40"
+                            HorizontalAlignment="Left"
+                            Source="/Assets/Img/non-avt.jpg"
+                            Stretch="UniformToFill">
+                            <Image.Clip>
+                                <EllipseGeometry
+                                    Center="20,20"
+                                    RadiusX="20"
+                                    RadiusY="20" />
+                            </Image.Clip>
+                        </Image>
+                        <StackPanel
+                            Grid.Column="1"
+                            Margin="10,0,0,0"
+                            HorizontalAlignment="Left"
+                            VerticalAlignment="Center"
+                            Orientation="Vertical">
+                            <TextBlock
+                                Margin="0,0,0,2"
+                                FontFamily="{StaticResource RobotoMedium}"
+                                FontSize="14"
+                                Foreground="#201F1D"
+                                Text="Nguyễn Văn A" />
+                            <TextBlock
+                                FontSize="12"
+                                Foreground="#201F1D"
+                                Text="Nhân viên" />
+                        </StackPanel>
+                    </Grid>
+                </Grid>
+            </Border>
+
+            <!--  Breadcumb  -->
+            <StackPanel
+                Grid.Row="0"
+                Grid.Column="1"
+                Margin="25,0,0,0"
+                HorizontalAlignment="Center"
+                VerticalAlignment="Center"
+                Orientation="Horizontal">
+                <materialDesign:PackIcon Kind="HomeVariantOutline" />
+                <TextBlock Margin="5,1,0,0" FontSize="13">
+                    Trang chủ
+                </TextBlock>
+                <materialDesign:PackIcon Margin="0,1,0,0" Kind="ChevronRight">
+                    <materialDesign:PackIcon.RenderTransform>
+                        <TranslateTransform />
+                    </materialDesign:PackIcon.RenderTransform>
+                    <materialDesign:PackIcon.Style>
+                        <Style TargetType="materialDesign:PackIcon">
+                            <Style.Triggers>
+                                <DataTrigger Binding="{Binding BreadcumbTitle}" Value="">
+                                    <Setter Property="Opacity" Value="0" />
+                                    <DataTrigger.EnterActions>
+                                        <BeginStoryboard>
+                                            <Storyboard>
+                                                <DoubleAnimation
+                                                    Storyboard.TargetProperty="Opacity"
+                                                    From="1"
+                                                    To="0"
+                                                    Duration="0:0:0:0" />
+                                            </Storyboard>
+                                        </BeginStoryboard>
+                                    </DataTrigger.EnterActions>
+                                    <DataTrigger.ExitActions>
+                                        <BeginStoryboard>
+                                            <Storyboard>
+                                                <DoubleAnimation
+                                                    Storyboard.TargetProperty="Opacity"
+                                                    From="0"
+                                                    To="1"
+                                                    Duration="0:0:0.3" />
+                                                <DoubleAnimation
+                                                    Storyboard.TargetProperty="RenderTransform.(TranslateTransform.X)"
+                                                    From="-10"
+                                                    To="0"
+                                                    Duration="0:0:0.3" />
+                                            </Storyboard>
+                                        </BeginStoryboard>
+                                    </DataTrigger.ExitActions>
+                                </DataTrigger>
+
+                            </Style.Triggers>
+                        </Style>
+                    </materialDesign:PackIcon.Style>
+                </materialDesign:PackIcon>
+                <TextBlock
+                    Margin="0,1,0,0"
+                    FontFamily="{StaticResource RobotoMedium}"
+                    FontSize="13"
+                    Text="{Binding BreadcumbTitle, UpdateSourceTrigger=PropertyChanged}">
+                    <TextBlock.RenderTransform>
+                        <TranslateTransform />
+                    </TextBlock.RenderTransform>
+                    <TextBlock.Style>
+                        <Style TargetType="TextBlock">
+                            <Style.Triggers>
+                                <DataTrigger Binding="{Binding BreadcumbTitle}" Value="">
+
+                                    <DataTrigger.EnterActions>
+                                        <BeginStoryboard>
+                                            <Storyboard>
+                                                <DoubleAnimation
+                                                    Storyboard.TargetProperty="Opacity"
+                                                    From="1"
+                                                    To="0"
+                                                    Duration="0:0:0.3" />
+                                                <DoubleAnimation
+                                                    Storyboard.TargetProperty="RenderTransform.(TranslateTransform.X)"
+                                                    From="0"
+                                                    To="-10"
+                                                    Duration="0:0:0.3" />
+                                            </Storyboard>
+                                        </BeginStoryboard>
+                                    </DataTrigger.EnterActions>
+                                    <DataTrigger.ExitActions>
+                                        <BeginStoryboard>
+                                            <Storyboard>
+                                                <DoubleAnimation
+                                                    Storyboard.TargetProperty="Opacity"
+                                                    From="0"
+                                                    To="1"
+                                                    Duration="0:0:0.3" />
+                                                <DoubleAnimation
+                                                    Storyboard.TargetProperty="RenderTransform.(TranslateTransform.X)"
+                                                    From="-10"
+                                                    To="0"
+                                                    Duration="0:0:0.3" />
+                                            </Storyboard>
+                                        </BeginStoryboard>
+                                    </DataTrigger.ExitActions>
+                                </DataTrigger>
+
+                            </Style.Triggers>
+                        </Style>
+
+                    </TextBlock.Style>
+                </TextBlock>
+
+            </StackPanel>
+
+            <!--  Main Menu  -->
+            <Border
+                Grid.Row="2"
+                Grid.Column="1"
+                Grid.ColumnSpan="2"
+                Margin="0,10,10,0">
+                <Grid>
+                    <ContentControl x:Name="Page" Content="{Binding CurrentView, UpdateSourceTrigger=PropertyChanged}" />
+                </Grid>
+            </Border>
 
         </Grid>
     </Border>
-
 </Window>

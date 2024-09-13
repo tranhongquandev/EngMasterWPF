@@ -35,40 +35,39 @@ namespace EngMasterWPF.Installer
             }
         }
 
+        public IServiceProvider serviceProvider { get; set; } = ConfigureServices;
 
-        public static IServiceCollection? serviceCollection { get; set; }
-
-        public IServiceProvider serviceProvider { get; set; } = ConfigureServices();
-
-        private static IServiceProvider ConfigureServices()
+        private static IServiceProvider ConfigureServices
         {
-            // Add appsettings.json
-            var configuration = new ConfigurationBuilder()
-                .SetBasePath(AppContext.BaseDirectory)
-                .AddJsonFile("appsettings.json", optional: false, reloadOnChange: true)
-                .Build();
+            get
+            {
+                // Add appsettings.json
+                var configuration = new ConfigurationBuilder()
+                    .SetBasePath(AppContext.BaseDirectory)
+                    .AddJsonFile("appsettings.json", optional: false, reloadOnChange: true)
+                    .Build();
 
-            // Add Denpendency Injection
+                // Add Denpendency Injection
 
-            serviceCollection = new ServiceCollection();
+                IServiceCollection serviceCollection = new ServiceCollection();
 
-            #region InstallerServices
+                #region InstallerServices
 
-            serviceCollection.AddDbContext<EngMasterDbContext>(options => options.UseSqlServer(configuration.GetConnectionString("DefaultConnection")));
-            serviceCollection.AddScoped<IUnitOfWork, UnitOfWork>();
-            serviceCollection.AddScoped(typeof(IBaseRepository<>), typeof(BaseRepository<>));
-            serviceCollection.AddScoped<IAuthRepository, AuthRepository>();
+                serviceCollection.AddDbContext<EngMasterDbContext>(options => options.UseSqlServer(configuration.GetConnectionString("DefaultConnection")));
+                serviceCollection.AddScoped<IUnitOfWork, UnitOfWork>();
+                serviceCollection.AddScoped(typeof(IBaseRepository<>), typeof(BaseRepository<>));
+                serviceCollection.AddScoped<IAuthRepository, AuthRepository>();
 
-            // Add Windows
-            serviceCollection.AddSingleton<AuthWindow>();
-            serviceCollection.AddSingleton<MainWindow>();
+                // Add Windows
+                serviceCollection.AddSingleton<AuthWindow>();
+                serviceCollection.AddSingleton<MainWindow>();
 
-            
 
-            #endregion
 
-            return serviceCollection.BuildServiceProvider();
+                #endregion
+
+                return serviceCollection.BuildServiceProvider();
+            }
         }
-
     }
 }

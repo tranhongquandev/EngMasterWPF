@@ -16,8 +16,12 @@ namespace EngMasterWPF
         {
             base.OnStartup(e);
             var services = Installer.InstallServices.Instance;
-            AuthWindow authWindow = services.serviceProvider.GetRequiredService<AuthWindow>()!;
-            authWindow.ShowDialog();
+            //AuthWindow authWindow = services.serviceProvider.GetRequiredService<AuthWindow>()!;
+            //authWindow.ShowDialog();
+
+            MainWindow mainWindow = services.serviceProvider.GetRequiredService<MainWindow>()!;
+            mainWindow.ShowDialog();
+
         }
     }
 
