@@ -9,6 +9,7 @@
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesign3.Defaults.xaml" />
                 <ResourceDictionary Source="/Utilities/DataTemplate.xaml" />
+                <ResourceDictionary Source="/Styles/FilterComboBoxStyle.xaml" />
 
 
             </ResourceDictionary.MergedDictionaries>

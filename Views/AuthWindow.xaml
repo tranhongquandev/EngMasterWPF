@@ -63,22 +63,15 @@
                     VerticalAlignment="Center"
                     Orientation="Vertical">
                     <Image
-                        Width="90"
-                        Height="90"
-                        Source="https://t4.ftcdn.net/jpg/06/51/17/31/360_F_651173115_XoIqzKWv1aXy6wY9xUuYCWGezD6ncBsz.jpg"
-                        Stretch="Fill">
-                        <Image.Clip>
-                            <EllipseGeometry
-                                Center="45,45"
-                                RadiusX="45"
-                                RadiusY="45" />
-                        </Image.Clip>
-                    </Image>
+                        Width="120"
+                        Height="133"
+                        Source="/Assets/Img/Engmaster.png"
+                        Stretch="UniformToFill" />
 
                     <TextBlock
-                        Margin="0,20,0,5"
+                        Margin="0,5,0,5"
                         HorizontalAlignment="Center"
-                        FontSize="26"
+                        FontSize="22"
                         FontWeight="Bold"
                         Text="Welcome Back!" />
                     <TextBlock

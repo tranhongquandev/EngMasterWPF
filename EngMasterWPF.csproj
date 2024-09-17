@@ -10,7 +10,6 @@
 
   <ItemGroup>
     <Folder Include="Migrations\" />
-    <Folder Include="Styles\" />
 	  
 	  
 	  	 
@@ -86,7 +85,7 @@
 		  <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
 		</Content>
 		<Content Include="Assets\Img\Engmaster.png">
-		  <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		  <CopyToOutputDirectory>Always</CopyToOutputDirectory>
 		</Content>
 		
 		<Content Include="Assets\Img\non-avt.jpg">

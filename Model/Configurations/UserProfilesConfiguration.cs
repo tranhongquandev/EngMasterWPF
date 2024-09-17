@@ -19,8 +19,8 @@ namespace EngMasterWPF.Model.Configurations
             builder.Property(x => x.Email).IsRequired().HasMaxLength(100);
             builder.Property(x => x.Phone).IsRequired().HasMaxLength(20);
             builder.Property(x => x.Address).HasMaxLength(120);
-            builder.Property(x => x.City).HasMaxLength(100);
-            builder.Property(x => x.State).HasMaxLength(100);
+            builder.Property(x => x.StartAt).HasDefaultValueSql("GETDATE()");
+            builder.Property(x => x.Status).HasDefaultValue("Chưa có lớp");
             builder.Property(x => x.BirthDate);
 
             builder.HasData
@@ -33,9 +33,8 @@ namespace EngMasterWPF.Model.Configurations
                         LastName = "viên",
                         Email = "engmaster.admin@gmail.com",
                         Phone = 0123456789,
-                        Address = "123 Đường ABC",
-                        City = "Hà Nội",
-                        State = "Việt Nam",
+                        Address = "123 Đường ABC, Ha Noi, VietNam",
+                        
 
                     }
                 );

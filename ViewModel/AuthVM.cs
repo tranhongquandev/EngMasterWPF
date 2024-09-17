@@ -15,8 +15,7 @@ namespace EngMasterWPF.ViewModel
 {
     public class AuthVM : BaseViewModel
     {
-        private string _username = string.Empty;
-        private string _password = string.Empty;
+        
 
         private bool _isSubmit = false;
         public bool IsSubmit { get => _isSubmit; set { _isSubmit = value; OnPropertyChanged(); } }
@@ -27,11 +26,13 @@ namespace EngMasterWPF.ViewModel
         private string _errorMsg = string.Empty;
         public string ErrorMsg { get => _errorMsg ; private set { _errorMsg = value; OnPropertyChanged(); } }
 
+        private string _username = string.Empty;
         public string Username
         {
             get => _username; set { _username = value; OnPropertyChanged(); }
         }
-
+        
+        private string _password = string.Empty;
         public string Password
         {
             get => _password; set { _password = value; OnPropertyChanged(); }

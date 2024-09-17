@@ -87,12 +87,13 @@ namespace EngMasterWPF.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     FirstName = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
                     LastName = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
+                    BirthDate = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    Sex = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Email = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
                     Phone = table.Column<int>(type: "int", maxLength: 20, nullable: false),
                     Address = table.Column<string>(type: "nvarchar(120)", maxLength: 120, nullable: true),
-                    City = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: true),
-                    State = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: true),
-                    BirthDate = table.Column<DateTime>(type: "datetime2", nullable: true)
+                    StartAt = table.Column<DateTime>(type: "datetime2", nullable: true, defaultValueSql: "GETDATE()"),
+                    Status = table.Column<string>(type: "nvarchar(max)", nullable: true, defaultValue: "Chưa có lớp")
                 },
                 constraints: table =>
                 {
@@ -257,7 +258,7 @@ namespace EngMasterWPF.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    PaymentDate = table.Column<DateTime>(type: "datetime2", nullable: false, defaultValue: new DateTime(2024, 9, 8, 13, 9, 35, 589, DateTimeKind.Utc).AddTicks(7238)),
+                    PaymentDate = table.Column<DateTime>(type: "datetime2", nullable: false, defaultValue: new DateTime(2024, 9, 16, 6, 51, 17, 823, DateTimeKind.Utc).AddTicks(410)),
                     PaymentCode = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Amount = table.Column<decimal>(type: "decimal(18,2)", nullable: false, defaultValue: 0m),
                     PaymentStatusId = table.Column<int>(type: "int", nullable: false),
@@ -344,8 +345,8 @@ namespace EngMasterWPF.Migrations
 
             migrationBuilder.InsertData(
                 table: "UserProfiles",
-                columns: new[] { "Id", "Address", "BirthDate", "City", "Email", "FirstName", "LastName", "Phone", "State" },
-                values: new object[] { 1, "123 Đường ABC", null, "Hà Nội", "engmaster.admin@gmail.com", "Quản trị", "viên", 123456789, "Việt Nam" });
+                columns: new[] { "Id", "Address", "BirthDate", "Email", "FirstName", "LastName", "Phone", "Sex" },
+                values: new object[] { 1, "123 Đường ABC, Ha Noi, VietNam", null, "engmaster.admin@gmail.com", "Quản trị", "viên", 123456789, null });
 
             migrationBuilder.InsertData(
                 table: "UserRoles",
@@ -361,7 +362,7 @@ namespace EngMasterWPF.Migrations
             migrationBuilder.InsertData(
                 table: "UserAccounts",
                 columns: new[] { "Id", "IsActive", "PasswordHash", "UserProfileId", "UserRoleId", "Username" },
-                values: new object[] { 1, true, "$2a$13$gpDadfAGd87FzkjDdGr/6etetMYimUWCp8.lYG3B8XMzB2ZnYJbca", 1, 1, "admin" });
+                values: new object[] { 1, true, "$2a$13$8xZgAat/fID8u.4MYn3gk.3BoxfuT8umfTClNDt7wDaSZALc5e3.y", 1, 1, "admin" });
 
             migrationBuilder.CreateIndex(
                 name: "IX_Classes_CourseId",

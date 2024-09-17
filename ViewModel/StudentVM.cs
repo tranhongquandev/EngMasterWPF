@@ -10,137 +10,154 @@ namespace EngMasterWPF.ViewModel
 {
     public class StudentVM : BaseViewModel
     {
+        private bool _isSelected = false;
+        public bool IsSelected
+        {
+            get { return _isSelected; }
+            set
+            {
+                _isSelected = value;
+                OnPropertyChanged();
+            }
+        }
+
         public StudentVM()
         {
             Students = new List<StudentDTO>();
             Students.Add(new StudentDTO
             {
                 Id = 1,
-                Name = "Nguyen Van A",
-                BirtDay = new DateTime(1999, 1, 1),
+                FirstName = "Nguyen Van",
+                LastName = "A",
+                
+                BirthDate = new DateTime(1999, 1, 1),
                 Sex = "Nam",
                 Address = "Ha Noi",
                 Email = "engmaster@gmail.com",
-                Phone = "0123456789",
+                Phone = 0123456789,
                 StartAt = new DateTime(DateTime.UtcNow.Day),
-                EndAt = new DateTime(DateTime.UtcNow.Day),
+                
                 Status = "Active"
             });
             Students.Add(new StudentDTO
             {
                 Id = 1,
-                Name = "Nguyen Van A",
-                BirtDay = new DateTime(1999, 1, 1),
+                FirstName = "Nguyen Van",
+                LastName = "A",
+                BirthDate = new DateTime(1999, 1, 1),
                 Sex = "Nam",
                 Address = "Ha Noi",
                 Email = "engmaster@gmail.com",
-                Phone = "0123456789",
+                Phone = 0123456789,
                 StartAt = new DateTime(DateTime.UtcNow.Day),
-                EndAt = new DateTime(DateTime.UtcNow.Day),
+                
                 Status = "Active"
             });
             Students.Add(new StudentDTO
             {
                 Id = 1,
-                Name = "Nguyen Van A",
-                BirtDay = new DateTime(1999, 1, 1),
+                FirstName = "Nguyen Van",
+                LastName = "A",
+                BirthDate = new DateTime(1999, 1, 1),
                 Sex = "Nam",
                 Address = "Ha Noi",
                 Email = "engmaster@gmail.com",
-                Phone = "0123456789",
+                Phone = 0123456789,
                 StartAt = new DateTime(DateTime.UtcNow.Day),
-                EndAt = new DateTime(DateTime.UtcNow.Day),
+                
                 Status = "Active"
             });
             Students.Add(new StudentDTO
             {
                 Id = 1,
-                Name = "Nguyen Van A",
-                BirtDay = new DateTime(1999, 1, 1),
+                FirstName = "Nguyen Van",
+                LastName = "A",
+                BirthDate = new DateTime(1999, 1, 1),
                 Sex = "Nam",
                 Address = "Ha Noi",
                 Email = "engmaster@gmail.com",
-                Phone = "0123456789",
+                Phone = 0123456789,
                 StartAt = new DateTime(DateTime.UtcNow.Day),
-                EndAt = new DateTime(DateTime.UtcNow.Day),
+                
                 Status = "Active"
             });
             Students.Add(new StudentDTO
             {
                 Id = 1,
-                Name = "Nguyen Van A",
-                BirtDay = new DateTime(1999, 1, 1),
+                FirstName = "Nguyen Van",
+                LastName = "A",
+                BirthDate = new DateTime(1999, 1, 1),
                 Sex = "Nam",
                 Address = "Ha Noi",
                 Email = "engmaster@gmail.com",
-                Phone = "0123456789",
+                Phone = 0123456789,
                 StartAt = new DateTime(DateTime.UtcNow.Day),
-                EndAt = new DateTime(DateTime.UtcNow.Day),
+                
                 Status = "Active"
             });
             Students.Add(new StudentDTO
             {
                 Id = 1,
-                Name = "Nguyen Van A",
-                BirtDay = new DateTime(1999, 1, 1),
+                FirstName = "Nguyen Van A",
+                BirthDate = new DateTime(1999, 1, 1),
                 Sex = "Nam",
                 Address = "Ha Noi",
                 Email = "engmaster@gmail.com",
-                Phone = "0123456789",
+                Phone = 0123456789,
                 StartAt = new DateTime(DateTime.UtcNow.Day),
-                EndAt = new DateTime(DateTime.UtcNow.Day),
+                
                 Status = "Active"
             });
             Students.Add(new StudentDTO
             {
                 Id = 1,
-                Name = "Nguyen Van A",
-                BirtDay = new DateTime(1999, 1, 1),
+                FirstName = "Nguyen Van A",
+                BirthDate = new DateTime(1999, 1, 1),
                 Sex = "Nam",
                 Address = "Ha Noi",
                 Email = "engmaster@gmail.com",
-                Phone = "0123456789",
+                Phone = 0123456789,
                 StartAt = new DateTime(DateTime.UtcNow.Day),
-                EndAt = new DateTime(DateTime.UtcNow.Day),
+                
                 Status = "Active"
             });
             Students.Add(new StudentDTO
             {
                 Id = 1,
-                Name = "Nguyen Van A",
-                BirtDay = new DateTime(1999, 1, 1),
+                FirstName = "Nguyen Van A",
+                BirthDate = new DateTime(1999, 1, 1),
                 Sex = "Nam",
                 Address = "Ha Noi",
                 Email = "engmaster@gmail.com",
-                Phone = "0123456789",
+                Phone = 0123456789,
                 StartAt = new DateTime(DateTime.UtcNow.Day),
-                EndAt = new DateTime(DateTime.UtcNow.Day),
+                
                 Status = "Active"
             });
             Students.Add(new StudentDTO
             {
                 Id = 1,
-                Name = "Nguyen Van A",
-                BirtDay = new DateTime(1999, 1, 1),
+                FirstName = "Nguyen Van A",
+                BirthDate = new DateTime(1999, 1, 1),
                 Sex = "Nam",
                 Address = "Ha Noi",
                 Email = "engmaster@gmail.com",
-                Phone = "0123456789",
+                Phone = 0123456789,
                 StartAt = new DateTime(DateTime.UtcNow.Day),
-                EndAt = new DateTime(DateTime.UtcNow.Day),
+                
                 Status = "Active"
             });
             Students.Add(new StudentDTO
             {
                 Id = 1,
-                Name = "Nguyen Van A",
-                BirtDay = new DateTime(1999, 1, 1),
+                FirstName = "Nguyen Van A",
+                BirthDate = new DateTime(1999, 1, 1),
                 Sex = "Nam",
                 Address = "Ha Noi",
                 Email = "engmaster@gmail.com",
-                Phone = "0123456789",
+                Phone = 0123456789,
                 StartAt = new DateTime(DateTime.UtcNow.Day),
-                EndAt = new DateTime(DateTime.UtcNow.Day),
+                
                 Status = "Active"
             });
         }

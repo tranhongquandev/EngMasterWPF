@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace EngMasterWPF.Migrations
 {
     [DbContext(typeof(EngMasterDbContext))]
-    [Migration("20240908130935_InitDb")]
+    [Migration("20240916065118_InitDb")]
     partial class InitDb
     {
         /// <inheritdoc />
@@ -234,7 +234,7 @@ namespace EngMasterWPF.Migrations
                     b.Property<DateTime>("PaymentDate")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("datetime2")
-                        .HasDefaultValue(new DateTime(2024, 9, 8, 13, 9, 35, 589, DateTimeKind.Utc).AddTicks(7238));
+                        .HasDefaultValue(new DateTime(2024, 9, 16, 6, 51, 17, 823, DateTimeKind.Utc).AddTicks(410));
 
                     b.Property<int>("PaymentMethodId")
                         .HasColumnType("int");
@@ -378,7 +378,7 @@ namespace EngMasterWPF.Migrations
                         {
                             Id = 1,
                             IsActive = true,
-                            PasswordHash = "$2a$13$gpDadfAGd87FzkjDdGr/6etetMYimUWCp8.lYG3B8XMzB2ZnYJbca",
+                            PasswordHash = "$2a$13$8xZgAat/fID8u.4MYn3gk.3BoxfuT8umfTClNDt7wDaSZALc5e3.y",
                             UserProfileId = 1,
                             UserRoleId = 1,
                             Username = "admin"
@@ -423,10 +423,6 @@ namespace EngMasterWPF.Migrations
                     b.Property<DateTime?>("BirthDate")
                         .HasColumnType("datetime2");
 
-                    b.Property<string>("City")
-                        .HasMaxLength(100)
-                        .HasColumnType("nvarchar(100)");
-
                     b.Property<string>("Email")
                         .IsRequired()
                         .HasMaxLength(100)
@@ -447,9 +443,18 @@ namespace EngMasterWPF.Migrations
                         .HasMaxLength(20)
                         .HasColumnType("int");
 
-                    b.Property<string>("State")
-                        .HasMaxLength(100)
-                        .HasColumnType("nvarchar(100)");
+                    b.Property<string>("Sex")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime?>("StartAt")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("datetime2")
+                        .HasDefaultValueSql("GETDATE()");
+
+                    b.Property<string>("Status")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("nvarchar(max)")
+                        .HasDefaultValue("Chưa có lớp");
 
                     b.HasKey("Id");
 
@@ -459,13 +464,11 @@ namespace EngMasterWPF.Migrations
                         new
                         {
                             Id = 1,
-                            Address = "123 Đường ABC",
-                            City = "Hà Nội",
+                            Address = "123 Đường ABC, Ha Noi, VietNam",
                             Email = "engmaster.admin@gmail.com",
                             FirstName = "Quản trị",
                             LastName = "viên",
-                            Phone = 123456789,
-                            State = "Việt Nam"
+                            Phone = 123456789
                         });
                 });
 
