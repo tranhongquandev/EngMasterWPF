@@ -16,6 +16,13 @@ namespace EngMasterWPF.Model.Configurations
             builder.HasKey(x => x.Id);
             builder.Property(x => x.Name).HasMaxLength(50).IsRequired();
             builder.HasIndex(x => x.Name);
+            builder.HasData(
+                new Language { Id = 1, Name = "Tiếng Anh" },
+                new Language { Id = 2, Name = "Tiếng Pháp" },
+                new Language { Id = 3, Name = "Tiếng Tây Ban Nha" },
+                new Language { Id = 4, Name = "Tiếng Trung" },
+                new Language { Id = 5, Name = "Tiếng Nhật"}
+                );
         }
     }
 }

@@ -18,15 +18,15 @@ namespace EngMasterWPF.Model.Entities
 
         public int UserProfileId { get; set; }
 
-        public int UserRoleId { get; set; }
+       
 
-        public UserRoles? UserRoles { get; set; }
+       
 
         public UserProfile? UserProfile { get; set; }
 
         public ICollection<Payment>? Payments { get; set; }
 
-        public ICollection<UserClass>? UserClasses { get; set; }
+        
 
         public ICollection<Class>? Classes { get; set; }
     }

@@ -11,6 +11,7 @@ namespace EngMasterWPF.Model.Entities
         public int Id { get; set; }
         public string? Name { get; set; }
 
+        public ICollection<Level>? Levels { get; set; }
         public ICollection<Course>? Courses { get; set; }
     }
 }

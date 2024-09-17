@@ -17,7 +17,7 @@ namespace EngMasterWPF.Model.Context
         #region DbSet
 
 
-        public virtual DbSet<Category> Categories { get; set; }
+        
 
         public virtual DbSet<Class> Classes { get; set; }   
 

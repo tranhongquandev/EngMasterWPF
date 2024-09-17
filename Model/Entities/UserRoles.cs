@@ -14,6 +14,6 @@ namespace EngMasterWPF.Model.Entities
 
         public int Rank { get; set; }
 
-        public ICollection<UserAccounts>? UserAccounts { get; set; }
+        public ICollection<UserProfile>? UserProfiles { get; set; }
     }
 }

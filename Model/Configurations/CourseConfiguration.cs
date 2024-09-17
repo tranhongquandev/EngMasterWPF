@@ -16,15 +16,33 @@ namespace EngMasterWPF.Model.Configurations
             builder.HasKey(c => c.Id);
             builder.Property(c => c.Name).HasMaxLength(100).IsRequired();
             builder.Property(c => c.Description).HasMaxLength(500);
-            builder.Property(c => c.Term).HasMaxLength(50);
-            builder.Property(c => c.Code).HasMaxLength(50).IsRequired();
+            
+            builder.Property(c => c.Code).HasMaxLength(50).IsRequired().HasDefaultValue(GenerateRandomCode());
             builder.HasOne(c => c.Language).WithMany(l => l.Courses).HasForeignKey(c => c.LanguageId);
-            builder.HasOne(c => c.Level).WithMany(l => l.Courses).HasForeignKey(c => c.LevelId);
-            builder.HasOne(c => c.Category).WithMany(c => c.Courses).HasForeignKey(c => c.CategoryId);
+           
             builder.HasIndex(c => c.Code);
             builder.HasIndex(c => c.Name);
-            builder.HasIndex(c => c.Term);
 
+            builder.HasData(
+                new Course {Id = 1, Name = "English for Beginners", Description = "Basic English course for beginners.", LanguageId = 1},
+                    new Course {Id = 2, Name = "Intermediate English", Description = "For learners who have some experience.", LanguageId = 1},
+                    new Course {Id = 3, Name = "Advanced English", Description = "Advanced course for experienced learners.", LanguageId = 1},
+                    new Course {Id = 4, Name = "Business English", Description = "Specialized course for business professionals.", LanguageId = 1},
+                    new Course {Id = 5, Name = "English for Travel", Description = "English course designed for travelers.", LanguageId = 1 }
+                );
+
+
+            
+
+
+
+        }
+        private static string GenerateRandomCode()
+        {
+            var random = new Random();
+            const string chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+            return new string(Enumerable.Repeat(chars, 5)
+              .Select(s => s[random.Next(s.Length)]).ToArray());
         }
     }
 }
