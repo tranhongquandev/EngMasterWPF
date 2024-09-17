@@ -10,7 +10,7 @@
             <Border
                 x:Name="Border"
                 Background="Transparent"
-                BorderBrush="Transparent"
+                BorderBrush="Gray"
                 BorderThickness="1">
                 <Grid>
                     <ContentPresenter HorizontalAlignment="Left" VerticalAlignment="Center" />

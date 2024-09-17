@@ -11,7 +11,7 @@ namespace EngMasterWPF.Repository
 {
     public class BaseRepository<T> : IBaseRepository<T> where T : class
     {
-        private readonly EngMasterDbContext _context;
+        protected readonly EngMasterDbContext _context;
 
         public BaseRepository(EngMasterDbContext context)
         {

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using EngMasterWPF.Model.Entities;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -27,7 +28,11 @@ namespace EngMasterWPF.DTOs
 
         public DateTime? StartAt { get; set; }
 
+        public DateTime? HireAt { get; set; }
+
         public string? Status { get; set; }
+
+        
 
     }
 }

@@ -12,6 +12,8 @@ using Microsoft.Extensions.Configuration;
 using System.IO;
 using EngMasterWPF.Views;
 using EngMasterWPF.ViewModel;
+using AutoMapper;
+using EngMasterWPF.Helper;
 
 namespace EngMasterWPF.Installer
 {
@@ -57,12 +59,22 @@ namespace EngMasterWPF.Installer
                 serviceCollection.AddScoped<IUnitOfWork, UnitOfWork>();
                 serviceCollection.AddScoped(typeof(IBaseRepository<>), typeof(BaseRepository<>));
                 serviceCollection.AddScoped<IAuthRepository, AuthRepository>();
+                serviceCollection.AddScoped<IUserProfileRepository, UserProfileRepository>();
+                
 
                 // Add Windows
                 serviceCollection.AddSingleton<AuthWindow>();
                 serviceCollection.AddSingleton<MainWindow>();
 
+                //Add AutoMapper
+                var configurationMapper = new MapperConfiguration(cfg =>
+                {
+                    cfg.AddProfile(new MapperProfile());
 
+                });
+                
+                var mapper = configurationMapper.CreateMapper();
+                serviceCollection.AddSingleton(mapper);
 
                 #endregion
 
