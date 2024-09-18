@@ -66,6 +66,16 @@ namespace EngMasterWPF.Installer
                 serviceCollection.AddSingleton<AuthWindow>();
                 serviceCollection.AddSingleton<MainWindow>();
 
+                // Add ViewModels
+                serviceCollection.AddSingleton<StudentVM>();
+                serviceCollection.AddSingleton<TeacherVM>();
+                serviceCollection.AddSingleton<HomeVM>();
+                serviceCollection.AddSingleton<CourseVM>();
+                serviceCollection.AddSingleton<GradeVM>();
+                serviceCollection.AddSingleton<NotificationVM>();
+               
+
+
                 //Add AutoMapper
                 var configurationMapper = new MapperConfiguration(cfg =>
                 {

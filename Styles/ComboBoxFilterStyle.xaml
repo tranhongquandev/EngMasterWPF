@@ -3,7 +3,7 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:cv="clr-namespace:EngMasterWPF.Converter"
     xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes">
-    <cv:WidthAddConverter x:Key="WidthAddConverter" />
+
     <!--  ToggleButton Template for the ComboBox  -->
     <ControlTemplate x:Key="ComboBoxToggleButtonTemplateCustom" TargetType="ToggleButton">
         <Grid HorizontalAlignment="Stretch">

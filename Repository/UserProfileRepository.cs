@@ -13,13 +13,13 @@ namespace EngMasterWPF.Repository
         public UserProfileRepository(EngMasterDbContext context) : base(context)
         {
         }
-        public IQueryable<Model.Entities.UserProfile> GetAllStudentsPagination(int page)
+        public IEnumerable<Model.Entities.UserProfile> GetAllStudentsPagination(int page)
         {
-            return _context.UserProfiles.Include(x => x.UserRoles).Where(x => x.UserRoles!.Name == "Student").ToList().Take(9).Skip((page - 1) * 9).AsQueryable();
+            return  _context.UserProfiles.Include(x => x.UserRoles).Where(x => x.UserRoles!.Name == "Student").Skip((page - 1) * 9).Take(9).ToList();
         }
-        public IQueryable<Model.Entities.UserProfile> GetAllStudents()
+        public int CountStudents()
         {
-            return _context.UserProfiles.Include(x => x.UserRoles).Where(x => x.UserRoles!.Name == "Student").ToList().AsQueryable();
+            return _context.UserProfiles.Include(x => x.UserRoles).Where(x => x.UserRoles!.Name == "Student").Count();
         }
     }
 }

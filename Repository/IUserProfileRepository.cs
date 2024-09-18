@@ -8,8 +8,8 @@ namespace EngMasterWPF.Repository
 {
     public interface IUserProfileRepository : IBaseRepository<Model.Entities.UserProfile>
     {
-         IQueryable<Model.Entities.UserProfile> GetAllStudentsPagination(int page);
-        IQueryable<Model.Entities.UserProfile> GetAllStudents();
+          IEnumerable<Model.Entities.UserProfile> GetAllStudentsPagination(int page);
+          int CountStudents();
 
     }
 }

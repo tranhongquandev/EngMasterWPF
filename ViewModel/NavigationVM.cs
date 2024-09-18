@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using EngMasterWPF.Utilities;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace EngMasterWPF.ViewModel
 {
@@ -31,7 +32,7 @@ namespace EngMasterWPF.ViewModel
             }
         }
 
-
+        private IServiceProvider _services { get; set; }
 
 
         public NavigationVM()
@@ -44,6 +45,8 @@ namespace EngMasterWPF.ViewModel
             GradeCommand = new RelayCommand(_canExecute => true, _execute => Grade());
             NotifyCommand = new RelayCommand(_canExecute => true, _execute => Notification());
             ToggleSideBarCommand = new RelayCommand(_canExecute => true, _execute => ToggleSideBar());
+
+             _services = Installer.InstallServices.Instance.serviceProvider;
 
         }
         private object? _curentView;
@@ -67,39 +70,39 @@ namespace EngMasterWPF.ViewModel
 
         private void Home()
         {
-            CurrentView = new HomeVM();
+            CurrentView = _services.GetRequiredService<HomeVM>();
             BreadcumbTitle = string.Empty;
         }
         private void Student()
         {
-            CurrentView = new StudentVM();
+            CurrentView = _services.GetRequiredService<StudentVM>();
             BreadcumbTitle = string.Empty;
             BreadcumbTitle = "Quản lý học viên";
 
         }
         private void Teacher()
         {
-            CurrentView = new TeacherVM();
+            CurrentView = _services.GetRequiredService<TeacherVM>();
             BreadcumbTitle = string.Empty;
             BreadcumbTitle = "Quản lý giảng viên";
 
         }
         private void Course()
         {
-            CurrentView = new CourseVM();
+            CurrentView = _services.GetRequiredService<CourseVM>();
             BreadcumbTitle = string.Empty;
             BreadcumbTitle = "Quản lý khóa học";
 
         }
         private void Grade()
         {
-            CurrentView = new GradeVM();
+            CurrentView = _services.GetRequiredService<GradeVM>();
             BreadcumbTitle = string.Empty;
             BreadcumbTitle = "Quản lý lớp";
         }
         private void Notification()
         {
-            CurrentView = new NotificationVM();
+            CurrentView = _services.GetRequiredService<NotificationVM>();
             BreadcumbTitle = string.Empty;
             BreadcumbTitle = "Quản lý thông báo";
 

@@ -1,4 +1,5 @@
 ﻿using EngMasterWPF.Model.Entities;
+using EngMasterWPF.Utilities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,8 +9,9 @@ using System.Windows.Forms;
 
 namespace EngMasterWPF.DTOs
 {
-    public class StudentDTO
+    public class StudentDTO : BaseViewModel
     {
+        
         public int Id { get; set; }
 
         public string? FirstName { get; set; }
