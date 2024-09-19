@@ -10,6 +10,6 @@
     ```
 3. Login Admin accounts
 ```
-username : admin
-password : admin123
+email : tranhongquan.dev@gmail.com
+password : 123456@aA
 ```
