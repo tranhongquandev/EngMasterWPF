@@ -8,17 +8,13 @@ namespace EngMasterWPF.Model.Entities
 {
     public class ClassWeekday
     {
-        public int Id { get; set; }
-
         public int ClassId { get; set; }
-
-        public int WeekdayId { get; set; }
-
-        public DateTime StartHour { get; set; }
-        public DateTime EndHour { get; set; }
-
         public Class? Class { get; set; }
 
+        public int WeekdayId { get; set; }
         public Weekday? Weekday { get; set; }
+
+        public DateTime StartTime { get; set; }
+        public DateTime EndTime { get; set; }
     }
 }

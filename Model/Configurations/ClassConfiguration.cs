@@ -14,65 +14,28 @@ namespace EngMasterWPF.Model.Configurations
         public void Configure(EntityTypeBuilder<Class> builder)
         {
             builder.HasKey(x => x.Id);
-            builder.Property(x => x.Name).IsRequired().HasMaxLength(100);
-            builder.Property(x => x.Description).HasMaxLength(250);
-            builder.Property(x => x.Price).HasDefaultValue(0).HasColumnType("decimal(18,2)");
-      
-            builder.HasOne(x => x.Course).WithMany(x => x.Classes).HasForeignKey(x => x.CourseId);
+            builder.Property(x => x.ClassCode).HasDefaultValue(GenerateRandomString());
+            builder.Property(x => x.ClassName).IsRequired();
+            builder.Property(x => x.StartDate);
+            builder.Property(x => x.EndDate);
+            builder.HasOne(x => x.Course).WithMany(x => x.Class).HasForeignKey(x => x.CourseId);
+            builder.HasOne(x => x.Teacher).WithMany(x => x.Class).HasForeignKey(x => x.TeacherId);
+        }
 
-            builder.HasData(
-                 new Class
-                 {
-                     Id = 1,
-                     Name = "Class A",
-                     Description = "Lớp học tiếng Anh A",
-                     CourseId = 1,
-                     Price = 100000000,
-                     StartDate = new DateTime(2024, 9, 1, 9, 0, 0),
-                     EndDate = new DateTime(2024, 9, 1, 12, 0, 0)
-                 },
-                    new Class
-                    {
-                        Id = 2,
-                        Name = "Class B",
-                        Description = "Lớp học tiếng Anh B",
-                        CourseId = 5,
-                        Price = 2000000,
-                        StartDate = new DateTime(2024, 9, 2, 9, 0, 0),
-                        EndDate = new DateTime(2024, 9, 2, 12, 0, 0)
-                    },
-                    new Class
-                    {
-                        Id = 3,
-                        Name = "Class C",
-                        Description = "Lớp học tiếng Anh C",
-                        CourseId = 3,
-                        Price = 3000000,
-                        StartDate = new DateTime(2024, 9, 3, 9, 0, 0),
-                        EndDate = new DateTime(2024, 9, 3, 12, 0, 0)
-                    },
-                    new Class
-                    {
-                        Id = 4,
-                        Name = "Class D",
-                        Description = "Lớp học tiếng Anh D",
-                        CourseId = 5,
-                        Price = 4000000,
-                        StartDate = new DateTime(2024, 9, 4, 9, 0, 0),
-                        EndDate = new DateTime(2024, 9, 4, 12, 0, 0)
-                    },
-                    new Class
-                    {
-                        Id = 5,
-                        Name = "Class E",
-                        Description = "Lớp học tiếng Anh E",
-                        CourseId = 4,
-                        Price = 5000000,
-                        StartDate = new DateTime(2024, 9, 5, 9, 0, 0),
-                        EndDate = new DateTime(2024, 9, 5, 12, 0, 0)
-                    }
-                );
-            
+        //Generate random string function
+        static string GenerateRandomString()
+        {
+            const string chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+            int length = 6;
+            StringBuilder result = new StringBuilder(length);
+            Random random = new Random();
+
+            for (int i = 0; i < length; i++)
+            {
+                result.Append(chars[random.Next(chars.Length)]);
+            }
+
+            return result.ToString();
         }
     }
 }

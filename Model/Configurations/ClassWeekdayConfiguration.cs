@@ -13,11 +13,9 @@ namespace EngMasterWPF.Model.Configurations
     {
         public void Configure(EntityTypeBuilder<ClassWeekday> builder)
         {
-            builder.HasKey(x => x.Id);
-            builder.Property(x => x.StartHour).IsRequired();
-            builder.Property(x => x.EndHour).IsRequired();
-            builder.HasOne(x => x.Weekday).WithMany(x => x.ClassWeekdays).HasForeignKey(x => x.WeekdayId);
-            builder.HasOne(x => x.Class).WithMany(x => x.ClassWeekdays).HasForeignKey(x => x.ClassId);
+            builder.HasKey(x => new { x.ClassId, x.WeekdayId });
+            builder.HasOne(x => x.Weekday).WithMany(x => x.ClassWeekday).HasForeignKey(x => x.WeekdayId);
+            builder.HasOne(x => x.Class).WithMany(x => x.ClassWeekday).HasForeignKey(x => x.ClassId);
         }
     }
 }

@@ -10,26 +10,22 @@ namespace EngMasterWPF.Model.Entities
     {
         public int Id { get; set; }
 
-        public DateTime PaymentDate { get; set; }
-
         public string? PaymentCode { get; set; }
 
-        public decimal Amount { get; set; }
+        public DateTime PaymentDate { get; set; }
 
-        public int PaymentStatusId { get; set; }
+        public string? PaymentStatus { get; set; }
 
-        public int PaymentMethodId { get; set; }
-
-        public int StudentId { get; set; }
-
-        public int ClassId { get; set; }
-
+        public int? PaymentMethodId { get; set; }
         public PaymentMethod? PaymentMethod { get; set; }
 
-        public PaymentStatus? Status { get; set; }
+        public int StudentId { get; set; }
+        public Student? Student { get; set; }
 
-        public UserAccounts? UserAccounts { get; set; }
+        public int CourseId { get; set; }
+        public Course? Course { get; set; }
 
-        public Class? Class { get; set; }
+        public double Amount { get; set; }
+
     }
 }

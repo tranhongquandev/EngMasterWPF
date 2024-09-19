@@ -16,36 +16,12 @@ namespace EngMasterWPF.Model.Context
 
         #region DbSet
 
+        public virtual DbSet<Staff> Staff { get; set; }
+        public virtual DbSet<StaffRole> StaffRole { get; set; }
 
-        
 
-        public virtual DbSet<Class> Classes { get; set; }   
 
-        public virtual DbSet<UserClass> UserClasses { get; set; }
 
-        public virtual DbSet<ClassWeekday> ClassWeekdays { get; set; }
-
-        public virtual DbSet<Course> Courses { get; set; }
-
-        public virtual DbSet<Language> Languages { get; set; }
-
-        public virtual DbSet<Level> Levels { get; set; }
-
-        public virtual DbSet<Payment> Payments { get; set; }
-
-        public virtual DbSet<PaymentMethod> PaymentMethods { get; set; }
-
-        public virtual DbSet<PaymentStatus> PaymentStatus { get; set; }
-
-        public virtual DbSet<UserProfile> UserProfiles { get; set; }
-
-        public virtual DbSet<UserRoles> UserRoles { get; set; }
-
-        public virtual DbSet<UserAccounts> UserAccounts { get; set; }
-
-        public virtual DbSet<Weekday> Weekdays { get; set; }
-
-       
 
         #endregion
 

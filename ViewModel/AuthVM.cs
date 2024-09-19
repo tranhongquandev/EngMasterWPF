@@ -26,10 +26,10 @@ namespace EngMasterWPF.ViewModel
         private string _errorMsg = string.Empty;
         public string ErrorMsg { get => _errorMsg ; private set { _errorMsg = value; OnPropertyChanged(); } }
 
-        private string _username = string.Empty;
-        public string Username
+        private string _email = string.Empty;
+        public string Email
         {
-            get => _username; set { _username = value; OnPropertyChanged(); }
+            get => _email; set { _email = value; OnPropertyChanged(); }
         }
         
         private string _password = string.Empty;
@@ -53,7 +53,7 @@ namespace EngMasterWPF.ViewModel
         private bool CanLogin()
         {
             
-            if (!string.IsNullOrEmpty(Username) && !string.IsNullOrEmpty(Password))
+            if (!string.IsNullOrEmpty(Email) && !string.IsNullOrEmpty(Password))
             {
                 IsCanLogin = true;
                 return true;
@@ -71,13 +71,16 @@ namespace EngMasterWPF.ViewModel
 
             IAuthRepository _authRepository = services.GetRequiredService<IAuthRepository>();
 
+            var passwordHash = BCrypt.Net.BCrypt.EnhancedHashPassword(Password);
+            Clipboard.SetText(passwordHash);
+
             await Task.Delay(3000);
 
-            //Check username
+            //Check email
             try
             {
 
-                 var user =  _authRepository.Find(x => x.Username == Username);
+                 var user =  _authRepository.Find(x => x.Email == Email);
 
                 if (user.Count() <= 0)
                 {

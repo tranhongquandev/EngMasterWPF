@@ -13,8 +13,8 @@ namespace EngMasterWPF.Model.Configurations
     {
         public void Configure(EntityTypeBuilder<Weekday> builder)
         {
-            builder.HasKey(x => x.Id);
-            builder.Property(x => x.Name).IsRequired().HasMaxLength(30);
+            builder.HasKey(e => e.Id);
+            builder.Property(e => e.DayName).HasMaxLength(50);
         }
     }
 }

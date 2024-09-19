@@ -84,16 +84,16 @@
 
                         <Border CornerRadius="20" />
                         <TextBox
-                            x:Name="Username"
+                            x:Name="Email"
                             Padding="10,15"
                             materialDesign:HintAssist.Background="White"
                             materialDesign:HintAssist.FloatingScale="0.9"
                             materialDesign:HintAssist.Foreground="#201F1D"
                             materialDesign:HintAssist.HelperTextFontSize="14"
-                            materialDesign:HintAssist.Hint="Tên tài khoản"
+                            materialDesign:HintAssist.Hint="Email"
                             materialDesign:TextFieldAssist.UnderlineBrush="#201F1D"
                             Style="{StaticResource MaterialDesignOutlinedTextBox}"
-                            Text="{Binding Username, UpdateSourceTrigger=PropertyChanged}" />
+                            Text="{Binding Email, UpdateSourceTrigger=PropertyChanged}" />
 
                     </Grid>
                     <Grid Margin="30,0,30,10" HorizontalAlignment="Stretch">

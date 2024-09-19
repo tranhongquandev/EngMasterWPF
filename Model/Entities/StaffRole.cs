@@ -6,12 +6,14 @@ using System.Threading.Tasks;
 
 namespace EngMasterWPF.Model.Entities
 {
-    public class PaymentStatus
+    public class StaffRole
     {
         public int Id { get; set; }
 
-        public string? StatusName { get; set; }
+        public string? RoleName { get; set; }
 
-        public Payment? Payments { get; set; }
+        public int Rank { get; set; }
+
+        public ICollection<Staff>? Staffs { get; set; }
     }
 }

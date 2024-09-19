@@ -9,9 +9,11 @@ namespace EngMasterWPF.Model.Entities
     public class Language
     {
         public int Id { get; set; }
-        public string? Name { get; set; }
 
-        public ICollection<Level>? Levels { get; set; }
-        public ICollection<Course>? Courses { get; set; }
+        public string? LanguageName { get; set; }
+
+        public ICollection<Level>? Level { get; set; }
+        public ICollection<Course>? Course { get; set; }
+
     }
 }

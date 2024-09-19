@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace EngMasterWPF.Repository
 {
-    public interface IAuthRepository : IBaseRepository<UserAccounts>
+    public interface IAuthRepository : IBaseRepository<Staff>
     {
     }
 }

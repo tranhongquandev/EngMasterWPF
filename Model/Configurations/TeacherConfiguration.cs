@@ -9,25 +9,24 @@ using System.Threading.Tasks;
 
 namespace EngMasterWPF.Model.Configurations
 {
-    public class CourseConfiguration : IEntityTypeConfiguration<Course>
+    public class TeacherConfiguration : IEntityTypeConfiguration<Teacher>
     {
-        public void Configure(EntityTypeBuilder<Course> builder)
+        public void Configure(EntityTypeBuilder<Teacher> builder)
         {
             builder.HasKey(x => x.Id);
-            builder.Property(x => x.CourseCode).HasDefaultValue(GenerateRandomString());
-            builder.Property(x => x.CourseName).HasMaxLength(255).IsRequired();
-            builder.Property(x => x.Description).HasMaxLength(255);
-            builder.Property(x => x.Duration).IsRequired();
-            builder.Property(x => x.Fee).HasDefaultValue(0);
-            builder.Property(x => x.Discount).HasDefaultValue(0);
-            builder.Property(x => x.TotalFee).HasDefaultValue(0);
+            builder.Property(x => x.TeacherCode).HasDefaultValue(GenerateRandomString());
+            builder.Property(x => x.ImgUrl).HasMaxLength(255);
+            builder.Property(x => x.FullName).HasMaxLength(255).IsRequired();
+            builder.Property(x => x.Gender).HasMaxLength(20).IsRequired();
+            builder.Property(x => x.Email).HasMaxLength(255).IsRequired();
+            builder.Property(x => x.PhoneNumber).HasMaxLength(20).IsRequired();
+            builder.Property(x => x.Address).HasMaxLength(255);
+            builder.Property(x => x.DateOfBirth);
+            builder.Property(x => x.HireDate).HasDefaultValue(DateTime.UtcNow);
+            builder.Property(x => x.EndDate);
             builder.Property(x => x.IsActive).HasDefaultValue(true);
-            builder.Property(x => x.CreatedDate).HasDefaultValue(DateTime.UtcNow);
-            builder.Property(x => x.UpdatedDate).HasDefaultValue(DateTime.UtcNow);
-            builder.HasOne(x => x.Language).WithMany(x => x.Course).HasForeignKey(x => x.LanguageId);
 
         }
-
 
         //Generate random string function
         static string GenerateRandomString()

@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace EngMasterWPF.Repository
 {
-    public class AuthRepository : BaseRepository<UserAccounts>, IAuthRepository
+    public class AuthRepository : BaseRepository<Staff>, IAuthRepository
     {
         public AuthRepository(EngMasterDbContext context) : base(context)
         {
