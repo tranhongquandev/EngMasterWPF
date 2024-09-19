@@ -93,7 +93,6 @@ namespace EngMasterWPF.ViewModel
                 {
                     ErrorMsg = "Tài khoản đang bị khóa. Vui lòng liên hệ quản trị viên!";
                     IsSubmit = false;
-
                     return;
                 }
                 else
@@ -110,6 +109,7 @@ namespace EngMasterWPF.ViewModel
                     else
                     {
                         ErrorMsg = "Mật khẩu không đúng. Vui lòng thử lại!";
+                        IsSubmit = false;
                         return;
                     }
                 }

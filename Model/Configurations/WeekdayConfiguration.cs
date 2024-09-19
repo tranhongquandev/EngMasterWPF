@@ -15,6 +15,16 @@ namespace EngMasterWPF.Model.Configurations
         {
             builder.HasKey(e => e.Id);
             builder.Property(e => e.DayName).HasMaxLength(50);
+
+            builder.HasData(
+                    new Weekday { Id = 1, DayName = "Monday" },
+                    new Weekday { Id = 2, DayName = "Tuesday" },
+                    new Weekday { Id = 3, DayName = "Wednesday" },
+                    new Weekday { Id = 4, DayName = "Thursday" },
+                    new Weekday { Id = 5, DayName = "Friday" },
+                    new Weekday { Id = 6, DayName = "Saturday" },
+                    new Weekday { Id = 7, DayName = "Sunday" }
+                );
         }
     }
 }

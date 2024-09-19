@@ -339,32 +339,29 @@
                                 <!--  End CheckBox Column  -->
 
                                 <DataGridTextColumn
-                                    Binding="{Binding Id}"
+                                    x:Name="StudentCodeColumn"
+                                    Binding="{Binding StudentCode}"
                                     CanUserResize="False"
-                                    Header="ID"
+                                    Header="Mã học viên"
                                     IsReadOnly="True" />
                                 <DataGridTextColumn
-                                    Binding="{Binding FirstName}"
+                                    Binding="{Binding FullName}"
                                     CanUserResize="False"
-                                    Header="Họ đệm"
+                                    Header="Họ và tên"
                                     IsReadOnly="True" />
+
                                 <DataGridTextColumn
-                                    Binding="{Binding LastName}"
-                                    CanUserResize="False"
-                                    Header="Tên"
-                                    IsReadOnly="True" />
-                                <DataGridTextColumn
-                                    Binding="{Binding Sex}"
+                                    Binding="{Binding Gender}"
                                     CanUserResize="False"
                                     Header="Giới tính"
                                     IsReadOnly="True" />
                                 <DataGridTextColumn
-                                    Binding="{Binding BirthDate, StringFormat='dd/MM/yyyy'}"
+                                    Binding="{Binding DateOfBirth, StringFormat='dd/MM/yyyy'}"
                                     CanUserResize="False"
                                     Header="Ngày sinh"
                                     IsReadOnly="True" />
                                 <DataGridTextColumn
-                                    Binding="{Binding Phone}"
+                                    Binding="{Binding PhoneNumber}"
                                     CanUserResize="False"
                                     Header="Số điện thoại"
                                     IsReadOnly="True" />
@@ -374,7 +371,7 @@
                                     Header="Email"
                                     IsReadOnly="True" />
                                 <DataGridTextColumn
-                                    Binding="{Binding StartAt, StringFormat='dd/MM/yyyy'}"
+                                    Binding="{Binding EnrollmentDate, StringFormat='dd/MM/yyyy'}"
                                     CanUserResize="False"
                                     Header="Ngày đăng ký"
                                     IsReadOnly="True" />
@@ -387,6 +384,9 @@
                                     <DataGridTemplateColumn.CellTemplate>
                                         <DataTemplate>
                                             <StackPanel Orientation="Horizontal">
+                                                <StackPanel.DataContext>
+                                                    <viewmodel:StudentVM />
+                                                </StackPanel.DataContext>
                                                 <Border
                                                     Margin="0,0,10,0"
                                                     Background="#40D3D3D3"
@@ -430,7 +430,8 @@
                                                     </Border.Style>
                                                 </Border>
                                                 <Border Background="#40D3D3D3" CornerRadius="15">
-                                                    <Button>
+
+                                                    <Button Command="{Binding RemoveCommand}">
                                                         <materialDesign:PackIcon Foreground="#D8736E" Kind="Delete" />
                                                     </Button>
 
@@ -503,7 +504,7 @@
                         DockPanel.Dock="Left"
                         FontFamily="{StaticResource RobotoMedium}"
                         FontSize="14"
-                        Text="9" />
+                        Text="{Binding DataInPage, UpdateSourceTrigger=PropertyChanged}" />
                     <TextBlock
                         VerticalAlignment="Center"
                         DockPanel.Dock="Left"

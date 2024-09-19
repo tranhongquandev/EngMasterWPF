@@ -1,0 +1,15 @@
+﻿using EngMasterWPF.Model.Entities;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace EngMasterWPF.Repository
+{
+    public interface IStudentRepository : IBaseRepository<Student>
+    {
+        IQueryable<Student> GetStudentsByPage(int page, int pageSize);
+       
+    }
+}

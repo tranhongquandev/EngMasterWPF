@@ -30,8 +30,8 @@ namespace EngMasterWPF.Model.Entities
 
         public DateTime UpdatedDate { get; set; }
 
-        public int LanguageId {get; set;}
-        public Language? Language { get; set; }
+        public int LevelId {get; set;}
+        public Level? Level { get; set; }
 
         public ICollection<Class>? Class { get; set; }
         public ICollection<Payment>? Payment { get; set; }

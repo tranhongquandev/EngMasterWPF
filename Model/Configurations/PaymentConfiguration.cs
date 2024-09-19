@@ -23,6 +23,10 @@ namespace EngMasterWPF.Model.Configurations
             builder.HasOne(x => x.Course).WithMany(x => x.Payment).HasForeignKey(x => x.CourseId);
         }
 
+        #region Seed Data
+
+        #endregion
+
         // Generate random string function
         static string GenerateRandomString()
         {

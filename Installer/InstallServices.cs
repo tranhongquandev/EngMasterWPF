@@ -59,8 +59,8 @@ namespace EngMasterWPF.Installer
                 serviceCollection.AddScoped<IUnitOfWork, UnitOfWork>();
                 serviceCollection.AddScoped(typeof(IBaseRepository<>), typeof(BaseRepository<>));
                 serviceCollection.AddScoped<IAuthRepository, AuthRepository>();
-                //serviceCollection.AddScoped<IUserProfileRepository, UserProfileRepository>();
-                
+                serviceCollection.AddScoped<IStudentRepository, StudentRepository>();
+
 
                 // Add Windows
                 serviceCollection.AddSingleton<AuthWindow>();

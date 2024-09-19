@@ -11,7 +11,7 @@ namespace EngMasterWPF.Helper
     {
         public MapperProfile()
         {
-            //CreateMap<Model.Entities.UserProfile, DTOs.StudentDTO>().ReverseMap();
+            CreateMap<Model.Entities.Student, DTOs.StudentDTO>().ReverseMap();
 
         }
     }

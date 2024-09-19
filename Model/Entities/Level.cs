@@ -16,5 +16,7 @@ namespace EngMasterWPF.Model.Entities
 
         public int LanguageId { get; set; }
         public Language? Language { get; set; }
+
+        public ICollection<Course>? Course { get; set; }
     }
 }

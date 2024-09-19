@@ -13,7 +13,7 @@ namespace EngMasterWPF.Model.Entities
         public string? LanguageName { get; set; }
 
         public ICollection<Level>? Level { get; set; }
-        public ICollection<Course>? Course { get; set; }
+        
 
     }
 }
