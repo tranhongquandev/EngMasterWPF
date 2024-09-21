@@ -13,16 +13,16 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace EngMasterWPF.CustomControlUI
+namespace EngMasterWPF.Views
 {
-   
-    public class NavigationButton : RadioButton
+    /// <summary>
+    /// Interaction logic for AuthView.xaml
+    /// </summary>
+    public partial class AuthView : UserControl
     {
-        static NavigationButton()
+        public AuthView()
         {
-            DefaultStyleKeyProperty.OverrideMetadata(typeof(NavigationButton), new FrameworkPropertyMetadata(typeof(NavigationButton)));
-            
+            InitializeComponent();
         }
-        
     }
 }

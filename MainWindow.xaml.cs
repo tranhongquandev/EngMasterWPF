@@ -1,4 +1,5 @@
-﻿using EngMasterWPF.Views;
+﻿using EngMasterWPF.ViewModel;
+using EngMasterWPF.Views;
 using System.Text;
 using System.Windows;
 using System.Windows.Controls;
@@ -20,6 +21,7 @@ namespace EngMasterWPF
         public MainWindow()
         {
             InitializeComponent();
+            DataContext = MainWindowViewModel.Instance;
         }
 
        

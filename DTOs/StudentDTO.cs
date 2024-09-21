@@ -9,7 +9,7 @@ using System.Windows.Forms;
 
 namespace EngMasterWPF.DTOs
 {
-    public class StudentDTO : BaseViewModel
+    public class StudentDTO : ViewModelBase
     {
 
         public int Id { get; set; }

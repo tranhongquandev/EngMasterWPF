@@ -13,14 +13,14 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace EngMasterWPF.Views
+namespace EngMasterWPF.SharedUI
 {
     /// <summary>
-    /// Interaction logic for GradePage.xaml
+    /// Interaction logic for ControlBarUI.xaml
     /// </summary>
-    public partial class GradePage : UserControl
+    public partial class ControlBarUI : UserControl
     {
-        public GradePage()
+        public ControlBarUI()
         {
             InitializeComponent();
         }

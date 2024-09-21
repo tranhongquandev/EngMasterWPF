@@ -3,29 +3,14 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:view="clr-namespace:EngMasterWPF.Views"
     xmlns:viewmodel="clr-namespace:EngMasterWPF.ViewModel">
-    <DataTemplate DataType="{x:Type viewmodel:HomeVM}">
-        <view:HomePage />
+    <DataTemplate DataType="{x:Type viewmodel:AuthViewModel}">
+        <view:AuthView />
+    </DataTemplate>
+    <DataTemplate DataType="{x:Type viewmodel:MainViewModel}">
+        <view:MainView />
     </DataTemplate>
 
-    <DataTemplate DataType="{x:Type viewmodel:StudentVM}">
-        <view:StudentPage />
-    </DataTemplate>
 
-    <DataTemplate DataType="{x:Type viewmodel:TeacherVM}">
-        <view:TeacherPage />
-    </DataTemplate>
-
-    <DataTemplate DataType="{x:Type viewmodel:CourseVM}">
-        <view:CoursePage />
-    </DataTemplate>
-
-    <DataTemplate DataType="{x:Type viewmodel:GradeVM}">
-        <view:GradePage />
-    </DataTemplate>
-
-    <DataTemplate DataType="{x:Type viewmodel:NotificationVM}">
-        <view:NotificationPage />
-    </DataTemplate>
 
 
 

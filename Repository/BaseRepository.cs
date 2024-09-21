@@ -1,4 +1,5 @@
 ﻿using EngMasterWPF.Model.Context;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -18,20 +19,20 @@ namespace EngMasterWPF.Repository
             _context = context;
         }
 
-        public T? GetById(int id)
+        public async Task<T?> GetById(int id)
         {
-            return _context.Set<T>().Find(id);
-            
+            return await _context.Set<T>().FindAsync(id);
+
         }
 
-        public IEnumerable<T> GetAll()
+        public async Task<IEnumerable<T>> GetAll()
         {
-            return _context.Set<T>().ToList();
+            return await _context.Set<T>().ToListAsync();
         }
 
-        public IEnumerable<T> Find(Expression<Func<T, bool>> expression)
+        public async Task<IEnumerable<T>> Find(Expression<Func<T, bool>> expression)
         {
-            return _context.Set<T>().Where(expression);
+            return await _context.Set<T>().Where(expression).ToListAsync();
         }
 
         public void Add(T entity)

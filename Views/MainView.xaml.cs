@@ -16,11 +16,11 @@ using System.Windows.Shapes;
 namespace EngMasterWPF.Views
 {
     /// <summary>
-    /// Interaction logic for TeacherPage.xaml
+    /// Interaction logic for MainView.xaml
     /// </summary>
-    public partial class TeacherPage : UserControl
+    public partial class MainView : UserControl
     {
-        public TeacherPage()
+        public MainView()
         {
             InitializeComponent();
         }

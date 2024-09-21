@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace EngMasterWPF.ViewModel
 {
-    public class GradeVM : BaseViewModel
+    public class MainViewModel : ViewModelBase
     {
     }
 }

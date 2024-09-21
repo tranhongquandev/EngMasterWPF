@@ -10,6 +10,7 @@
 
   <ItemGroup>
     <Folder Include="Migrations\" />
+    <Folder Include="Styles\" />
 	  
 	  
 	  	 
@@ -55,6 +56,9 @@
     <None Remove="Assets\Img\Engmaster.png" />
     <None Remove="Assets\Img\logo.png" />
     <None Remove="Assets\Img\non-avt.jpg" />
+    <None Remove="Assets\Img\w-3.jpg" />
+    <None Remove="Assets\Img\wallpaper.jpg" />
+    <None Remove="Assets\Img\wallpaper_2.jpg" />
   </ItemGroup>
 
   <ItemGroup>
@@ -91,6 +95,20 @@
 		<Content Include="Assets\Img\non-avt.jpg">
 		  <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
 		</Content>
+		
+		<Content Include="Assets\Img\wallpaper.jpg">
+		  <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+		</Content>
+		
+		<Content Include="Assets\Img\wallpaper_2.jpg">
+		  <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+		</Content>
+	</ItemGroup>
+
+	<ItemGroup>
+	  <Content Include="Assets\Img\w-3.jpg">
+	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+	  </Content>
 	</ItemGroup>
 
 </Project>
