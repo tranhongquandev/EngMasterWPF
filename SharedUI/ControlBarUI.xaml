@@ -43,10 +43,11 @@
                     <Setter Property="BorderBrush" Value="Transparent" />
                     <Setter Property="Width" Value="40" />
                     <Setter Property="Height" Value="30" />
+                    <Setter Property="Foreground" Value="#4A4458" />
                     <Style.Triggers>
                         <Trigger Property="IsMouseOver" Value="True">
-                            <Setter Property="Background" Value="#333333" />
-                            <Setter Property="Foreground" Value="White" />
+                            <Setter Property="Background" Value="#4A4458" />
+                            <Setter Property="Foreground" Value="#E8DEF8" />
 
                             <Trigger.EnterActions>
                                 <BeginStoryboard>
@@ -54,7 +55,7 @@
                                         <ColorAnimation
                                             Storyboard.TargetProperty="(Button.Background).(SolidColorBrush.Color)"
                                             From="Transparent"
-                                            To="#333333"
+                                            To="#4A4458"
                                             Duration="0:0:0.1" />
                                     </Storyboard>
                                 </BeginStoryboard>

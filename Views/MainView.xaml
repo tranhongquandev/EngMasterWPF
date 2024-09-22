@@ -4,7 +4,9 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:local="clr-namespace:EngMasterWPF.Views"
+    xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:uc="clr-namespace:EngMasterWPF.SharedUI"
     xmlns:vm="clr-namespace:EngMasterWPF.ViewModel"
     d:DesignHeight="450"
     d:DesignWidth="800"
@@ -16,6 +18,7 @@
 
 
     <Grid x:Name="RootGrid">
+        <!--  This is the fade in animation  -->
         <Grid.Resources>
             <Storyboard x:Key="FadeInStoryboard">
                 <DoubleAnimation
@@ -40,11 +43,96 @@
         <Grid.RenderTransform>
             <TranslateTransform />
         </Grid.RenderTransform>
-        <TextBlock
-            HorizontalAlignment="Center"
-            VerticalAlignment="Center"
-            FontSize="32">
-            This is MainView
-        </TextBlock>
+        <!--  This is the fade in animation  -->
+
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="*" />
+        </Grid.ColumnDefinitions>
+
+
+
+        <!--  Side bar  -->
+        <Grid Grid.Column="0">
+            <Grid Background="#25232A">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="auto" />
+                    <RowDefinition Height="*" />
+                </Grid.RowDefinitions>
+
+                <ToggleButton
+                    Margin="0,32,0,0"
+                    Foreground="#E8DEF8"
+                    Style="{StaticResource MaterialDesignHamburgerToggleButton}" />
+                <Button
+                    Width="56"
+                    Height="56"
+                    Margin="0,40,0,80"
+                    materialDesign:ButtonAssist.CornerRadius="16"
+                    Background="#AEF0D6"
+                    BorderThickness="0"
+                    Foreground="#002117"
+                    Style="{StaticResource MaterialDesignFlatMidBgButton}">
+                    <materialDesign:PackIcon
+                        Width="24"
+                        Height="24"
+                        Kind="PencilOutline" />
+                </Button>
+                <Viewbox
+                    Grid.Row="1"
+                    Width="80"
+                    VerticalAlignment="Top"
+                    Stretch="Uniform">
+                    <ListBox
+                        Grid.Row="1"
+                        ItemsSource="{Binding SampleList}"
+                        SelectedIndex="0">
+                        <ListBox.ItemContainerStyle>
+                            <Style BasedOn="{StaticResource MaterialDesign3.NavigationRailListBoxItem}" TargetType="ListBoxItem">
+                                <Setter Property="Background" Value="#4A4458" />
+                                <Setter Property="Foreground" Value="#E8DEF8" />
+                                <Setter Property="materialDesign:BadgedAssist.Badge" Value="{Binding Notification}" />
+                                <Setter Property="materialDesign:BadgedAssist.BadgeBackground" Value="#930006" />
+                                <Setter Property="materialDesign:BadgedAssist.BadgeForeground" Value="#FFDAD4" />
+                                <Setter Property="materialDesign:BadgedAssist.IsMiniBadge" Value="True" />
+                                <Setter Property="materialDesign:NavigationRailAssist.SelectedIcon" Value="{Binding SelectedIcon}" />
+                                <Setter Property="materialDesign:NavigationRailAssist.UnselectedIcon" Value="{Binding UnselectedIcon}" />
+                            </Style>
+                        </ListBox.ItemContainerStyle>
+                        <ListBox.Resources>
+                            <DataTemplate DataType="{x:Type vm:SampleItem}">
+                                <TextBlock Text="{Binding Title}" />
+                            </DataTemplate>
+                        </ListBox.Resources>
+                    </ListBox>
+                </Viewbox>
+            </Grid>
+        </Grid>
+        <!--  Side bar  -->
+
+        <!--  Main  -->
+        <Grid
+            Grid.Column="1"
+            Grid.ColumnSpan="5"
+            Background="White">
+
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+
+            <uc:ControlBarUI />
+        </Grid>
+
+        <!--  Main  -->
+
+
+
+
+
     </Grid>
 </UserControl>

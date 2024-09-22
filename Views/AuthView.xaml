@@ -85,10 +85,12 @@
             <!--  Form  -->
             <Grid
                 Grid.Row="1"
-                Margin="50"
+                Margin="50,30"
                 VerticalAlignment="Center"
                 Background="White">
                 <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
                     <RowDefinition Height="Auto" />
                     <RowDefinition Height="Auto" />
                     <RowDefinition Height="Auto" />
@@ -124,11 +126,12 @@
                     VerticalAlignment="Center"
                     FontFamily="{StaticResource RobotoBold}"
                     FontSize="42"
+                    Foreground="#4A4458"
                     Text="Welcome Back!"
                     Typography.Capitals="AllSmallCaps">
-                    <TextBlock.Foreground>
+                    <!--<TextBlock.Foreground>
                         <ImageBrush ImageSource="/Assets/Img/w-3.jpg" Stretch="Fill" />
-                    </TextBlock.Foreground>
+                    </TextBlock.Foreground>-->
                 </TextBlock>
                 <!--  Title  -->
 
@@ -139,11 +142,12 @@
                     VerticalAlignment="Top"
                     FontFamily="{StaticResource RobotoRegular}"
                     FontSize="12"
-                    Foreground="#333333"
+                    Foreground="#4A4458"
                     Text="Vui lòng đăng nhập để tiếp tục!" />
 
                 <Grid Grid.Row="2" Margin="0,40,0,20">
                     <materialDesign:PackIcon
+                        x:Name="UserInputIcon"
                         Grid.Column="0"
                         Width="20"
                         Height="20"
@@ -158,17 +162,43 @@
                         VerticalAlignment="Top"
                         materialDesign:HintAssist.Background="White"
                         materialDesign:HintAssist.FloatingScale="1"
-                        materialDesign:HintAssist.Foreground="#333333"
+                        materialDesign:HintAssist.Foreground="#4A4458"
                         materialDesign:HintAssist.Hint="Email"
-                        materialDesign:TextFieldAssist.UnderlineBrush="#333333"
+                        materialDesign:TextFieldAssist.UnderlineBrush="#4A4458"
                         Cursor="Hand"
                         FontSize="14"
                         Style="{StaticResource MaterialDesignOutlinedTextBox}"
-                        Text="{Binding Email, UpdateSourceTrigger=PropertyChanged}" />
+                        Text="{Binding Email, UpdateSourceTrigger=PropertyChanged}">
+                        <TextBox.Triggers>
+                            <EventTrigger RoutedEvent="GotFocus">
+                                <BeginStoryboard>
+                                    <Storyboard>
+                                        <ColorAnimation
+                                            Storyboard.TargetName="UserInputIcon"
+                                            Storyboard.TargetProperty="(Foreground).(SolidColorBrush.Color)"
+                                            To="#4A4458"
+                                            Duration="0:0:0.2" />
+                                    </Storyboard>
+                                </BeginStoryboard>
+                            </EventTrigger>
+                            <EventTrigger RoutedEvent="LostFocus">
+                                <BeginStoryboard>
+                                    <Storyboard>
+                                        <ColorAnimation
+                                            Storyboard.TargetName="UserInputIcon"
+                                            Storyboard.TargetProperty="(Foreground).(SolidColorBrush.Color)"
+                                            To="DarkGray"
+                                            Duration="0:0:0.2" />
+                                    </Storyboard>
+                                </BeginStoryboard>
+                            </EventTrigger>
+                        </TextBox.Triggers>
+                    </TextBox>
                 </Grid>
 
                 <Grid Grid.Row="4" Margin="0,0,0,5">
                     <materialDesign:PackIcon
+                        x:Name="PasswordInputIcon"
                         Grid.Column="0"
                         Width="20"
                         Height="20"
@@ -184,9 +214,9 @@
                         VerticalAlignment="Top"
                         materialDesign:HintAssist.Background="White"
                         materialDesign:HintAssist.FloatingScale="1"
-                        materialDesign:HintAssist.Foreground="#333333"
+                        materialDesign:HintAssist.Foreground="#4A4458"
                         materialDesign:HintAssist.Hint="Mật khẩu"
-                        materialDesign:TextFieldAssist.UnderlineBrush="#333333"
+                        materialDesign:TextFieldAssist.UnderlineBrush="#4A4458"
                         Cursor="Hand"
                         FontSize="14"
                         Style="{StaticResource MaterialDesignOutlinedRevealPasswordBox}">
@@ -195,6 +225,30 @@
                                 <i:InvokeCommandAction Command="{Binding PasswordChangedCommand}" CommandParameter="{Binding ElementName=PasswordInput}" />
                             </i:EventTrigger>
                         </i:Interaction.Triggers>
+                        <PasswordBox.Triggers>
+                            <EventTrigger RoutedEvent="GotFocus">
+                                <BeginStoryboard>
+                                    <Storyboard>
+                                        <ColorAnimation
+                                            Storyboard.TargetName="PasswordInputIcon"
+                                            Storyboard.TargetProperty="(Foreground).(SolidColorBrush.Color)"
+                                            To="#4A4458"
+                                            Duration="0:0:0.2" />
+                                    </Storyboard>
+                                </BeginStoryboard>
+                            </EventTrigger>
+                            <EventTrigger RoutedEvent="LostFocus">
+                                <BeginStoryboard>
+                                    <Storyboard>
+                                        <ColorAnimation
+                                            Storyboard.TargetName="PasswordInputIcon"
+                                            Storyboard.TargetProperty="(Foreground).(SolidColorBrush.Color)"
+                                            To="DarkGray"
+                                            Duration="0:0:0.2" />
+                                    </Storyboard>
+                                </BeginStoryboard>
+                            </EventTrigger>
+                        </PasswordBox.Triggers>
                     </PasswordBox>
                 </Grid>
 
@@ -214,7 +268,7 @@
                         BorderBrush="Transparent"
                         Content="Quên mật khẩu?"
                         FontSize="12"
-                        Foreground="#333333" />
+                        Foreground="#4A4458" />
                 </Grid>
 
                 <!--  Submit Button  -->
@@ -224,7 +278,6 @@
                     HorizontalAlignment="Stretch"
                     HorizontalContentAlignment="Center"
                     VerticalContentAlignment="Center"
-                    Background="#333333"
                     Command="{Binding SubmitCommand}"
                     FontFamily="{StaticResource RobotoMedium}"
                     IsDefault="True"
@@ -232,7 +285,7 @@
                     ToolTip="Đăng nhập">
                     <Button.Template>
                         <ControlTemplate TargetType="Button">
-                            <Border x:Name="ButtonBorder" Background="#333333">
+                            <Border x:Name="ButtonBorder" Background="#4A4458">
                                 <Grid>
                                     <TextBlock
                                         x:Name="ButtonTextBlock"
@@ -240,12 +293,13 @@
                                         VerticalAlignment="Center"
                                         FontFamily="{StaticResource RobotoMedium}"
                                         FontSize="13"
+                                        Foreground="#E8DEF8"
                                         Text="ĐĂNG NHẬP" />
                                     <ProgressBar
                                         x:Name="ButtonSpinner"
                                         Width="35"
                                         Height="35"
-                                        Foreground="White"
+                                        Foreground="#E8DEF8"
                                         IsIndeterminate="True"
                                         Style="{StaticResource MaterialDesignCircularProgressBar}"
                                         Value="0" />
@@ -271,6 +325,87 @@
                 </Button>
                 <!--  Submit Button  -->
 
+                <!--  Separate  -->
+                <StackPanel
+                    Grid.Row="7"
+                    Margin="20"
+                    HorizontalAlignment="Center"
+                    VerticalAlignment="Center"
+                    Orientation="Horizontal">
+                    <Line
+                        VerticalAlignment="Center"
+                        Stroke="#333333"
+                        StrokeThickness="0.5"
+                        X1="0"
+                        X2="160"
+                        Y1="0"
+                        Y2="0" />
+                    <TextBlock
+                        Margin="10,0,10,0"
+                        FontSize="14"
+                        Foreground="#333333"
+                        Text="OR" />
+                    <Line
+                        VerticalAlignment="Center"
+                        Stroke="#333333"
+                        StrokeThickness="0.5"
+                        X1="0"
+                        X2="160"
+                        Y1="0"
+                        Y2="0" />
+                </StackPanel>
+                <!--  Separate  -->
+
+                <!--  Developer Mode Button  -->
+                <Button
+                    Grid.Row="8"
+                    Height="50"
+                    HorizontalAlignment="Stretch"
+                    HorizontalContentAlignment="Center"
+                    VerticalContentAlignment="Center"
+                    Background="White"
+                    Command="{Binding DeveloperCommand}"
+                    FontFamily="{StaticResource RobotoMedium}"
+                    IsDefault="True"
+                    Style="{StaticResource MaterialDesignFlatMidBgButton}"
+                    ToolTip="Developer Mode">
+                    <Button.Template>
+                        <ControlTemplate TargetType="Button">
+                            <Border x:Name="ButtonBorder" Background="#4A4458">
+                                <Grid>
+                                    <TextBlock
+                                        x:Name="ButtonTextBlock"
+                                        HorizontalAlignment="Center"
+                                        VerticalAlignment="Center"
+                                        FontFamily="{StaticResource RobotoMedium}"
+                                        FontSize="13"
+                                        Foreground="#E8DEF8"
+                                        Text="DEVELOPER MODE" />
+                                    <ProgressBar
+                                        x:Name="ButtonSpinner"
+                                        Width="35"
+                                        Height="35"
+                                        Foreground="#E8DEF8"
+                                        IsIndeterminate="True"
+                                        Style="{StaticResource MaterialDesignCircularProgressBar}"
+                                        Value="0" />
+                                </Grid>
+                            </Border>
+
+                            <ControlTemplate.Triggers>
+                                <DataTrigger Binding="{Binding IsDeveloperModeSubmit}" Value="true">
+                                    <Setter TargetName="ButtonTextBlock" Property="Visibility" Value="Hidden" />
+                                    <Setter TargetName="ButtonSpinner" Property="Visibility" Value="Visible" />
+                                </DataTrigger>
+                                <DataTrigger Binding="{Binding IsDeveloperModeSubmit}" Value="false">
+                                    <Setter TargetName="ButtonTextBlock" Property="Visibility" Value="Visible" />
+                                    <Setter TargetName="ButtonSpinner" Property="Visibility" Value="Hidden" />
+                                </DataTrigger>
+                            </ControlTemplate.Triggers>
+                        </ControlTemplate>
+                    </Button.Template>
+                </Button>
+                <!--  Developer Mode Button  -->
             </Grid>
             <!--  Form  -->
 

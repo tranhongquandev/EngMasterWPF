@@ -6,8 +6,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
+using System.Windows.Navigation;
 
 namespace EngMasterWPF.ViewModel
 {
@@ -59,13 +61,24 @@ namespace EngMasterWPF.ViewModel
             }
         }
 
+        private bool _isDeveloperModeSubmit = false;
+        public bool IsDeveloperModeSubmit
+        {
+            get => _isDeveloperModeSubmit;
+            set
+            {
+                _isDeveloperModeSubmit = value;
+                OnPropertyChanged();
+            }
+        }
+
         private bool _isCanSubmit = false;
         public bool IsCanSubmit
         {
-            get => _isSubmitting;
+            get =>  _isCanSubmit;
             set
             {
-                _isSubmitting = value;
+                _isCanSubmit = value;
                 OnPropertyChanged();
             }
         }
@@ -75,12 +88,14 @@ namespace EngMasterWPF.ViewModel
         {
             SubmitCommand = new RelayCommand<Button>(_canExecute => CanSubmit(), async (_execute) =>  await SubmitCommandExecute());
             PasswordChangedCommand = new RelayCommand<PasswordBox>(_canExecute => true, _execute => { Password = _execute!.Password; });
+            DeveloperCommand = new RelayCommand<Button>(_canExecute => true, _execute => DeveloperModeCommandExecute());
         }
 
         #region Command
 
         public ICommand SubmitCommand { get; set; }
         public ICommand PasswordChangedCommand { get; set; }
+        public ICommand DeveloperCommand { get; set; }
 
         #endregion
 
@@ -108,38 +123,59 @@ namespace EngMasterWPF.ViewModel
 
             IAuthRepository authRepository = service.GetRequiredService<IAuthRepository>();
 
-            var userInDb = await authRepository.Find(x => x.Email == Email);
 
-            if (userInDb.Count() > 0)
+            try
             {
-                var passwordInDb = userInDb.Select(x => x.PasswordHash);
+                var userInDb = await authRepository.Find(x => x.Email == Email);
 
-                if (BCrypt.Net.BCrypt.EnhancedVerify(Password,passwordInDb.First()))
+                if (userInDb.Count() > 0)
                 {
+                    var passwordInDb = userInDb.Select(x => x.PasswordHash);
 
-                    await Task.Delay(2000);
-                    MainWindowViewModel mainWindowViewModel = MainWindowViewModel.Instance;
-                    mainWindowViewModel.CurrentView = new MainViewModel();
-                    return;
+                    if (BCrypt.Net.BCrypt.EnhancedVerify(Password, passwordInDb.First()))
+                    {
+
+                        await Task.Delay(2000);
+                        MainWindowViewModel mainWindowViewModel = MainWindowViewModel.Instance;
+                        mainWindowViewModel.CurrentView = new MainViewModel();
+                        return;
+                    }
+                    else
+                    {
+                        await Task.Delay(2000);
+                        IsSubmitting = false;
+                        ErrorMessage = "Mật khẩu không chính xác. Vui lòng thử lại!";
+                        return;
+
+                    }
+
                 }
                 else
                 {
                     await Task.Delay(2000);
+                    ErrorMessage = "Tài khoản không tồn tại trên hệ thống.";
                     IsSubmitting = false;
-                    ErrorMessage = "Mật khẩu không chính xác. Vui lòng thử lại!";
                     return;
-                   
                 }
 
-            }
-            else
+            } catch (Exception )
             {
-                await Task.Delay(2000);
-                ErrorMessage = "Tài khoản không tồn tại trên hệ thống.";
+                ErrorMessage = "Không thể kết nối đến CDSL!";
                 IsSubmitting = false;
                 return;
             }
+
+           
             
+        }
+
+        private async void DeveloperModeCommandExecute()
+        {
+            IsDeveloperModeSubmit = true;
+            MainWindowViewModel mainWindowViewModel = MainWindowViewModel.Instance;
+            await Task.Delay(2000);
+            mainWindowViewModel.CurrentView = new MainViewModel();
+            return;
         }
 
         #endregion

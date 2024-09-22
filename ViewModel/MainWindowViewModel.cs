@@ -36,6 +36,8 @@ namespace EngMasterWPF.ViewModel
 
 
         private ViewModelBase? _currentView = new AuthViewModel();
+        //private ViewModelBase? _currentView = new MainViewModel();
+
         public ViewModelBase CurrentView
         {
             get { return _currentView!; }
