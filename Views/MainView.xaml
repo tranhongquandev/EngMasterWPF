@@ -16,6 +16,101 @@
         <vm:MainViewModel />
     </UserControl.DataContext>
 
+    <UserControl.Resources>
+        <Style x:Key="NavigationButtonStyle" TargetType="RadioButton">
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="RadioButton">
+                        <Border
+                            x:Name="BorderPanel"
+                            Height="50"
+                            Margin="0,2,0,2"
+                            Background="Transparent"
+                            Cursor="Hand">
+                            <Grid>
+                                <Border
+                                    x:Name="Indicator"
+                                    Width="0"
+                                    Height="40"
+                                    HorizontalAlignment="Left"
+                                    VerticalAlignment="Center"
+                                    Background="#592ED3"
+                                    CornerRadius="0,5,5,0" />
+                                <ContentPresenter
+                                    x:Name="ContentButton"
+                                    HorizontalAlignment="Left"
+                                    VerticalAlignment="Center" />
+                            </Grid>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <EventTrigger RoutedEvent="Border.MouseEnter" SourceName="BorderPanel">
+                                <BeginStoryboard>
+                                    <Storyboard>
+                                        <ColorAnimation
+                                            Storyboard.TargetName="BorderPanel"
+                                            Storyboard.TargetProperty="(Border.Background).(SolidColorBrush.Color)"
+                                            From="Transparent"
+                                            To="#E4E3F4"
+                                            Duration="0:0:0.2" />
+                                    </Storyboard>
+                                </BeginStoryboard>
+                            </EventTrigger>
+
+                            <EventTrigger RoutedEvent="Border.MouseLeave" SourceName="BorderPanel">
+                                <BeginStoryboard>
+                                    <Storyboard>
+                                        <ColorAnimation
+                                            Storyboard.TargetName="BorderPanel"
+                                            Storyboard.TargetProperty="(Border.Background).(SolidColorBrush.Color)"
+                                            From="#E4E3F4"
+                                            To="Transparent"
+                                            Duration="0:0:0.5" />
+                                    </Storyboard>
+                                </BeginStoryboard>
+                            </EventTrigger>
+
+                            <Trigger Property="IsChecked" Value="True">
+                                <Setter TargetName="BorderPanel" Property="Background" Value="#E4E3F4" />
+                                <Setter TargetName="Indicator" Property="Width" Value="4" />
+                                <Trigger.EnterActions>
+                                    <BeginStoryboard>
+                                        <Storyboard>
+                                            <ColorAnimation
+                                                Storyboard.TargetName="BorderPanel"
+                                                Storyboard.TargetProperty="(Border.Background).(SolidColorBrush.Color)"
+                                                From="Transparent"
+                                                To="#E4E3F4"
+                                                Duration="0:0:0.2" />
+                                            <DoubleAnimation
+                                                Storyboard.TargetName="Indicator"
+                                                Storyboard.TargetProperty="Width"
+                                                From="0"
+                                                To="4"
+                                                Duration="0:0:0.3" />
+                                        </Storyboard>
+                                    </BeginStoryboard>
+                                </Trigger.EnterActions>
+                                <Trigger.ExitActions>
+                                    <BeginStoryboard>
+                                        <Storyboard>
+
+                                            <DoubleAnimation
+                                                Storyboard.TargetName="Indicator"
+                                                Storyboard.TargetProperty="Width"
+                                                From="4"
+                                                To="0"
+                                                Duration="0:0:0.3" />
+                                        </Storyboard>
+                                    </BeginStoryboard>
+                                </Trigger.ExitActions>
+                            </Trigger>
+
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </UserControl.Resources>
 
     <Grid x:Name="RootGrid">
 
@@ -83,115 +178,168 @@
         <!--  This is the fade in animation  -->
 
         <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto" />
+
             <ColumnDefinition Width="*" />
-            <ColumnDefinition Width="*" />
-            <ColumnDefinition Width="12*" />
         </Grid.ColumnDefinitions>
 
-
-
-
-
-
-
         <!--  Side bar  -->
-        <Grid Grid.Column="0" Style="{StaticResource SideBarStyle}">
-            <Grid Background="#12101D">
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="auto" />
-                    <RowDefinition Height="auto" />
-                    <RowDefinition Height="*" />
-                    <RowDefinition Height="auto" />
-                </Grid.RowDefinitions>
+        <Grid Grid.Column="0" Width="180">
+
+            <Border Background="#F5F5F5">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                    </Grid.RowDefinitions>
+
+                    <Grid
+                        Grid.Row="0"
+                        Margin="10,20,0,20"
+                        HorizontalAlignment="Stretch">
+                        <Button>
+                            <materialDesign:PackIcon Kind="Menu" />
+                        </Button>
+                    </Grid>
+
+                    <StackPanel Grid.Row="2" VerticalAlignment="Center">
+                        <!--  Home  -->
+                        <RadioButton Style="{StaticResource NavigationButtonStyle}">
+                            <StackPanel Orientation="Horizontal">
+                                <materialDesign:PackIcon
+                                    x:Name="NavigationIcon"
+                                    Width="25"
+                                    Height="25"
+                                    Margin="30,0,0,0"
+                                    Foreground="#333333"
+                                    Kind="GoogleMyBusiness" />
+                                <TextBlock
+                                    x:Name="NavigationText"
+                                    Margin="10,0,0,0"
+                                    VerticalAlignment="Center"
+                                    FontFamily="{StaticResource RobotoRegular}"
+                                    FontSize="14"
+                                    Foreground="#333333"
+                                    Text="Trang chủ" />
+                            </StackPanel>
+                        </RadioButton>
+
+                        <!--  Student  -->
+                        <RadioButton Style="{StaticResource NavigationButtonStyle}">
+                            <StackPanel Orientation="Horizontal">
+                                <materialDesign:PackIcon
+                                    Width="25"
+                                    Height="25"
+                                    Margin="30,0,0,0"
+                                    Foreground="#333333"
+                                    Kind="AccountBoxMultiple" />
+                                <TextBlock
+                                    Margin="10,0,0,0"
+                                    VerticalAlignment="Center"
+                                    FontFamily="{StaticResource RobotoRegular}"
+                                    FontSize="14"
+                                    Foreground="#333333"
+                                    Text="Học viên" />
+                            </StackPanel>
+                        </RadioButton>
+
+                        <!--  Teacher  -->
+                        <RadioButton Style="{StaticResource NavigationButtonStyle}">
+                            <StackPanel Orientation="Horizontal">
+                                <materialDesign:PackIcon
+                                    Width="25"
+                                    Height="25"
+                                    Margin="30,0,0,0"
+                                    Foreground="#333333"
+                                    Kind="HumanMaleBoardPoll" />
+                                <TextBlock
+                                    Margin="10,0,0,0"
+                                    VerticalAlignment="Center"
+                                    FontFamily="{StaticResource RobotoRegular}"
+                                    FontSize="14"
+                                    Foreground="#333333"
+                                    Text="Giảng viên" />
+                            </StackPanel>
+                        </RadioButton>
+
+                        <!--  Course  -->
+                        <RadioButton Style="{StaticResource NavigationButtonStyle}">
+                            <StackPanel Orientation="Horizontal">
+                                <materialDesign:PackIcon
+                                    Width="25"
+                                    Height="25"
+                                    Margin="30,0,0,0"
+                                    Foreground="#333333"
+                                    Kind="MathIntegralBox" />
+                                <TextBlock
+                                    Margin="10,0,0,0"
+                                    VerticalAlignment="Center"
+                                    FontFamily="{StaticResource RobotoRegular}"
+                                    FontSize="14"
+                                    Foreground="#333333"
+                                    Text="Khóa học" />
+                            </StackPanel>
+                        </RadioButton>
+
+                        <!--  Grade  -->
+                        <RadioButton Style="{StaticResource NavigationButtonStyle}">
+                            <StackPanel Orientation="Horizontal">
+                                <materialDesign:PackIcon
+                                    Width="25"
+                                    Height="25"
+                                    Margin="30,0,0,0"
+                                    Foreground="#333333"
+                                    Kind="GoogleClassroom" />
+                                <TextBlock
+                                    Margin="10,0,0,0"
+                                    VerticalAlignment="Center"
+                                    FontFamily="{StaticResource RobotoRegular}"
+                                    FontSize="14"
+                                    Foreground="#333333"
+                                    Text="Lớp học" />
+                            </StackPanel>
+                        </RadioButton>
+
+                        <!--  Notification  -->
+                        <RadioButton Style="{StaticResource NavigationButtonStyle}">
+                            <StackPanel Orientation="Horizontal">
+                                <materialDesign:PackIcon
+                                    Width="25"
+                                    Height="25"
+                                    Margin="30,0,0,0"
+                                    Foreground="#333333"
+                                    Kind="MessageBadge" />
+                                <TextBlock
+                                    Margin="10,0,0,0"
+                                    VerticalAlignment="Center"
+                                    FontFamily="{StaticResource RobotoRegular}"
+                                    FontSize="14"
+                                    Foreground="#333333"
+                                    Text="Thông báo" />
+                            </StackPanel>
+                        </RadioButton>
 
 
-                <Grid
-                    Grid.Row="0"
-                    Margin="10,20,0,20"
-                    HorizontalAlignment="Stretch"
-                    VerticalAlignment="Top">
-
-                    <materialDesign:PackIcon
-                        Width="30"
-                        Height="30"
-                        Background="Transparent"
-                        FontFamily="{StaticResource RobotoBold}"
-                        Foreground="White"
-                        Kind="AlphaEBox">
-                        <materialDesign:PackIcon.Style>
-                            <Style TargetType="materialDesign:PackIcon">
-                                <Style.Triggers>
-                                    <DataTrigger Binding="{Binding IsExpand, UpdateSourceTrigger=PropertyChanged}" Value="True">
-                                        <Setter Property="Visibility" Value="Visible" />
-                                    </DataTrigger>
-                                    <DataTrigger Binding="{Binding IsExpand, UpdateSourceTrigger=PropertyChanged}" Value="False">
-                                        <Setter Property="Visibility" Value="Collapsed" />
-                                    </DataTrigger>
-                                </Style.Triggers>
-                            </Style>
-                        </materialDesign:PackIcon.Style>
-                    </materialDesign:PackIcon>
-
-                    <StackPanel Margin="30,0,0,0" VerticalAlignment="Center">
-                        <StackPanel.Style>
-                            <Style TargetType="StackPanel">
-                                <Style.Triggers>
-                                    <DataTrigger Binding="{Binding IsExpand, UpdateSourceTrigger=PropertyChanged}" Value="True">
-                                        <Setter Property="Visibility" Value="Visible" />
-                                    </DataTrigger>
-                                    <DataTrigger Binding="{Binding IsExpand, UpdateSourceTrigger=PropertyChanged}" Value="False">
-                                        <Setter Property="Visibility" Value="Collapsed" />
-                                    </DataTrigger>
-                                </Style.Triggers>
-                            </Style>
-                        </StackPanel.Style>
-                        <TextBlock
-                            FontFamily="{StaticResource RobotoBold}"
-                            FontSize="18"
-                            Foreground="White"
-                            Text="EnglishLab" />
 
                     </StackPanel>
 
-                    <Button Grid.Row="0" Command="{Binding ToggleSideBarCommand}">
-                        <Button.Template>
-                            <ControlTemplate TargetType="Button">
-                                <Border
-                                    Width="40"
-                                    Height="40"
-                                    HorizontalAlignment="Right"
-                                    VerticalAlignment="Center">
-                                    <ContentPresenter />
-                                </Border>
-                            </ControlTemplate>
-                        </Button.Template>
-                        <materialDesign:PackIcon
-                            Width="25"
-                            Height="25"
-                            HorizontalAlignment="Center"
-                            VerticalAlignment="Center"
-                            Background="Transparent"
-                            FontFamily="{StaticResource RobotoThin}"
-                            Foreground="White"
-                            Kind="Menu">
-                            <materialDesign:PackIcon.Style>
-                                <Style TargetType="materialDesign:PackIcon">
-                                    <Style.Triggers>
-                                        <DataTrigger Binding="{Binding IsExpand}" Value="False">
-                                            <Setter Property="Kind" Value="ArrowLeft" />
-                                            <Setter Property="HorizontalAlignment" Value="Center" />
-                                        </DataTrigger>
-                                    </Style.Triggers>
-                                </Style>
-                            </materialDesign:PackIcon.Style>
-                        </materialDesign:PackIcon>
-                    </Button>
+
+                    <Grid Grid.Row="3" />
+
 
                 </Grid>
 
 
 
-            </Grid>
+
+            </Border>
+
+
+
+
+
 
 
         </Grid>
