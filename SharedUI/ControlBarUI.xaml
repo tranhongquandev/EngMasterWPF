@@ -16,65 +16,72 @@
         <vm:ControlBarViewModel />
     </UserControl.DataContext>
 
-    <i:Interaction.Triggers>
-        <i:EventTrigger EventName="MouseLeftButtonDown">
-            <i:InvokeCommandAction Command="{Binding DragMoveCommand}" CommandParameter="{Binding ElementName=controlBar}" />
-        </i:EventTrigger>
-    </i:Interaction.Triggers>
+
 
     <Grid>
-        <StackPanel
-            HorizontalAlignment="Right"
-            VerticalAlignment="Top"
-            Orientation="Horizontal">
-            <StackPanel.Resources>
-                <Style TargetType="Button">
-                    <Setter Property="Template">
-                        <Setter.Value>
-                            <ControlTemplate TargetType="Button">
-                                <Border Background="{TemplateBinding Background}">
-                                    <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" />
-                                </Border>
-                            </ControlTemplate>
-                        </Setter.Value>
-                    </Setter>
-                    <Setter Property="Cursor" Value="Hand" />
-                    <Setter Property="Background" Value="Transparent" />
-                    <Setter Property="BorderBrush" Value="Transparent" />
-                    <Setter Property="Width" Value="40" />
-                    <Setter Property="Height" Value="30" />
-                    <Setter Property="Foreground" Value="#4A4458" />
-                    <Style.Triggers>
-                        <Trigger Property="IsMouseOver" Value="True">
-                            <Setter Property="Background" Value="#4A4458" />
-                            <Setter Property="Foreground" Value="#E8DEF8" />
+        <Grid
+            HorizontalAlignment="Stretch"
+            Background="White"
+            Cursor="Hand">
+            <i:Interaction.Triggers>
+                <i:EventTrigger EventName="MouseLeftButtonDown">
+                    <i:InvokeCommandAction Command="{Binding DragMoveCommand}" CommandParameter="{Binding ElementName=controlBar}" />
+                </i:EventTrigger>
+            </i:Interaction.Triggers>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="30" />
+            </Grid.RowDefinitions>
+            <StackPanel HorizontalAlignment="Right" Orientation="Horizontal">
+                <StackPanel.Resources>
+                    <Style TargetType="Button">
+                        <Setter Property="Template">
+                            <Setter.Value>
+                                <ControlTemplate TargetType="Button">
+                                    <Border Background="{TemplateBinding Background}">
+                                        <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" />
+                                    </Border>
+                                </ControlTemplate>
+                            </Setter.Value>
+                        </Setter>
+                        <Setter Property="Cursor" Value="Hand" />
+                        <Setter Property="Background" Value="Transparent" />
+                        <Setter Property="BorderBrush" Value="Transparent" />
+                        <Setter Property="Width" Value="40" />
+                        <Setter Property="Height" Value="30" />
+                        <Setter Property="Foreground" Value="#592ED3" />
+                        <Style.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter Property="Background" Value="#592ED3" />
+                                <Setter Property="Foreground" Value="#FFF6E0" />
 
-                            <Trigger.EnterActions>
-                                <BeginStoryboard>
-                                    <Storyboard>
-                                        <ColorAnimation
-                                            Storyboard.TargetProperty="(Button.Background).(SolidColorBrush.Color)"
-                                            From="Transparent"
-                                            To="#4A4458"
-                                            Duration="0:0:0.1" />
-                                    </Storyboard>
-                                </BeginStoryboard>
-                            </Trigger.EnterActions>
-                        </Trigger>
+                                <Trigger.EnterActions>
+                                    <BeginStoryboard>
+                                        <Storyboard>
+                                            <ColorAnimation
+                                                Storyboard.TargetProperty="(Button.Background).(SolidColorBrush.Color)"
+                                                From="Transparent"
+                                                To="#592ED3"
+                                                Duration="0:0:0.1" />
+                                        </Storyboard>
+                                    </BeginStoryboard>
+                                </Trigger.EnterActions>
+                            </Trigger>
 
-                    </Style.Triggers>
+                        </Style.Triggers>
 
-                </Style>
-            </StackPanel.Resources>
-            <Button Command="{Binding MinimizeCommand}" CommandParameter="{Binding ElementName=controlBar}">
-                <materialDesign:PackIcon Kind="Minus" />
-            </Button>
-            <Button Command="{Binding MaximizeCommand}" CommandParameter="{Binding ElementName=controlBar}">
-                <materialDesign:PackIcon Kind="CropSquare" />
-            </Button>
-            <Button Command="{Binding CloseCommand}" CommandParameter="{Binding ElementName=controlBar}">
-                <materialDesign:PackIcon Kind="Close" />
-            </Button>
-        </StackPanel>
+                    </Style>
+                </StackPanel.Resources>
+                <Button Command="{Binding MinimizeCommand}" CommandParameter="{Binding ElementName=controlBar}">
+                    <materialDesign:PackIcon Kind="Minus" />
+                </Button>
+                <Button Command="{Binding MaximizeCommand}" CommandParameter="{Binding ElementName=controlBar}">
+                    <materialDesign:PackIcon Kind="CropSquare" />
+                </Button>
+                <Button Command="{Binding CloseCommand}" CommandParameter="{Binding ElementName=controlBar}">
+                    <materialDesign:PackIcon Kind="Close" />
+                </Button>
+            </StackPanel>
+        </Grid>
+
     </Grid>
 </UserControl>

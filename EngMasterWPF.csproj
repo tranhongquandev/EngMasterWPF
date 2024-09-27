@@ -53,6 +53,8 @@
     <None Remove="Assets\Fonts\Roboto-Medium.ttf" />
     <None Remove="Assets\Fonts\Roboto-Regular.ttf" />
     <None Remove="Assets\Fonts\Roboto-Thin.ttf" />
+    <None Remove="Assets\Img\7315611.jpg" />
+    <None Remove="Assets\Img\cover-avt.png" />
     <None Remove="Assets\Img\Engmaster.png" />
     <None Remove="Assets\Img\logo.png" />
     <None Remove="Assets\Img\non-avt.jpg" />
@@ -88,6 +90,12 @@
 		<Content Include="Assets\Fonts\Roboto-Thin.ttf">
 		  <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
 		</Content>
+		<Content Include="Assets\Img\7315611.jpg">
+		  <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+		</Content>
+		<Content Include="Assets\Img\cover-avt.png">
+		  <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+		</Content>
 		<Content Include="Assets\Img\Engmaster.png">
 		  <CopyToOutputDirectory>Always</CopyToOutputDirectory>
 		</Content>
@@ -96,19 +104,9 @@
 		  <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
 		</Content>
 		
-		<Content Include="Assets\Img\wallpaper.jpg">
-		  <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-		</Content>
-		
 		<Content Include="Assets\Img\wallpaper_2.jpg">
 		  <CopyToOutputDirectory>Always</CopyToOutputDirectory>
 		</Content>
-	</ItemGroup>
-
-	<ItemGroup>
-	  <Content Include="Assets\Img\w-3.jpg">
-	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-	  </Content>
 	</ItemGroup>
 
 </Project>

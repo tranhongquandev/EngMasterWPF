@@ -28,18 +28,18 @@
         <!--  Animations when startup  -->
         <Grid.Resources>
             <Storyboard x:Key="FadeInStoryboard">
-                <!--<DoubleAnimation
+                <DoubleAnimation
                     Storyboard.TargetName="RootGrid"
                     Storyboard.TargetProperty="Opacity"
                     From="0"
                     To="1"
-                    Duration="0:0:1" />-->
-                <DoubleAnimation
+                    Duration="0:0:1" />
+                <!--<DoubleAnimation
                     Storyboard.TargetName="RootGrid"
                     Storyboard.TargetProperty="RenderTransform.(TranslateTransform.X)"
                     From="50"
                     To="0"
-                    Duration="0:0:0.7" />
+                    Duration="0:0:0.7" />-->
             </Storyboard>
         </Grid.Resources>
         <Grid.Triggers>
@@ -62,7 +62,7 @@
             Stretch="UniformToFill">
             <Image>
                 <Image.Source>
-                    <BitmapImage UriSource="/Assets/Img/wallpaper_2.jpg" />
+                    <BitmapImage UriSource="/Assets/Img/7315611.jpg" />
                 </Image.Source>
             </Image>
         </Viewbox>
@@ -105,17 +105,17 @@
                     Grid.Row="0"
                     Width="180"
                     Height="180"
-                    Margin="0,0,0,10"
+                    Margin="0,0,0,0"
                     HorizontalAlignment="Center"
                     VerticalAlignment="Center"
-                    Source="/Assets/Img/wallpaper_2.jpg"
+                    Source="/Assets/Img/cover-avt.png"
                     Stretch="UniformToFill">
-                    <Image.Clip>
+                    <!--<Image.Clip>
                         <EllipseGeometry
                             Center="90,90"
                             RadiusX="90"
                             RadiusY="90" />
-                    </Image.Clip>
+                    </Image.Clip>-->
                 </Image>
                 <!--  Logo  -->
 
@@ -126,7 +126,7 @@
                     VerticalAlignment="Center"
                     FontFamily="{StaticResource RobotoBold}"
                     FontSize="42"
-                    Foreground="#4A4458"
+                    Foreground="#592ED3"
                     Text="Welcome Back!"
                     Typography.Capitals="AllSmallCaps">
                     <!--<TextBlock.Foreground>
@@ -140,9 +140,9 @@
                     Margin="0,0,0,20"
                     HorizontalAlignment="Center"
                     VerticalAlignment="Top"
-                    FontFamily="{StaticResource RobotoRegular}"
+                    FontFamily="{StaticResource RobotoMedium}"
                     FontSize="12"
-                    Foreground="#4A4458"
+                    Foreground="#FF69B4"
                     Text="Vui lòng đăng nhập để tiếp tục!" />
 
                 <Grid Grid.Row="2" Margin="0,40,0,20">
@@ -162,11 +162,13 @@
                         VerticalAlignment="Top"
                         materialDesign:HintAssist.Background="White"
                         materialDesign:HintAssist.FloatingScale="1"
-                        materialDesign:HintAssist.Foreground="#4A4458"
+                        materialDesign:HintAssist.Foreground="#592ED3"
                         materialDesign:HintAssist.Hint="Email"
-                        materialDesign:TextFieldAssist.UnderlineBrush="#4A4458"
+                        materialDesign:TextFieldAssist.OutlinedBorderActiveThickness="0.8"
+                        materialDesign:TextFieldAssist.UnderlineBrush="#592ED3"
                         Cursor="Hand"
                         FontSize="14"
+                        Foreground="#333333"
                         Style="{StaticResource MaterialDesignOutlinedTextBox}"
                         Text="{Binding Email, UpdateSourceTrigger=PropertyChanged}">
                         <TextBox.Triggers>
@@ -176,7 +178,7 @@
                                         <ColorAnimation
                                             Storyboard.TargetName="UserInputIcon"
                                             Storyboard.TargetProperty="(Foreground).(SolidColorBrush.Color)"
-                                            To="#4A4458"
+                                            To="#592ED3"
                                             Duration="0:0:0.2" />
                                     </Storyboard>
                                 </BeginStoryboard>
@@ -214,11 +216,13 @@
                         VerticalAlignment="Top"
                         materialDesign:HintAssist.Background="White"
                         materialDesign:HintAssist.FloatingScale="1"
-                        materialDesign:HintAssist.Foreground="#4A4458"
+                        materialDesign:HintAssist.Foreground="#592ED3"
                         materialDesign:HintAssist.Hint="Mật khẩu"
-                        materialDesign:TextFieldAssist.UnderlineBrush="#4A4458"
+                        materialDesign:TextFieldAssist.OutlinedBorderActiveThickness="0.8"
+                        materialDesign:TextFieldAssist.UnderlineBrush="#592ED3"
                         Cursor="Hand"
                         FontSize="14"
+                        Foreground="#333333"
                         Style="{StaticResource MaterialDesignOutlinedRevealPasswordBox}">
                         <i:Interaction.Triggers>
                             <i:EventTrigger EventName="PasswordChanged">
@@ -232,7 +236,7 @@
                                         <ColorAnimation
                                             Storyboard.TargetName="PasswordInputIcon"
                                             Storyboard.TargetProperty="(Foreground).(SolidColorBrush.Color)"
-                                            To="#4A4458"
+                                            To="#592ED3"
                                             Duration="0:0:0.2" />
                                     </Storyboard>
                                 </BeginStoryboard>
@@ -267,8 +271,9 @@
                         Background="Transparent"
                         BorderBrush="Transparent"
                         Content="Quên mật khẩu?"
+                        FontFamily="{StaticResource RobotoBold}"
                         FontSize="12"
-                        Foreground="#4A4458" />
+                        Foreground="#FF69B4" />
                 </Grid>
 
                 <!--  Submit Button  -->
@@ -285,7 +290,10 @@
                     ToolTip="Đăng nhập">
                     <Button.Template>
                         <ControlTemplate TargetType="Button">
-                            <Border x:Name="ButtonBorder" Background="#4A4458">
+                            <Border
+                                x:Name="ButtonBorder"
+                                BorderBrush="#592ED3"
+                                BorderThickness="1">
                                 <Grid>
                                     <TextBlock
                                         x:Name="ButtonTextBlock"
@@ -293,13 +301,13 @@
                                         VerticalAlignment="Center"
                                         FontFamily="{StaticResource RobotoMedium}"
                                         FontSize="13"
-                                        Foreground="#E8DEF8"
+                                        Foreground="#592ED3"
                                         Text="ĐĂNG NHẬP" />
                                     <ProgressBar
                                         x:Name="ButtonSpinner"
                                         Width="35"
                                         Height="35"
-                                        Foreground="#E8DEF8"
+                                        Foreground="White"
                                         IsIndeterminate="True"
                                         Style="{StaticResource MaterialDesignCircularProgressBar}"
                                         Value="0" />
@@ -307,10 +315,64 @@
                             </Border>
 
                             <ControlTemplate.Triggers>
-                                <DataTrigger Binding="{Binding IsCanSubmit}" Value="false">
-                                    <Setter Property="IsEnabled" Value="False" />
-                                    <Setter TargetName="ButtonBorder" Property="Background" Value="#DBDBDB" />
+                                <DataTrigger Binding="{Binding IsCanSubmit}" Value="True">
+                                    <Setter Property="Cursor" Value="Hand" />
+                                    <Setter Property="IsEnabled" Value="True" />
+                                    <Setter TargetName="ButtonBorder" Property="Background" Value="Transparent" />
+                                    <Setter TargetName="ButtonTextBlock" Property="Foreground" Value="#592ED3" />
+                                    <Setter TargetName="ButtonBorder" Property="BorderBrush" Value="#592ED3" />
+                                    <Setter TargetName="ButtonBorder" Property="BorderThickness" Value="1" />
+                                    <DataTrigger.EnterActions>
+                                        <BeginStoryboard>
+                                            <Storyboard>
+                                                <ColorAnimation
+                                                    Storyboard.TargetName="ButtonBorder"
+                                                    Storyboard.TargetProperty="(Border.Background).(SolidColorBrush.Color)"
+                                                    From="Transparent"
+                                                    To="#592ED3"
+                                                    Duration="0:0:0.5" />
+                                                <ColorAnimation
+                                                    Storyboard.TargetName="ButtonTextBlock"
+                                                    Storyboard.TargetProperty="(TextBlock.Foreground).(SolidColorBrush.Color)"
+                                                    From="#592ED3"
+                                                    To="White"
+                                                    Duration="0:0:0.5" />
+                                            </Storyboard>
+                                        </BeginStoryboard>
+                                    </DataTrigger.EnterActions>
+
                                 </DataTrigger>
+
+                                <DataTrigger Binding="{Binding IsCanSubmit}" Value="False">
+                                    <Setter Property="Cursor" Value="Hand" />
+                                    <Setter Property="IsEnabled" Value="True" />
+                                    <Setter TargetName="ButtonBorder" Property="Background" Value="Transparent" />
+                                    <Setter TargetName="ButtonTextBlock" Property="Foreground" Value="#592ED3" />
+                                    <Setter TargetName="ButtonBorder" Property="BorderBrush" Value="#592ED3" />
+                                    <Setter TargetName="ButtonBorder" Property="BorderThickness" Value="1" />
+                                    <DataTrigger.EnterActions>
+                                        <BeginStoryboard>
+                                            <Storyboard>
+                                                <ColorAnimation
+                                                    Storyboard.TargetName="ButtonBorder"
+                                                    Storyboard.TargetProperty="(Border.Background).(SolidColorBrush.Color)"
+                                                    From="#592ED3"
+                                                    To="Transparent"
+                                                    Duration="0:0:0.5" />
+                                                <ColorAnimation
+                                                    Storyboard.TargetName="ButtonTextBlock"
+                                                    Storyboard.TargetProperty="(TextBlock.Foreground).(SolidColorBrush.Color)"
+                                                    From="White"
+                                                    To="#592ED3"
+                                                    Duration="0:0:0.5" />
+                                            </Storyboard>
+                                        </BeginStoryboard>
+                                    </DataTrigger.EnterActions>
+                                </DataTrigger>
+
+
+
+
                                 <DataTrigger Binding="{Binding IsSubmitting}" Value="true">
                                     <Setter TargetName="ButtonTextBlock" Property="Visibility" Value="Hidden" />
                                     <Setter TargetName="ButtonSpinner" Property="Visibility" Value="Visible" />
@@ -371,7 +433,7 @@
                     ToolTip="Developer Mode">
                     <Button.Template>
                         <ControlTemplate TargetType="Button">
-                            <Border x:Name="ButtonBorder" Background="#4A4458">
+                            <Border x:Name="ButtonBorder" Background="#592ED3">
                                 <Grid>
                                     <TextBlock
                                         x:Name="ButtonTextBlock"
@@ -379,13 +441,13 @@
                                         VerticalAlignment="Center"
                                         FontFamily="{StaticResource RobotoMedium}"
                                         FontSize="13"
-                                        Foreground="#E8DEF8"
+                                        Foreground="White"
                                         Text="DEVELOPER MODE" />
                                     <ProgressBar
                                         x:Name="ButtonSpinner"
                                         Width="35"
                                         Height="35"
-                                        Foreground="#E8DEF8"
+                                        Foreground="White"
                                         IsIndeterminate="True"
                                         Style="{StaticResource MaterialDesignCircularProgressBar}"
                                         Value="0" />
@@ -393,6 +455,7 @@
                             </Border>
 
                             <ControlTemplate.Triggers>
+
                                 <DataTrigger Binding="{Binding IsDeveloperModeSubmit}" Value="true">
                                     <Setter TargetName="ButtonTextBlock" Property="Visibility" Value="Hidden" />
                                     <Setter TargetName="ButtonSpinner" Property="Visibility" Value="Visible" />

@@ -18,6 +18,7 @@
 
 
     <Grid x:Name="RootGrid">
+
         <!--  This is the fade in animation  -->
         <Grid.Resources>
             <Storyboard x:Key="FadeInStoryboard">
@@ -34,6 +35,42 @@
                     To="0"
                     Duration="0:0:0.5" />
             </Storyboard>
+
+            <Style x:Key="SideBarStyle" TargetType="Grid">
+                <Style.Triggers>
+                    <DataTrigger Binding="{Binding IsExpand, UpdateSourceTrigger=PropertyChanged}" Value="True">
+                        <Setter Property="Grid.ColumnSpan" Value="2" />
+                        <!--<DataTrigger.EnterActions>
+                            <BeginStoryboard>
+                                <Storyboard>
+                                    <DoubleAnimation
+                                        Storyboard.TargetProperty="Grid.ColumnSpan"
+                                        From="2"
+                                        To="1"
+                                        Duration="0:0:1" />
+                                </Storyboard>
+                            </BeginStoryboard>
+                        </DataTrigger.EnterActions>-->
+                    </DataTrigger>
+
+                    <DataTrigger Binding="{Binding IsExpand, UpdateSourceTrigger=PropertyChanged}" Value="False">
+                        <Setter Property="Grid.ColumnSpan" Value="1" />
+                    </DataTrigger>
+
+                </Style.Triggers>
+            </Style>
+
+            <Style x:Key="MainContentStyle" TargetType="Grid">
+                <Style.Triggers>
+                    <DataTrigger Binding="{Binding IsExpand, UpdateSourceTrigger=PropertyChanged}" Value="True">
+                        <Setter Property="Grid.Column" Value="2" />
+                    </DataTrigger>
+                    <DataTrigger Binding="{Binding IsExpand, UpdateSourceTrigger=PropertyChanged}" Value="False">
+                        <Setter Property="Grid.Column" Value="1" />
+                    </DataTrigger>
+
+                </Style.Triggers>
+            </Style>
         </Grid.Resources>
         <Grid.Triggers>
             <EventTrigger RoutedEvent="UserControl.Loaded">
@@ -48,77 +85,124 @@
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*" />
             <ColumnDefinition Width="*" />
-            <ColumnDefinition Width="*" />
-            <ColumnDefinition Width="*" />
-            <ColumnDefinition Width="*" />
-            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="12*" />
         </Grid.ColumnDefinitions>
 
 
 
+
+
+
+
         <!--  Side bar  -->
-        <Grid Grid.Column="0">
-            <Grid Background="#25232A">
+        <Grid Grid.Column="0" Style="{StaticResource SideBarStyle}">
+            <Grid Background="#12101D">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="auto" />
+                    <RowDefinition Height="auto" />
                     <RowDefinition Height="*" />
+                    <RowDefinition Height="auto" />
                 </Grid.RowDefinitions>
 
-                <ToggleButton
-                    Margin="0,32,0,0"
-                    Foreground="#E8DEF8"
-                    Style="{StaticResource MaterialDesignHamburgerToggleButton}" />
-                <Button
-                    Width="56"
-                    Height="56"
-                    Margin="0,40,0,80"
-                    materialDesign:ButtonAssist.CornerRadius="16"
-                    Background="#AEF0D6"
-                    BorderThickness="0"
-                    Foreground="#002117"
-                    Style="{StaticResource MaterialDesignFlatMidBgButton}">
+
+                <Grid
+                    Grid.Row="0"
+                    Margin="10,20,0,20"
+                    HorizontalAlignment="Stretch"
+                    VerticalAlignment="Top">
+
                     <materialDesign:PackIcon
-                        Width="24"
-                        Height="24"
-                        Kind="PencilOutline" />
-                </Button>
-                <Viewbox
-                    Grid.Row="1"
-                    Width="80"
-                    VerticalAlignment="Top"
-                    Stretch="Uniform">
-                    <ListBox
-                        Grid.Row="1"
-                        ItemsSource="{Binding SampleList}"
-                        SelectedIndex="0">
-                        <ListBox.ItemContainerStyle>
-                            <Style BasedOn="{StaticResource MaterialDesign3.NavigationRailListBoxItem}" TargetType="ListBoxItem">
-                                <Setter Property="Background" Value="#4A4458" />
-                                <Setter Property="Foreground" Value="#E8DEF8" />
-                                <Setter Property="materialDesign:BadgedAssist.Badge" Value="{Binding Notification}" />
-                                <Setter Property="materialDesign:BadgedAssist.BadgeBackground" Value="#930006" />
-                                <Setter Property="materialDesign:BadgedAssist.BadgeForeground" Value="#FFDAD4" />
-                                <Setter Property="materialDesign:BadgedAssist.IsMiniBadge" Value="True" />
-                                <Setter Property="materialDesign:NavigationRailAssist.SelectedIcon" Value="{Binding SelectedIcon}" />
-                                <Setter Property="materialDesign:NavigationRailAssist.UnselectedIcon" Value="{Binding UnselectedIcon}" />
+                        Width="30"
+                        Height="30"
+                        Background="Transparent"
+                        FontFamily="{StaticResource RobotoBold}"
+                        Foreground="White"
+                        Kind="AlphaEBox">
+                        <materialDesign:PackIcon.Style>
+                            <Style TargetType="materialDesign:PackIcon">
+                                <Style.Triggers>
+                                    <DataTrigger Binding="{Binding IsExpand, UpdateSourceTrigger=PropertyChanged}" Value="True">
+                                        <Setter Property="Visibility" Value="Visible" />
+                                    </DataTrigger>
+                                    <DataTrigger Binding="{Binding IsExpand, UpdateSourceTrigger=PropertyChanged}" Value="False">
+                                        <Setter Property="Visibility" Value="Collapsed" />
+                                    </DataTrigger>
+                                </Style.Triggers>
                             </Style>
-                        </ListBox.ItemContainerStyle>
-                        <ListBox.Resources>
-                            <DataTemplate DataType="{x:Type vm:SampleItem}">
-                                <TextBlock Text="{Binding Title}" />
-                            </DataTemplate>
-                        </ListBox.Resources>
-                    </ListBox>
-                </Viewbox>
+                        </materialDesign:PackIcon.Style>
+                    </materialDesign:PackIcon>
+
+                    <StackPanel Margin="30,0,0,0" VerticalAlignment="Center">
+                        <StackPanel.Style>
+                            <Style TargetType="StackPanel">
+                                <Style.Triggers>
+                                    <DataTrigger Binding="{Binding IsExpand, UpdateSourceTrigger=PropertyChanged}" Value="True">
+                                        <Setter Property="Visibility" Value="Visible" />
+                                    </DataTrigger>
+                                    <DataTrigger Binding="{Binding IsExpand, UpdateSourceTrigger=PropertyChanged}" Value="False">
+                                        <Setter Property="Visibility" Value="Collapsed" />
+                                    </DataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </StackPanel.Style>
+                        <TextBlock
+                            FontFamily="{StaticResource RobotoBold}"
+                            FontSize="18"
+                            Foreground="White"
+                            Text="EnglishLab" />
+
+                    </StackPanel>
+
+                    <Button Grid.Row="0" Command="{Binding ToggleSideBarCommand}">
+                        <Button.Template>
+                            <ControlTemplate TargetType="Button">
+                                <Border
+                                    Width="40"
+                                    Height="40"
+                                    HorizontalAlignment="Right"
+                                    VerticalAlignment="Center">
+                                    <ContentPresenter />
+                                </Border>
+                            </ControlTemplate>
+                        </Button.Template>
+                        <materialDesign:PackIcon
+                            Width="25"
+                            Height="25"
+                            HorizontalAlignment="Center"
+                            VerticalAlignment="Center"
+                            Background="Transparent"
+                            FontFamily="{StaticResource RobotoThin}"
+                            Foreground="White"
+                            Kind="Menu">
+                            <materialDesign:PackIcon.Style>
+                                <Style TargetType="materialDesign:PackIcon">
+                                    <Style.Triggers>
+                                        <DataTrigger Binding="{Binding IsExpand}" Value="False">
+                                            <Setter Property="Kind" Value="ArrowLeft" />
+                                            <Setter Property="HorizontalAlignment" Value="Center" />
+                                        </DataTrigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </materialDesign:PackIcon.Style>
+                        </materialDesign:PackIcon>
+                    </Button>
+
+                </Grid>
+
+
+
             </Grid>
+
+
         </Grid>
         <!--  Side bar  -->
 
+
         <!--  Main  -->
         <Grid
-            Grid.Column="1"
             Grid.ColumnSpan="5"
-            Background="White">
+            Background="White"
+            Style="{StaticResource MainContentStyle}">
 
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto" />

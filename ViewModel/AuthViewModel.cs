@@ -3,6 +3,7 @@ using EngMasterWPF.Utilities;
 using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics.Eventing.Reader;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -107,8 +108,13 @@ namespace EngMasterWPF.ViewModel
             {
                 IsCanSubmit = true;
                 return true;
-            };
-            return false;
+            }
+           else 
+           {
+                IsCanSubmit = false;
+                return false;
+            }
+            
         }
         #endregion
 
