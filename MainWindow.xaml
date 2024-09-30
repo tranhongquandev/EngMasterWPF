@@ -7,18 +7,14 @@
     xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:vm="clr-namespace:EngMasterWPF.ViewModel"
-    Width="1366"
-    Height="768"
+    Width="1440"
+    Height="810"
     Background="Transparent"
-    FontFamily="{StaticResource RobotoRegular}"
+    FontFamily="{StaticResource PoppinsRegular}"
     ResizeMode="NoResize"
     WindowStartupLocation="CenterScreen"
     WindowStyle="None"
     mc:Ignorable="d">
-
-
-
-
 
     <Border>
         <ContentControl Content="{Binding CurrentView, UpdateSourceTrigger=PropertyChanged}" />

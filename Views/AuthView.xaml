@@ -2,6 +2,7 @@
     x:Class="EngMasterWPF.Views.AuthView"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:converters="clr-namespace:EngMasterWPF.Converter"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
     xmlns:local="clr-namespace:EngMasterWPF.Views"
@@ -9,21 +10,27 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:uc="clr-namespace:EngMasterWPF.SharedUI"
     xmlns:vm="clr-namespace:EngMasterWPF.ViewModel"
-    d:Height="768"
-    d:Width="1366"
+    d:Height="810"
+    d:Width="1440"
     Background="White"
+    FontFamily="{StaticResource PoppinsRegular}"
+    Foreground="#1A1A1A"
     mc:Ignorable="d">
 
     <UserControl.DataContext>
         <vm:AuthViewModel />
     </UserControl.DataContext>
 
+    <UserControl.Resources>
+        <converters:MsgErrorConverter x:Key="MsgToErrorConverter" />
+    </UserControl.Resources>
+
     <Grid x:Name="RootGrid">
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="*" />
-            <ColumnDefinition Width="*" />
-            <ColumnDefinition Width="*" />
-        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+
+        </Grid.RowDefinitions>
 
         <!--  Animations when startup  -->
         <Grid.Resources>
@@ -53,441 +60,379 @@
         <!--  Animations when startup  -->
 
 
-        <!--  Left BackGround  -->
-        <Viewbox
-            Grid.Column="0"
-            Grid.ColumnSpan="2"
-            HorizontalAlignment="Right"
-            VerticalAlignment="Center"
-            Stretch="UniformToFill">
-            <Image>
-                <Image.Source>
-                    <BitmapImage UriSource="/Assets/Img/7315611.jpg" />
-                </Image.Source>
-            </Image>
-        </Viewbox>
-        <!--  Left BackGround  -->
+        <uc:ControlBarUI Grid.Row="0" Background="#FBF7F4" />
 
 
 
-        <Grid Grid.Column="2">
+        <Grid Grid.Row="1" Background="#FBF7F4">
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto" />
                 <RowDefinition Height="*" />
-                <RowDefinition Height="Auto" />
-
             </Grid.RowDefinitions>
 
-            <!--  Control Bar  -->
-            <uc:ControlBarUI Grid.Row="0" />
-            <!--  Control Bar  -->
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
 
-            <!--  Form  -->
-            <Grid
-                Grid.Row="1"
-                Margin="50,30"
-                VerticalAlignment="Center"
-                Background="White">
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="Auto" />
-                    <RowDefinition Height="Auto" />
-                    <RowDefinition Height="Auto" />
-                    <RowDefinition Height="Auto" />
-                    <RowDefinition Height="Auto" />
-                    <RowDefinition Height="Auto" />
-                    <RowDefinition Height="Auto" />
-                    <RowDefinition Height="Auto" />
-                    <RowDefinition Height="Auto" />
-                </Grid.RowDefinitions>
 
-                <!--  Logo  -->
-                <Image
-                    Grid.Row="0"
-                    Width="180"
-                    Height="180"
-                    Margin="0,0,0,0"
-                    HorizontalAlignment="Center"
-                    VerticalAlignment="Center"
-                    Source="/Assets/Img/cover-avt.png"
-                    Stretch="UniformToFill">
-                    <!--<Image.Clip>
-                        <EllipseGeometry
-                            Center="90,90"
-                            RadiusX="90"
-                            RadiusY="90" />
-                    </Image.Clip>-->
-                </Image>
-                <!--  Logo  -->
 
-                <!--  Title  -->
-                <TextBlock
-                    Grid.Row="1"
-                    HorizontalAlignment="Center"
-                    VerticalAlignment="Center"
-                    FontFamily="{StaticResource RobotoBold}"
-                    FontSize="42"
-                    Foreground="#592ED3"
-                    Text="Welcome Back!"
-                    Typography.Capitals="AllSmallCaps">
-                    <!--<TextBlock.Foreground>
-                        <ImageBrush ImageSource="/Assets/Img/w-3.jpg" Stretch="Fill" />
-                    </TextBlock.Foreground>-->
-                </TextBlock>
-                <!--  Title  -->
 
-                <TextBlock
-                    Grid.Row="2"
-                    Margin="0,0,0,20"
-                    HorizontalAlignment="Center"
-                    VerticalAlignment="Top"
-                    FontFamily="{StaticResource RobotoMedium}"
-                    FontSize="12"
-                    Foreground="#FF69B4"
-                    Text="Vui lòng đăng nhập để tiếp tục!" />
 
-                <Grid Grid.Row="2" Margin="0,40,0,20">
-                    <materialDesign:PackIcon
-                        x:Name="UserInputIcon"
-                        Grid.Column="0"
-                        Width="20"
-                        Height="20"
-                        Margin="15,0,0,0"
-                        HorizontalAlignment="Left"
-                        VerticalAlignment="Center"
-                        Foreground="DarkGray"
-                        Kind="CardAccountDetailsOutline" />
-                    <TextBox
-                        Grid.Column="0"
-                        Padding="50,15,0,15"
-                        VerticalAlignment="Top"
-                        materialDesign:HintAssist.Background="White"
-                        materialDesign:HintAssist.FloatingScale="1"
-                        materialDesign:HintAssist.Foreground="#592ED3"
-                        materialDesign:HintAssist.Hint="Email"
-                        materialDesign:TextFieldAssist.OutlinedBorderActiveThickness="0.8"
-                        materialDesign:TextFieldAssist.UnderlineBrush="#592ED3"
-                        Cursor="Hand"
-                        FontSize="14"
-                        Foreground="#333333"
-                        Style="{StaticResource MaterialDesignOutlinedTextBox}"
-                        Text="{Binding Email, UpdateSourceTrigger=PropertyChanged}">
-                        <TextBox.Triggers>
-                            <EventTrigger RoutedEvent="GotFocus">
-                                <BeginStoryboard>
-                                    <Storyboard>
-                                        <ColorAnimation
-                                            Storyboard.TargetName="UserInputIcon"
-                                            Storyboard.TargetProperty="(Foreground).(SolidColorBrush.Color)"
-                                            To="#592ED3"
-                                            Duration="0:0:0.2" />
-                                    </Storyboard>
-                                </BeginStoryboard>
-                            </EventTrigger>
-                            <EventTrigger RoutedEvent="LostFocus">
-                                <BeginStoryboard>
-                                    <Storyboard>
-                                        <ColorAnimation
-                                            Storyboard.TargetName="UserInputIcon"
-                                            Storyboard.TargetProperty="(Foreground).(SolidColorBrush.Color)"
-                                            To="DarkGray"
-                                            Duration="0:0:0.2" />
-                                    </Storyboard>
-                                </BeginStoryboard>
-                            </EventTrigger>
-                        </TextBox.Triggers>
-                    </TextBox>
-                </Grid>
-
-                <Grid Grid.Row="4" Margin="0,0,0,5">
-                    <materialDesign:PackIcon
-                        x:Name="PasswordInputIcon"
-                        Grid.Column="0"
-                        Width="20"
-                        Height="20"
-                        Margin="15,0,0,0"
-                        HorizontalAlignment="Left"
-                        VerticalAlignment="Center"
-                        Foreground="DarkGray"
-                        Kind="LockOutline" />
-                    <PasswordBox
-                        x:Name="PasswordInput"
-                        Grid.Column="0"
-                        Padding="50,15,15,15"
-                        VerticalAlignment="Top"
-                        materialDesign:HintAssist.Background="White"
-                        materialDesign:HintAssist.FloatingScale="1"
-                        materialDesign:HintAssist.Foreground="#592ED3"
-                        materialDesign:HintAssist.Hint="Mật khẩu"
-                        materialDesign:TextFieldAssist.OutlinedBorderActiveThickness="0.8"
-                        materialDesign:TextFieldAssist.UnderlineBrush="#592ED3"
-                        Cursor="Hand"
-                        FontSize="14"
-                        Foreground="#333333"
-                        Style="{StaticResource MaterialDesignOutlinedRevealPasswordBox}">
-                        <i:Interaction.Triggers>
-                            <i:EventTrigger EventName="PasswordChanged">
-                                <i:InvokeCommandAction Command="{Binding PasswordChangedCommand}" CommandParameter="{Binding ElementName=PasswordInput}" />
-                            </i:EventTrigger>
-                        </i:Interaction.Triggers>
-                        <PasswordBox.Triggers>
-                            <EventTrigger RoutedEvent="GotFocus">
-                                <BeginStoryboard>
-                                    <Storyboard>
-                                        <ColorAnimation
-                                            Storyboard.TargetName="PasswordInputIcon"
-                                            Storyboard.TargetProperty="(Foreground).(SolidColorBrush.Color)"
-                                            To="#592ED3"
-                                            Duration="0:0:0.2" />
-                                    </Storyboard>
-                                </BeginStoryboard>
-                            </EventTrigger>
-                            <EventTrigger RoutedEvent="LostFocus">
-                                <BeginStoryboard>
-                                    <Storyboard>
-                                        <ColorAnimation
-                                            Storyboard.TargetName="PasswordInputIcon"
-                                            Storyboard.TargetProperty="(Foreground).(SolidColorBrush.Color)"
-                                            To="DarkGray"
-                                            Duration="0:0:0.2" />
-                                    </Storyboard>
-                                </BeginStoryboard>
-                            </EventTrigger>
-                        </PasswordBox.Triggers>
-                    </PasswordBox>
-                </Grid>
-
-                <Grid Grid.Row="5" Margin="0,0,0,5">
-                    <TextBlock
-                        HorizontalAlignment="Left"
-                        VerticalAlignment="Center"
-                        Foreground="#FF0000"
-                        Text="{Binding ErrorMessage}" />
-                    <Button
-                        Grid.Row="5"
-                        Padding="0"
-                        HorizontalAlignment="Right"
-                        VerticalAlignment="Center"
-                        VerticalContentAlignment="Center"
-                        Background="Transparent"
-                        BorderBrush="Transparent"
-                        Content="Quên mật khẩu?"
-                        FontFamily="{StaticResource RobotoBold}"
-                        FontSize="12"
-                        Foreground="#FF69B4" />
-                </Grid>
-
-                <!--  Submit Button  -->
+            <Grid Grid.Row="2" Grid.Column="1">
+                <!--  Developer Mode  -->
                 <Button
-                    Grid.Row="6"
+                    Width="150"
                     Height="50"
-                    HorizontalAlignment="Stretch"
-                    HorizontalContentAlignment="Center"
-                    VerticalContentAlignment="Center"
-                    Command="{Binding SubmitCommand}"
-                    FontFamily="{StaticResource RobotoMedium}"
-                    IsDefault="True"
-                    Style="{StaticResource MaterialDesignFlatMidBgButton}"
-                    ToolTip="Đăng nhập">
+                    Margin="0,10,0,0"
+                    HorizontalAlignment="Right"
+                    VerticalAlignment="Bottom"
+                    Panel.ZIndex="30"
+                    Command="{Binding DeveloperCommand}">
                     <Button.Template>
                         <ControlTemplate TargetType="Button">
                             <Border
-                                x:Name="ButtonBorder"
-                                BorderBrush="#592ED3"
-                                BorderThickness="1">
+                                BorderBrush="#1A1A1A"
+                                BorderThickness="1,1,0,0"
+                                Cursor="Hand">
                                 <Grid>
                                     <TextBlock
-                                        x:Name="ButtonTextBlock"
+                                        x:Name="ContentText"
                                         HorizontalAlignment="Center"
                                         VerticalAlignment="Center"
-                                        FontFamily="{StaticResource RobotoMedium}"
-                                        FontSize="13"
-                                        Foreground="#592ED3"
-                                        Text="ĐĂNG NHẬP" />
-                                    <ProgressBar
-                                        x:Name="ButtonSpinner"
-                                        Width="35"
-                                        Height="35"
-                                        Foreground="White"
-                                        IsIndeterminate="True"
-                                        Style="{StaticResource MaterialDesignCircularProgressBar}"
-                                        Value="0" />
-                                </Grid>
-                            </Border>
-
-                            <ControlTemplate.Triggers>
-                                <DataTrigger Binding="{Binding IsCanSubmit}" Value="True">
-                                    <Setter Property="Cursor" Value="Hand" />
-                                    <Setter Property="IsEnabled" Value="True" />
-                                    <Setter TargetName="ButtonBorder" Property="Background" Value="Transparent" />
-                                    <Setter TargetName="ButtonTextBlock" Property="Foreground" Value="#592ED3" />
-                                    <Setter TargetName="ButtonBorder" Property="BorderBrush" Value="#592ED3" />
-                                    <Setter TargetName="ButtonBorder" Property="BorderThickness" Value="1" />
-                                    <DataTrigger.EnterActions>
-                                        <BeginStoryboard>
-                                            <Storyboard>
-                                                <ColorAnimation
-                                                    Storyboard.TargetName="ButtonBorder"
-                                                    Storyboard.TargetProperty="(Border.Background).(SolidColorBrush.Color)"
-                                                    From="Transparent"
-                                                    To="#592ED3"
-                                                    Duration="0:0:0.5" />
-                                                <ColorAnimation
-                                                    Storyboard.TargetName="ButtonTextBlock"
-                                                    Storyboard.TargetProperty="(TextBlock.Foreground).(SolidColorBrush.Color)"
-                                                    From="#592ED3"
-                                                    To="White"
-                                                    Duration="0:0:0.5" />
-                                            </Storyboard>
-                                        </BeginStoryboard>
-                                    </DataTrigger.EnterActions>
-
-                                </DataTrigger>
-
-                                <DataTrigger Binding="{Binding IsCanSubmit}" Value="False">
-                                    <Setter Property="Cursor" Value="Hand" />
-                                    <Setter Property="IsEnabled" Value="True" />
-                                    <Setter TargetName="ButtonBorder" Property="Background" Value="Transparent" />
-                                    <Setter TargetName="ButtonTextBlock" Property="Foreground" Value="#592ED3" />
-                                    <Setter TargetName="ButtonBorder" Property="BorderBrush" Value="#592ED3" />
-                                    <Setter TargetName="ButtonBorder" Property="BorderThickness" Value="1" />
-                                    <DataTrigger.EnterActions>
-                                        <BeginStoryboard>
-                                            <Storyboard>
-                                                <ColorAnimation
-                                                    Storyboard.TargetName="ButtonBorder"
-                                                    Storyboard.TargetProperty="(Border.Background).(SolidColorBrush.Color)"
-                                                    From="#592ED3"
-                                                    To="Transparent"
-                                                    Duration="0:0:0.5" />
-                                                <ColorAnimation
-                                                    Storyboard.TargetName="ButtonTextBlock"
-                                                    Storyboard.TargetProperty="(TextBlock.Foreground).(SolidColorBrush.Color)"
-                                                    From="White"
-                                                    To="#592ED3"
-                                                    Duration="0:0:0.5" />
-                                            </Storyboard>
-                                        </BeginStoryboard>
-                                    </DataTrigger.EnterActions>
-                                </DataTrigger>
-
-
-
-
-                                <DataTrigger Binding="{Binding IsSubmitting}" Value="true">
-                                    <Setter TargetName="ButtonTextBlock" Property="Visibility" Value="Hidden" />
-                                    <Setter TargetName="ButtonSpinner" Property="Visibility" Value="Visible" />
-                                </DataTrigger>
-                                <DataTrigger Binding="{Binding IsSubmitting}" Value="false">
-                                    <Setter TargetName="ButtonTextBlock" Property="Visibility" Value="Visible" />
-                                    <Setter TargetName="ButtonSpinner" Property="Visibility" Value="Hidden" />
-                                </DataTrigger>
-                            </ControlTemplate.Triggers>
-                        </ControlTemplate>
-                    </Button.Template>
-                </Button>
-                <!--  Submit Button  -->
-
-                <!--  Separate  -->
-                <StackPanel
-                    Grid.Row="7"
-                    Margin="20"
-                    HorizontalAlignment="Center"
-                    VerticalAlignment="Center"
-                    Orientation="Horizontal">
-                    <Line
-                        VerticalAlignment="Center"
-                        Stroke="#333333"
-                        StrokeThickness="0.5"
-                        X1="0"
-                        X2="160"
-                        Y1="0"
-                        Y2="0" />
-                    <TextBlock
-                        Margin="10,0,10,0"
-                        FontSize="14"
-                        Foreground="#333333"
-                        Text="OR" />
-                    <Line
-                        VerticalAlignment="Center"
-                        Stroke="#333333"
-                        StrokeThickness="0.5"
-                        X1="0"
-                        X2="160"
-                        Y1="0"
-                        Y2="0" />
-                </StackPanel>
-                <!--  Separate  -->
-
-                <!--  Developer Mode Button  -->
-                <Button
-                    Grid.Row="8"
-                    Height="50"
-                    HorizontalAlignment="Stretch"
-                    HorizontalContentAlignment="Center"
-                    VerticalContentAlignment="Center"
-                    Background="White"
-                    Command="{Binding DeveloperCommand}"
-                    FontFamily="{StaticResource RobotoMedium}"
-                    IsDefault="True"
-                    Style="{StaticResource MaterialDesignFlatMidBgButton}"
-                    ToolTip="Developer Mode">
-                    <Button.Template>
-                        <ControlTemplate TargetType="Button">
-                            <Border x:Name="ButtonBorder" Background="#592ED3">
-                                <Grid>
-                                    <TextBlock
-                                        x:Name="ButtonTextBlock"
-                                        HorizontalAlignment="Center"
-                                        VerticalAlignment="Center"
-                                        FontFamily="{StaticResource RobotoMedium}"
-                                        FontSize="13"
-                                        Foreground="White"
+                                        FontFamily="{StaticResource PoppinsSemiBold}"
+                                        FontSize="12"
                                         Text="DEVELOPER MODE" />
                                     <ProgressBar
                                         x:Name="ButtonSpinner"
-                                        Width="35"
-                                        Height="35"
-                                        Foreground="White"
+                                        Width="30"
+                                        Height="30"
+                                        Background="Transparent"
+                                        Foreground="#1A1A1A"
                                         IsIndeterminate="True"
                                         Style="{StaticResource MaterialDesignCircularProgressBar}"
                                         Value="0" />
                                 </Grid>
                             </Border>
-
                             <ControlTemplate.Triggers>
-
-                                <DataTrigger Binding="{Binding IsDeveloperModeSubmit}" Value="true">
-                                    <Setter TargetName="ButtonTextBlock" Property="Visibility" Value="Hidden" />
+                                <DataTrigger Binding="{Binding IsDeveloperModeSubmit}" Value="True">
+                                    <Setter TargetName="ContentText" Property="Visibility" Value="Collapsed" />
                                     <Setter TargetName="ButtonSpinner" Property="Visibility" Value="Visible" />
                                 </DataTrigger>
-                                <DataTrigger Binding="{Binding IsDeveloperModeSubmit}" Value="false">
-                                    <Setter TargetName="ButtonTextBlock" Property="Visibility" Value="Visible" />
-                                    <Setter TargetName="ButtonSpinner" Property="Visibility" Value="Hidden" />
+                                <DataTrigger Binding="{Binding IsDeveloperModeSubmit}" Value="False">
+                                    <Setter TargetName="ContentText" Property="Visibility" Value="Visible" />
+                                    <Setter TargetName="ButtonSpinner" Property="Visibility" Value="Collapsed" />
                                 </DataTrigger>
                             </ControlTemplate.Triggers>
                         </ControlTemplate>
                     </Button.Template>
                 </Button>
-                <!--  Developer Mode Button  -->
-            </Grid>
-            <!--  Form  -->
-
-
-            <!--  Copyright  -->
-            <Grid Grid.Row="2" Margin="50,0,50,50">
-                <TextBlock
+                <Image
+                    Width="550"
+                    HorizontalAlignment="Center"
+                    VerticalAlignment="Bottom"
+                    Panel.ZIndex="20"
+                    Source="/Assets/Img/5.png">
+                    <Image.RenderTransform>
+                        <TranslateTransform X="-480" Y="20" />
+                    </Image.RenderTransform>
+                </Image>
+                <Image
+                    Width="500"
                     HorizontalAlignment="Left"
-                    FontFamily="{StaticResource RobotoMedium}"
-                    Foreground="Gray"
-                    Text="BTL NHÓM 1" />
-                <TextBlock
-                    Margin="0,0,0,1"
+                    VerticalAlignment="Bottom"
+                    Source="/Assets/Img/3.png">
+                    <Image.RenderTransform>
+                        <TranslateTransform X="-750" Y="-10" />
+                    </Image.RenderTransform>
+                </Image>
+
+                <Image
+                    Width="500"
+                    HorizontalAlignment="Left"
+                    VerticalAlignment="Top"
+                    Source="/Assets/Img/6.png">
+                    <Image.RenderTransform>
+                        <TranslateTransform X="-500" />
+                    </Image.RenderTransform>
+                </Image>
+                <Image
+                    Height="400"
+                    IsHitTestVisible="False"
+                    Source="/Assets/Img/8.png">
+                    <Image.RenderTransform>
+                        <TranslateTransform Y="160" />
+                    </Image.RenderTransform>
+                </Image>
+                <Image
+                    Width="650"
                     HorizontalAlignment="Right"
-                    VerticalAlignment="Center"
-                    Foreground="Gray"
-                    Text="tranhongquan.dev@gmail.com" />
+                    VerticalAlignment="Top"
+                    Source="/Assets/Img/7.png">
+                    <Image.RenderTransform>
+                        <TranslateTransform Y="50" />
+                    </Image.RenderTransform>
+                </Image>
+
             </Grid>
-            <!--  Copyright  -->
+
+
+            <StackPanel
+                Grid.Row="1"
+                Grid.Column="0"
+                Width="555"
+                Margin="65,0,0,190"
+                HorizontalAlignment="Left"
+                VerticalAlignment="Center"
+                Orientation="Vertical">
+
+                <StackPanel Orientation="Horizontal">
+                    <materialDesign:PackIcon
+                        Width="40"
+                        Height="40"
+                        Margin="-3,7,0,0"
+                        Kind="AlphaEBoxOutline" />
+                    <TextBlock
+                        FontFamily="{StaticResource PoppinsSemiBold}"
+                        FontSize="36"
+                        Text="EngLab" />
+                </StackPanel>
+
+                <TextBlock
+                    Margin="0,15,0,0"
+                    FontFamily="{StaticResource PoppinsLight}"
+                    FontSize="16"
+                    Text="Welcome back!!!" />
+
+                <TextBlock
+                    Margin="0,10,0,0"
+                    FontFamily="{StaticResource PoppinsSemiBold}"
+                    FontSize="56"
+                    Text="Log In" />
+
+                <StackPanel Margin="0,20,0,0" Orientation="Vertical">
+                    <Label
+                        Content="Email"
+                        FontFamily="{StaticResource PoppinsRegular}"
+                        FontSize="16" />
+                    <Border
+                        Background="#EEE6E2"
+                        BorderThickness="0.5"
+                        CornerRadius="4">
+                        <TextBox
+                            Height="46"
+                            Padding="15,0,15,0"
+                            materialDesign:HintAssist.Background="Transparent"
+                            materialDesign:HintAssist.FontFamily="{StaticResource PoppinsRegular}"
+                            materialDesign:HintAssist.Foreground="Gray"
+                            materialDesign:HintAssist.Hint="example@gmail.com"
+                            materialDesign:TextFieldAssist.HasClearButton="True"
+                            materialDesign:TextFieldAssist.UnderlineBrush="Transparent"
+                            BorderBrush="Transparent"
+                            FontFamily="{StaticResource PoppinsRegular}"
+                            FontSize="14"
+                            Text="{Binding Email, UpdateSourceTrigger=PropertyChanged}" />
+                        <Border.Style>
+                            <Style TargetType="Border">
+                                <Setter Property="BorderBrush" Value="Transparent" />
+                                <Style.Triggers>
+                                    <DataTrigger Binding="{Binding EmailError, Converter={StaticResource MsgToErrorConverter}}" Value="False">
+                                        <Setter Property="BorderBrush" Value="#FF0000" />
+                                    </DataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </Border.Style>
+                    </Border>
+                    <TextBlock
+                        Margin="5,2,0,0"
+                        FontSize="12"
+                        Foreground="#FF0000"
+                        Text="{Binding EmailError, UpdateSourceTrigger=PropertyChanged}">
+                        <TextBlock.Style>
+                            <Style TargetType="TextBlock">
+                                <Style.Triggers>
+                                    <DataTrigger Binding="{Binding EmailError, Converter={StaticResource MsgToErrorConverter}}" Value="True">
+                                        <Setter Property="Visibility" Value="Collapsed" />
+                                    </DataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </TextBlock.Style>
+                    </TextBlock>
+                </StackPanel>
+
+
+
+                <StackPanel Margin="0,20,0,0" Orientation="Vertical">
+                    <Grid>
+                        <Label
+                            HorizontalAlignment="Left"
+                            Content="Mật khẩu"
+                            FontFamily="{StaticResource PoppinsRegular}"
+                            FontSize="16" />
+                        <Button
+                            Margin="0,0,0,2"
+                            Padding="0"
+                            HorizontalAlignment="Right"
+                            VerticalContentAlignment="Bottom"
+                            Background="Transparent"
+                            BorderThickness="0">
+                            <TextBlock
+                                FontFamily="{StaticResource PoppinsMedium}"
+                                FontSize="12"
+                                Text="Quên mật khẩu?" />
+                        </Button>
+                    </Grid>
+                    <Border
+                        Background="#EEE6E2"
+                        BorderThickness="0.5"
+                        CornerRadius="4">
+                        <PasswordBox
+                            x:Name="PasswordInput"
+                            Height="46"
+                            Padding="15,0,15,0"
+                            materialDesign:HintAssist.FontFamily="{StaticResource PoppinsRegular}"
+                            materialDesign:HintAssist.Foreground="Gray"
+                            materialDesign:HintAssist.Hint="•••••••••"
+                            materialDesign:HintAssist.IsFloating="False"
+                            materialDesign:TextFieldAssist.UnderlineBrush="Transparent"
+                            BorderBrush="Transparent"
+                            FontFamily="{StaticResource PoppinsRegular}"
+                            FontSize="14"
+                            PasswordChar="•"
+                            Style="{StaticResource MaterialDesignFilledRevealPasswordBox}">
+                            <i:Interaction.Triggers>
+                                <i:EventTrigger EventName="PasswordChanged">
+                                    <i:InvokeCommandAction Command="{Binding PasswordChangedCommand}" CommandParameter="{Binding ElementName=PasswordInput}" />
+                                </i:EventTrigger>
+                            </i:Interaction.Triggers>
+                        </PasswordBox>
+                        <Border.Style>
+                            <Style TargetType="Border">
+                                <Setter Property="BorderBrush" Value="Transparent" />
+                                <Style.Triggers>
+                                    <DataTrigger Binding="{Binding PasswordError, Converter={StaticResource MsgToErrorConverter}}" Value="False">
+                                        <Setter Property="BorderBrush" Value="#FF0000" />
+                                    </DataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </Border.Style>
+                    </Border>
+
+                    <TextBlock
+                        Margin="5,2,0,0"
+                        FontSize="12"
+                        Foreground="#FF0000"
+                        Text="{Binding PasswordError, UpdateSourceTrigger=PropertyChanged}">
+                        <TextBlock.Style>
+                            <Style TargetType="TextBlock">
+                                <Style.Triggers>
+                                    <DataTrigger Binding="{Binding PasswordError, Converter={StaticResource MsgToErrorConverter}}" Value="True">
+                                        <Setter Property="Visibility" Value="Collapsed" />
+                                    </DataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </TextBlock.Style>
+                    </TextBlock>
+
+                </StackPanel>
+
+                <TextBlock
+                    Margin="0,10,0,20"
+                    HorizontalAlignment="Left"
+                    VerticalAlignment="Top"
+                    FontSize="12"
+                    Foreground="#FF0000"
+                    Text="{Binding ErrorMessage, UpdateSourceTrigger=PropertyChanged}" />
+
+                <Button
+                    Width="300"
+                    Height="50"
+                    Margin="0,0,0,10"
+                    Command="{Binding SubmitCommand}">
+                    <Button.Template>
+                        <ControlTemplate TargetType="Button">
+                            <Border
+                                x:Name="ButtonSubmitBorder"
+                                Background="#DBDBDB"
+                                CornerRadius="23"
+                                Cursor="Hand"
+                                IsEnabled="False">
+                                <Grid>
+                                    <TextBlock
+                                        x:Name="ContentText"
+                                        HorizontalAlignment="Center"
+                                        VerticalAlignment="Center"
+                                        FontFamily="{StaticResource PoppinsSemiBold}"
+                                        Text="ĐĂNG NHẬP" />
+                                    <ProgressBar
+                                        x:Name="ButtonSpinner"
+                                        Width="30"
+                                        Height="30"
+                                        Background="Transparent"
+                                        Foreground="#1A1A1A"
+                                        IsIndeterminate="True"
+                                        Style="{StaticResource MaterialDesignCircularProgressBar}"
+                                        Value="0" />
+                                </Grid>
+                            </Border>
+                            <ControlTemplate.Triggers>
+                                <DataTrigger Binding="{Binding IsSubmitting}" Value="True">
+                                    <Setter TargetName="ContentText" Property="Visibility" Value="Collapsed" />
+                                    <Setter TargetName="ButtonSpinner" Property="Visibility" Value="Visible" />
+                                </DataTrigger>
+                                <DataTrigger Binding="{Binding IsSubmitting}" Value="False">
+                                    <Setter TargetName="ContentText" Property="Visibility" Value="Visible" />
+                                    <Setter TargetName="ButtonSpinner" Property="Visibility" Value="Collapsed" />
+                                </DataTrigger>
+                                <DataTrigger Binding="{Binding IsCanSubmit}" Value="True">
+                                    <Setter TargetName="ButtonSubmitBorder" Property="Background" Value="#EEE6E2" />
+                                    <Setter Property="IsEnabled" Value="True" />
+                                    <DataTrigger.EnterActions>
+                                        <BeginStoryboard>
+                                            <Storyboard>
+                                                <ColorAnimation
+                                                    Storyboard.TargetName="ButtonSubmitBorder"
+                                                    Storyboard.TargetProperty="(Border.Background).(SolidColorBrush.Color)"
+                                                    From="#DBDBDB"
+                                                    To="#EEE6E2"
+                                                    Duration="0:0:0.3" />
+                                            </Storyboard>
+                                        </BeginStoryboard>
+                                    </DataTrigger.EnterActions>
+                                    <DataTrigger.ExitActions>
+                                        <BeginStoryboard>
+                                            <Storyboard>
+                                                <ColorAnimation
+                                                    Storyboard.TargetName="ButtonSubmitBorder"
+                                                    Storyboard.TargetProperty="(Border.Background).(SolidColorBrush.Color)"
+                                                    From="#EEE6E2"
+                                                    To="#DBDBDB"
+                                                    Duration="0:0:0.3" />
+                                            </Storyboard>
+                                        </BeginStoryboard>
+                                    </DataTrigger.ExitActions>
+                                </DataTrigger>
+
+
+
+                            </ControlTemplate.Triggers>
+                        </ControlTemplate>
+                    </Button.Template>
+                </Button>
+
+
+
+
+
+            </StackPanel>
+
+
+
         </Grid>
+
+
+
+
+
     </Grid>
 </UserControl>

@@ -39,6 +39,7 @@
     <PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="8.0.0" />
     <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="8.0.0" />
     <PackageReference Include="Microsoft.Xaml.Behaviors.Wpf" Version="1.1.122" />
+    <PackageReference Include="WPF-UI" Version="4.0.0-rc.2" />
     <PackageReference Include="WpfAnimatedGif" Version="2.0.2" />
   </ItemGroup>
 
@@ -47,13 +48,31 @@
   </ItemGroup>
 
   <ItemGroup>
+    <None Remove="Assets\Fonts\Poppins-Black.ttf" />
+    <None Remove="Assets\Fonts\Poppins-Bold.ttf" />
+    <None Remove="Assets\Fonts\Poppins-ExtraBold.ttf" />
+    <None Remove="Assets\Fonts\Poppins-ExtraLight.ttf" />
+    <None Remove="Assets\Fonts\Poppins-Light.ttf" />
+    <None Remove="Assets\Fonts\Poppins-Medium.ttf" />
+    <None Remove="Assets\Fonts\Poppins-Regular.ttf" />
+    <None Remove="Assets\Fonts\Poppins-SemiBold.ttf" />
+    <None Remove="Assets\Fonts\Poppins-Thin.ttf" />
     <None Remove="Assets\Fonts\Roboto-Black.ttf" />
     <None Remove="Assets\Fonts\Roboto-Bold.ttf" />
     <None Remove="Assets\Fonts\Roboto-Light.ttf" />
     <None Remove="Assets\Fonts\Roboto-Medium.ttf" />
     <None Remove="Assets\Fonts\Roboto-Regular.ttf" />
     <None Remove="Assets\Fonts\Roboto-Thin.ttf" />
+    <None Remove="Assets\Img\1.png" />
+    <None Remove="Assets\Img\2.png" />
+    <None Remove="Assets\Img\3.png" />
+    <None Remove="Assets\Img\4.png" />
+    <None Remove="Assets\Img\5.png" />
+    <None Remove="Assets\Img\6.png" />
+    <None Remove="Assets\Img\7.png" />
     <None Remove="Assets\Img\7315611.jpg" />
+    <None Remove="Assets\Img\8.png" />
+    <None Remove="Assets\Img\Background.jpg" />
     <None Remove="Assets\Img\cover-avt.png" />
     <None Remove="Assets\Img\Engmaster.png" />
     <None Remove="Assets\Img\logo.png" />
@@ -74,38 +93,63 @@
 	</ItemGroup>
 
 	<ItemGroup>
-		
-		<Content Include="Assets\Fonts\Roboto-Bold.ttf">
-		  <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-		</Content>
-		<Content Include="Assets\Fonts\Roboto-Light.ttf">
-		  <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-		</Content>
-		<Content Include="Assets\Fonts\Roboto-Medium.ttf">
-		  <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-		</Content>
-		<Content Include="Assets\Fonts\Roboto-Regular.ttf">
-		  <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-		</Content>
-		<Content Include="Assets\Fonts\Roboto-Thin.ttf">
-		  <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-		</Content>
-		<Content Include="Assets\Img\7315611.jpg">
+		<Content Include="Assets\Fonts\Poppins-Black.ttf">
 		  <CopyToOutputDirectory>Always</CopyToOutputDirectory>
 		</Content>
-		<Content Include="Assets\Img\cover-avt.png">
+		<Content Include="Assets\Fonts\Poppins-Bold.ttf">
 		  <CopyToOutputDirectory>Always</CopyToOutputDirectory>
 		</Content>
-		<Content Include="Assets\Img\Engmaster.png">
+		<Content Include="Assets\Fonts\Poppins-ExtraBold.ttf">
+		  <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+		</Content>
+		<Content Include="Assets\Fonts\Poppins-ExtraLight.ttf">
+		  <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+		</Content>
+		<Content Include="Assets\Fonts\Poppins-Light.ttf">
+		  <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+		</Content>
+		<Content Include="Assets\Fonts\Poppins-Medium.ttf">
+		  <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+		</Content>
+		<Content Include="Assets\Fonts\Poppins-Regular.ttf">
+		  <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+		</Content>
+		<Content Include="Assets\Fonts\Poppins-SemiBold.ttf">
+		  <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+		</Content>
+		<Content Include="Assets\Fonts\Poppins-Thin.ttf">
+		  <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+		</Content>
+		<Content Include="Assets\Img\1.png">
+		  <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+		</Content>
+		<Content Include="Assets\Img\2.png">
+		  <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+		</Content>
+		<Content Include="Assets\Img\3.png">
+		  <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+		</Content>
+		<Content Include="Assets\Img\4.png">
+		  <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+		</Content>
+		<Content Include="Assets\Img\5.png">
+		  <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+		</Content>
+		<Content Include="Assets\Img\6.png">
+		  <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+		</Content>
+		<Content Include="Assets\Img\7.png">
+		  <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+		</Content>
+		<Content Include="Assets\Img\8.png">
+		  <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+		</Content>
+		<Content Include="Assets\Img\Background.jpg">
 		  <CopyToOutputDirectory>Always</CopyToOutputDirectory>
 		</Content>
 		
 		<Content Include="Assets\Img\non-avt.jpg">
 		  <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-		</Content>
-		
-		<Content Include="Assets\Img\wallpaper_2.jpg">
-		  <CopyToOutputDirectory>Always</CopyToOutputDirectory>
 		</Content>
 	</ItemGroup>
 

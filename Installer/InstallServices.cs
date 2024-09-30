@@ -14,6 +14,15 @@ using EngMasterWPF.Views;
 using EngMasterWPF.ViewModel;
 using AutoMapper;
 using EngMasterWPF.Helper;
+using EngMasterWPF.Utilities;
+using EngMasterWPF.Views.HomeView;
+using EngMasterWPF.Views.StudentView;
+using EngMasterWPF.Model.Entities;
+using EngMasterWPF.Views.TeacherView;
+using EngMasterWPF.Views.GradeView;
+using EngMasterWPF.Views.CourseView;
+using EngMasterWPF.Views.NotificationView;
+using EngMasterWPF.Views.AccountView;
 
 namespace EngMasterWPF.Installer
 {
@@ -60,11 +69,37 @@ namespace EngMasterWPF.Installer
                 serviceCollection.AddScoped(typeof(IBaseRepository<>), typeof(BaseRepository<>));
                 serviceCollection.AddScoped<IAuthRepository, AuthRepository>();
                 serviceCollection.AddScoped<IStudentRepository, StudentRepository>();
-
-
-                
-
                 serviceCollection.AddSingleton<MainWindow>();
+
+
+                serviceCollection.AddSingleton<IPageService, PageService>();
+
+                serviceCollection.AddSingleton<HomeViewModel>();
+                serviceCollection.AddSingleton<MainWindowViewModel>();
+
+
+                //HomeView
+                serviceCollection.AddSingleton<HomeView>();
+
+                //StudentView
+                serviceCollection.AddSingleton<StudentView>();
+
+                //TeacherView
+                serviceCollection.AddSingleton<TeacherView>();
+
+                //GradeView
+                serviceCollection.AddSingleton<GradeView>();
+
+                //CourseView
+                serviceCollection.AddSingleton<CourseView>();
+
+                //NotificationView
+                serviceCollection.AddSingleton<NotificationView>();
+
+                //AccountView
+                serviceCollection.AddSingleton<AccountView>();
+
+
 
 
 

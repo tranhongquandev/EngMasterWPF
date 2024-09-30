@@ -11,23 +11,20 @@
     Name="controlBar"
     d:DesignHeight="450"
     d:DesignWidth="800"
+    Cursor="Hand"
     mc:Ignorable="d">
     <UserControl.DataContext>
         <vm:ControlBarViewModel />
     </UserControl.DataContext>
 
-
-
+    <i:Interaction.Triggers>
+        <i:EventTrigger EventName="MouseLeftButtonDown">
+            <i:InvokeCommandAction Command="{Binding DragMoveCommand}" CommandParameter="{Binding ElementName=controlBar}" />
+        </i:EventTrigger>
+    </i:Interaction.Triggers>
     <Grid>
-        <Grid
-            HorizontalAlignment="Stretch"
-            Background="White"
-            Cursor="Hand">
-            <i:Interaction.Triggers>
-                <i:EventTrigger EventName="MouseLeftButtonDown">
-                    <i:InvokeCommandAction Command="{Binding DragMoveCommand}" CommandParameter="{Binding ElementName=controlBar}" />
-                </i:EventTrigger>
-            </i:Interaction.Triggers>
+        <Grid Cursor="Hand">
+
             <Grid.RowDefinitions>
                 <RowDefinition Height="30" />
             </Grid.RowDefinitions>
@@ -48,11 +45,11 @@
                         <Setter Property="BorderBrush" Value="Transparent" />
                         <Setter Property="Width" Value="40" />
                         <Setter Property="Height" Value="30" />
-                        <Setter Property="Foreground" Value="#592ED3" />
+                        <Setter Property="Foreground" Value="{StaticResource MaterialDesign.Brush.Primary.Foreground}" />
                         <Style.Triggers>
                             <Trigger Property="IsMouseOver" Value="True">
-                                <Setter Property="Background" Value="#592ED3" />
-                                <Setter Property="Foreground" Value="#FFF6E0" />
+                                <Setter Property="Background" Value="{StaticResource MaterialDesign.Brush.Primary.Foreground}" />
+                                <Setter Property="Foreground" Value="{StaticResource MaterialDesign.Brush.Primary.Dark.Foreground}" />
 
                                 <Trigger.EnterActions>
                                     <BeginStoryboard>
@@ -60,7 +57,7 @@
                                             <ColorAnimation
                                                 Storyboard.TargetProperty="(Button.Background).(SolidColorBrush.Color)"
                                                 From="Transparent"
-                                                To="#592ED3"
+                                                To="{StaticResource Primary900}"
                                                 Duration="0:0:0.1" />
                                         </Storyboard>
                                     </BeginStoryboard>
@@ -71,6 +68,7 @@
 
                     </Style>
                 </StackPanel.Resources>
+
                 <Button Command="{Binding MinimizeCommand}" CommandParameter="{Binding ElementName=controlBar}">
                     <materialDesign:PackIcon Kind="Minus" />
                 </Button>
@@ -82,6 +80,5 @@
                 </Button>
             </StackPanel>
         </Grid>
-
     </Grid>
 </UserControl>

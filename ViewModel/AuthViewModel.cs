@@ -1,6 +1,7 @@
 ﻿using EngMasterWPF.Repository;
 using EngMasterWPF.Utilities;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.IdentityModel.Tokens;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics.Eventing.Reader;
@@ -24,7 +25,36 @@ namespace EngMasterWPF.ViewModel
             get => _email;
             set
             {
+                var regex = @"^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$";
+
                 _email = value;
+
+                ErrorMessage = string.Empty;
+
+                if (string.IsNullOrEmpty(value))
+                {
+                    EmailError = "Email không được để trống!";
+                }
+                else if (!System.Text.RegularExpressions.Regex.IsMatch(value, regex))
+                {
+                    EmailError = "Email không hợp lệ!";
+                }
+                else
+                {
+                    EmailError = string.Empty;
+                    _email = value;
+                }
+                OnPropertyChanged();
+            }
+        }
+
+        private string? _emailError = string.Empty;
+        public string? EmailError
+        {
+            get => _emailError;
+            set
+            {
+                _emailError = value;
                 OnPropertyChanged();
             }
         }
@@ -32,10 +62,41 @@ namespace EngMasterWPF.ViewModel
         private string? _password;
         public string? Password
         {
+
+            
             get => _password;
             set
             {
+                var regex = @"^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,50}$";
+
                 _password = value;
+
+                ErrorMessage = string.Empty;
+
+                if (string.IsNullOrEmpty(value))
+                {
+                    PasswordError = "Mật khẩu không được để trống!";
+                }
+                else if (!System.Text.RegularExpressions.Regex.IsMatch(value, regex))
+                {
+                    PasswordError = "Mật khẩu phải từ 8 - 50 ký tự, chứa ít nhất 1 kí tự viết hoa, thường và 1 kí tự đặc biệt @$!%*?&";
+                }
+                else
+                {
+                    PasswordError = string.Empty;
+                    _password = value;
+                }
+                OnPropertyChanged();
+            }
+        }
+
+        private string? _passwordError = string.Empty;
+        public string? PasswordError
+        {
+            get => _passwordError;
+            set
+            {
+                _passwordError = value;
                 OnPropertyChanged();
             }
         }
@@ -104,7 +165,9 @@ namespace EngMasterWPF.ViewModel
 
         private bool CanSubmit()
         {
-            if( !string.IsNullOrEmpty(Email) && !string.IsNullOrEmpty(Password))
+            bool isEmailValid = !string.IsNullOrEmpty(Email) && string.IsNullOrEmpty(EmailError);
+            bool isPasswordValid = !string.IsNullOrEmpty(Password) && string.IsNullOrEmpty(PasswordError);
+            if (isEmailValid && isPasswordValid)
             {
                 IsCanSubmit = true;
                 return true;
@@ -125,30 +188,30 @@ namespace EngMasterWPF.ViewModel
 
             IsSubmitting = true;
 
-            var service = Installer.InstallServices.Instance.serviceProvider;
-
-            IAuthRepository authRepository = service.GetRequiredService<IAuthRepository>();
-
-
             try
             {
+
+                var service = Installer.InstallServices.Instance.serviceProvider;
+
+                IAuthRepository authRepository = service.GetRequiredService<IAuthRepository>();
+
                 var userInDb = await authRepository.Find(x => x.Email == Email);
 
-                if (userInDb.Count() > 0)
+                if (userInDb.Any())
                 {
                     var passwordInDb = userInDb.Select(x => x.PasswordHash);
 
                     if (BCrypt.Net.BCrypt.EnhancedVerify(Password, passwordInDb.First()))
                     {
 
-                        await Task.Delay(2000);
+                        await Task.Delay(1000);
                         MainWindowViewModel mainWindowViewModel = MainWindowViewModel.Instance;
                         mainWindowViewModel.CurrentView = new MainViewModel();
                         return;
                     }
                     else
                     {
-                        await Task.Delay(2000);
+                        await Task.Delay(1000);
                         IsSubmitting = false;
                         ErrorMessage = "Mật khẩu không chính xác. Vui lòng thử lại!";
                         return;
@@ -158,7 +221,7 @@ namespace EngMasterWPF.ViewModel
                 }
                 else
                 {
-                    await Task.Delay(2000);
+                    await Task.Delay(1000);
                     ErrorMessage = "Tài khoản không tồn tại trên hệ thống.";
                     IsSubmitting = false;
                     return;
@@ -179,7 +242,7 @@ namespace EngMasterWPF.ViewModel
         {
             IsDeveloperModeSubmit = true;
             MainWindowViewModel mainWindowViewModel = MainWindowViewModel.Instance;
-            await Task.Delay(2000);
+            await Task.Delay(1000);
             mainWindowViewModel.CurrentView = new MainViewModel();
             return;
         }
