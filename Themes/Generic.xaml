@@ -50,7 +50,7 @@
                                 Margin="35,0,0,0"
                                 VerticalAlignment="Center"
                                 FontFamily="{StaticResource FZ-PoppinsMedium}"
-                                FontSize="14"
+                                FontSize="13"
                                 Foreground="{TemplateBinding Foreground}"
                                 Text="{Binding Title, RelativeSource={RelativeSource TemplatedParent}}" />
                             <Border
