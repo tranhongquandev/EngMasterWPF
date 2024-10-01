@@ -18,7 +18,7 @@ namespace EngMasterWPF.Views.NotificationView
     /// <summary>
     /// Interaction logic for NotificationView.xaml
     /// </summary>
-    public partial class NotificationView : Page
+    public partial class NotificationView : UserControl
     {
         public NotificationView()
         {

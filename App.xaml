@@ -16,14 +16,22 @@
                 <ResourceDictionary Source="/Utilities/DataTemplate.xaml" />
                 <ResourceDictionary Source="pack://application:,,,/MaterialDesignColors;component/Themes/Recommended/Primary/MaterialDesignColor.Grey.xaml" />
                 <ResourceDictionary Source="pack://application:,,,/MaterialDesignColors;component/Themes/Recommended/Secondary/MaterialDesignColor.Indigo.xaml" />
-
-
-
-
-
-
+                <ResourceDictionary Source="/Themes/Generic.xaml" />
+                <ResourceDictionary Source="/SharedUI/PageTemplate.xaml" />
 
             </ResourceDictionary.MergedDictionaries>
+
+            <FontFamily x:Key="FZ-PoppinsSemiBold">/Assets/Fonts/FZ-Poppins-SemiBold.ttf#Fz Poppins</FontFamily>
+            <FontFamily x:Key="FZ-PoppinsThin">/Assets/Fonts/FZ-Poppins-Thin.ttf#Fz Poppins</FontFamily>
+            <FontFamily x:Key="FZ-PoppinsBlack">/Assets/Fonts/FZ-Poppins-Black.ttf#Fz Poppins</FontFamily>
+            <FontFamily x:Key="FZ-PoppinsBold">/Assets/Fonts/FZ-Poppins-Bold.ttf#Fz Poppins</FontFamily>
+            <FontFamily x:Key="FZ-PoppinsExtraBold">/Assets/Fonts/FZ-Poppins-ExtraBold.ttf#Fz Poppins</FontFamily>
+            <FontFamily x:Key="FZ-PoppinsExtraLight">/Assets/Fonts/FZ-Poppins-ExtraLight.ttf#Fz Poppins</FontFamily>
+            <FontFamily x:Key="FZ-PoppinsLight">/Assets/Fonts/FZ-Poppins-Light.ttf#Fz Poppins</FontFamily>
+            <FontFamily x:Key="FZ-PoppinsMedium">/Assets/Fonts/FZ-Poppins-Medium.ttf#Fz Poppins</FontFamily>
+            <FontFamily x:Key="FZ-PoppinsRegular">/Assets/Fonts/FZ-Poppins-Regular.ttf#Fz Poppins</FontFamily>
+
+
             <FontFamily x:Key="PoppinsLight">/Assets/Fonts/Poppins-Light.ttf#Poppins</FontFamily>
             <FontFamily x:Key="PoppinsExtraLight">/Assets/Fonts/Poppins-ExtraLight.ttf#Poppins</FontFamily>
             <FontFamily x:Key="PoppinsThin">/Assets/Fonts/Poppins-Thin.ttf#Poppins</FontFamily>
@@ -33,6 +41,11 @@
             <FontFamily x:Key="PoppinsBold">/Assets/Fonts/Poppins-Bold.ttf#Poppins</FontFamily>
             <FontFamily x:Key="PoppinsExtraBold">/Assets/Fonts/Poppins-ExtraBold.ttf#Poppins</FontFamily>
             <FontFamily x:Key="PoppinsBlack">/Assets/Fonts/Poppins-Black.ttf#Poppins</FontFamily>
+
+
+
+
+
         </ResourceDictionary>
 
 

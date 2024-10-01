@@ -29,13 +29,7 @@ namespace EngMasterWPF.Views
         {
             InitializeComponent();
 
-            RootNavigationView.SetServiceProvider((IServiceProvider)Installer.InstallServices.Instance.serviceProvider);
-            var pageService = Installer.InstallServices.Instance.serviceProvider.GetRequiredService<IPageService>();
-            RootNavigationView.SetPageProviderService((Wpf.Ui.Abstractions.INavigationViewPageProvider)pageService);
-
-            // set default navigation page
-            Loaded += (_, _) => RootNavigationView.Navigate(typeof(HomeView.HomeView));
-
+           
         }
     }
 }

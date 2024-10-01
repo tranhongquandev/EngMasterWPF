@@ -10,7 +10,7 @@
     Width="1440"
     Height="810"
     Background="Transparent"
-    FontFamily="{StaticResource PoppinsRegular}"
+    FontFamily="{StaticResource FZ-PoppinsRegular}"
     ResizeMode="NoResize"
     WindowStartupLocation="CenterScreen"
     WindowStyle="None"

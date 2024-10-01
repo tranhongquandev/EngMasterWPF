@@ -63,43 +63,16 @@ namespace EngMasterWPF.ViewModel
         public string? Password
         {
 
-            
             get => _password;
             set
             {
-                var regex = @"^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,50}$";
 
                 _password = value;
-
-                ErrorMessage = string.Empty;
-
-                if (string.IsNullOrEmpty(value))
-                {
-                    PasswordError = "Mật khẩu không được để trống!";
-                }
-                else if (!System.Text.RegularExpressions.Regex.IsMatch(value, regex))
-                {
-                    PasswordError = "Mật khẩu phải từ 8 - 50 ký tự, chứa ít nhất 1 kí tự viết hoa, thường và 1 kí tự đặc biệt @$!%*?&";
-                }
-                else
-                {
-                    PasswordError = string.Empty;
-                    _password = value;
-                }
                 OnPropertyChanged();
             }
         }
 
-        private string? _passwordError = string.Empty;
-        public string? PasswordError
-        {
-            get => _passwordError;
-            set
-            {
-                _passwordError = value;
-                OnPropertyChanged();
-            }
-        }
+   
 
         private string? _errorMessage;
         public string? ErrorMessage
@@ -166,7 +139,7 @@ namespace EngMasterWPF.ViewModel
         private bool CanSubmit()
         {
             bool isEmailValid = !string.IsNullOrEmpty(Email) && string.IsNullOrEmpty(EmailError);
-            bool isPasswordValid = !string.IsNullOrEmpty(Password) && string.IsNullOrEmpty(PasswordError);
+            bool isPasswordValid = !string.IsNullOrEmpty(Password);
             if (isEmailValid && isPasswordValid)
             {
                 IsCanSubmit = true;

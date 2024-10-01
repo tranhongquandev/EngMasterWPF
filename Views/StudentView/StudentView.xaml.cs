@@ -18,7 +18,7 @@ namespace EngMasterWPF.Views.StudentView
     /// <summary>
     /// Interaction logic for StudentView.xaml
     /// </summary>
-    public partial class StudentView : Page
+    public partial class StudentView : UserControl
     {
         public StudentView()
         {

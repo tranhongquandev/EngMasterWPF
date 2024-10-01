@@ -18,7 +18,7 @@ namespace EngMasterWPF.Views.GradeView
     /// <summary>
     /// Interaction logic for GradeView.xaml
     /// </summary>
-    public partial class GradeView : Page
+    public partial class GradeView : UserControl
     {
         public GradeView()
         {

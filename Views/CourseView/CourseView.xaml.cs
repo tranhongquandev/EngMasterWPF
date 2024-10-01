@@ -18,7 +18,7 @@ namespace EngMasterWPF.Views.CourseView
     /// <summary>
     /// Interaction logic for CourseView.xaml
     /// </summary>
-    public partial class CourseView : Page
+    public partial class CourseView : UserControl
     {
         public CourseView()
         {

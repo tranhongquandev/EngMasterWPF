@@ -18,7 +18,7 @@ namespace EngMasterWPF.Views.AccountView
     /// <summary>
     /// Interaction logic for AccountView.xaml
     /// </summary>
-    public partial class AccountView : Page
+    public partial class AccountView : UserControl
     {
         public AccountView()
         {

@@ -48,6 +48,24 @@
   </ItemGroup>
 
   <ItemGroup>
+    <None Remove="Assets\Fonts\FZ Poppins-Black.ttf" />
+    <None Remove="Assets\Fonts\FZ Poppins-Bold.ttf" />
+    <None Remove="Assets\Fonts\FZ Poppins-ExtraBold.ttf" />
+    <None Remove="Assets\Fonts\FZ Poppins-ExtraLight.ttf" />
+    <None Remove="Assets\Fonts\FZ Poppins-Light.ttf" />
+    <None Remove="Assets\Fonts\FZ Poppins-Medium.ttf" />
+    <None Remove="Assets\Fonts\FZ Poppins-Regular.ttf" />
+    <None Remove="Assets\Fonts\FZ Poppins-SemiBold.ttf" />
+    <None Remove="Assets\Fonts\FZ Poppins-Thin.ttf" />
+    <None Remove="Assets\Fonts\FZ-Poppins-Black.ttf" />
+    <None Remove="Assets\Fonts\FZ-Poppins-Bold.ttf" />
+    <None Remove="Assets\Fonts\FZ-Poppins-ExtraBold.ttf" />
+    <None Remove="Assets\Fonts\FZ-Poppins-ExtraLight.ttf" />
+    <None Remove="Assets\Fonts\FZ-Poppins-Light.ttf" />
+    <None Remove="Assets\Fonts\FZ-Poppins-Medium.ttf" />
+    <None Remove="Assets\Fonts\FZ-Poppins-Regular.ttf" />
+    <None Remove="Assets\Fonts\FZ-Poppins-SemiBold.ttf" />
+    <None Remove="Assets\Fonts\FZ-Poppins-Thin.ttf" />
     <None Remove="Assets\Fonts\Poppins-Black.ttf" />
     <None Remove="Assets\Fonts\Poppins-Bold.ttf" />
     <None Remove="Assets\Fonts\Poppins-ExtraBold.ttf" />
@@ -75,8 +93,10 @@
     <None Remove="Assets\Img\Background.jpg" />
     <None Remove="Assets\Img\cover-avt.png" />
     <None Remove="Assets\Img\Engmaster.png" />
+    <None Remove="Assets\Img\Frame77.png" />
     <None Remove="Assets\Img\logo.png" />
     <None Remove="Assets\Img\non-avt.jpg" />
+    <None Remove="Assets\Img\simple-icons_task.png" />
     <None Remove="Assets\Img\w-3.jpg" />
     <None Remove="Assets\Img\wallpaper.jpg" />
     <None Remove="Assets\Img\wallpaper_2.jpg" />
@@ -147,10 +167,47 @@
 		<Content Include="Assets\Img\Background.jpg">
 		  <CopyToOutputDirectory>Always</CopyToOutputDirectory>
 		</Content>
+		<Content Include="Assets\Img\Frame77.png">
+		  <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+		</Content>
 		
 		<Content Include="Assets\Img\non-avt.jpg">
 		  <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
 		</Content>
+		
+		<Content Include="Assets\Img\simple-icons_task.png">
+		  <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+		</Content>
+	</ItemGroup>
+
+	<ItemGroup>
+	  <Resource Include="Assets\Fonts\FZ-Poppins-Black.ttf">
+	    <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+	  </Resource>
+	  <Resource Include="Assets\Fonts\FZ-Poppins-Bold.ttf">
+	    <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+	  </Resource>
+	  <Resource Include="Assets\Fonts\FZ-Poppins-ExtraBold.ttf">
+	    <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+	  </Resource>
+	  <Resource Include="Assets\Fonts\FZ-Poppins-ExtraLight.ttf">
+	    <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+	  </Resource>
+	  <Resource Include="Assets\Fonts\FZ-Poppins-Light.ttf">
+	    <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+	  </Resource>
+	  <Resource Include="Assets\Fonts\FZ-Poppins-Medium.ttf">
+	    <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+	  </Resource>
+	  <Resource Include="Assets\Fonts\FZ-Poppins-Regular.ttf">
+	    <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+	  </Resource>
+	  <Resource Include="Assets\Fonts\FZ-Poppins-SemiBold.ttf">
+	    <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+	  </Resource>
+	  <Resource Include="Assets\Fonts\FZ-Poppins-Thin.ttf">
+	    <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+	  </Resource>
 	</ItemGroup>
 
 </Project>
