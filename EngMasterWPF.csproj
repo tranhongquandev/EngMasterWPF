@@ -9,15 +9,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="Migrations\" />
-    <Folder Include="Styles\" />
-	  
-	  
-	  	 
-
-  </ItemGroup>
-
-  <ItemGroup>
     <PackageReference Include="AutoMapper" Version="13.0.1" />
     <PackageReference Include="BCrypt.Net-Next" Version="4.0.3" />
     <PackageReference Include="MaterialDesignColors" Version="3.1.0" />
@@ -39,6 +30,7 @@
     <PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="8.0.0" />
     <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="8.0.0" />
     <PackageReference Include="Microsoft.Xaml.Behaviors.Wpf" Version="1.1.122" />
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
     <PackageReference Include="WPF-UI" Version="4.0.0-rc.2" />
     <PackageReference Include="WpfAnimatedGif" Version="2.0.2" />
   </ItemGroup>
@@ -66,10 +58,20 @@
     <None Remove="Assets\Fonts\FZ-Poppins-Regular.ttf" />
     <None Remove="Assets\Fonts\FZ-Poppins-SemiBold.ttf" />
     <None Remove="Assets\Fonts\FZ-Poppins-Thin.ttf" />
+    <None Remove="Assets\Fonts\Montserrat-Black.ttf" />
+    <None Remove="Assets\Fonts\Montserrat-Bold.ttf" />
+    <None Remove="Assets\Fonts\Montserrat-ExtraBold.ttf" />
+    <None Remove="Assets\Fonts\Montserrat-ExtraLight.ttf" />
+    <None Remove="Assets\Fonts\Montserrat-Light.ttf" />
+    <None Remove="Assets\Fonts\Montserrat-Medium.ttf" />
+    <None Remove="Assets\Fonts\Montserrat-Regular.ttf" />
+    <None Remove="Assets\Fonts\Montserrat-SemiBold.ttf" />
+    <None Remove="Assets\Fonts\Montserrat-Thin.ttf" />
     <None Remove="Assets\Fonts\Poppins-Black.ttf" />
     <None Remove="Assets\Fonts\Poppins-Bold.ttf" />
     <None Remove="Assets\Fonts\Poppins-ExtraBold.ttf" />
     <None Remove="Assets\Fonts\Poppins-ExtraLight.ttf" />
+    <None Remove="Assets\Fonts\Poppins-Italic.ttf" />
     <None Remove="Assets\Fonts\Poppins-Light.ttf" />
     <None Remove="Assets\Fonts\Poppins-Medium.ttf" />
     <None Remove="Assets\Fonts\Poppins-Regular.ttf" />
@@ -96,6 +98,8 @@
     <None Remove="Assets\Img\Frame77.png" />
     <None Remove="Assets\Img\logo.png" />
     <None Remove="Assets\Img\non-avt.jpg" />
+    <None Remove="Assets\Img\not-found-data-2.jpg" />
+    <None Remove="Assets\Img\not-found-data.jpg" />
     <None Remove="Assets\Img\simple-icons_task.png" />
     <None Remove="Assets\Img\w-3.jpg" />
     <None Remove="Assets\Img\wallpaper.jpg" />
@@ -107,39 +111,6 @@
   </ItemGroup>
 
 	<ItemGroup>
-		<None Update="appsettings.json">
-			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-		</None>
-	</ItemGroup>
-
-	<ItemGroup>
-		<Content Include="Assets\Fonts\Poppins-Black.ttf">
-		  <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-		</Content>
-		<Content Include="Assets\Fonts\Poppins-Bold.ttf">
-		  <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-		</Content>
-		<Content Include="Assets\Fonts\Poppins-ExtraBold.ttf">
-		  <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-		</Content>
-		<Content Include="Assets\Fonts\Poppins-ExtraLight.ttf">
-		  <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-		</Content>
-		<Content Include="Assets\Fonts\Poppins-Light.ttf">
-		  <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-		</Content>
-		<Content Include="Assets\Fonts\Poppins-Medium.ttf">
-		  <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-		</Content>
-		<Content Include="Assets\Fonts\Poppins-Regular.ttf">
-		  <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-		</Content>
-		<Content Include="Assets\Fonts\Poppins-SemiBold.ttf">
-		  <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-		</Content>
-		<Content Include="Assets\Fonts\Poppins-Thin.ttf">
-		  <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-		</Content>
 		<Content Include="Assets\Img\1.png">
 		  <CopyToOutputDirectory>Always</CopyToOutputDirectory>
 		</Content>
@@ -208,6 +179,46 @@
 	  <Resource Include="Assets\Fonts\FZ-Poppins-Thin.ttf">
 	    <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
 	  </Resource>
+	  <Resource Include="Assets\Fonts\Montserrat-Black.ttf">
+	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+	  </Resource>
+	  <Resource Include="Assets\Fonts\Montserrat-Bold.ttf">
+	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+	  </Resource>
+	  <Resource Include="Assets\Fonts\Montserrat-ExtraBold.ttf">
+	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+	  </Resource>
+	  <Resource Include="Assets\Fonts\Montserrat-ExtraLight.ttf">
+	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+	  </Resource>
+	  <Resource Include="Assets\Fonts\Montserrat-Light.ttf">
+	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+	  </Resource>
+	  <Resource Include="Assets\Fonts\Montserrat-Medium.ttf">
+	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+	  </Resource>
+	  <Resource Include="Assets\Fonts\Montserrat-Regular.ttf">
+	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+	  </Resource>
+	  <Resource Include="Assets\Fonts\Montserrat-SemiBold.ttf">
+	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+	  </Resource>
+	  <Resource Include="Assets\Fonts\Montserrat-Thin.ttf">
+	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+	  </Resource>
+	  <Resource Include="Assets\Fonts\Poppins-Italic.ttf">
+	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+	  </Resource>
+	  <Resource Include="Assets\Img\not-found-data-2.jpg">
+	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+	  </Resource>
+	  <Resource Include="Assets\Img\not-found-data.jpg">
+	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+	  </Resource>
+	</ItemGroup>
+
+	<ItemGroup>
+	  <Folder Include="Styles\" />
 	</ItemGroup>
 
 </Project>

@@ -9,7 +9,6 @@
     xmlns:vm="clr-namespace:EngMasterWPF.ViewModel"
     Width="1440"
     Height="810"
-    Background="Transparent"
     FontFamily="{StaticResource FZ-PoppinsRegular}"
     ResizeMode="NoResize"
     WindowStartupLocation="CenterScreen"

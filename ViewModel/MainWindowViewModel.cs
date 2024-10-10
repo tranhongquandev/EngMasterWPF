@@ -8,6 +8,7 @@ using System.Windows.Controls;
 using System.Windows.Media.Animation;
 using System.Windows.Media;
 using System.Windows;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace EngMasterWPF.ViewModel
 {
@@ -34,9 +35,11 @@ namespace EngMasterWPF.ViewModel
             }
         }
 
+        IServiceProvider _service = Installer.InstallServices.Instance.serviceProvider;
 
-        private ViewModelBase? _currentView = new AuthViewModel();
-        //private ViewModelBase? _currentView = new MainViewModel();
+
+        private ViewModelBase? _currentView;
+        
 
         public ViewModelBase CurrentView
         {
@@ -49,9 +52,14 @@ namespace EngMasterWPF.ViewModel
             }
         }
 
+        public MainWindowViewModel()
+        {
+            CurrentView = _service.GetRequiredService<AuthViewModel>();
+        }
+
         #endregion
 
-        
+
 
 
 

@@ -9,15 +9,30 @@
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
 
+
+
+
                 <ui:ThemesDictionary Theme="Light" />
+
+
                 <ui:ControlsDictionary />
 
-                <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesign3.Defaults.xaml" />
+
+
+
+
+
                 <ResourceDictionary Source="/Utilities/DataTemplate.xaml" />
-                <ResourceDictionary Source="pack://application:,,,/MaterialDesignColors;component/Themes/Recommended/Primary/MaterialDesignColor.Grey.xaml" />
-                <ResourceDictionary Source="pack://application:,,,/MaterialDesignColors;component/Themes/Recommended/Secondary/MaterialDesignColor.Indigo.xaml" />
+
+
+
                 <ResourceDictionary Source="/Themes/Generic.xaml" />
                 <ResourceDictionary Source="/SharedUI/PageTemplate.xaml" />
+
+                <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesign3.Defaults.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/MaterialDesignColors;component/Themes/Recommended/Primary/MaterialDesignColor.Grey.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/MaterialDesignColors;component/Themes/Recommended/Secondary/MaterialDesignColor.Indigo.xaml" />
+
 
             </ResourceDictionary.MergedDictionaries>
 
@@ -32,15 +47,27 @@
             <FontFamily x:Key="FZ-PoppinsRegular">/Assets/Fonts/FZ-Poppins-Regular.ttf#Fz Poppins</FontFamily>
 
 
-            <FontFamily x:Key="PoppinsLight">/Assets/Fonts/Poppins-Light.ttf#Poppins</FontFamily>
-            <FontFamily x:Key="PoppinsExtraLight">/Assets/Fonts/Poppins-ExtraLight.ttf#Poppins</FontFamily>
-            <FontFamily x:Key="PoppinsThin">/Assets/Fonts/Poppins-Thin.ttf#Poppins</FontFamily>
-            <FontFamily x:Key="PoppinsRegular">/Assets/Fonts/Poppins-Regular.ttf#Poppins</FontFamily>
-            <FontFamily x:Key="PoppinsMedium">/Assets/Fonts/Poppins-Medium.ttf#Poppins</FontFamily>
+            <FontFamily x:Key="MontserratSemiBold">/Assets/Fonts/Montserrat-SemiBold.ttf#Montserrat</FontFamily>
+            <FontFamily x:Key="MontserratThin">/Assets/Fonts/Montserrat-Thin.ttf#Montserrat</FontFamily>
+            <FontFamily x:Key="MontserratBlack">/Assets/Fonts/Montserrat-Black.ttf#Montserrat</FontFamily>
+            <FontFamily x:Key="MontserratBold">/Assets/Fonts/Montserrat-Bold.ttf#Montserrat</FontFamily>
+            <FontFamily x:Key="MontserratExtraBold">/Assets/Fonts/Montserrat-ExtraBold.ttf#Montserrat</FontFamily>
+            <FontFamily x:Key="MontserratExtraLight">/Assets/Fonts/Montserrat-ExtraLight.ttf#Montserrat</FontFamily>
+            <FontFamily x:Key="MontserratLight">/Assets/Fonts/Montserrat-Light.ttf#Montserrat</FontFamily>
+            <FontFamily x:Key="MontserratMedium">/Assets/Fonts/Montserrat-Medium.ttf#Montserrat</FontFamily>
+            <FontFamily x:Key="MontserratRegular">/Assets/Fonts/Montserrat-Regular.ttf#Montserrat</FontFamily>
+
+
             <FontFamily x:Key="PoppinsSemiBold">/Assets/Fonts/Poppins-SemiBold.ttf#Poppins</FontFamily>
+            <FontFamily x:Key="PoppinsThin">/Assets/Fonts/Poppins-Thin.ttf#Poppins</FontFamily>
+            <FontFamily x:Key="PoppinsBlack">/Assets/Fonts/Poppins-Black.ttf#Poppins</FontFamily>
             <FontFamily x:Key="PoppinsBold">/Assets/Fonts/Poppins-Bold.ttf#Poppins</FontFamily>
             <FontFamily x:Key="PoppinsExtraBold">/Assets/Fonts/Poppins-ExtraBold.ttf#Poppins</FontFamily>
-            <FontFamily x:Key="PoppinsBlack">/Assets/Fonts/Poppins-Black.ttf#Poppins</FontFamily>
+            <FontFamily x:Key="PoppinsExtraLight">/Assets/Fonts/Poppins-ExtraLight.ttf#Poppins</FontFamily>
+            <FontFamily x:Key="PoppinsLight">/Assets/Fonts/Poppins-Light.ttf#Poppins</FontFamily>
+            <FontFamily x:Key="PoppinsMedium">/Assets/Fonts/Poppins-Medium.ttf#Poppins</FontFamily>
+            <FontFamily x:Key="PoppinsRegular">/Assets/Fonts/Poppins-Regular.ttf#Poppins</FontFamily>
+
 
 
 

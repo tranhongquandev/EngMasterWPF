@@ -4,8 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using EngMasterWPF.Model.Context;
-using EngMasterWPF.Repository;
+
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Migrations.Operations;
 using Microsoft.Extensions.Configuration;
@@ -17,12 +16,13 @@ using EngMasterWPF.Helper;
 using EngMasterWPF.Utilities;
 using EngMasterWPF.Views.HomeView;
 using EngMasterWPF.Views.StudentView;
-using EngMasterWPF.Model.Entities;
+
 using EngMasterWPF.Views.TeacherView;
 using EngMasterWPF.Views.GradeView;
 using EngMasterWPF.Views.CourseView;
 using EngMasterWPF.Views.NotificationView;
 using EngMasterWPF.Views.AccountView;
+using EngMasterWPF.Services;
 
 namespace EngMasterWPF.Installer
 {
@@ -53,10 +53,10 @@ namespace EngMasterWPF.Installer
             get
             {
                 // Add appsettings.json
-                var configuration = new ConfigurationBuilder()
-                    .SetBasePath(AppContext.BaseDirectory)
-                    .AddJsonFile("appsettings.json", optional: false, reloadOnChange: true)
-                    .Build();
+                //var configuration = new ConfigurationBuilder()
+                //    .SetBasePath(AppContext.BaseDirectory)
+                //    .AddJsonFile("appsettings.json", optional: false, reloadOnChange: true)
+                //    .Build();
 
                 // Add Denpendency Injection
 
@@ -64,40 +64,11 @@ namespace EngMasterWPF.Installer
 
                 #region InstallerServices
 
-                serviceCollection.AddDbContext<EngMasterDbContext>(options => options.UseSqlServer(configuration.GetConnectionString("DefaultConnection")));
-                serviceCollection.AddScoped<IUnitOfWork, UnitOfWork>();
-                serviceCollection.AddScoped(typeof(IBaseRepository<>), typeof(BaseRepository<>));
-                serviceCollection.AddScoped<IAuthRepository, AuthRepository>();
-                serviceCollection.AddScoped<IStudentRepository, StudentRepository>();
+                
                 serviceCollection.AddSingleton<MainWindow>();
 
-
-                serviceCollection.AddSingleton<IPageService, PageService>();
-
-                serviceCollection.AddSingleton<HomeViewModel>();
-                serviceCollection.AddSingleton<MainWindowViewModel>();
-
-
-                //HomeView
-                serviceCollection.AddSingleton<HomeView>();
-
-                //StudentView
-                serviceCollection.AddSingleton<StudentView>();
-
-                //TeacherView
-                serviceCollection.AddSingleton<TeacherView>();
-
-                //GradeView
-                serviceCollection.AddSingleton<GradeView>();
-
-                //CourseView
-                serviceCollection.AddSingleton<CourseView>();
-
-                //NotificationView
-                serviceCollection.AddSingleton<NotificationView>();
-
-                //AccountView
-                serviceCollection.AddSingleton<AccountView>();
+                //Add Services
+                serviceCollection.AddScoped<StudentService>();
 
 
 
@@ -109,11 +80,29 @@ namespace EngMasterWPF.Installer
                     cfg.AddProfile(new MapperProfile());
 
                 });
-                
+
                 var mapper = configurationMapper.CreateMapper();
                 serviceCollection.AddSingleton(mapper);
 
                 #endregion
+
+                serviceCollection.AddSingleton<HomeViewModel>();
+                serviceCollection.AddSingleton<StudentViewModel>();
+                serviceCollection.AddSingleton<TeacherViewModel>();
+                serviceCollection.AddSingleton<GradeViewModel>();
+                serviceCollection.AddSingleton<CourseViewModel>();
+                serviceCollection.AddSingleton<NotificationViewModel>();
+                serviceCollection.AddSingleton<MainWindowViewModel>();
+
+                serviceCollection.AddSingleton<MainViewModel>();
+                serviceCollection.AddScoped<AuthViewModel>();
+
+
+
+
+
+
+               
 
                 return serviceCollection.BuildServiceProvider();
             }

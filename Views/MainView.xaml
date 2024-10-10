@@ -24,14 +24,14 @@
         <Style x:Key="SideBarStyle" TargetType="Border">
             <Style.Triggers>
                 <DataTrigger Binding="{Binding IsExpand}" Value="true">
-                    <Setter Property="Width" Value="265" />
+                    <Setter Property="Width" Value="220" />
                     <DataTrigger.EnterActions>
                         <BeginStoryboard>
                             <Storyboard>
                                 <DoubleAnimation
                                     Storyboard.TargetProperty="Width"
                                     From="80"
-                                    To="265"
+                                    To="220"
                                     Duration="0:0:0.2" />
                             </Storyboard>
                         </BeginStoryboard>
@@ -41,7 +41,7 @@
                             <Storyboard>
                                 <DoubleAnimation
                                     Storyboard.TargetProperty="Width"
-                                    From="265"
+                                    From="220"
                                     To="80"
                                     Duration="0:0:0.2" />
                             </Storyboard>
@@ -53,7 +53,9 @@
         </Style>
     </UserControl.Resources>
 
-    <Grid x:Name="RootGrid" Background="#FBF7F4">
+    <Grid x:Name="RootGrid" Background="#F5F1EF">
+
+
 
         <!--  This is the fade in animation  -->
         <Grid.Resources>
@@ -103,11 +105,7 @@
 
 
         <!--  Side bar  -->
-        <Border
-            Width="265"
-            BorderBrush="#DFDBD8"
-            BorderThickness="0,0,1,0"
-            Style="{StaticResource SideBarStyle}">
+        <Border Background="#FFFFFF" Style="{StaticResource SideBarStyle}">
             <Grid>
                 <Grid.RowDefinitions>
                     <RowDefinition Height="Auto" />
@@ -123,6 +121,7 @@
                     BorderThickness="0,0,0,1">
                     <Grid>
                         <Image
+                            Width="100"
                             Height="30"
                             HorizontalAlignment="Left"
                             Source="/Assets/Img/Frame77.png">
@@ -183,7 +182,7 @@
                                     <Setter Property="Margin" Value="0,15,0,0" />
                                 </DataTrigger>
                                 <DataTrigger Binding="{Binding IsExpand}" Value="True">
-                                    <Setter Property="Margin" Value="0,15,20,0" />
+                                    <Setter Property="Margin" Value="10,15,10,0" />
                                 </DataTrigger>
                             </Style.Triggers>
                         </Style>
@@ -240,14 +239,14 @@
                 <!--  Button  -->
 
                 <!--  Decor  -->
-                <Viewbox
+                <!--<Viewbox
                     Grid.Row="2"
                     Width="400"
                     HorizontalAlignment="Center"
                     Panel.ZIndex="20"
                     IsHitTestVisible="False">
                     <Image Source="/Assets/Img/4.png" StretchDirection="Both" />
-                </Viewbox>
+                </Viewbox>-->
 
             </Grid>
         </Border>
@@ -260,7 +259,7 @@
                 <RowDefinition Height="Auto" />
                 <RowDefinition Height="*" />
             </Grid.RowDefinitions>
-            <uc:ControlBarUI Background="#FBF7F4" />
+            <uc:ControlBarUI Background="Transparent" />
 
             <Grid Grid.Row="2">
                 <Grid.RowDefinitions>
@@ -270,8 +269,11 @@
 
                 <!--  Breadcumb  -->
 
-                <Border Margin="20,10,20,0">
-                    <Grid Grid.Row="0" Background="#FFFFFF">
+                <Border
+                    Margin="20,10,20,0"
+                    Background="#FFFFFF"
+                    CornerRadius="10">
+                    <Grid Grid.Row="0">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="*" />
                             <ColumnDefinition Width="*" />
@@ -282,31 +284,32 @@
                             Orientation="Horizontal">
                             <ui:SymbolIcon FontSize="14" Symbol="Home24" />
                             <TextBlock
-                                Margin="5,0,0,0"
+                                Margin="5,3,0,0"
                                 VerticalAlignment="Center"
-                                FontSize="12"
+                                FontSize="11"
                                 Text="Trang chủ" />
                             <ui:SymbolIcon
                                 Margin="10,0,10,8"
                                 VerticalAlignment="Center"
-                                FontSize="16"
+                                FontSize="15"
                                 Symbol="BeakerAdd20" />
                             <ui:SymbolIcon
                                 Margin="0,0,5,0"
                                 VerticalAlignment="Center"
                                 Filled="True"
-                                FontSize="16"
+                                FontSize="15"
                                 Symbol="{Binding IconBreadcumb, UpdateSourceTrigger=PropertyChanged}" />
                             <TextBlock
+                                Margin="0,3,0,0"
                                 VerticalAlignment="Center"
-                                FontSize="12"
+                                FontSize="11"
                                 Text="{Binding Breadcumb, UpdateSourceTrigger=PropertyChanged}" />
                         </StackPanel>
 
 
                         <StackPanel
                             Grid.Column="1"
-                            Height="66"
+                            Height="55"
                             HorizontalAlignment="Right"
                             Orientation="Horizontal">
                             <Button
@@ -323,16 +326,16 @@
 
                             <Image
                                 x:Name="AvatarButton"
-                                Width="50"
-                                Height="50"
+                                Width="40"
+                                Height="40"
                                 Margin="30,0,30,0"
                                 Cursor="Hand"
                                 Source="/Assets/Img/non-avt.jpg">
                                 <Image.Clip>
                                     <EllipseGeometry
-                                        Center="25,25"
-                                        RadiusX="25"
-                                        RadiusY="25" />
+                                        Center="20,20"
+                                        RadiusX="20"
+                                        RadiusY="20" />
                                 </Image.Clip>
                                 <i:Interaction.Triggers>
                                     <i:EventTrigger EventName="MouseDown">
@@ -344,60 +347,156 @@
 
 
                             <Popup
-                                HorizontalOffset="-120"
+                                HorizontalOffset="-165"
                                 IsOpen="{Binding IsAvatarPopupOpen, UpdateSourceTrigger=PropertyChanged}"
                                 PlacementTarget="{Binding ElementName=AvatarButton}"
-                                StaysOpen="False">
-                                <Border Background="#FFFFFF">
-                                    <StackPanel Margin="10">
-                                        <StackPanel Orientation="Horizontal">
-                                            <Image
-                                                Width="30"
-                                                Height="30"
-                                                Source="/Assets/Img/non-avt.jpg">
-                                                <Image.Clip>
-                                                    <EllipseGeometry
-                                                        Center="15,15"
-                                                        RadiusX="15"
-                                                        RadiusY="15" />
-                                                </Image.Clip>
-                                            </Image>
-                                            <StackPanel
-                                                Margin="5,0,0,0"
-                                                VerticalAlignment="Center"
-                                                Orientation="Vertical">
-                                                <TextBlock
-                                                    FontFamily="{StaticResource FZ-PoppinsSemiBold}"
-                                                    FontSize="12"
-                                                    Text="Tran Hong Quan" />
-                                                <TextBlock
-                                                    Margin="0,1,0,0"
-                                                    FontSize="9"
-                                                    Text="Quản trị viên" />
-                                            </StackPanel>
-                                        </StackPanel>
+                                PopupAnimation="Fade"
+                                StaysOpen="True"
+                                VerticalOffset="5">
 
+                                <Border
+                                    Background="#FFFFFF"
+                                    BorderBrush="#EEE6E2"
+                                    BorderThickness="1">
+                                    <StackPanel>
+                                        <Border
+                                            Padding="20,20,20,20"
+                                            BorderBrush="LightGray"
+                                            BorderThickness="0,0,0,0.5">
+                                            <StackPanel Orientation="Horizontal">
+                                                <Image
+                                                    Width="40"
+                                                    Height="40"
+                                                    Source="/Assets/Img/non-avt.jpg">
+                                                    <Image.Clip>
+                                                        <EllipseGeometry
+                                                            Center="20,20"
+                                                            RadiusX="20"
+                                                            RadiusY="20" />
+                                                    </Image.Clip>
+                                                </Image>
+                                                <StackPanel
+                                                    Margin="10,0,0,0"
+                                                    VerticalAlignment="Center"
+                                                    Orientation="Vertical">
+                                                    <TextBlock
+                                                        FontFamily="{StaticResource FZ-PoppinsMedium}"
+                                                        FontSize="13"
+                                                        Text="Tran Hong Quan" />
+                                                    <TextBlock FontSize="10" Text="tranhongquan.dev@gmail.com" />
+                                                </StackPanel>
+                                            </StackPanel>
+                                        </Border>
                                         <StackPanel>
                                             <Button
-                                                HorizontalContentAlignment="Left"
-                                                Background="Transparent"
-                                                BorderBrush="Transparent"
-                                                BorderThickness="0">
-                                                <StackPanel HorizontalAlignment="Left" Orientation="Horizontal">
-                                                    <ui:SymbolIcon FontSize="20" Symbol="Person24" />
-                                                    <TextBlock FontSize="12" Text="Thông tin tài khoản" />
+                                                Height="45"
+                                                Margin="0,5,0,0"
+                                                Background="Transparent">
+                                                <Button.Template>
+                                                    <ControlTemplate TargetType="Button">
+                                                        <Border
+                                                            Background="{TemplateBinding Background}"
+                                                            BorderBrush="Transparent"
+                                                            BorderThickness="0">
+                                                            <ContentPresenter
+                                                                Margin="30,0,0,0"
+                                                                HorizontalAlignment="Left"
+                                                                VerticalAlignment="Center" />
+                                                        </Border>
+                                                        <ControlTemplate.Triggers>
+                                                            <Trigger Property="IsMouseOver" Value="True">
+                                                                <Setter Property="Background" Value="#EEE6E2" />
+                                                                <Trigger.EnterActions>
+                                                                    <BeginStoryboard>
+                                                                        <Storyboard>
+                                                                            <ColorAnimation
+                                                                                Storyboard.TargetProperty="(Border.Background).(SolidColorBrush.Color)"
+                                                                                From="Transparent"
+                                                                                To="#EEE6E2"
+                                                                                Duration="0:0:0.2" />
+                                                                        </Storyboard>
+                                                                    </BeginStoryboard>
+                                                                </Trigger.EnterActions>
+                                                                <Trigger.ExitActions>
+                                                                    <BeginStoryboard>
+                                                                        <Storyboard>
+                                                                            <ColorAnimation
+                                                                                Storyboard.TargetProperty="(Border.Background).(SolidColorBrush.Color)"
+                                                                                From="#EEE6E2"
+                                                                                To="Transparent"
+                                                                                Duration="0:0:0.2" />
+                                                                        </Storyboard>
+                                                                    </BeginStoryboard>
+                                                                </Trigger.ExitActions>
+                                                            </Trigger>
+                                                        </ControlTemplate.Triggers>
+                                                    </ControlTemplate>
+                                                </Button.Template>
+                                                <StackPanel Orientation="Horizontal">
+                                                    <ui:SymbolIcon FontSize="23" Symbol="VideoPerson24" />
+                                                    <TextBlock
+                                                        Margin="10,0,0,0"
+                                                        VerticalAlignment="Center"
+                                                        FontSize="12"
+                                                        Text="Thông tin tài khoản" />
                                                 </StackPanel>
                                             </Button>
                                             <Button
-                                                HorizontalContentAlignment="Left"
+                                                Height="45"
+                                                Margin="0,0,0,10"
                                                 Background="Transparent"
-                                                BorderBrush="Transparent"
-                                                BorderThickness="0">
-                                                <StackPanel HorizontalAlignment="Left" Orientation="Horizontal">
-                                                    <ui:SymbolIcon FontSize="20" Symbol="SignOut24" />
-                                                    <TextBlock FontSize="12" Text="Đăng xuất" />
+                                                Command="{Binding SignOutCommand}">
+                                                <Button.Template>
+                                                    <ControlTemplate TargetType="Button">
+                                                        <Border
+                                                            Background="{TemplateBinding Background}"
+                                                            BorderBrush="Transparent"
+                                                            BorderThickness="0">
+                                                            <ContentPresenter
+                                                                Margin="30,0,0,0"
+                                                                HorizontalAlignment="Left"
+                                                                VerticalAlignment="Center" />
+                                                        </Border>
+                                                        <ControlTemplate.Triggers>
+                                                            <Trigger Property="IsMouseOver" Value="True">
+                                                                <Setter Property="Background" Value="#EEE6E2" />
+                                                                <Trigger.EnterActions>
+                                                                    <BeginStoryboard>
+                                                                        <Storyboard>
+                                                                            <ColorAnimation
+                                                                                Storyboard.TargetProperty="(Border.Background).(SolidColorBrush.Color)"
+                                                                                From="Transparent"
+                                                                                To="#EEE6E2"
+                                                                                Duration="0:0:0.2" />
+                                                                        </Storyboard>
+                                                                    </BeginStoryboard>
+                                                                </Trigger.EnterActions>
+                                                                <Trigger.ExitActions>
+                                                                    <BeginStoryboard>
+                                                                        <Storyboard>
+                                                                            <ColorAnimation
+                                                                                Storyboard.TargetProperty="(Border.Background).(SolidColorBrush.Color)"
+                                                                                From="#EEE6E2"
+                                                                                To="Transparent"
+                                                                                Duration="0:0:0.2" />
+                                                                        </Storyboard>
+                                                                    </BeginStoryboard>
+                                                                </Trigger.ExitActions>
+                                                            </Trigger>
+                                                        </ControlTemplate.Triggers>
+                                                    </ControlTemplate>
+                                                </Button.Template>
+                                                <StackPanel Orientation="Horizontal">
+                                                    <ui:SymbolIcon FontSize="23" Symbol="ArrowExit20" />
+                                                    <TextBlock
+                                                        Margin="10,0,0,0"
+                                                        VerticalAlignment="Center"
+                                                        FontSize="12"
+                                                        Text="Đăng xuất" />
                                                 </StackPanel>
+
                                             </Button>
+
                                         </StackPanel>
                                     </StackPanel>
                                 </Border>
@@ -411,7 +510,9 @@
 
 
                 <!--  Content  -->
-                <ContentControl Grid.Row="1" Content="{Binding CurrentView}" />
+
+                <ContentControl Grid.Row="1" Content="{Binding CurrentView, UpdateSourceTrigger=PropertyChanged}" />
+
             </Grid>
 
         </Grid>

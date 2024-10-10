@@ -1,4 +1,4 @@
-﻿using EngMasterWPF.Repository;
+﻿
 using EngMasterWPF.Utilities;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.IdentityModel.Tokens;
@@ -161,51 +161,51 @@ namespace EngMasterWPF.ViewModel
 
             IsSubmitting = true;
 
-            try
-            {
+            //try
+            //{
 
-                var service = Installer.InstallServices.Instance.serviceProvider;
+            //    var service = Installer.InstallServices.Instance.serviceProvider;
 
-                IAuthRepository authRepository = service.GetRequiredService<IAuthRepository>();
+            //    IAuthRepository authRepository = service.GetRequiredService<IAuthRepository>();
 
-                var userInDb = await authRepository.Find(x => x.Email == Email);
+            //    var userInDb = await authRepository.Find(x => x.Email == Email);
 
-                if (userInDb.Any())
-                {
-                    var passwordInDb = userInDb.Select(x => x.PasswordHash);
+            //    if (userInDb.Any())
+            //    {
+            //        var passwordInDb = userInDb.Select(x => x.PasswordHash);
 
-                    if (BCrypt.Net.BCrypt.EnhancedVerify(Password, passwordInDb.First()))
-                    {
+            //        if (BCrypt.Net.BCrypt.EnhancedVerify(Password, passwordInDb.First()))
+            //        {
 
-                        await Task.Delay(1000);
-                        MainWindowViewModel mainWindowViewModel = MainWindowViewModel.Instance;
-                        mainWindowViewModel.CurrentView = new MainViewModel();
-                        return;
-                    }
-                    else
-                    {
-                        await Task.Delay(1000);
-                        IsSubmitting = false;
-                        ErrorMessage = "Mật khẩu không chính xác. Vui lòng thử lại!";
-                        return;
+            //            await Task.Delay(1000);
+            //            MainWindowViewModel mainWindowViewModel = MainWindowViewModel.Instance;
+            //            mainWindowViewModel.CurrentView = service.GetRequiredService<MainViewModel>();
+            //            return;
+            //        }
+            //        else
+            //        {
+            //            await Task.Delay(1000);
+            //            IsSubmitting = false;
+            //            ErrorMessage = "Mật khẩu không chính xác. Vui lòng thử lại!";
+            //            return;
 
-                    }
+            //        }
 
-                }
-                else
-                {
-                    await Task.Delay(1000);
-                    ErrorMessage = "Tài khoản không tồn tại trên hệ thống.";
-                    IsSubmitting = false;
-                    return;
-                }
+            //    }
+            //    else
+            //    {
+            //        await Task.Delay(1000);
+            //        ErrorMessage = "Tài khoản không tồn tại trên hệ thống.";
+            //        IsSubmitting = false;
+            //        return;
+            //    }
 
-            } catch (Exception )
-            {
-                ErrorMessage = "Không thể kết nối đến CDSL!";
-                IsSubmitting = false;
-                return;
-            }
+            //} catch (Exception )
+            //{
+            //    ErrorMessage = "Không thể kết nối đến CDSL!";
+            //    IsSubmitting = false;
+            //    return;
+            //}
 
            
             
@@ -213,10 +213,11 @@ namespace EngMasterWPF.ViewModel
 
         private async void DeveloperModeCommandExecute()
         {
+            var service = Installer.InstallServices.Instance.serviceProvider;
             IsDeveloperModeSubmit = true;
             MainWindowViewModel mainWindowViewModel = MainWindowViewModel.Instance;
             await Task.Delay(1000);
-            mainWindowViewModel.CurrentView = new MainViewModel();
+            mainWindowViewModel.CurrentView = service.GetRequiredService<MainViewModel>();
             return;
         }
 

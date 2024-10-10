@@ -231,6 +231,7 @@
                             BorderBrush="Transparent"
                             FontFamily="{StaticResource FZ-PoppinsRegular}"
                             FontSize="14"
+                            TabIndex="1"
                             Text="{Binding Email, UpdateSourceTrigger=PropertyChanged}" />
                         <Border.Style>
                             <Style TargetType="Border">
@@ -299,7 +300,8 @@
                             FontFamily="{StaticResource FZ-PoppinsRegular}"
                             FontSize="14"
                             PasswordChar="•"
-                            Style="{StaticResource MaterialDesignFilledRevealPasswordBox}">
+                            Style="{StaticResource MaterialDesignFilledRevealPasswordBox}"
+                            TabIndex="2">
                             <i:Interaction.Triggers>
                                 <i:EventTrigger EventName="PasswordChanged">
                                     <i:InvokeCommandAction Command="{Binding PasswordChangedCommand}" CommandParameter="{Binding ElementName=PasswordInput}" />
@@ -325,7 +327,8 @@
                     Width="300"
                     Height="50"
                     Margin="0,0,0,10"
-                    Command="{Binding SubmitCommand}">
+                    Command="{Binding SubmitCommand}"
+                    IsDefault="True">
                     <Button.Template>
                         <ControlTemplate TargetType="Button">
                             <Border
