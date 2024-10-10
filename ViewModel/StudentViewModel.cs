@@ -143,8 +143,10 @@ namespace EngMasterWPF.ViewModel
             Application.Current.Dispatcher.Invoke( async () =>
             {
                     
-                    await LoadData(Page, PageSize);
-                    await CountItems();
+                   var loadData = LoadData(Page, PageSize);
+                   var countItems = CountItems();
+
+                   await Task.WhenAll(loadData, countItems);
 
             });
 
