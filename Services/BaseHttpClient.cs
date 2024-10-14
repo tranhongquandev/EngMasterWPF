@@ -1,5 +1,6 @@
 ﻿using Newtonsoft.Json;
 using System;
+using System.CodeDom;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http;
@@ -23,9 +24,13 @@ namespace EngMasterWPF.Services
         protected async Task<T?> GetAsync<T>(string url)
         {
             var response = await _httpClient.GetAsync(url);
-            response.EnsureSuccessStatusCode();
-            var jsonResponse = await response.Content.ReadAsStringAsync();
-            return JsonConvert.DeserializeObject<T>(jsonResponse);
+            if(response.IsSuccessStatusCode)
+            {
+                var jsonResponse = await response.Content.ReadAsStringAsync();
+                return JsonConvert.DeserializeObject<T>(jsonResponse);
+            }
+            return default(T?);
+           
         }
 
         protected async Task<T?> PostAsync<T>(string url, object data)

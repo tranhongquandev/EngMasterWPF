@@ -14,16 +14,21 @@ namespace EngMasterWPF.Services
         public async Task<ObservableCollection<StudentDTO>?> GetStudentsByPageAsync(int page, int pageSize)
         {
             var urlRequest = _baseURL + "get-by-page" + $"?page={page}&pagesize={pageSize}";
-            return await GetAsync<ObservableCollection<StudentDTO>>(urlRequest);
-
+            var result = await GetAsync<ObservableCollection<StudentDTO>>(urlRequest);
+            return result ?? new ObservableCollection<StudentDTO>();
         }
 
         public async Task<int> CountAll()
         {
             var urlRequest = _baseURL + "count-all";
             return await GetAsync<int>(urlRequest);
-
         }
 
+        public async Task<ObservableCollection<StudentDTO>> GetByName(string name)
+        {
+            var urlRequest = _baseURL + "get-by-name" + $"?name={name}";
+            var result = await GetAsync<ObservableCollection<StudentDTO>>(urlRequest);
+            return result ?? new ObservableCollection<StudentDTO>();
+        }
     }
 }

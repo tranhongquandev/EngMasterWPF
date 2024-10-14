@@ -63,26 +63,6 @@
 
             <!--  This is the fade in animation  -->
 
-            <Canvas Panel.ZIndex="20">
-                <Image
-                    Width="1180"
-                    Height="705"
-                    Source="/Assets/Img/not-found-data-2.jpg"
-                    Stretch="UniformToFill" />
-
-                <Canvas.Resources>
-                    <Style TargetType="Canvas">
-                        <Style.Triggers>
-                            <DataTrigger Binding="{Binding IsDataFound}" Value="True">
-                                <Setter Property="Visibility" Value="Visible" />
-                            </DataTrigger>
-                            <DataTrigger Binding="{Binding IsDataFound}" Value="False">
-                                <Setter Property="Visibility" Value="Collapsed" />
-                            </DataTrigger>
-                        </Style.Triggers>
-                    </Style>
-                </Canvas.Resources>
-            </Canvas>
 
             <Grid>
 
@@ -242,7 +222,13 @@
                                     BorderBrush="Transparent"
                                     FontFamily="{StaticResource PoppinsRegular}"
                                     FontSize="14"
-                                    Text="{Binding SearchText, UpdateSourceTrigger=PropertyChanged}" />
+                                    Text="{Binding SearchText, UpdateSourceTrigger=PropertyChanged}">
+                                    <i:Interaction.Triggers>
+                                        <i:EventTrigger EventName="KeyUp">
+                                            <i:InvokeCommandAction Command="{Binding SearchTextCommand}" />
+                                        </i:EventTrigger>
+                                    </i:Interaction.Triggers>
+                                </TextBox>
                             </Border>
 
 
@@ -301,6 +287,34 @@
                                     </Style.Triggers>
                                 </Style>
                             </Grid.Style>
+                        </Grid>
+
+
+
+                        <Grid Panel.ZIndex="20" Background="White">
+                            <Image Source="/Assets/Img/not-found-data.jpg" Stretch="Uniform" />
+                            <TextBlock
+                                HorizontalAlignment="Center"
+                                VerticalAlignment="Center"
+                                FontSize="16"
+                                Text="Không tìm thấy dữ liệu!">
+                                <TextBlock.RenderTransform>
+                                    <TranslateTransform Y="150" />
+                                </TextBlock.RenderTransform>
+                            </TextBlock>
+
+                            <Grid.Resources>
+                                <Style TargetType="Grid">
+                                    <Style.Triggers>
+                                        <DataTrigger Binding="{Binding IsDataFound}" Value="True">
+                                            <Setter Property="Visibility" Value="Visible" />
+                                        </DataTrigger>
+                                        <DataTrigger Binding="{Binding IsDataFound}" Value="False">
+                                            <Setter Property="Visibility" Value="Collapsed" />
+                                        </DataTrigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </Grid.Resources>
                         </Grid>
                         <!--  Data table  -->
                         <DataGrid

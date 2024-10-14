@@ -4,6 +4,7 @@ using EngMasterWPF.DTOs;
 using EngMasterWPF.Services;
 using EngMasterWPF.Utilities;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.IdentityModel.Tokens;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -42,8 +43,8 @@ namespace EngMasterWPF.ViewModel
                 OnPropertyChanged();
             }
         }
-       
-        
+
+
 
         private bool _isLoading = false;
         public bool IsLoading
@@ -124,10 +125,12 @@ namespace EngMasterWPF.ViewModel
             }
         }
 
-        private readonly IServiceProvider _service ;
-       
+        private readonly IServiceProvider _service;
+
         private readonly IMapper _mapper;
-        
+
+        private CancellationTokenSource _cancellationTokenSource;
+
 
         #endregion
 
@@ -137,32 +140,30 @@ namespace EngMasterWPF.ViewModel
             PageSize = 10;
 
             _service = Installer.InstallServices.Instance.serviceProvider;
-            
+
             _mapper = _service.GetRequiredService<IMapper>();
 
-            Application.Current.Dispatcher.Invoke( async () =>
+            Application.Current.Dispatcher.Invoke(async () =>
             {
-                    
-                   var loadData = LoadData(Page, PageSize);
-                   var countItems = CountItems();
 
-                   await Task.WhenAll(loadData, countItems);
+                var loadData = LoadData(Page, PageSize);
+                var countItems = CountItems();
+
+                await Task.WhenAll(loadData, countItems);
 
             });
 
 
             ToggleComboBoxFilterCommand = new RelayCommand(_canExecute => true, _execute => { IsComboBoxOpen = !IsComboBoxOpen; });
-            ChangePageSizeCommand = new RelayCommand<ComboBoxItem>(_canExecute => true,  async _execute => await ChangePageSizeCommandHandler(_execute!) );
+            ChangePageSizeCommand = new RelayCommand<ComboBoxItem>(_canExecute => true, async _execute => await ChangePageSizeCommandHandler(_execute!));
 
-            FirstPageCommand  = new RelayCommand(_canExecute => true, async _execute => { Page = 1; await LoadData(Page, PageSize); });
-            PrevPageCommand = new RelayCommand(_canExecute => true, async _execute => { if(Page > 1) Page--; await LoadData(Page, PageSize); });
+            FirstPageCommand = new RelayCommand(_canExecute => true, async _execute => { Page = 1; await LoadData(Page, PageSize); });
+            PrevPageCommand = new RelayCommand(_canExecute => true, async _execute => { if (Page > 1) Page--; await LoadData(Page, PageSize); });
             NextPageCommand = new RelayCommand(_canExecute => true, async _execute => { if (Page < TotalPages) Page++; await LoadData(Page, PageSize); });
             LastPageCommand = new RelayCommand(_canExecute => true, async _execute => { Page = TotalPages; await LoadData(Page, PageSize); });
 
-
-
+            SearchTextCommand = new RelayCommand<string>(_canExecute => true, async _execute => await SearchStudentCommandHandler(SearchText));
         }
-
 
         #region Method Handler
 
@@ -170,19 +171,31 @@ namespace EngMasterWPF.ViewModel
         {
             IsLoading = true;
 
-            StudentService studentService = Installer.InstallServices.Instance.serviceProvider.GetRequiredService<StudentService>();
-            var studentInDb = await studentService.GetStudentsByPageAsync(page,pageSize);
+            try
+            {
+                StudentService studentService = Installer.InstallServices.Instance.serviceProvider.GetRequiredService<StudentService>();
+                var studentInDb = await studentService.GetStudentsByPageAsync(page, pageSize);
 
-            if (!studentInDb.Any())
+                if (!studentInDb.Any())
+                {
+                    IsLoading = false;
+                    IsDataFound = true;
+                    return;
+                }
+
+                Students = studentInDb;
+                await Task.Delay(500);
+                IsLoading = false;
+                IsDataFound = false;
+            }
+            catch
             {
                 IsLoading = false;
                 IsDataFound = true;
                 return;
             }
 
-            Students = studentInDb;
-            await Task.Delay(500);
-            IsLoading = false;
+
         }
 
         private async Task CountItems()
@@ -206,27 +219,66 @@ namespace EngMasterWPF.ViewModel
         public ICommand PrevPageCommand { get; private set; }
         public ICommand NextPageCommand { get; private set; }
         public ICommand LastPageCommand { get; private set; }
-       
+
 
         #endregion
 
         #region Command Handler
 
-        private async Task  ChangePageSizeCommandHandler(ComboBoxItem value)
+        private async Task ChangePageSizeCommandHandler(ComboBoxItem value)
         {
 
             if (value?.Content is string content && int.TryParse(content, out int newSize))
             {
                 PageSize = newSize;
                 TotalPages = (int)Math.Ceiling((double)TotalItems / PageSize);
-                await LoadData(Page, PageSize); 
+                await LoadData(Page, PageSize);
             }
 
         }
 
+        private async Task SearchStudentCommandHandler(string name)
+        {
+            IsLoading = true;
+            IsDataFound = false;
 
-        #endregion
+            _cancellationTokenSource?.Cancel();
+            _cancellationTokenSource = new CancellationTokenSource();
+            var token = _cancellationTokenSource.Token;
+
+            if(name.IsNullOrEmpty())
+            {
+                await LoadData(Page, PageSize);
+                IsDataFound = false;
+                return;
+            }
+
+            try
+            {
+                await Task.Delay(2000, token);
+
+                StudentService studentService = Installer.InstallServices.Instance.serviceProvider.GetRequiredService<StudentService>();
+                var studentInDb = await studentService.GetByName(name);
+                if (studentInDb.Any())
+                {
+                    Students = studentInDb;
+                    IsLoading = false;
+                }
+                else
+                {
+                    IsLoading = false;
+
+                    IsDataFound = true;
+                }
+            }
+            catch(TaskCanceledException)
+            {
+                return;
+            }
+
+            #endregion
 
 
+        }
     }
 }
