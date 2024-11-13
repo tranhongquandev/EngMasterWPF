@@ -327,7 +327,7 @@
                         CanUserResizeRows="False"
                         FontSize="14"
                         IsReadOnly="True"
-                        ItemsSource="{Binding Students, UpdateSourceTrigger=PropertyChanged}"
+                        ItemsSource="{Binding Courses, UpdateSourceTrigger=PropertyChanged}"
                         ScrollViewer.CanContentScroll="True"
                         ScrollViewer.VerticalScrollBarVisibility="Hidden">
                             <DataGrid.Resources>
@@ -386,9 +386,9 @@
                             <DataGrid.Columns>
                                 <DataGridTextColumn
                                 Width="Auto"
-                                Binding="{Binding StudentCode}"
+                                Binding="{Binding CourseCode}"
                                 ElementStyle="{StaticResource DataGridTextStyle}"
-                                Header="Mã HV">
+                                Header="Mã KH">
                                     <DataGridTextColumn.CellStyle>
                                         <Style TargetType="DataGridCell">
                                             <Setter Property="Cursor" Value="Hand" />
@@ -406,37 +406,37 @@
                                 </DataGridTextColumn>
                                 <DataGridTextColumn
                                 Width="*"
-                                Binding="{Binding FullName}"
+                                Binding="{Binding CourseName}"
                                 ElementStyle="{StaticResource DataGridTextStyle}"
-                                Header="Họ và tên" />
+                                Header="Tên khóa học" />
                                 <DataGridTextColumn
                                 Width="Auto"
-                                Binding="{Binding Gender}"
+                                Binding="{Binding Duration}"
                                 ElementStyle="{StaticResource DataGridTextStyle}"
-                                Header="Giới tính" />
+                                Header="Thời hạn" />
                                 <DataGridTextColumn
                                 Width="Auto"
-                                Binding="{Binding DateOfBirth, StringFormat='dd/MM/yyyy'}"
+                                Binding="{Binding Fee}"
                                 ElementStyle="{StaticResource DataGridTextStyle}"
-                                Header="Ngày sinh" />
+                                Header="Học phí" />
                                 <DataGridTextColumn
                                 Width="*"
-                                Binding="{Binding Email}"
+                                Binding="{Binding Discount}"
                                 ElementStyle="{StaticResource DataGridTextStyle}"
-                                Header="Email" />
+                                Header="Khuyến mãi" />
                                 <DataGridTextColumn
                                 Width="*"
-                                Binding="{Binding PhoneNumber}"
+                                Binding="{Binding LevelId}"
                                 ElementStyle="{StaticResource DataGridTextStyle}"
-                                Header="Số điện thoại" />
+                                Header="Level" />
                                 <DataGridTextColumn
                                 Width="*"
-                                Binding="{Binding EnrollmentDate, StringFormat='dd/MM/yyyy'}"
+                                Binding="{Binding TotalFee}"
                                 ElementStyle="{StaticResource DataGridTextStyle}"
-                                Header="Ngày đăng ký" />
+                                Header="Tổng phí" />
                                 <DataGridTextColumn
                                 Width="*"
-                                Binding="{Binding Status}"
+                                Binding="{Binding IsActive}"
                                 ElementStyle="{StaticResource DataGridTextStyle}"
                                 Header="Trạng thái" />
                                 <DataGridTemplateColumn Width="*" Header="Thao tác">
@@ -492,6 +492,7 @@
                 Margin="0,0,20,10"
                 HorizontalAlignment="Right"
                 Orientation="Horizontal">
+                    
                     <Border
                     Width="40"
                     Margin="5,0,5,0"

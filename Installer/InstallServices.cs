@@ -70,9 +70,9 @@ namespace EngMasterWPF.Installer
                 //Add Services
                 serviceCollection.AddScoped<StudentService>();
 
+                serviceCollection.AddScoped<TeacherService>();
 
-
-
+                serviceCollection.AddScoped<CourseService>();
 
                 //Add AutoMapper
                 var configurationMapper = new MapperConfiguration(cfg =>

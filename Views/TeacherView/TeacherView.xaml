@@ -58,17 +58,13 @@
 
             <!--  This is the fade in animation  -->
 
-
             <Grid>
-
-
-
                 <Grid.RowDefinitions>
                     <RowDefinition Height="Auto" />
                     <RowDefinition Height="*" />
                     <RowDefinition Height="Auto" />
                 </Grid.RowDefinitions>
-
+                
                 <Grid Grid.Row="0" Margin="20">
                     <Grid.Resources>
                         <Style TargetType="ComboBox">
@@ -193,10 +189,6 @@
 
                         </ComboBox>
 
-
-
-
-
                         <Grid Margin="0,0,0,0">
                             <ui:SymbolIcon
                             Margin="15,0,0,0"
@@ -224,8 +216,8 @@
                                         </i:EventTrigger>
                                     </i:Interaction.Triggers>
                                 </TextBox>
-                            </Border>
 
+                            </Border>
 
 
                         </Grid>
@@ -247,7 +239,7 @@
                             FontSize="12"
                             Text="Thêm giảng viên" />
                         </StackPanel>
-
+                            
                         <Button.Template>
                             <ControlTemplate TargetType="Button">
                                 <Border Background="#EEE6E2" CornerRadius="5">
@@ -257,7 +249,7 @@
                         </Button.Template>
                     </Button>
 
-
+                
 
                 </Grid>
 
@@ -322,7 +314,7 @@
                         CanUserResizeRows="False"
                         FontSize="14"
                         IsReadOnly="True"
-                        ItemsSource="{Binding Students, UpdateSourceTrigger=PropertyChanged}"
+                        ItemsSource="{Binding Teachers, UpdateSourceTrigger=PropertyChanged}"
                         ScrollViewer.CanContentScroll="True"
                         ScrollViewer.VerticalScrollBarVisibility="Hidden">
                             <DataGrid.Resources>
@@ -381,9 +373,9 @@
                             <DataGrid.Columns>
                                 <DataGridTextColumn
                                 Width="Auto"
-                                Binding="{Binding StudentCode}"
+                                Binding="{Binding TeacherCode}"
                                 ElementStyle="{StaticResource DataGridTextStyle}"
-                                Header="Mã HV">
+                                Header="Mã GV">
                                     <DataGridTextColumn.CellStyle>
                                         <Style TargetType="DataGridCell">
                                             <Setter Property="Cursor" Value="Hand" />
@@ -426,7 +418,7 @@
                                 Header="Số điện thoại" />
                                 <DataGridTextColumn
                                 Width="*"
-                                Binding="{Binding EnrollmentDate, StringFormat='dd/MM/yyyy'}"
+                                Binding="{Binding HireDate, StringFormat='dd/MM/yyyy'}"
                                 ElementStyle="{StaticResource DataGridTextStyle}"
                                 Header="Ngày đăng ký" />
                                 <DataGridTextColumn
@@ -487,6 +479,8 @@
                 Margin="0,0,20,10"
                 HorizontalAlignment="Right"
                 Orientation="Horizontal">
+                    <TextBlock Text="{Binding TotalItems}" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="20"/>
+                    <TextBlock Text="{Binding TotalPages}" HorizontalAlignment="Center" VerticalAlignment="Bottom" FontSize="20"/>
                     <Border
                     Width="40"
                     Margin="5,0,5,0"

@@ -10,7 +10,7 @@ namespace EngMasterWPF.Services
 {
     public class StudentService : BaseHttpClient
     {
-        private const string _baseURL = "http://localhost:5110/api/v1/student/";
+        private const string _baseURL = "https://englabapi.onrender.com/api/v1/student/";
         public async Task<ObservableCollection<StudentDTO>?> GetStudentsByPageAsync(int page, int pageSize)
         {
             var urlRequest = _baseURL + "get-by-page" + $"?page={page}&pagesize={pageSize}";
