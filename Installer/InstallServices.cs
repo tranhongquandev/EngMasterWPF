@@ -74,6 +74,8 @@ namespace EngMasterWPF.Installer
 
                 serviceCollection.AddScoped<CourseService>();
 
+                serviceCollection.AddScoped<GradeService>();
+
                 //Add AutoMapper
                 var configurationMapper = new MapperConfiguration(cfg =>
                 {

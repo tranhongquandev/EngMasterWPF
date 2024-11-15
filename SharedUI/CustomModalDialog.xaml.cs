@@ -1,5 +1,4 @@
-﻿using EngMasterWPF.SharedUI;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -14,26 +13,21 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace EngMasterWPF.Views.CourseView
+namespace EngMasterWPF.SharedUI
 {
     /// <summary>
-    /// Interaction logic for CourseView.xaml
+    /// Interaction logic for CustomModalDialog.xaml
     /// </summary>
-    public partial class CourseView : UserControl
+    public partial class CustomModalDialog : UserControl
     {
-        public CourseView()
+        public CustomModalDialog()
         {
             InitializeComponent();
         }
 
-        private void DataGrid_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        private void Rectangle_MouseDown(object sender, MouseButtonEventArgs e)
         {
-
-        }
-
-        private void Button_Click(object sender, RoutedEventArgs e)
-        {
-            RootGrid.Children.Add(new CustomModalDialog());
+            this.Visibility = Visibility.Collapsed;
         }
     }
 }

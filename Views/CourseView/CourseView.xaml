@@ -243,7 +243,7 @@
                     Height="40"
                     HorizontalAlignment="Right"
                     HorizontalContentAlignment="Center"
-                    VerticalContentAlignment="Center">
+                    VerticalContentAlignment="Center" Click="Button_Click">
                         <StackPanel Orientation="Horizontal">
                             <ui:SymbolIcon Symbol="PeopleAdd24" />
                             <TextBlock
@@ -329,7 +329,7 @@
                         IsReadOnly="True"
                         ItemsSource="{Binding Courses, UpdateSourceTrigger=PropertyChanged}"
                         ScrollViewer.CanContentScroll="True"
-                        ScrollViewer.VerticalScrollBarVisibility="Hidden">
+                        ScrollViewer.VerticalScrollBarVisibility="Hidden" SelectionChanged="DataGrid_SelectionChanged">
                             <DataGrid.Resources>
                                 <Style TargetType="DataGridColumnHeader">
                                     <Setter Property="FontSize" Value="14" />

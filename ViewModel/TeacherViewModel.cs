@@ -33,7 +33,6 @@ namespace EngMasterWPF.ViewModel
             }
         }
 
-
         private ObservableCollection<TeacherDTO> _teachers;
         public ObservableCollection<TeacherDTO> Teachers
         {
@@ -44,6 +43,8 @@ namespace EngMasterWPF.ViewModel
                 OnPropertyChanged();
             }
         }
+
+
 
         private bool _isLoading = false;
         public bool IsLoading
@@ -130,20 +131,6 @@ namespace EngMasterWPF.ViewModel
 
         private CancellationTokenSource _cancellationTokenSource;
 
-        #endregion
-
-        #region Command
-
-        public ICommand ToggleComboBoxFilterCommand { get; private set; }
-        public ICommand ChangePageSizeCommand { get; private set; }
-        public ICommand SearchTextCommand { get; private set; }
-
-
-        public ICommand FirstPageCommand { get; private set; }
-        public ICommand PrevPageCommand { get; private set; }
-        public ICommand NextPageCommand { get; private set; }
-        public ICommand LastPageCommand { get; private set; }
-
 
         #endregion
 
@@ -176,11 +163,10 @@ namespace EngMasterWPF.ViewModel
             LastPageCommand = new RelayCommand(_canExecute => true, async _execute => { Page = TotalPages; await LoadData(Page, PageSize); });
 
             SearchTextCommand = new RelayCommand<string>(_canExecute => true, async _execute => await SearchTeacherCommandHandler(SearchText));
-
-
         }
 
-        #region Function
+        #region Method Handler
+
         private async Task LoadData(int page, int pageSize)
         {
             IsLoading = true;
@@ -188,16 +174,16 @@ namespace EngMasterWPF.ViewModel
             try
             {
                 TeacherService teacherService = Installer.InstallServices.Instance.serviceProvider.GetRequiredService<TeacherService>();
-                var teacherInitDb = await teacherService.GetTeachersByPageAsync(page, pageSize);
+                var teacherInDb = await teacherService.GetTeachersByPageAsync(page, pageSize);
 
-                if (!teacherInitDb.Any())
+                if (!teacherInDb.Any())
                 {
                     IsLoading = false;
                     IsDataFound = true;
                     return;
                 }
 
-                Teachers = teacherInitDb;
+                Teachers = teacherInDb;
                 await Task.Delay(500);
                 IsLoading = false;
                 IsDataFound = false;
@@ -211,8 +197,6 @@ namespace EngMasterWPF.ViewModel
 
 
         }
-        #endregion
-
 
         private async Task CountItems()
         {
@@ -220,6 +204,26 @@ namespace EngMasterWPF.ViewModel
             TotalItems = await teacherService.CountAll();
             TotalPages = (int)Math.Ceiling((double)TotalItems / PageSize);
         }
+
+        #endregion
+
+
+        #region Command
+
+        public ICommand ToggleComboBoxFilterCommand { get; private set; }
+        public ICommand ChangePageSizeCommand { get; private set; }
+        public ICommand SearchTextCommand { get; private set; }
+
+
+        public ICommand FirstPageCommand { get; private set; }
+        public ICommand PrevPageCommand { get; private set; }
+        public ICommand NextPageCommand { get; private set; }
+        public ICommand LastPageCommand { get; private set; }
+
+
+        #endregion
+
+        #region Command Handler
 
         private async Task ChangePageSizeCommandHandler(ComboBoxItem value)
         {
@@ -254,10 +258,10 @@ namespace EngMasterWPF.ViewModel
                 await Task.Delay(2000, token);
 
                 TeacherService teacherService = Installer.InstallServices.Instance.serviceProvider.GetRequiredService<TeacherService>();
-                var teacherInitDb = await teacherService.GetByName(name);
-                if (teacherInitDb.Any())
+                var teacherInDb = await teacherService.GetByName(name);
+                if (teacherInDb.Any())
                 {
-                    Teachers = teacherInitDb;
+                    Teachers = teacherInDb;
                     IsLoading = false;
                 }
                 else
@@ -271,6 +275,8 @@ namespace EngMasterWPF.ViewModel
             {
                 return;
             }
+
+            #endregion
 
 
         }
