@@ -13,14 +13,14 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace EngMasterWPF.SharedUI
+namespace EngMasterWPF.Views.CourseView
 {
     /// <summary>
-    /// Interaction logic for CustomModalDialog.xaml
+    /// Interaction logic for ModalCourse.xaml
     /// </summary>
-    public partial class CustomModalDialog : UserControl
+    public partial class ModalCourse : UserControl
     {
-        public CustomModalDialog()
+        public ModalCourse()
         {
             InitializeComponent();
         }
@@ -29,5 +29,12 @@ namespace EngMasterWPF.SharedUI
         {
             this.Visibility = Visibility.Collapsed;
         }
+
+        private void AddCourseButton_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+
     }
 }

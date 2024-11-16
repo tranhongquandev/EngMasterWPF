@@ -145,6 +145,7 @@ namespace EngMasterWPF.ViewModel
         public ICommand LastPageCommand { get; private set; }
 
 
+
         #endregion
 
         public CourseViewModel()

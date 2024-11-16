@@ -37,9 +37,16 @@ namespace EngMasterWPF.Services
 
         public async Task<bool> AddTeacherAsync(TeacherDTO teacher)
         {
-            var result = await PostAsync<bool>(_baseURL, teacher);
-
-            return result;
+            try
+            {
+                var result = await PostAsync<bool>(_baseURL, teacher);
+                return result;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error while adding teacher: {ex.Message}");
+                return false;
+            }
         }
     }
 }

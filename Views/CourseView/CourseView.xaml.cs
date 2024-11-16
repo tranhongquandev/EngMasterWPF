@@ -33,7 +33,7 @@ namespace EngMasterWPF.Views.CourseView
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            RootGrid.Children.Add(new CustomModalDialog());
+            RootGrid.Children.Add(new ModalCourse());
         }
     }
 }
