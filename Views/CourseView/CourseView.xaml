@@ -9,6 +9,7 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:uc="clr-namespace:EngMasterWPF.SharedUI"
     xmlns:ui="http://schemas.lepo.co/wpfui/2022/xaml"
+    xmlns:courseView="clr-namespace:EngMasterWPF.Views.CourseView"
     xmlns:vm="clr-namespace:EngMasterWPF.ViewModel"
     d:DesignHeight="705"
     d:DesignWidth="1180"
@@ -20,14 +21,25 @@
         <vm:CourseViewModel />
     </UserControl.DataContext>
 
-    <UserControl.Resources />
-
+    <!--<UserControl.Resources>
+        <Style x:Key="ModalCourseStyle" TargetType="courseView:ModalCourse">
+            <Style.Triggers>
+                <DataTrigger Binding="{Binding IsOpen}" Value="False">
+                    <Setter Property="Visibility" Value="Hidden" />
+                </DataTrigger>
+                <DataTrigger Binding="{Binding IsOpen}" Value="True">
+                    <Setter Property="Visibility" Value="Visible" />
+                </DataTrigger>
+            </Style.Triggers>
+        </Style>
+    </UserControl.Resources>-->
 
     <Border
     Margin="20"
     Background="#FFFFFF"
     CornerRadius="10">
         <Grid x:Name="RootGrid">
+            
 
             <!--  This is the fade in animation  -->
             <Grid.Resources>
@@ -563,8 +575,37 @@
             </Grid>
 
 
+
+
+
+
+            <Grid Grid.Row="0" Width="Auto" Height="Auto"  Panel.ZIndex="1000">
+                <Grid.Style>
+                    <Style TargetType="Grid">
+                        <Style.Setters>
+                            <Setter Property="Visibility" Value="Visible"/>
+                        </Style.Setters>
+                        <Style.Triggers>
+                            <DataTrigger Binding="{Binding IsOpen}" Value="False">
+                                <Setter Property="Visibility" Value="Collapsed" />
+                            </DataTrigger>
+                        
+                            <DataTrigger Binding="{Binding IsOpen}" Value="True">
+                                <Setter Property="Visibility" Value="Visible" />
+                            </DataTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </Grid.Style>
+
+                <courseView:ModalCourse Grid.Row="0" Width="700" Height="500" Margin="20" Panel.ZIndex="1000" />
+                <Rectangle Fill="#CCC" Opacity="0.5" MouseDown="Rectangle_MouseDown"/>
+            </Grid>
+
+
+
         </Grid>
+        
     </Border>
 
-
+   
 </UserControl>

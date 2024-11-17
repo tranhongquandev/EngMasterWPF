@@ -35,5 +35,20 @@ namespace EngMasterWPF.Views.CourseView
         {
             RootGrid.Children.Add(new ModalCourse());
         }
+
+        private void Rectangle_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+
+        }
+
+        private void ModalCourse_Loaded(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void Button_SourceUpdated()
+        {
+
+        }
     }
 }

@@ -3,6 +3,7 @@ using EngMasterWPF.DTOs;
 
 using EngMasterWPF.Services;
 using EngMasterWPF.Utilities;
+using EngMasterWPF.Views.CourseView;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.IdentityModel.Tokens;
 using System;
@@ -124,6 +125,28 @@ namespace EngMasterWPF.ViewModel
             }
         }
 
+        private bool _isUpdate = false;
+        public bool IsUpdate
+        {
+            get => _isUpdate;
+            set
+            {
+                _isUpdate = value;
+                OnPropertyChanged();
+            }
+        }
+
+        private bool _isOpen = false;
+        public bool IsOpen
+        {
+            get => _isOpen;
+            set
+            {
+                _isOpen = value;
+                OnPropertyChanged();
+            }
+        }
+
         private readonly IServiceProvider _service;
 
         private readonly IMapper _mapper;
@@ -143,8 +166,7 @@ namespace EngMasterWPF.ViewModel
         public ICommand PrevPageCommand { get; private set; }
         public ICommand NextPageCommand { get; private set; }
         public ICommand LastPageCommand { get; private set; }
-
-
+        public ICommand OpenModalCommand { get; private set; }
 
         #endregion
 
@@ -220,6 +242,11 @@ namespace EngMasterWPF.ViewModel
             CourseService courseService = Installer.InstallServices.Instance.serviceProvider.GetRequiredService<CourseService>();
             TotalItems = await courseService.CountAll();
             TotalPages = (int)Math.Ceiling((double)TotalItems / PageSize);
+        }
+
+        private void OpenDialogModal()
+        {
+            IsOpen = true;
         }
 
         private async Task ChangePageSizeCommandHandler(ComboBoxItem value)

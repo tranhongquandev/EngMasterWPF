@@ -21,8 +21,8 @@ mc:Ignorable="d">
     </UserControl.DataContext>
 
     <UserControl.Resources />
-    
-    <Grid>
+
+    <Grid x:Name="CourseModal" >
         <Rectangle Fill="#CCC" Opacity="0.5" MouseDown="Rectangle_MouseDown"/>
 
         <Border CornerRadius="10" Background="White" Height="500" Width="700">
@@ -158,9 +158,11 @@ mc:Ignorable="d">
                     </StackPanel>
                 </Grid>
 
-                <Button Grid.Row="5" Content="Add Course" Margin="5" Width="100" HorizontalAlignment="Right" VerticalAlignment="Center" 
+                <Button Grid.Row="5" Content="Add Course" Margin="0,15,0,0" Width="130" HorizontalAlignment="Right" VerticalAlignment="Center" 
                             Command="{Binding AddCourseCommand}"/>
             </Grid>
         </Border>
+
+        
     </Grid>
 </UserControl>
