@@ -38,7 +38,7 @@ namespace EngMasterWPF.Views.CourseView
 
         private void Rectangle_MouseDown(object sender, MouseButtonEventArgs e)
         {
-
+          
         }
 
         private void ModalCourse_Loaded(object sender, RoutedEventArgs e)
@@ -46,7 +46,7 @@ namespace EngMasterWPF.Views.CourseView
 
         }
 
-        private void Button_SourceUpdated()
+        private void Button_SourceUpdated(object sender, DataTransferEventArgs e)
         {
 
         }

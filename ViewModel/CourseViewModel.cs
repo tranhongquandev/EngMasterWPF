@@ -166,7 +166,12 @@ namespace EngMasterWPF.ViewModel
         public ICommand PrevPageCommand { get; private set; }
         public ICommand NextPageCommand { get; private set; }
         public ICommand LastPageCommand { get; private set; }
-        public ICommand OpenModalCommand { get; private set; }
+        public ICommand OpenModalAddCommand { get; private set; }
+
+        public ICommand OpenModalUpdateCommand { get; private set; }
+
+        public ICommand CloseModalCommand { get; private set; }
+
 
         #endregion
 
@@ -197,6 +202,12 @@ namespace EngMasterWPF.ViewModel
             PrevPageCommand = new RelayCommand(_canExecute => true, async _execute => { if (Page > 1) Page--; await LoadData(Page, PageSize); });
             NextPageCommand = new RelayCommand(_canExecute => true, async _execute => { if (Page < TotalPages) Page++; await LoadData(Page, PageSize); });
             LastPageCommand = new RelayCommand(_canExecute => true, async _execute => { Page = TotalPages; await LoadData(Page, PageSize); });
+
+            OpenModalAddCommand = new RelayCommand(_canExecute => true, _execute => OpenDialogModal());
+
+            OpenModalUpdateCommand = new RelayCommand(_canExecute => true, _execute => OpenModalUpdate());
+
+            CloseModalCommand = new RelayCommand(_canExecute => true, _execute => CloseModal());
 
             SearchTextCommand = new RelayCommand<string>(_canExecute => true, async _execute => await SearchCourseCommandHandler(SearchText));
 
@@ -247,6 +258,18 @@ namespace EngMasterWPF.ViewModel
         private void OpenDialogModal()
         {
             IsOpen = true;
+            IsUpdate = false;
+        }
+
+        private void CloseModal()
+        {
+            IsOpen = false;
+        }
+
+        private void OpenModalUpdate()
+        {
+            IsOpen = true;
+            IsUpdate = true;
         }
 
         private async Task ChangePageSizeCommandHandler(ComboBoxItem value)

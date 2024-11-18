@@ -252,7 +252,7 @@
                     Height="40"
                     HorizontalAlignment="Right"
                     HorizontalContentAlignment="Center"
-                    VerticalContentAlignment="Center" Click="Button_Click">
+                    VerticalContentAlignment="Center" Command="{Binding OpenModalAddCommand}">
                         <StackPanel Orientation="Horizontal">
                             <ui:SymbolIcon Symbol="PeopleAdd24" />
                             <TextBlock
@@ -598,7 +598,13 @@
                 </Grid.Style>
 
                 <courseView:ModalCourse Grid.Row="0" Width="700" Height="500" Margin="20" Panel.ZIndex="1000" />
-                <Rectangle Fill="#CCC" Opacity="0.5" MouseDown="Rectangle_MouseDown"/>
+                <Rectangle Fill="#CCC" Opacity="0.5" >
+                    <i:Interaction.Triggers>
+                        <i:EventTrigger EventName="MouseDown">
+                            <i:InvokeCommandAction Command="{Binding CloseModalCommand}" />
+                        </i:EventTrigger>
+                    </i:Interaction.Triggers>
+                </Rectangle>
             </Grid>
 
 
