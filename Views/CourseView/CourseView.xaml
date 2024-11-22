@@ -7,6 +7,7 @@
     xmlns:local="clr-namespace:EngMasterWPF.Views.CourseView"
     xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:converters="clr-namespace:EngMasterWPF.Converter"
     xmlns:uc="clr-namespace:EngMasterWPF.SharedUI"
     xmlns:ui="http://schemas.lepo.co/wpfui/2022/xaml"
     xmlns:courseView="clr-namespace:EngMasterWPF.Views.CourseView"
@@ -21,6 +22,10 @@
         <vm:CourseViewModel />
     </UserControl.DataContext>
 
+    <UserControl.Resources>
+        <converters:DiscountToPercent x:Key="DiscountPercent" />
+    </UserControl.Resources>
+    
     <!--<UserControl.Resources>
         <Style x:Key="ModalCourseStyle" TargetType="courseView:ModalCourse">
             <Style.Triggers>
@@ -39,7 +44,7 @@
     Background="#FFFFFF"
     CornerRadius="10">
         <Grid x:Name="RootGrid">
-            
+
 
             <!--  This is the fade in animation  -->
             <Grid.Resources>
@@ -430,7 +435,7 @@
                                 Header="Học phí" />
                                 <DataGridTextColumn
                                 Width="*"
-                                Binding="{Binding Discount}"
+                                Binding="{Binding Discount, Converter={StaticResource DiscountPercent}}"
                                 ElementStyle="{StaticResource DataGridTextStyle}"
                                 Header="Khuyến mãi" />
                                 <DataGridTextColumn
@@ -466,7 +471,9 @@
                                                     HorizontalContentAlignment="Center"
                                                     VerticalContentAlignment="Center"
                                                     Background="Transparent"
-                                                    BorderBrush="Transparent">
+                                                    BorderBrush="Transparent"
+                                                     Command="{Binding DataContext.OpenModalAddCommand, RelativeSource={RelativeSource AncestorType=DataGrid}}"
+                                                     >
                                                         <ui:SymbolIcon FontSize="18" Symbol="DocumentEdit24" />
                                                     </Button>
                                                 </Border>
@@ -501,7 +508,7 @@
                 Margin="0,0,20,10"
                 HorizontalAlignment="Right"
                 Orientation="Horizontal">
-                    
+
                     <Border
                     Width="40"
                     Margin="5,0,5,0"
@@ -589,7 +596,7 @@
                             <DataTrigger Binding="{Binding IsOpen}" Value="False">
                                 <Setter Property="Visibility" Value="Collapsed" />
                             </DataTrigger>
-                        
+
                             <DataTrigger Binding="{Binding IsOpen}" Value="True">
                                 <Setter Property="Visibility" Value="Visible" />
                             </DataTrigger>
@@ -610,8 +617,8 @@
 
 
         </Grid>
-        
+
     </Border>
 
-   
+
 </UserControl>

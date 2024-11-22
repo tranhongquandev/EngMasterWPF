@@ -1,6 +1,5 @@
 ﻿using AutoMapper;
 using EngMasterWPF.DTOs;
-
 using EngMasterWPF.Services;
 using EngMasterWPF.Utilities;
 using EngMasterWPF.Views.CourseView;
@@ -21,6 +20,7 @@ namespace EngMasterWPF.ViewModel
 {
     public class CourseViewModel : ViewModelBase
     {
+
         #region Property
 
         private string _searchText = "";
@@ -177,6 +177,7 @@ namespace EngMasterWPF.ViewModel
 
         public CourseViewModel()
         {
+
             Page = 1;
             PageSize = 10;
 
@@ -213,6 +214,8 @@ namespace EngMasterWPF.ViewModel
 
 
         }
+
+
 
         #region Function
         private async Task LoadData(int page, int pageSize)

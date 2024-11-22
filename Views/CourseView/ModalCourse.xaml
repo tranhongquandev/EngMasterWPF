@@ -20,6 +20,7 @@ mc:Ignorable="d">
         <vm:ModalCourseViewModel />
     </UserControl.DataContext>
 
+    
     <UserControl.Resources />
 
     <Grid x:Name="CourseModal" >
@@ -158,8 +159,21 @@ mc:Ignorable="d">
                     </StackPanel>
                 </Grid>
 
-                <Button Grid.Row="5" Content="Add Course" Margin="0,15,0,0" Width="130" HorizontalAlignment="Right" VerticalAlignment="Center" 
-                            Command="{Binding AddCourseCommand}"/>
+                <Button Grid.Row="5"  Margin="0,15,0,0" Width="130" HorizontalAlignment="Right" VerticalAlignment="Center" 
+                            Command="{Binding AddCourseCommand}">
+                    <Button.Style>
+                        <Style TargetType="Button">
+                            <Style.Triggers>
+                                <DataTrigger Binding="{Binding IsUpdate}" Value="True">
+                                    <Setter Property="Content" Value="Update Course"/>
+                                </DataTrigger>
+                                <DataTrigger Binding="{Binding IsUpdate}" Value="False">
+                                    <Setter Property="Content" Value="Add Course"/>
+                                </DataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </Button.Style>
+                </Button>
             </Grid>
         </Border>
 
