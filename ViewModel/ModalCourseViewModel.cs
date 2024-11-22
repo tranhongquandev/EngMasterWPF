@@ -122,19 +122,17 @@ namespace EngMasterWPF.ViewModel
         private async Task AddCourseAsync()
         {
 
-            var newCourse = new CourseDTO
+            var newCourse = new AddCourseDTO
             {
-                CourseName = string.IsNullOrEmpty(CourseName) ? string.Empty : CourseName,
-                CourseCode = string.IsNullOrEmpty(CourseCode) ? string.Empty : CourseCode,
-                Description = string.IsNullOrEmpty(Description) ? string.Empty : Description,
-                Duration = Duration,  // Nếu Duration là số, thì truyền vào Duration, nếu không thì null
-                Fee = Fee > 0 ? Fee : 0,  // Fee là kiểu int, không nullable
-                Discount = Discount >= 0 ? Discount : 0,  // Discount là kiểu decimal, không nullable
-                TotalFee = Math.Round(Fee * (1 - Discount / 100), 2),  // Tính tổng phí
-                IsActive = true,  // Đảm bảo IsActive là true (hoặc tùy thuộc vào logic của bạn)
-                LevelId = 22,  // Giả sử LevelId là 22, bạn có thể thay đổi theo yêu cầu
-                CreatedDate = DateTime.UtcNow,  // Tạo ngày giờ hiện tại
-                UpdatedDate = DateTime.UtcNow  // Cập nhật ngày giờ hiện tại
+                CourseName = CourseName ?? string.Empty,  
+                //CourseCode = CourseCode ?? string.Empty, 
+                Duration = Duration, 
+                Fee = Fee > 0 ? Fee : 0, 
+                Discount = 0, 
+                Description = Description ?? string.Empty,  
+                TotalFee = 0, 
+                IsActive = true,
+                LevelId = 22,
             };
 
             if (IsUpdate)

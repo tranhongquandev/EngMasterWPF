@@ -35,7 +35,7 @@ namespace EngMasterWPF.Services
             return result ?? new ObservableCollection<CourseDTO>();
         }
 
-        public async Task<bool> AddCourseAsync(CourseDTO course)
+        public async Task<bool> AddCourseAsync(AddCourseDTO course)
         {
             var result = await PostAsync<bool>(_baseURL, course);
 
