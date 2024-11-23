@@ -57,6 +57,17 @@ namespace EngMasterWPF.ViewModel
             }
         }
 
+        private bool _isDelete = false;
+        public bool IsDelete
+        {
+            get => _isDelete;
+            set
+            {
+                _isDelete = value;
+                OnPropertyChanged();
+            }
+        }
+
         private bool _isDataFound = false;
         public bool IsDataFound
         {

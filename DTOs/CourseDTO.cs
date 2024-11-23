@@ -12,7 +12,7 @@ namespace EngMasterWPF.DTOs
 {
     public class CourseDTO : ViewModelBase
     {
-
+        [JsonProperty("id")]
         public int Id { get; set; }
 
         [JsonProperty("courseCode")]

@@ -159,7 +159,7 @@ mc:Ignorable="d">
                     </StackPanel>
                 </Grid>
 
-                <Button Grid.Row="5"  Margin="0,15,0,0" Width="130" HorizontalAlignment="Right" VerticalAlignment="Center" 
+                <!--<Button Grid.Row="5"  Margin="0,15,0,0" Width="130" HorizontalAlignment="Right" VerticalAlignment="Center" 
                             Command="{Binding AddCourseCommand}">
                     <Button.Style>
                         <Style TargetType="Button">
@@ -173,7 +173,76 @@ mc:Ignorable="d">
                             </Style.Triggers>
                         </Style>
                     </Button.Style>
-                </Button>
+                </Button>-->
+                <Grid Grid.Row="5">
+                    <Button
+Width="120"
+Height="30"
+Margin="0,10,0,0"
+HorizontalAlignment="Right"
+VerticalAlignment="Bottom"
+Panel.ZIndex="30"
+Command="{Binding AddCourseCommand}">
+
+                        <!--<Button.Style>
+                    <Style TargetType="Button">
+                        <Style.Triggers>
+                            <DataTrigger Binding="{Binding IsUpdate}" Value="True">
+                                <Setter Property="Content" Value="Update Course" />
+                            </DataTrigger>
+                            <DataTrigger Binding="{Binding IsUpdate}" Value="False">
+                                <Setter Property="Content" Value="Add Course" />
+                            </DataTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </Button.Style>-->
+
+                        <Button.Template>
+                            <ControlTemplate TargetType="Button">
+                                <Border
+            BorderBrush="#1A1A1A"
+            BorderThickness="1,1,1,1"
+            Cursor="Hand">
+                                    <Grid>
+                                        <TextBlock
+                    x:Name="ContentText"
+                    HorizontalAlignment="Center"
+                    VerticalAlignment="Center"
+                    FontFamily="{StaticResource PoppinsMedium}"
+                    FontSize="12"
+                    Text="Add course" />
+
+                                        <ProgressBar
+                    x:Name="ButtonSpinner"
+                    Width="30"
+                    Height="30"
+                    Background="Transparent"
+                    Foreground="#1A1A1A"
+                    IsIndeterminate="True"
+                    Style="{StaticResource MaterialDesignCircularProgressBar}"
+                    Visibility="Collapsed" />
+                                    </Grid>
+                                </Border>
+
+                                <ControlTemplate.Triggers>
+                                    <DataTrigger Binding="{Binding IsSubmit}" Value="True">
+                                        <Setter TargetName="ButtonSpinner" Property="Visibility" Value="Visible" />
+                                        <Setter TargetName="ContentText" Property="Visibility" Value="Collapsed" />
+
+                                    </DataTrigger>
+
+                                    <DataTrigger Binding="{Binding IsSubmit}" Value="False">
+                                        <Setter TargetName="ContentText" Property="Visibility" Value="Visible" />
+                                        <Setter TargetName="ButtonSpinner" Property="Visibility" Value="Collapsed" />
+                                    </DataTrigger>
+                                </ControlTemplate.Triggers>
+                            </ControlTemplate>
+                        </Button.Template>
+                    </Button>
+                </Grid>
+                
+
+
             </Grid>
         </Border>
 

@@ -23,6 +23,7 @@ using EngMasterWPF.Views.CourseView;
 using EngMasterWPF.Views.NotificationView;
 using EngMasterWPF.Views.AccountView;
 using EngMasterWPF.Services;
+using EngMasterWPF.ViewModel;
 
 namespace EngMasterWPF.Installer
 {

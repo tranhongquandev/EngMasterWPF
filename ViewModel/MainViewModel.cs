@@ -1,4 +1,5 @@
 ﻿using EngMasterWPF.Utilities;
+using EngMasterWPF.ViewModel;
 using EngMasterWPF.Views.CourseView;
 using EngMasterWPF.Views.GradeView;
 using EngMasterWPF.Views.HomeView;

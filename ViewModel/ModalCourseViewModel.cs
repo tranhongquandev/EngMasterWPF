@@ -101,6 +101,17 @@ namespace EngMasterWPF.ViewModel
             }
         }
 
+        private bool _isSubmit = false;
+        public bool IsSubmit
+        {
+            get => _isSubmit;
+            set
+            {
+                _isSubmit = value;
+                OnPropertyChanged();
+            }
+        }
+
         private readonly TeacherService _teacherService;
         public ICommand AddCourseCommand { get; set; }
 
@@ -121,7 +132,7 @@ namespace EngMasterWPF.ViewModel
 
         private async Task AddCourseAsync()
         {
-
+            IsSubmit = true;
             var newCourse = new AddCourseDTO
             {
                 CourseName = CourseName ?? string.Empty,  
@@ -150,11 +161,13 @@ namespace EngMasterWPF.ViewModel
                 var result  = await courseService.AddCourseAsync(newCourse);
 
                 MessageBox.Show(result ? "Course added successfully." : "Failed to add course.");
+                IsSubmit = false;
 
             }
             catch(Exception ex)
             {
                 MessageBox.Show($"Something went wrong. Error: {ex.Message}\nStackTrace: {jsonCourse}");
+                IsSubmit = false;
                 return;
             }
         }

@@ -3,6 +3,7 @@ using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Drawing.Printing;
 using System.Linq;
 using System.Net.Http;
 using System.Text;
@@ -38,6 +39,14 @@ namespace EngMasterWPF.Services
         public async Task<bool> AddCourseAsync(AddCourseDTO course)
         {
             var result = await PostAsync<bool>(_baseURL, course);
+
+            return result;
+        }
+
+        public async Task<bool> DeleteCourseAsync(int id)
+        {
+            var urlRequest = _baseURL + $"?Id={id}";
+            var result = await DeleteAsync(urlRequest);
 
             return result;
         }

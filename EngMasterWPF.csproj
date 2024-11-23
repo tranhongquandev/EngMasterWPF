@@ -220,6 +220,7 @@
 
 	<ItemGroup>
 	  <Folder Include="Styles\" />
+	  <Folder Include="ViewModel\Course\" />
 	</ItemGroup>
 
 </Project>

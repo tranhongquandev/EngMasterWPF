@@ -46,6 +46,17 @@ namespace EngMasterWPF.ViewModel
             }
         }
 
+        private int _id;
+        public int Id
+        {
+            get => _id;
+            set
+            {
+                _id = value;
+                OnPropertyChanged();
+            }
+        }
+
         private bool _isLoading = false;
         public bool IsLoading
         {
@@ -147,6 +158,18 @@ namespace EngMasterWPF.ViewModel
             }
         }
 
+
+        private bool _isOpenDelete = false;
+        public bool IsOpenDeletePopup
+        {
+            get => _isOpenDelete;
+            set
+            {
+                _isOpenDelete = value;
+                OnPropertyChanged();
+            }
+        }
+
         private readonly IServiceProvider _service;
 
         private readonly IMapper _mapper;
@@ -170,9 +193,14 @@ namespace EngMasterWPF.ViewModel
 
         public ICommand OpenModalUpdateCommand { get; private set; }
 
+        public ICommand OpenDeletePopupCommand { get; private set; }
+
         public ICommand CloseModalCommand { get; private set; }
 
+        public ICommand CloseDeletePopupCommand { get; private set; }
 
+        public ICommand DeleteCourseCommand { get; private set; }
+        
         #endregion
 
         public CourseViewModel()
@@ -196,6 +224,8 @@ namespace EngMasterWPF.ViewModel
             });
 
 
+
+
             ToggleComboBoxFilterCommand = new RelayCommand(_canExecute => true, _execute => { IsComboBoxOpen = !IsComboBoxOpen; });
             ChangePageSizeCommand = new RelayCommand<ComboBoxItem>(_canExecute => true, async _execute => await ChangePageSizeCommandHandler(_execute!));
 
@@ -208,11 +238,16 @@ namespace EngMasterWPF.ViewModel
 
             OpenModalUpdateCommand = new RelayCommand(_canExecute => true, _execute => OpenModalUpdate());
 
+            OpenDeletePopupCommand = new RelayCommand(_canExecute => true, _execute => OpenDeletePopup());
+
             CloseModalCommand = new RelayCommand(_canExecute => true, _execute => CloseModal());
+
+            CloseDeletePopupCommand = new RelayCommand(_canExecute => true, _execute => CloseDeleteDialog());
 
             SearchTextCommand = new RelayCommand<string>(_canExecute => true, async _execute => await SearchCourseCommandHandler(SearchText));
 
-
+            DeleteCourseCommand = new RelayCommand(_canExecute => true, async _execute => await DeleteCourseAsync(Id));
+            
         }
 
 
@@ -250,6 +285,34 @@ namespace EngMasterWPF.ViewModel
         }
         #endregion
 
+        private async Task DeleteCourseAsync(int courseId)
+        {
+            try
+            {
+                CourseService courseService = Installer.InstallServices.Instance.serviceProvider.GetRequiredService<CourseService>();
+                bool isDeleted = await courseService.DeleteCourseAsync(courseId);
+                if (isDeleted)
+                {
+                    MessageBox.Show("Course deleted successfully.");
+                }
+                else
+                {
+                    MessageBox.Show("Failed to delete course.");
+                }
+            }
+
+            catch(Exception ex)
+            {
+                MessageBox.Show($"Something went wrong. Error: {ex.Message}");
+                return;
+            }
+
+        }
+
+        private void CloseDeleteDialog()
+        {
+            IsOpenDeletePopup = false;
+        }
 
         private async Task CountItems()
         {
@@ -274,6 +337,12 @@ namespace EngMasterWPF.ViewModel
             IsOpen = true;
             IsUpdate = true;
         }
+
+        private void OpenDeletePopup()
+        {
+            IsOpenDeletePopup = true;
+        }
+
 
         private async Task ChangePageSizeCommandHandler(ComboBoxItem value)
         {
