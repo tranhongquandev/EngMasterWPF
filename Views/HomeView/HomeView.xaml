@@ -5,15 +5,122 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:local="clr-namespace:EngMasterWPF.Views.HomeView"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+    xmlns:vm="clr-namespace:EngMasterWPF.ViewModel"
     d:DesignHeight="450"
     d:DesignWidth="800"
     mc:Ignorable="d">
 
-    <Grid>
-        <TextBlock
-            HorizontalAlignment="Center"
-            VerticalAlignment="Center"
-            FontSize="32"
-            Text="This is Home" />
+    <UserControl.DataContext>
+        <vm:HomeViewModel />
+    </UserControl.DataContext>
+
+    <Grid Margin="10">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <StackPanel Orientation="Horizontal" Margin="0,0,0,10">
+            <TextBlock Text="Thống kê" FontSize="24" FontWeight="Bold" Foreground="{DynamicResource PrimaryHueMidBrush}"/>
+        </StackPanel>
+
+        <Grid Grid.Row="1" Margin="0,0,0,10">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="1*"/>
+                <ColumnDefinition Width="1*"/>
+                <ColumnDefinition Width="1*"/>
+                <ColumnDefinition Width="1*"/>
+            </Grid.ColumnDefinitions>
+
+            <materialDesign:Card Grid.Column="0" Padding="16" Margin="5" Background="White">
+                <StackPanel>
+                    <TextBlock Text="Tổng số khóa học" FontSize="14" Foreground="Black"/>
+                    <TextBlock Text="{Binding TotalCourses}" FontSize="28" FontWeight="Bold" Foreground="Black"/>
+                </StackPanel>
+            </materialDesign:Card>
+
+            <materialDesign:Card Grid.Column="1" Padding="16" Margin="5" Background="White">
+                <StackPanel>
+                    <TextBlock Text="Tổng số học viên" FontSize="14" Foreground="Black"/>
+                    <TextBlock Text="{Binding TotalStudents}" FontSize="28" FontWeight="Bold" Foreground="Black"/>
+                </StackPanel>
+            </materialDesign:Card>
+
+            <materialDesign:Card Grid.Column="2" Padding="16" Margin="5" Background="White">
+                <StackPanel>
+                    <TextBlock Text="Tổng số giảng viên" FontSize="14" Foreground="Black"/>
+                    <TextBlock Text="{Binding TotalTeachers}" FontSize="28" FontWeight="Bold" Foreground="Black"/>
+                </StackPanel>
+            </materialDesign:Card>
+
+            <materialDesign:Card Grid.Column="3" Padding="16" Margin="5" Background="White">
+                <StackPanel>
+                    <TextBlock Text="Tổng số lớp" FontSize="14" Foreground="Black"/>
+                    <TextBlock Text="{Binding TotalClasses}" FontSize="28" FontWeight="Bold" Foreground="Black"/>
+                </StackPanel>
+            </materialDesign:Card>
+        </Grid>
+        <Grid Grid.Row="2" Margin="0,10,0,0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="2*"/>
+                <ColumnDefinition Width="3*"/>
+            </Grid.ColumnDefinitions>
+
+            <StackPanel Grid.Column="0" Margin="0,0,10,0">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="Auto"/>
+                    </Grid.ColumnDefinitions>
+
+                    <TextBlock Text="Khóa học phổ biến" FontSize="18" FontWeight="Bold" Margin="0,0,0,0" Grid.Column="0" VerticalAlignment="Center"/>
+
+                    <Button Grid.Column="1" HorizontalAlignment="Right" VerticalAlignment="Center"  Background="Transparent" BorderBrush="Transparent" 
+                         Command="{Binding NavigateCourseCommand}">
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock Text="View all" FontSize="18" FontWeight="Bold" Margin="0,0,10,0" VerticalAlignment="Center" Foreground="Blue"/>
+                            <materialDesign:PackIcon Kind="ArrowRight" Margin="0,5,0,0" Foreground="Blue"/>
+                        </StackPanel>
+                    </Button>
+                </Grid>
+
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="1*"/>
+                        <ColumnDefinition Width="1*"/>
+                    </Grid.ColumnDefinitions>
+
+                    <materialDesign:Card Grid.Column="0" Padding="16" Margin="5">
+                        <StackPanel>
+                            <TextBlock Text="Elementary English" FontSize="14" FontWeight="Bold"/>
+                            <TextBlock 
+                    Text="Brain and tools need to integrate development and operations seamlessly. This description is long and will wrap to the next line if necessary."
+                    FontSize="14"
+                    TextWrapping="Wrap"
+                    Margin="0,5,0,0"/>
+                            <ProgressBar Value="50" Height="10" Margin="0,10,0,0"/>
+                        </StackPanel>
+                    </materialDesign:Card>
+
+                    <materialDesign:Card Grid.Column="1" Padding="16" Margin="5">
+                        <StackPanel>
+                            <TextBlock Text="Intermediate English" FontSize="14"/>
+                            <ProgressBar Value="90" Height="10" Margin="0,10,0,0"/>
+                        </StackPanel>
+                    </materialDesign:Card>
+                </Grid>
+            </StackPanel>
+
+
+
+            <materialDesign:Card Grid.Column="1" Padding="16" Margin="0,0,0,10">
+                <StackPanel>
+                    <TextBlock Text="Upcoming Courses Plan" FontSize="18" FontWeight="Bold" Margin="0,0,0,10"/>
+                    <Calendar/>
+                </StackPanel>
+            </materialDesign:Card>
+        </Grid>
     </Grid>
 </UserControl>

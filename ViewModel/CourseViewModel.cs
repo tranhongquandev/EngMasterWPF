@@ -238,7 +238,7 @@ namespace EngMasterWPF.ViewModel
 
             OpenModalUpdateCommand = new RelayCommand(_canExecute => true, _execute => OpenModalUpdate());
 
-            OpenDeletePopupCommand = new RelayCommand(_canExecute => true, _execute => OpenDeletePopup());
+            OpenDeletePopupCommand = new RelayCommand(_canExecute => true,  _execute =>  OpenDeletePopup(Id));
 
             CloseModalCommand = new RelayCommand(_canExecute => true, _execute => CloseModal());
 
@@ -246,8 +246,16 @@ namespace EngMasterWPF.ViewModel
 
             SearchTextCommand = new RelayCommand<string>(_canExecute => true, async _execute => await SearchCourseCommandHandler(SearchText));
 
-            DeleteCourseCommand = new RelayCommand(_canExecute => true, async _execute => await DeleteCourseAsync(Id));
-            
+            DeleteCourseCommand = new RelayCommand(
+                _canExecute => true,
+                async param =>
+                {
+                    if (param is int id)
+                    {
+                        await DeleteCourseAsyncTask(id);
+                    }
+                }
+            );
         }
 
 
@@ -285,8 +293,13 @@ namespace EngMasterWPF.ViewModel
         }
         #endregion
 
-        private async Task DeleteCourseAsync(int courseId)
+        private async Task DeleteCourseAsyncTask(int courseId)
         {
+            if (courseId <= 0)
+            {
+                MessageBox.Show("Invalid course ID.");
+                return;
+            }
             try
             {
                 CourseService courseService = Installer.InstallServices.Instance.serviceProvider.GetRequiredService<CourseService>();
@@ -297,7 +310,7 @@ namespace EngMasterWPF.ViewModel
                 }
                 else
                 {
-                    MessageBox.Show("Failed to delete course.");
+                    MessageBox.Show($"Failed to delete course with ID: {courseId}", "Error");
                 }
             }
 
@@ -338,9 +351,11 @@ namespace EngMasterWPF.ViewModel
             IsUpdate = true;
         }
 
-        private void OpenDeletePopup()
+        private void OpenDeletePopup(int id)
         {
+            Id=id; 
             IsOpenDeletePopup = true;
+            MessageBox.Show($"Delete popup opened for ID: {Id}");
         }
 
 

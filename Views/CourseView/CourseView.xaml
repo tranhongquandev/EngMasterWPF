@@ -47,7 +47,6 @@
     CornerRadius="10">
         <Grid x:Name="RootGrid">
 
-
             <!--  This is the fade in animation  -->
             <Grid.Resources>
                 <Storyboard x:Key="FadeInStoryboard">
@@ -59,8 +58,6 @@
                     Duration="0:0:1" />
 
                 </Storyboard>
-
-
 
                 <Style x:Key="MainContentStyle" TargetType="Grid">
                     <Style.Triggers>
@@ -84,9 +81,6 @@
 
 
             <Grid>
-
-
-
                 <Grid.RowDefinitions>
                     <RowDefinition Height="Auto" />
                     <RowDefinition Height="*" />
@@ -474,7 +468,7 @@
                                                     VerticalContentAlignment="Center"
                                                     Background="Transparent"
                                                     BorderBrush="Transparent"
-                                                     Command="{Binding DataContext.OpenModalAddCommand, RelativeSource={RelativeSource AncestorType=DataGrid}}"
+                                                    Command="{Binding DataContext.OpenModalAddCommand, RelativeSource={RelativeSource AncestorType=DataGrid}}"
                                                      >
                                                         <ui:SymbolIcon FontSize="18" Symbol="DocumentEdit24" />
                                                     </Button>
@@ -492,7 +486,8 @@
                                                     VerticalContentAlignment="Center"
                                                     Background="Transparent"
                                                     BorderBrush="Transparent"
-                                                    Command="{Binding DataContext.OpenDeletePopupCommand, RelativeSource={RelativeSource AncestorType=DataGrid}}"   
+                                                    Command="{Binding DataContext.OpenDeletePopupCommand, RelativeSource={RelativeSource AncestorType=DataGrid}}" 
+                                                    CommandParameter="{Binding Id}"
                                                      >
                                                         <ui:SymbolIcon FontSize="18" Symbol="DeleteDismiss24" />
                                                     </Button>
@@ -641,14 +636,14 @@
                             <RowDefinition Height="Auto" />
                         </Grid.RowDefinitions>
 
-                        <TextBlock Text="Are You Sure To Delete This Item?" 
+                        <TextBlock Text="Bạn muốn xóa phần tử này?" 
                FontSize="16" 
                Foreground="#555555" 
                TextAlignment="Center" 
                VerticalAlignment="Center" />
 
                         <StackPanel Grid.Row="2" Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,20,0,0">
-                            <Button Content="NO" 
+                            <Button Content="Không" 
                 Width="100" 
                 Height="40" 
                 Background="#FF4D4D" 
@@ -657,7 +652,7 @@
                 Margin="5,0" 
                 Command="{Binding CloseDeletePopupCommand}"
               />
-                            <Button Content="YES" 
+                <Button Content="Có" 
                 Width="100" 
                 Height="40" 
                 Background="#D6D6D6" 
