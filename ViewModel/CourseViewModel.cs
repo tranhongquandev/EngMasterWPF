@@ -46,17 +46,6 @@ namespace EngMasterWPF.ViewModel
             }
         }
 
-        private int _id;
-        public int Id
-        {
-            get => _id;
-            set
-            {
-                _id = value;
-                OnPropertyChanged();
-            }
-        }
-
         private bool _isLoading = false;
         public bool IsLoading
         {
@@ -238,7 +227,7 @@ namespace EngMasterWPF.ViewModel
 
             OpenModalUpdateCommand = new RelayCommand(_canExecute => true, _execute => OpenModalUpdate());
 
-            OpenDeletePopupCommand = new RelayCommand(_canExecute => true,  _execute =>  OpenDeletePopup(Id));
+            OpenDeletePopupCommand = new RelayCommand<int>( _canExecute => true, id => OpenDeletePopup(id));
 
             CloseModalCommand = new RelayCommand(_canExecute => true, _execute => CloseModal());
 
@@ -353,9 +342,8 @@ namespace EngMasterWPF.ViewModel
 
         private void OpenDeletePopup(int id)
         {
-            Id=id; 
             IsOpenDeletePopup = true;
-            MessageBox.Show($"Delete popup opened for ID: {Id}");
+            MessageBox.Show($"Delete popup opened for ID: {id}");
         }
 
 

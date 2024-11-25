@@ -449,6 +449,7 @@
                                 Binding="{Binding IsActive}"
                                 ElementStyle="{StaticResource DataGridTextStyle}"
                                 Header="Trạng thái" />
+                
                                 <DataGridTemplateColumn Width="*" Header="Thao tác">
                                     <DataGridTemplateColumn.CellTemplate>
                                         <DataTemplate>

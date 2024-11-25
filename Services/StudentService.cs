@@ -13,7 +13,7 @@ namespace EngMasterWPF.Services
         private const string _baseURL = "https://englabapi.onrender.com/api/v1/student/";
         public async Task<ObservableCollection<StudentDTO>?> GetStudentsByPageAsync(int page, int pageSize)
         {
-            var urlRequest = _baseURL + "get-by-page" + $"?page={page}&pagesize={pageSize}";
+            var urlRequest = _baseURL + "get-by-filter" + $"?page={page}&pagesize={pageSize}";
             var result = await GetAsync<ObservableCollection<StudentDTO>>(urlRequest);
             return result ?? new ObservableCollection<StudentDTO>();
         }

@@ -36,5 +36,12 @@ namespace EngMasterWPF.Services
             var urlRequest = _baseURL + "class/count-all";
             return await GetAsync<int>(urlRequest);
         }
+
+        public async Task<ObservableCollection<CourseDTO>?> GetCourseByLimit(int page)
+        {
+            var urlRequest = _baseURL + "course/get-by-page" + $"?page={page}&pagesize={4}";
+            var result = await GetAsync<ObservableCollection<CourseDTO>>(urlRequest);
+            return result ?? new ObservableCollection<CourseDTO>();
+        }
     }
 }

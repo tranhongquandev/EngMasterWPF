@@ -17,7 +17,7 @@ namespace EngMasterWPF.Services
 
         public async Task<ObservableCollection<CourseDTO>?> GetCoursesByPageAsync(int page, int pageSize)
         {
-            var urlRequest = _baseURL + "get-by-page" + $"?page={page}&pagesize={pageSize}";
+            var urlRequest = _baseURL + "get-by-filter" + $"?page={page}&pagesize={pageSize}";
             var result = await GetAsync<ObservableCollection<CourseDTO>>(urlRequest);
             return result ?? new ObservableCollection<CourseDTO>();
         }
