@@ -449,7 +449,7 @@
                                 Binding="{Binding IsActive}"
                                 ElementStyle="{StaticResource DataGridTextStyle}"
                                 Header="Trạng thái" />
-                
+
                                 <DataGridTemplateColumn Width="*" Header="Thao tác">
                                     <DataGridTemplateColumn.CellTemplate>
                                         <DataTemplate>
@@ -661,7 +661,7 @@
                 FontWeight="Bold" 
                 Margin="5,0" 
                 Command="{Binding DeleteCourseCommand}"
-                CommandParameter="{Binding Id}"
+                CommandParameter="{Binding Id}" 
                 />
                         </StackPanel>
                     </Grid>

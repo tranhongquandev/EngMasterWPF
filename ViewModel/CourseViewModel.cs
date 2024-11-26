@@ -159,6 +159,17 @@ namespace EngMasterWPF.ViewModel
             }
         }
 
+        private int _id;
+        public int Id
+        {
+            get => _id;
+            set
+            {
+                _id = value;
+                OnPropertyChanged();
+            }
+        }
+
         private readonly IServiceProvider _service;
 
         private readonly IMapper _mapper;
@@ -227,7 +238,17 @@ namespace EngMasterWPF.ViewModel
 
             OpenModalUpdateCommand = new RelayCommand(_canExecute => true, _execute => OpenModalUpdate());
 
-            OpenDeletePopupCommand = new RelayCommand<int>( _canExecute => true, id => OpenDeletePopup(id));
+            OpenDeletePopupCommand = new RelayCommand(
+            _canExecute => true,
+            (param) =>
+            {
+            if (param is int id)
+            {
+                Id = id;
+                IsOpenDeletePopup = true;
+            }
+            }
+            );
 
             CloseModalCommand = new RelayCommand(_canExecute => true, _execute => CloseModal());
 
@@ -242,6 +263,11 @@ namespace EngMasterWPF.ViewModel
                     if (param is int id)
                     {
                         await DeleteCourseAsyncTask(id);
+                        IsOpenDeletePopup = false;
+                    }
+                    else
+                    {
+                        MessageBox.Show("Invalid ID for course deletion.");
                     }
                 }
             );
@@ -286,9 +312,10 @@ namespace EngMasterWPF.ViewModel
         {
             if (courseId <= 0)
             {
-                MessageBox.Show("Invalid course ID.");
+                MessageBox.Show($"Invalid course ID: {courseId}");
                 return;
             }
+
             try
             {
                 CourseService courseService = Installer.InstallServices.Instance.serviceProvider.GetRequiredService<CourseService>();
@@ -296,19 +323,17 @@ namespace EngMasterWPF.ViewModel
                 if (isDeleted)
                 {
                     MessageBox.Show("Course deleted successfully.");
+                    await LoadData(Page, PageSize);
                 }
                 else
                 {
                     MessageBox.Show($"Failed to delete course with ID: {courseId}", "Error");
                 }
             }
-
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 MessageBox.Show($"Something went wrong. Error: {ex.Message}");
-                return;
             }
-
         }
 
         private void CloseDeleteDialog()
@@ -340,10 +365,9 @@ namespace EngMasterWPF.ViewModel
             IsUpdate = true;
         }
 
-        private void OpenDeletePopup(int id)
+        private void OpenDeletePopup()
         {
             IsOpenDeletePopup = true;
-            MessageBox.Show($"Delete popup opened for ID: {id}");
         }
 
 
