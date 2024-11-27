@@ -67,8 +67,8 @@ namespace EngMasterWPF.ViewModel
             }
         }
 
-        private decimal _discount;
-        public decimal Discount
+        private double _discount;
+        public double Discount
         {
             get => _discount;
             set
@@ -136,12 +136,11 @@ namespace EngMasterWPF.ViewModel
             var newCourse = new AddCourseDTO
             {
                 CourseName = CourseName ?? string.Empty,  
-                //CourseCode = CourseCode ?? string.Empty, 
                 Duration = Duration, 
                 Fee = Fee > 0 ? Fee : 0, 
-                Discount = 0, 
+                Discount = Discount, 
                 Description = Description ?? string.Empty,  
-                TotalFee = 0, 
+                TotalFee = Fee - Discount * Fee, 
                 IsActive = true,
                 LevelId = 22,
             };
@@ -160,7 +159,7 @@ namespace EngMasterWPF.ViewModel
                 CourseService courseService = Installer.InstallServices.Instance.serviceProvider.GetRequiredService<CourseService>();
                 var result  = await courseService.AddCourseAsync(newCourse);
 
-                MessageBox.Show(result ? "Course added successfully." : "Failed to add course.");
+                MessageBox.Show( "Course added successfully.");
                 IsSubmit = false;
 
             }

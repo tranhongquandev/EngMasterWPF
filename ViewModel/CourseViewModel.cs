@@ -159,6 +159,17 @@ namespace EngMasterWPF.ViewModel
             }
         }
 
+        private bool _isOpenUpdate = false;
+        public bool IsOpenUpdateModal
+        {
+            get => _isOpenUpdate;
+            set
+            {
+                _isOpenUpdate = value;
+                OnPropertyChanged();
+            }
+        }
+
         private int _id;
         public int Id
         {
@@ -166,6 +177,72 @@ namespace EngMasterWPF.ViewModel
             set
             {
                 _id = value;
+                OnPropertyChanged();
+            }
+        }
+
+        private string _courseName;
+        public string CourseName
+        {
+            get => _courseName;
+            set
+            {
+                _courseName = value;
+                OnPropertyChanged();
+            }
+        }
+
+        private string _courseCode;
+        public string CourseCode
+        {
+            get => _courseCode;
+            set
+            {
+                _courseCode = value;
+                OnPropertyChanged();
+            }
+        }
+
+        private string _duration;
+        public string Duration
+        {
+            get => _duration;
+            set
+            {
+                _duration = value;
+                OnPropertyChanged();
+            }
+        }
+
+        private int _fee;
+        public int Fee
+        {
+            get => _fee;
+            set
+            {
+                _fee = value;
+                OnPropertyChanged();
+            }
+        }
+
+        private decimal _discount;
+        public decimal Discount
+        {
+            get => _discount;
+            set
+            {
+                _discount = value;
+                OnPropertyChanged();
+            }
+        }
+
+        private string _description;
+        public string Description
+        {
+            get => _description;
+            set
+            {
+                _description = value;
                 OnPropertyChanged();
             }
         }
@@ -357,11 +434,12 @@ namespace EngMasterWPF.ViewModel
         private void CloseModal()
         {
             IsOpen = false;
+            IsOpenUpdateModal = false;
         }
 
         private void OpenModalUpdate()
         {
-            IsOpen = true;
+            IsOpenUpdateModal = true;
             IsUpdate = true;
         }
 

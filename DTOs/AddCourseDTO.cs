@@ -2,7 +2,7 @@
 
 namespace EngMasterWPF.DTOs
 {
-    class AddCourseDTO
+    public class AddCourseDTO
     {
 
 

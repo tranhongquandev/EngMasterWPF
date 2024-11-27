@@ -36,11 +36,42 @@ namespace EngMasterWPF.Services
             return result ?? new ObservableCollection<CourseDTO>();
         }
 
-        public async Task<bool> AddCourseAsync(AddCourseDTO course)
+        public async Task<AddCourseDTO> AddCourseAsync(AddCourseDTO course)
         {
-            var result = await PostAsync<bool>(_baseURL, course);
+            try
+            {
+                var result = await PostAsync<AddCourseDTO>(_baseURL, course);
+                if (result == null)
+                {
+                    Console.WriteLine("Received a null result from the API.");
+                    throw new Exception("Failed to add the course: the API returned no data.");
+                }
+                return result;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"An error occurred while adding the course: {ex.Message}");
+                throw new Exception("Failed to add the course.", ex);
+            }
+        }
 
-            return result;
+        public async Task<UpdateCourseDTO> UpdateCourseAsync(UpdateCourseDTO course)
+        {
+            try
+            {
+                var result = await PutAsync<UpdateCourseDTO>(_baseURL, course);
+                if (result == null)
+                {
+                    Console.WriteLine("Received a null result from the API.");
+                    throw new Exception("Failed to update the course: the API returned no data.");
+                }
+                return result;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"An error occurred while adding the course: {ex.Message}");
+                throw new Exception("Failed to update the course.", ex);
+            }
         }
 
         public async Task<bool> DeleteCourseAsync(int id)
