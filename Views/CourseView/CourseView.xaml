@@ -338,6 +338,7 @@
                         FontSize="14"
                         IsReadOnly="True"
                         ItemsSource="{Binding Courses, UpdateSourceTrigger=PropertyChanged}"
+                        SelectedItem="{Binding CurrentCourse}"
                         ScrollViewer.CanContentScroll="True"
                         ScrollViewer.VerticalScrollBarVisibility="Hidden" SelectionChanged="DataGrid_SelectionChanged">
                             <DataGrid.Resources>
@@ -662,13 +663,13 @@
                                 <StackPanel Grid.Column="0" Margin="0,0,10,0" Orientation="Vertical">
                                     <Label Content="Course Name" FontFamily="{StaticResource FZ-PoppinsRegular}" FontSize="16" />
                                     <Border Background="#EEE6E2" BorderThickness="0.5" CornerRadius="4">
-                                        <TextBox Height="46" Padding="15,0,15,0"
+                                        <TextBox Height="46" Padding="15,15,15,15" 
                          materialDesign:HintAssist.Background="Transparent"
                          materialDesign:HintAssist.FontFamily="{StaticResource FZ-PoppinsRegular}"
                          materialDesign:HintAssist.Foreground="Gray"
                          materialDesign:HintAssist.Hint="Enter Course Name"
                          materialDesign:TextFieldAssist.UnderlineBrush="Transparent"
-                         Text="{Binding CourseName}"
+                         Text="{Binding CurrentCourse.CourseName}"
                          BorderBrush="Transparent" FontFamily="{StaticResource FZ-PoppinsRegular}"
                          FontSize="14" TabIndex="1" />
                                     </Border>
@@ -677,7 +678,7 @@
                                 <StackPanel Grid.Column="1" Margin="0,0,0,0" Orientation="Vertical">
                                     <Label Content="Course Code" FontFamily="{StaticResource FZ-PoppinsRegular}" FontSize="16" />
                                     <Border Background="#EEE6E2" BorderThickness="0.5" CornerRadius="4">
-                                        <TextBox Height="46" Padding="15,0,15,0"
+                                        <TextBox Height="46" Padding="15,15,15,15" 
                          materialDesign:HintAssist.Background="Transparent"
                          materialDesign:HintAssist.FontFamily="{StaticResource FZ-PoppinsRegular}"
                          materialDesign:HintAssist.Foreground="Gray"
@@ -686,7 +687,7 @@
                          BorderBrush="Transparent" FontFamily="{StaticResource FZ-PoppinsRegular}"
                          FontSize="14" TabIndex="2"
                          
-                         Text="{Binding CourseCode}"/>
+                         Text="{Binding CurrentCourse.CourseCode}"/>
                                     </Border>
                                 </StackPanel>
                             </Grid>
@@ -701,7 +702,7 @@
                                 <StackPanel Grid.Column="0" Margin="0,0,10,0" Orientation="Vertical">
                                     <Label Content="Duration" FontFamily="{StaticResource FZ-PoppinsRegular}" FontSize="16" />
                                     <Border Background="#EEE6E2" BorderThickness="0.5" CornerRadius="4">
-                                        <TextBox Height="46" Padding="15,0,15,0"
+                                        <TextBox Height="46" Padding="15,15,15,15" 
                          materialDesign:HintAssist.Background="Transparent"
                          materialDesign:HintAssist.FontFamily="{StaticResource FZ-PoppinsRegular}"
                          materialDesign:HintAssist.Foreground="Gray"
@@ -709,14 +710,14 @@
                          materialDesign:TextFieldAssist.UnderlineBrush="Transparent"
                          BorderBrush="Transparent" FontFamily="{StaticResource FZ-PoppinsRegular}"
                          FontSize="14" TabIndex="3" 
-                         Text="{Binding Duration}"/>
+                         Text="{Binding CurrentCourse.Duration}"/>
                                     </Border>
                                 </StackPanel>
 
                                 <StackPanel Grid.Column="1" Margin="0,0,0,0" Orientation="Vertical">
                                     <Label Content="Fee" FontFamily="{StaticResource FZ-PoppinsRegular}" FontSize="16" />
                                     <Border Background="#EEE6E2" BorderThickness="0.5" CornerRadius="4">
-                                        <TextBox Height="46" Padding="15,0,15,0"
+                                        <TextBox Height="46" Padding="15,15,15,15" 
                          materialDesign:HintAssist.Background="Transparent"
                          materialDesign:HintAssist.FontFamily="{StaticResource FZ-PoppinsRegular}"
                          materialDesign:HintAssist.Foreground="Gray"
@@ -724,7 +725,7 @@
                          materialDesign:TextFieldAssist.UnderlineBrush="Transparent"
                          BorderBrush="Transparent" FontFamily="{StaticResource FZ-PoppinsRegular}"
                          FontSize="14" TabIndex="4" 
-                         Text="{Binding Fee}"/>
+                         Text="{Binding CurrentCourse.Fee}"/>
                                     </Border>
                                 </StackPanel>
                             </Grid>
@@ -739,7 +740,7 @@
                                 <StackPanel Grid.Column="0" Margin="0,0,10,0" Orientation="Vertical">
                                     <Label Content="Discount" FontFamily="{StaticResource FZ-PoppinsRegular}" FontSize="16" />
                                     <Border Background="#EEE6E2" BorderThickness="0.5" CornerRadius="4">
-                                        <TextBox Height="46" Padding="15,0,15,0"
+                                        <TextBox Height="46" Padding="15,15,15,15" 
                          materialDesign:HintAssist.Background="Transparent"
                          materialDesign:HintAssist.FontFamily="{StaticResource FZ-PoppinsRegular}"
                          materialDesign:HintAssist.Foreground="Gray"
@@ -747,14 +748,14 @@
                          materialDesign:TextFieldAssist.UnderlineBrush="Transparent"
                          BorderBrush="Transparent" FontFamily="{StaticResource FZ-PoppinsRegular}"
                          FontSize="14" TabIndex="5"
-                         Text="{Binding Discount}"/>
+                         Text="{Binding CurrentCourse.Discount}"/>
                                     </Border>
                                 </StackPanel>
 
                                 <StackPanel Grid.Column="1" Margin="0,0,0,0" Orientation="Vertical">
                                     <Label Content="Description" FontFamily="{StaticResource FZ-PoppinsRegular}" FontSize="16" />
                                     <Border Background="#EEE6E2" BorderThickness="0.5" CornerRadius="4">
-                                        <TextBox Height="46" Padding="15,0,15,0"
+                                        <TextBox Height="46" Padding="15,15,15,15" 
                          materialDesign:HintAssist.Background="Transparent"
                          materialDesign:HintAssist.FontFamily="{StaticResource FZ-PoppinsRegular}"
                          materialDesign:HintAssist.Foreground="Gray"
@@ -762,7 +763,7 @@
                          materialDesign:TextFieldAssist.UnderlineBrush="Transparent"
                          BorderBrush="Transparent" FontFamily="{StaticResource FZ-PoppinsRegular}"
                          FontSize="14" TabIndex="6"
-                         Text="{Binding Description}"/>
+                         Text="{Binding CurrentCourse.Description}"/>
                                     </Border>
                                 </StackPanel>
                             </Grid>
@@ -790,7 +791,7 @@
                     HorizontalAlignment="Right"
                     VerticalAlignment="Bottom"
                     Panel.ZIndex="30"
-                    Command="{Binding AddCourseCommand}">
+                    Command="{Binding UpdateCourseCommand}">
 
                                     <!--<Button.Style>
         <Style TargetType="Button">
@@ -818,7 +819,7 @@ Cursor="Hand">
         VerticalAlignment="Center"
         FontFamily="{StaticResource PoppinsMedium}"
         FontSize="12"
-        Text="Add course" />
+        Text="Update course" />
 
                                                     <ProgressBar
         x:Name="ButtonSpinner"

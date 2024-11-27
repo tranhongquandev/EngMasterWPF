@@ -10,6 +10,7 @@
     xmlns:uc="clr-namespace:EngMasterWPF.SharedUI"
     xmlns:ui="http://schemas.lepo.co/wpfui/2022/xaml"
     xmlns:vm="clr-namespace:EngMasterWPF.ViewModel"
+    xmlns:studentView="clr-namespace:EngMasterWPF.Views.StudentView"
     d:DesignHeight="705"
     d:DesignWidth="1180"
     FontFamily="{StaticResource PoppinsRegular}"
@@ -564,8 +565,37 @@
 
             </Grid>
 
+            <Grid Grid.Row="0" Width="Auto" Height="Auto"  Panel.ZIndex="1000">
+                <Grid.Style>
+                    <Style TargetType="Grid">
+                        <Style.Setters>
+                            <Setter Property="Visibility" Value="Visible"/>
+                        </Style.Setters>
+                        <Style.Triggers>
+                            <DataTrigger Binding="{Binding IsOpen}" Value="False">
+                                <Setter Property="Visibility" Value="Collapsed" />
+                            </DataTrigger>
 
+                            <DataTrigger Binding="{Binding IsOpen}" Value="True">
+                                <Setter Property="Visibility" Value="Visible" />
+                            </DataTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </Grid.Style>
+
+                <studentView:ModalAddStudent Grid.Row="0" Width="700" Height="500" Margin="20" Panel.ZIndex="1000" />
+
+
+                <Rectangle Fill="#CCC" Opacity="0.5" >
+                    <i:Interaction.Triggers>
+                        <i:EventTrigger EventName="MouseDown">
+                            <i:InvokeCommandAction Command="{Binding CloseModalCommand}" />
+                        </i:EventTrigger>
+                    </i:Interaction.Triggers>
+                </Rectangle>
+            </Grid>
         </Grid>
+       
     </Border>
 
 

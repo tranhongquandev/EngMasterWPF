@@ -43,14 +43,12 @@ namespace EngMasterWPF.Services
                 var result = await PostAsync<AddCourseDTO>(_baseURL, course);
                 if (result == null)
                 {
-                    Console.WriteLine("Received a null result from the API.");
                     throw new Exception("Failed to add the course: the API returned no data.");
                 }
                 return result;
             }
             catch (Exception ex)
             {
-                Console.WriteLine($"An error occurred while adding the course: {ex.Message}");
                 throw new Exception("Failed to add the course.", ex);
             }
         }
@@ -62,14 +60,12 @@ namespace EngMasterWPF.Services
                 var result = await PutAsync<UpdateCourseDTO>(_baseURL, course);
                 if (result == null)
                 {
-                    Console.WriteLine("Received a null result from the API.");
                     throw new Exception("Failed to update the course: the API returned no data.");
                 }
                 return result;
             }
             catch (Exception ex)
             {
-                Console.WriteLine($"An error occurred while adding the course: {ex.Message}");
                 throw new Exception("Failed to update the course.", ex);
             }
         }

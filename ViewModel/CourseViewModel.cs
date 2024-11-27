@@ -5,6 +5,7 @@ using EngMasterWPF.Utilities;
 using EngMasterWPF.Views.CourseView;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.IdentityModel.Tokens;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -22,6 +23,17 @@ namespace EngMasterWPF.ViewModel
     {
 
         #region Property
+
+        private CourseDTO _currentCourse;
+        public CourseDTO CurrentCourse
+        {
+            get { return _currentCourse; }
+            set
+            {
+                _currentCourse = value;
+                OnPropertyChanged(nameof(CurrentCourse));
+            }
+        }
 
         private string _searchText = "";
         public string SearchText
@@ -170,6 +182,17 @@ namespace EngMasterWPF.ViewModel
             }
         }
 
+        private bool _isSubmit = false;
+        public bool IsSubmit
+        {
+            get => _isSubmit;
+            set
+            {
+                _isSubmit = value;
+                OnPropertyChanged();
+            }
+        }
+
         private int _id;
         public int Id
         {
@@ -225,8 +248,8 @@ namespace EngMasterWPF.ViewModel
             }
         }
 
-        private decimal _discount;
-        public decimal Discount
+        private double _discount;
+        public double Discount
         {
             get => _discount;
             set
@@ -277,7 +300,9 @@ namespace EngMasterWPF.ViewModel
         public ICommand CloseDeletePopupCommand { get; private set; }
 
         public ICommand DeleteCourseCommand { get; private set; }
-        
+
+        public ICommand UpdateCourseCommand { get; private set; }
+
         #endregion
 
         public CourseViewModel()
@@ -313,7 +338,7 @@ namespace EngMasterWPF.ViewModel
 
             OpenModalAddCommand = new RelayCommand(_canExecute => true, _execute => OpenDialogModal());
 
-            OpenModalUpdateCommand = new RelayCommand(_canExecute => true, _execute => OpenModalUpdate());
+            OpenModalUpdateCommand = new RelayCommand(_canExecute => true, _execute => OpenModalUpdate(CurrentCourse));
 
             OpenDeletePopupCommand = new RelayCommand(
             _canExecute => true,
@@ -332,6 +357,8 @@ namespace EngMasterWPF.ViewModel
             CloseDeletePopupCommand = new RelayCommand(_canExecute => true, _execute => CloseDeleteDialog());
 
             SearchTextCommand = new RelayCommand<string>(_canExecute => true, async _execute => await SearchCourseCommandHandler(SearchText));
+
+            UpdateCourseCommand = new RelayCommand(_canExecute => true, async _execute => await UpdateCourseAsyncMethod());
 
             DeleteCourseCommand = new RelayCommand(
                 _canExecute => true,
@@ -437,8 +464,9 @@ namespace EngMasterWPF.ViewModel
             IsOpenUpdateModal = false;
         }
 
-        private void OpenModalUpdate()
+        private void OpenModalUpdate(CourseDTO currentCourse)
         {
+            CurrentCourse = currentCourse;
             IsOpenUpdateModal = true;
             IsUpdate = true;
         }
@@ -448,6 +476,40 @@ namespace EngMasterWPF.ViewModel
             IsOpenDeletePopup = true;
         }
 
+        private async Task UpdateCourseAsyncMethod()
+        {
+            IsSubmit = true;
+            var updateCourse = new UpdateCourseDTO
+            {
+                CourseName = CourseName,
+                Duration = Duration,
+                Fee = Fee,
+                Discount = Discount,
+                Description = Description,
+                TotalFee = Fee - Discount * Fee,
+                IsActive = true,
+                LevelId = 22,
+                CourseCode = CourseCode
+            };
+
+            string jsonCourse = JsonConvert.SerializeObject(updateCourse);
+            try
+            {
+
+                CourseService courseService = Installer.InstallServices.Instance.serviceProvider.GetRequiredService<CourseService>();
+                var result = await courseService.UpdateCourseAsync(updateCourse);
+
+                MessageBox.Show("Course updated successfully.");
+                IsSubmit = false;
+
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Something went wrong. Error: {ex.Message}\n{ex.StackTrace}");
+                IsSubmit = false;
+                return;
+            }
+        }
 
         private async Task ChangePageSizeCommandHandler(ComboBoxItem value)
         {

@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace EngMasterWPF.DTOs
 {
-    public class AddSudentDTO
+    public class AddStudentDTO
     {
 
         [JsonProperty("fullname")]

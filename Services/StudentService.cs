@@ -30,5 +30,22 @@ namespace EngMasterWPF.Services
             var result = await GetAsync<ObservableCollection<StudentDTO>>(urlRequest);
             return result ?? new ObservableCollection<StudentDTO>();
         }
+
+        public async Task<AddStudentDTO> AddStudentAsync(AddStudentDTO course)
+        {
+            try
+            {
+                var result = await PostAsync<AddStudentDTO>(_baseURL, course);
+                if (result == null)
+                {
+                    throw new Exception("Failed to add the course: the API returned no data.");
+                }
+                return result;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Failed to add the course.", ex);
+            }
+        }
     }
 }
