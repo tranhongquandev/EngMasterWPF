@@ -35,18 +35,30 @@ namespace EngMasterWPF.Services
             return result ?? new ObservableCollection<TeacherDTO>();
         }
 
-        public async Task<bool> AddTeacherAsync(TeacherDTO teacher)
+        public async Task<AddTeacherDTO> AddTeacherAsync(AddTeacherDTO student)
         {
             try
             {
-                var result = await PostAsync<bool>(_baseURL, teacher);
+                var urlRequest = _baseURL + "/create-teacher";
+                var result = await PostAsync<AddTeacherDTO>(urlRequest, student);
+                if (result == null)
+                {
+                    throw new Exception("Failed to add the teacher: the API returned no data.");
+                }
                 return result;
             }
             catch (Exception ex)
             {
-                Console.WriteLine($"Error while adding teacher: {ex.Message}");
-                return false;
+                throw new Exception("Failed to add the teacher.", ex);
             }
+        }
+
+        public async Task<bool> DeleteTeacherAsync(int id)
+        {
+            var urlRequest = _baseURL + $"{id}";
+            var result = await DeleteAsync(urlRequest);
+
+            return result;
         }
     }
 }

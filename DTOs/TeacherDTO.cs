@@ -28,11 +28,11 @@ namespace EngMasterWPF.DTOs
 
         public string? Address { get; set; }
 
-        public DateTime? DateOfBirth { get; set; }
+        public string? DateOfBirth { get; set; }
 
-        public DateTime HireDate { get; set; }
+        public string? HireDate { get; set; }
 
-        public DateTime EndDate { get; set; }
+        public string? EndDate { get; set; }
 
         public bool? IsActive { get; set; }
 

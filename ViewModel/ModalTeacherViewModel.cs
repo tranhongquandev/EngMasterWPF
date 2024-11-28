@@ -1,27 +1,20 @@
 ﻿using AutoMapper;
 using EngMasterWPF.DTOs;
-
 using EngMasterWPF.Services;
 using EngMasterWPF.Utilities;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.IdentityModel.Tokens;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.Drawing.Printing;
 using System.Linq;
-using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Controls;
 using System.Windows.Input;
-using static Microsoft.EntityFrameworkCore.DbLoggerCategory;
 
 namespace EngMasterWPF.ViewModel
 {
-    public class ModalStudentViewModel : ViewModelBase
+    public class ModalTeacherViewModel : ViewModelBase
     {
         private string _fullName;
         public string FullName
@@ -34,13 +27,13 @@ namespace EngMasterWPF.ViewModel
             }
         }
 
-        private string studentCode;
-        public string StudentCode
+        private string _imageUrl;
+        public string ImageUrl
         {
-            get => studentCode;
+            get => _imageUrl;
             set
             {
-                studentCode = value;
+                _imageUrl = value;
                 OnPropertyChanged();
             }
         }
@@ -78,6 +71,17 @@ namespace EngMasterWPF.ViewModel
             }
         }
 
+        private string _address;
+        public string Address
+        {
+            get => _address;
+            set
+            {
+                _address = value;
+                OnPropertyChanged();
+            }
+        }
+
         private string _dateOfBirth;
         public string DateOfBirth
         {
@@ -89,13 +93,35 @@ namespace EngMasterWPF.ViewModel
             }
         }
 
-        private string _status;
-        public string Status
+        private string _hireDate;
+        public string HireDate
         {
-            get => _status;
+            get => _hireDate;
             set
             {
-                _status = value;
+                _hireDate = value;
+                OnPropertyChanged();
+            }
+        }
+
+        private string _endDate;
+        public string EndDate
+        {
+            get => _endDate;
+            set
+            {
+                _endDate = value;
+                OnPropertyChanged();
+            }
+        }
+
+        private bool _isActive;
+        public bool IsActive
+        {
+            get => _isActive;
+            set
+            {
+                _isActive = value;
                 OnPropertyChanged();
             }
         }
@@ -123,21 +149,21 @@ namespace EngMasterWPF.ViewModel
             }
         }
 
-        private readonly StudentService _studentService;
-        public ICommand AddStudentCommand { get; set; }
+        private readonly TeacherService _teacherService;
+        public ICommand AddTeacherCommand { get; set; }
 
         private readonly IServiceProvider _service;
 
         private readonly IMapper _mapper;
 
-        public ModalStudentViewModel()
+        public ModalTeacherViewModel()
 
         {
             _service = Installer.InstallServices.Instance.serviceProvider;
 
             _mapper = _service.GetRequiredService<IMapper>();
 
-            AddStudentCommand = new RelayCommand(_canExecute => true, async _execute => await AddStudentAsync());
+            AddTeacherCommand = new RelayCommand(_canExecute => true, async _execute => await AddTeacherAsync());
         }
 
         private string NormalizeDateOfBirth(string dateOfBirth)
@@ -150,17 +176,19 @@ namespace EngMasterWPF.ViewModel
             return new DateTime(2000, 1, 1).ToString("yyyy-MM-ddTHH:mm:ss.fffZ");
         }
 
-        private async Task AddStudentAsync()
+        private async Task AddTeacherAsync()
         {
             IsSubmit = true;
-            var newStudent = new AddStudentDTO
+            var newTeacher = new AddTeacherDTO
             {
                 FullName = FullName ?? string.Empty,
                 Gender = Gender ?? string.Empty,
                 Email = Email ?? string.Empty,
                 PhoneNumber = PhoneNumber ?? string.Empty,
                 DateOfBirth = NormalizeDateOfBirth(DateOfBirth),
-                Status = Status ?? string.Empty,
+                HireDate = NormalizeDateOfBirth(DateOfBirth),
+                EndDate = NormalizeDateOfBirth(DateOfBirth),
+                IsActive = IsActive,
             };
 
             if (IsUpdate)
@@ -170,14 +198,14 @@ namespace EngMasterWPF.ViewModel
 
             }
 
-            string jsonCourse = JsonConvert.SerializeObject(newStudent);
+            string jsonCourse = JsonConvert.SerializeObject(newTeacher);
             try
             {
 
-                StudentService studentService = Installer.InstallServices.Instance.serviceProvider.GetRequiredService<StudentService>();
-                var result = await studentService.AddStudentAsync(newStudent);
+                TeacherService teacherService = Installer.InstallServices.Instance.serviceProvider.GetRequiredService<TeacherService>();
+                var result = await teacherService.AddTeacherAsync(newTeacher);
 
-                MessageBox.Show("Student added successfully.");
+                MessageBox.Show("Teacher added successfully.");
                 IsSubmit = false;
 
             }

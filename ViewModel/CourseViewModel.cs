@@ -440,10 +440,6 @@ namespace EngMasterWPF.ViewModel
             }
         }
 
-        private void CloseDeleteDialog()
-        {
-            IsOpenDeletePopup = false;
-        }
 
         private async Task CountItems()
         {
@@ -456,6 +452,12 @@ namespace EngMasterWPF.ViewModel
         {
             IsOpen = true;
             IsUpdate = false;
+        }
+
+
+        private void CloseDeleteDialog()
+        {
+            IsOpenDeletePopup = false;
         }
 
         private void CloseModal()

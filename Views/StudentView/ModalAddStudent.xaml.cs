@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
@@ -41,6 +42,34 @@ namespace EngMasterWPF.Views.StudentView
             {
                 e.Handled = true;  
             }
+        }
+
+        private void Rectangle_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+
+        }
+
+        private void DatePicker_SelectedDateChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (e.AddedItems.Count > 0 && e.AddedItems[0] is DateTime selectedDate)
+            {
+                // Lấy ngày đã chọn từ DatePicker
+                DateTime dateTime = selectedDate;
+
+                // Thêm thời gian hiện tại vào ngày đã chọn
+                DateTime fullDateTime = dateTime.Add(DateTime.Now.TimeOfDay);
+
+                // Chuyển đổi sang định dạng ISO 8601 (UTC)
+                string formattedDate = fullDateTime.ToString("yyyy-MM-ddTHH:mm:ss.fffZ");
+
+                // In kết quả ra hoặc gán vào thuộc tính cần thiết
+                MessageBox.Show($"Formatted Date: {formattedDate}");
+            }
+        }
+
+        private void DatePicker_SelectedDateChanged_1(object sender, SelectionChangedEventArgs e)
+        {
+
         }
     }
 }

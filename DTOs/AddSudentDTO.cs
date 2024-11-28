@@ -10,7 +10,7 @@ namespace EngMasterWPF.DTOs
     public class AddStudentDTO
     {
 
-        [JsonProperty("fullname")]
+        [JsonProperty("fullName")]
         public string? FullName { get; set; }
 
         [JsonProperty("gender")]

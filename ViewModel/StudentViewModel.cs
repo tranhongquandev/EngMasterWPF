@@ -15,6 +15,7 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
+using static Microsoft.EntityFrameworkCore.DbLoggerCategory;
 
 namespace EngMasterWPF.ViewModel
 {
@@ -113,6 +114,16 @@ namespace EngMasterWPF.ViewModel
             }
         }
 
+        private int _id;
+        public int Id
+        {
+            get => _id;
+            set
+            {
+                _id = value;
+                OnPropertyChanged();
+            }
+        }
 
         private int _totalItems;
         public int TotalItems
@@ -125,6 +136,52 @@ namespace EngMasterWPF.ViewModel
             }
         }
 
+        private bool _isOpen;
+        public bool IsOpen
+        {
+            get => _isOpen;
+            set
+            {
+                _isOpen = value;
+                OnPropertyChanged();
+            }
+        }
+
+        private bool _isUpdate;
+        public bool IsUpdate
+        {
+            get => _isUpdate;
+            set
+            {
+                _isUpdate = value;
+                OnPropertyChanged();
+            }
+        }
+
+        private bool _isOpenDeletePopup;
+        public bool IsOpenDeletePopup
+        {
+            get => _isOpenDeletePopup;
+            set
+            {
+                _isOpenDeletePopup = value;
+                OnPropertyChanged();
+            }
+        }
+
+        private bool _isOpenUpdateModal;
+        public bool IsOpenUpdateModal
+        {
+            get => _isOpenUpdateModal;
+            set
+            {
+                _isOpenUpdateModal = value;
+                OnPropertyChanged();
+            }
+        }
+
+
+        
         private readonly IServiceProvider _service;
 
         private readonly IMapper _mapper;
@@ -161,8 +218,47 @@ namespace EngMasterWPF.ViewModel
             PrevPageCommand = new RelayCommand(_canExecute => true, async _execute => { if (Page > 1) Page--; await LoadData(Page, PageSize); });
             NextPageCommand = new RelayCommand(_canExecute => true, async _execute => { if (Page < TotalPages) Page++; await LoadData(Page, PageSize); });
             LastPageCommand = new RelayCommand(_canExecute => true, async _execute => { Page = TotalPages; await LoadData(Page, PageSize); });
+            OpenModalAddCommand = new RelayCommand(_canExecute => true, _execute => OpenDialogModal());
+
+            CloseModalCommand = new RelayCommand(_canExecute => true, _execute => CloseModal());
+
+            //OpenModalUpdateCommand = new RelayCommand(_canExecute => true, _execute => OpenModalUpdate(CurrentCourse));
+
+            OpenDeletePopupCommand = new RelayCommand(
+            _canExecute => true,
+            (param) =>
+            {
+                if (param is int id)
+                {
+                    Id = id;
+                    IsOpenDeletePopup = true;
+                }
+            } 
+            ); 
+
+            CloseModalCommand = new RelayCommand(_canExecute => true, _execute => CloseModal());
+
+            CloseDeletePopupCommand = new RelayCommand(_canExecute => true, _execute => CloseDeleteDialog());
 
             SearchTextCommand = new RelayCommand<string>(_canExecute => true, async _execute => await SearchStudentCommandHandler(SearchText));
+
+            //UpdateCourseCommand = new RelayCommand(_canExecute => true, async _execute => await UpdateCourseAsyncMethod());
+
+            DeleteCourseCommand = new RelayCommand(
+                _canExecute => true,
+                async param =>
+                {
+                    if (param is int id)
+                    {
+                        await DeleteCourseAsyncTask(id);
+                        IsOpenDeletePopup = false;
+                    }
+                    else
+                    {
+                        MessageBox.Show("Invalid ID for course deletion.");
+                    }
+                }
+            );
         }
 
         #region Method Handler
@@ -220,7 +316,20 @@ namespace EngMasterWPF.ViewModel
         public ICommand NextPageCommand { get; private set; }
         public ICommand LastPageCommand { get; private set; }
 
+        public ICommand OpenModalAddCommand { get; private set; }
 
+        public ICommand CloseModalCommand { get; private set; }
+        public ICommand OpenModalUpdateCommand { get; private set; }
+
+        public ICommand OpenDeletePopupCommand { get; private set; }
+
+        public ICommand CloseDeletePopupCommand { get; private set; }
+
+        public ICommand UpdateCourseCommand { get; private set; }
+
+        public ICommand DeleteCourseCommand { get; private set; }
+
+            
         #endregion
 
         #region Command Handler
@@ -237,6 +346,62 @@ namespace EngMasterWPF.ViewModel
 
         }
 
+        private void CloseDeleteDialog()
+        {
+            IsOpenDeletePopup = false;
+        }
+
+        private void CloseModal()
+        {
+            IsOpen = false;
+            IsOpenUpdateModal = false;
+        }
+
+        private void OpenModalUpdate(CourseDTO currentCourse)
+        {
+            //CurrentCourse = currentCourse;
+            IsOpenUpdateModal = true;
+            IsUpdate = true;
+        }
+
+        private void OpenDeletePopup()
+        {
+            IsOpenDeletePopup = true;
+        }
+
+        private void OpenDialogModal()
+        {
+            IsOpen = true;
+            IsUpdate = false;
+        }
+
+        private async Task DeleteCourseAsyncTask(int studentId)
+        {
+            if (studentId <= 0)
+            {
+                MessageBox.Show($"Invalid course ID: {studentId}");
+                return;
+            }
+
+            try
+            {
+                StudentService studentService = Installer.InstallServices.Instance.serviceProvider.GetRequiredService<StudentService>();
+                bool isDeleted = await studentService.DeleteStudentAsync(studentId);
+                if (isDeleted)
+                {
+                    MessageBox.Show("Student deleted successfully.");
+                    await LoadData(Page, PageSize);
+                }
+                else
+                {
+                    MessageBox.Show($"Failed to delete student with ID: {studentId}", "Error");
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Something went wrong. Error: {ex.Message}");
+            }
+        }
         private async Task SearchStudentCommandHandler(string name)
         {
             IsLoading = true;

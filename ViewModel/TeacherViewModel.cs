@@ -5,6 +5,7 @@ using EngMasterWPF.Services;
 using EngMasterWPF.Utilities;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.IdentityModel.Tokens;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -15,6 +16,7 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
+using static Microsoft.EntityFrameworkCore.DbLoggerCategory;
 
 namespace EngMasterWPF.ViewModel
 {
@@ -125,6 +127,73 @@ namespace EngMasterWPF.ViewModel
             }
         }
 
+        private int _id;
+        public int Id
+        {
+            get => _id;
+            set
+            {
+                _id = value;
+                OnPropertyChanged();
+            }
+        }
+
+        private bool _isUpdate = false;
+        public bool IsUpdate
+        {
+            get => _isUpdate;
+            set
+            {
+                _isUpdate = value;
+                OnPropertyChanged();
+            }
+        }
+
+        private bool _isOpen = false;
+        public bool IsOpen
+        {
+            get => _isOpen;
+            set
+            {
+                _isOpen = value;
+                OnPropertyChanged();
+            }
+        }
+
+
+        private bool _isOpenDelete = false;
+        public bool IsOpenDeletePopup
+        {
+            get => _isOpenDelete;
+            set
+            {
+                _isOpenDelete = value;
+                OnPropertyChanged();
+            }
+        }
+
+        private bool _isSubmit = false;
+        public bool IsSubmit
+        {
+            get => _isSubmit;
+            set
+            {
+                _isSubmit = value;
+                OnPropertyChanged();
+            }
+        }
+
+        private bool _isOpenUpdate = false;
+        public bool IsOpenUpdateModal
+        {
+            get => _isOpenUpdate;
+            set
+            {
+                _isOpenUpdate = value;
+                OnPropertyChanged();
+            }
+        }
+
         private readonly IServiceProvider _service;
 
         private readonly IMapper _mapper;
@@ -163,6 +232,44 @@ namespace EngMasterWPF.ViewModel
             LastPageCommand = new RelayCommand(_canExecute => true, async _execute => { Page = TotalPages; await LoadData(Page, PageSize); });
 
             SearchTextCommand = new RelayCommand<string>(_canExecute => true, async _execute => await SearchTeacherCommandHandler(SearchText));
+
+            OpenModalAddCommand = new RelayCommand(_canExecute => true, _execute => OpenDialogModal());
+
+            //OpenModalUpdateCommand = new RelayCommand(_canExecute => true, _execute => OpenModalUpdate(CurrentCourse));
+
+            OpenDeletePopupCommand = new RelayCommand(
+            _canExecute => true,
+            (param) =>
+            {
+                if (param is int id)
+                {
+                    Id = id;
+                    IsOpenDeletePopup = true;
+                }
+            }
+            );
+
+            CloseModalCommand = new RelayCommand(_canExecute => true, _execute => CloseModal());
+
+            CloseDeletePopupCommand = new RelayCommand(_canExecute => true, _execute => CloseDeleteDialog());
+
+            //UpdateTeacherCommand = new RelayCommand(_canExecute => true, async _execute => await UpdateCourseAsyncMethod());
+
+            DeleteTeacherCommand = new RelayCommand(
+                _canExecute => true,
+                async param =>
+                {
+                    if (param is int id)
+                    {
+                        await DeleteTeacherAsync(id);
+                        IsOpenDeletePopup = false;
+                    }
+                    else
+                    {
+                        MessageBox.Show("Invalid ID for teacher deletion.");
+                    }
+                }
+            );
         }
 
         #region Method Handler
@@ -205,6 +312,98 @@ namespace EngMasterWPF.ViewModel
             TotalPages = (int)Math.Ceiling((double)TotalItems / PageSize);
         }
 
+        private async Task DeleteTeacherAsync(int courseId)
+        {
+            if (courseId <= 0)
+            {
+                MessageBox.Show($"Invalid course ID: {courseId}");
+                return;
+            }
+
+            try
+            {
+                TeacherService teacherService = Installer.InstallServices.Instance.serviceProvider.GetRequiredService<TeacherService>();
+                bool isDeleted = await teacherService.DeleteTeacherAsync(courseId);
+                if (isDeleted)
+                {
+                    MessageBox.Show("Teacher deleted successfully.");
+                    await LoadData(Page, PageSize);
+                }
+                else
+                {
+                    MessageBox.Show($"Failed to delete teacher with ID: {courseId}", "Error");
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Something went wrong. Error: {ex.Message}");
+            }
+        }
+
+        private void OpenDialogModal()
+        {
+            IsOpen = true;
+            IsUpdate = false;
+        }
+
+
+        private void CloseDeleteDialog()
+        {
+            IsOpenDeletePopup = false;
+        }
+
+        private void CloseModal()
+        {
+            IsOpen = false;
+            IsOpenUpdateModal = false;
+        }
+
+        private void OpenModalUpdate(CourseDTO currentCourse)
+        {
+            //CurrentCourse = currentCourse;
+            IsOpenUpdateModal = true;
+            IsUpdate = true;
+        }
+
+        private void OpenDeletePopup()
+        {
+            IsOpenDeletePopup = true;
+        }
+
+        //private async Task UpdateCourseAsyncMethod()
+        //{
+        //    IsSubmit = true;
+        //    var updateCourse = new UpdateCourseDTO
+        //    {
+        //        CourseName = CourseName,
+        //        Duration = Duration,
+        //        Fee = Fee,
+        //        Discount = Discount,
+        //        Description = Description,
+        //        TotalFee = Fee - Discount * Fee,
+        //        IsActive = true,
+        //        LevelId = 22,
+        //        CourseCode = CourseCode
+        //    };
+
+        //    string jsonCourse = JsonConvert.SerializeObject(updateCourse);
+        //    try
+        //    {
+
+        //        CourseService courseService = Installer.InstallServices.Instance.serviceProvider.GetRequiredService<CourseService>();
+        //        var result = await courseService.UpdateCourseAsync(updateCourse);
+
+        //        MessageBox.Show("Course updated successfully.");
+        //        IsSubmit = false;
+
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        MessageBox.Show($"Something went wrong. Error: {ex.Message}\n{ex.StackTrace}");
+        //        IsSubmit = false;
+        //        return;
+        //    }
+        //}
         #endregion
 
 
@@ -219,6 +418,20 @@ namespace EngMasterWPF.ViewModel
         public ICommand PrevPageCommand { get; private set; }
         public ICommand NextPageCommand { get; private set; }
         public ICommand LastPageCommand { get; private set; }
+
+        public ICommand OpenModalAddCommand { get; private set; }
+
+        public ICommand OpenModalUpdateCommand { get; private set; }
+
+        public ICommand OpenDeletePopupCommand { get; private set; }
+
+        public ICommand CloseModalCommand { get; private set; }
+
+        public ICommand CloseDeletePopupCommand { get; private set; }
+
+        public ICommand DeleteTeacherCommand { get; private set; }
+
+        public ICommand UpdateTeacherCommand { get; private set; }
 
 
         #endregion

@@ -40,6 +40,7 @@ namespace EngMasterWPF.Services
         {
             try
             {
+                var urlRequest = _baseURL + "/create-course";
                 var result = await PostAsync<AddCourseDTO>(_baseURL, course);
                 if (result == null)
                 {
@@ -72,7 +73,7 @@ namespace EngMasterWPF.Services
 
         public async Task<bool> DeleteCourseAsync(int id)
         {
-            var urlRequest = _baseURL + $"?Id={id}";
+            var urlRequest = _baseURL + $"{id}";
             var result = await DeleteAsync(urlRequest);
 
             return result;
