@@ -98,6 +98,7 @@
     <None Remove="Assets\Img\Engmaster.png" />
     <None Remove="Assets\Img\Frame77.png" />
     <None Remove="Assets\Img\logo.png" />
+    <None Remove="Assets\Img\man.png" />
     <None Remove="Assets\Img\non-avt.jpg" />
     <None Remove="Assets\Img\not-found-data-2.jpg" />
     <None Remove="Assets\Img\not-found-data.jpg" />
@@ -142,9 +143,8 @@
 		<Content Include="Assets\Img\Frame77.png">
 		  <CopyToOutputDirectory>Always</CopyToOutputDirectory>
 		</Content>
-		
-		<Content Include="Assets\Img\non-avt.jpg">
-		  <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		<Content Include="Assets\Img\man.png">
+		  <CopyToOutputDirectory>Always</CopyToOutputDirectory>
 		</Content>
 		
 		<Content Include="Assets\Img\simple-icons_task.png">

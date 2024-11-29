@@ -14,13 +14,10 @@
                 <ResourceDictionary Source="/Themes/Generic.xaml" />
                 <ResourceDictionary Source="/SharedUI/PageTemplate.xaml" />
 
-                <materialDesign:BundledTheme
-                    BaseTheme="Light"
-                    PrimaryColor="Grey"
-                    SecondaryColor="Indigo" />
+                <materialDesign:BundledTheme BaseTheme="Light" PrimaryColor="Indigo" />
 
                 <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesign3.Defaults.xaml" />
-                <ResourceDictionary Source="pack://application:,,,/MaterialDesignColors;component/Themes/Recommended/Primary/MaterialDesignColor.Grey.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/MaterialDesignColors;component/Themes/Recommended/Primary/MaterialDesignColor.Indigo.xaml" />
                 <ResourceDictionary Source="pack://application:,,,/MaterialDesignColors;component/Themes/Recommended/Secondary/MaterialDesignColor.Indigo.xaml" />
 
 

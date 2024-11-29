@@ -56,16 +56,7 @@ namespace EngMasterWPF.ViewModel
             }
         }
 
-        private string _iconBreadcumb = "Grid24";
-        public string IconBreadcumb
-        {
-            get => _iconBreadcumb;
-            set
-            {
-                _iconBreadcumb = value;
-                OnPropertyChanged();
-            }
-        }
+      
 
         private bool _isAvatarPopupOpen = false;
         public bool IsAvatarPopupOpen
@@ -89,12 +80,12 @@ namespace EngMasterWPF.ViewModel
             ToggleSideBarCommand = new RelayCommand(_canExecute => true, _execute => IsExpand = !IsExpand);
             ToggleAvatarPopupConmmand = new RelayCommand(_canExecute => true, _execute => IsAvatarPopupOpen = !IsAvatarPopupOpen);
 
-            NavigateHomeCommand = new RelayCommand(_canExecute => true, _execute => { CurrentView = _service.GetRequiredService<HomeViewModel>(); Breadcumb = "Tổng quan"; IconBreadcumb = "Grid24"; });
-            NavigateStudentCommand = new RelayCommand(_canExecute => true, _execute => {CurrentView = _service.GetRequiredService<StudentViewModel>(); Breadcumb = "Học viên"; IconBreadcumb = "PeopleTeam24"; });
-            NavigateTeacherCommand = new RelayCommand(_canExecute => true, _execute => {CurrentView = _service.GetRequiredService<TeacherViewModel>(); Breadcumb = "Giảng viên"; IconBreadcumb = "VideoBackgroundEffect24"; });
-            NavigateCourseCommand = new RelayCommand(_canExecute => true, _execute => {CurrentView = _service.GetRequiredService<CourseViewModel>(); Breadcumb = "Khóa học";IconBreadcumb = "TaskListSquareLtr24"; });
-            NavigateGradeCommand = new RelayCommand(_canExecute => true, _execute => {CurrentView = _service.GetRequiredService<GradeViewModel>(); Breadcumb = "Lớp học";IconBreadcumb = "Building24"; });
-            NavigateStaffCommand = new RelayCommand(_canExecute => true, _execute => { CurrentView = _service.GetRequiredService<StaffViewModel>(); Breadcumb = "Người dùng"; IconBreadcumb = "People24"; });
+            NavigateHomeCommand = new RelayCommand(_canExecute => true, _execute => { CurrentView = _service.GetRequiredService<HomeViewModel>(); Breadcumb = "Tổng quan";  });
+            NavigateStudentCommand = new RelayCommand(_canExecute => true, _execute => {CurrentView = _service.GetRequiredService<StudentViewModel>(); Breadcumb = "Học viên"; });
+            NavigateTeacherCommand = new RelayCommand(_canExecute => true, _execute => {CurrentView = _service.GetRequiredService<TeacherViewModel>(); Breadcumb = "Giảng viên"; });
+            NavigateCourseCommand = new RelayCommand(_canExecute => true, _execute => {CurrentView = _service.GetRequiredService<CourseViewModel>(); Breadcumb = "Khóa học"; });
+            NavigateGradeCommand = new RelayCommand(_canExecute => true, _execute => {CurrentView = _service.GetRequiredService<GradeViewModel>(); Breadcumb = "Lớp học"; });
+            NavigateStaffCommand = new RelayCommand(_canExecute => true, _execute => { CurrentView = _service.GetRequiredService<StaffViewModel>(); Breadcumb = "Người dùng";  });
 
 
 
