@@ -20,7 +20,11 @@ namespace EngMasterWPF.DTOs
 
         public string? TeacherId { get; set; }
 
+        public string? FullName { get; set; }
+
         public string? CourseId { get; set; }
+
+        public string? CourseName { get; set; }
 
         public DateTime? StartDate { get; set; }
 

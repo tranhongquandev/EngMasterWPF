@@ -145,7 +145,7 @@ namespace EngMasterWPF.ViewModel
             Application.Current.Dispatcher.Invoke(async () =>
             {
 
-                var loadData = LoadData(1);
+                var loadData = LoadData(1,4);
                 var countCourses = CountCourses();
                 var countStudents = CountStudents();
                 var countTeachers = CountTeachers();
@@ -165,14 +165,14 @@ namespace EngMasterWPF.ViewModel
 
         #endregion
 
-        private async Task LoadData(int page)
+        private async Task LoadData( int page, int pageSize)
         {
             IsLoading = true;
 
             try
             {
                 CourseService homeService = Installer.InstallServices.Instance.serviceProvider.GetRequiredService<CourseService>();
-                var homeInitDb = await homeService.GetCoursesByPageAsync(1,4);
+                var homeInitDb = await homeService.GetCourseByFilter(null, page, pageSize);
 
                 if (homeInitDb == null || !homeInitDb.Any())
                 {

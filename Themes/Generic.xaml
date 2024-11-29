@@ -3,7 +3,7 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:button="clr-namespace:EngMasterWPF.SharedUI"
     xmlns:local="clr-namespace:EngMasterWPF"
-    xmlns:ui="http://schemas.lepo.co/wpfui/2022/xaml">
+    xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes">
 
 
     <FontFamily x:Key="FZ-PoppinsMedium">/Assets/Fonts/FZ-Poppins-Medium.ttf#Fz Poppins</FontFamily>
@@ -28,15 +28,15 @@
                                 x:Name="IconPanel"
                                 HorizontalAlignment="Left"
                                 VerticalAlignment="Center">
-                                <ui:SymbolIcon
+                                <materialDesign:PackIcon
                                     x:Name="IconNavigation"
                                     Grid.Row="0"
-                                    Width="30"
-                                    Height="30"
+                                    Width="25"
+                                    Height="25"
                                     HorizontalAlignment="Center"
                                     VerticalAlignment="Top"
                                     Foreground="{TemplateBinding Foreground}"
-                                    Symbol="{Binding Icon, RelativeSource={RelativeSource TemplatedParent}}" />
+                                    Kind="{Binding Icon, RelativeSource={RelativeSource TemplatedParent}}" />
                                 <TextBlock
                                     x:Name="CollapseTitle"
                                     HorizontalAlignment="Center"
@@ -63,7 +63,6 @@
 
                             <Setter TargetName="TitleNavigation" Property="Foreground" Value="#1A1A1A" />
                             <Setter TargetName="IconNavigation" Property="Foreground" Value="#1A1A1A" />
-                            <Setter TargetName="IconNavigation" Property="Filled" Value="True" />
                             <Setter TargetName="ButtonBorder" Property="Background" Value="#EEE6E2" />
 
 
@@ -80,7 +79,6 @@
                         <Trigger Property="IsMouseOver" Value="True">
                             <Setter TargetName="TitleNavigation" Property="Foreground" Value="#1A1A1A" />
                             <Setter TargetName="IconNavigation" Property="Foreground" Value="#1A1A1A" />
-                            <Setter TargetName="IconNavigation" Property="Filled" Value="True" />
                             <Setter TargetName="ButtonBorder" Property="Background" Value="#EEE6E2" />
 
                             <Trigger.EnterActions>

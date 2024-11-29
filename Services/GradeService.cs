@@ -11,9 +11,16 @@ namespace EngMasterWPF.Services
     public class GradeService : BaseHttpClient
     {
         private const string _baseURL = "https://englabapi.onrender.com/api/v1/class/";
-        public async Task<ObservableCollection<ClassDTO>?> GetGradesByPageAsync(int page, int pageSize)
+        public async Task<ObservableCollection<ClassDTO>?> GetGradeByFilter(string? name,int page, int pageSize)
         {
             var urlRequest = _baseURL + "get-by-filter" + $"?page={page}&pagesize={pageSize}";
+
+            if(!string.IsNullOrEmpty(name))
+            {
+                urlRequest += $"&name={name}";
+            }
+
+
             var result = await GetAsync<ObservableCollection<ClassDTO>>(urlRequest);
             return result ?? new ObservableCollection<ClassDTO>();
         }
@@ -24,12 +31,7 @@ namespace EngMasterWPF.Services
             return await GetAsync<int>(urlRequest);
         }
 
-        public async Task<ObservableCollection<ClassDTO>> GetByName(string name)
-        {
-            var urlRequest = _baseURL + "get-by-name" + $"?name={name}";
-            var result = await GetAsync<ObservableCollection<ClassDTO>>(urlRequest);
-            return result ?? new ObservableCollection<ClassDTO>();
-        }
+      
 
         public async Task<AddClassDTO> AddClassAsync(AddClassDTO student)
         { 

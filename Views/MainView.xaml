@@ -190,50 +190,44 @@
                     <button:NavigationButton
                         Title="Trang chủ"
                         Command="{Binding NavigateHomeCommand}"
-                        FontSize="20"
                         GroupName="NavigationButton"
-                        Icon="Grid24"
+                        Icon="ViewGrid"
                         IsChecked="True"
                         Style="{DynamicResource NavigationButtonStyle}" />
 
                     <button:NavigationButton
                         Title="Học viên"
                         Command="{Binding NavigateStudentCommand}"
-                        FontSize="20"
                         GroupName="NavigationButton"
-                        Icon="PeopleTeam24"
+                        Icon="AccountGroup"
                         Style="{DynamicResource NavigationButtonStyle}" />
 
                     <button:NavigationButton
                         Title="Giảng viên"
                         Command="{Binding NavigateTeacherCommand}"
-                        FontSize="20"
                         GroupName="NavigationButton"
-                        Icon="VideoBackgroundEffect24"
+                        Icon="AccountTieVoice"
                         Style="{DynamicResource NavigationButtonStyle}" />
 
                     <button:NavigationButton
                         Title="Khóa học"
                         Command="{Binding NavigateCourseCommand}"
-                        FontSize="20"
                         GroupName="NavigationButton"
-                        Icon="TaskListSquareLtr24"
+                        Icon="CastConnected"
                         Style="{DynamicResource NavigationButtonStyle}" />
 
                     <button:NavigationButton
                         Title="Lớp học"
                         Command="{Binding NavigateGradeCommand}"
-                        FontSize="20"
                         GroupName="NavigationButton"
-                        Icon="Building24"
+                        Icon="GoogleClassroom"
                         Style="{DynamicResource NavigationButtonStyle}" />
 
                     <button:NavigationButton
-                        Title="Người dùng"
+                        Title="Tài khoản"
                         Command="{Binding NavigateStaffCommand}"
-                        FontSize="20"
                         GroupName="NavigationButton"
-                        Icon="People24"
+                        Icon="identifier"
                         Style="{DynamicResource NavigationButtonStyle}" />
                 </StackPanel>
                 <!--  Button  -->

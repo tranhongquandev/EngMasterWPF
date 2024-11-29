@@ -33,8 +33,7 @@ namespace EngMasterWPF.DTOs
         [JsonProperty("discount")]
         public decimal? Discount { get; set; }
 
-        [JsonProperty("totalFee")]
-        public decimal? TotalFee { get; set; }
+        public double TotalFee => (double)(Fee - (Fee * Discount ?? 0));
 
         public DateTime? CreatedDate { get; set; }
 
@@ -46,6 +45,9 @@ namespace EngMasterWPF.DTOs
         [JsonProperty("levelId")]
         public int? LevelId { get; set; }
 
-    
+        [JsonProperty("levelName")]
+        public string? LevelName { get; set; }
+
+
     }
 }

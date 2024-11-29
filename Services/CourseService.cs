@@ -15,9 +15,15 @@ namespace EngMasterWPF.Services
     {
         private const string _baseURL = "https://englabapi.onrender.com/api/v1/course/";
 
-        public async Task<ObservableCollection<CourseDTO>?> GetCoursesByPageAsync(int page, int pageSize)
+        public async Task<ObservableCollection<CourseDTO>?> GetCourseByFilter(string? name,int page, int pageSize)
         {
             var urlRequest = _baseURL + "get-by-filter" + $"?page={page}&pagesize={pageSize}";
+
+            if(!string.IsNullOrEmpty(name))
+            {
+                urlRequest += $"&name={name}";
+            }
+
             var result = await GetAsync<ObservableCollection<CourseDTO>>(urlRequest);
             return result ?? new ObservableCollection<CourseDTO>();
         }
@@ -29,12 +35,7 @@ namespace EngMasterWPF.Services
         }
 
 
-        public async Task<ObservableCollection<CourseDTO>> GetByName(string name)
-        {
-            var urlRequest = _baseURL + "get-by-name" + $"?name={name}";
-            var result = await GetAsync<ObservableCollection<CourseDTO>>(urlRequest);
-            return result ?? new ObservableCollection<CourseDTO>();
-        }
+      
 
         public async Task<AddCourseDTO> AddCourseAsync(AddCourseDTO course)
         {

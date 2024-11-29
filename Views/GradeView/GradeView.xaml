@@ -23,22 +23,33 @@
     <UserControl.Resources />
 
     <Border
-    Margin="20"
-    Background="#FFFFFF"
-    CornerRadius="10">
+        Margin="20"
+        Background="#FFFFFF"
+        CornerRadius="10">
         <Grid x:Name="RootGrid">
 
             <!--  This is the fade in animation  -->
             <Grid.Resources>
                 <Storyboard x:Key="FadeInStoryboard">
                     <DoubleAnimation
-                    Storyboard.TargetName="RootGrid"
-                    Storyboard.TargetProperty="Opacity"
-                    From="0"
-                    To="1"
-                    Duration="0:0:1" />
-
+                        Storyboard.TargetName="RootGrid"
+                        Storyboard.TargetProperty="Opacity"
+                        From="0"
+                        To="1"
+                        Duration="0:0:1" />
                 </Storyboard>
+
+
+                <Style x:Key="ToggleCreateModal" TargetType="Grid">
+                    <Style.Triggers>
+                        <DataTrigger Binding="{Binding IsOpenCreateModal, UpdateSourceTrigger=PropertyChanged}" Value="True">
+                            <Setter Property="Visibility" Value="Visible" />
+                        </DataTrigger>
+                        <DataTrigger Binding="{Binding IsOpenCreateModal, UpdateSourceTrigger=PropertyChanged}" Value="False">
+                            <Setter Property="Visibility" Value="Collapsed" />
+                        </DataTrigger>
+                    </Style.Triggers>
+                </Style>
 
 
 
@@ -62,10 +73,25 @@
 
             <!--  This is the fade in animation  -->
 
+            <!--  Add Modal  -->
+            <Grid
+                x:Name="OpenCreateModal"
+                HorizontalAlignment="Stretch"
+                VerticalAlignment="Stretch"
+                Panel.ZIndex="999"
+                DataContext="{Binding}"
+                Style="{StaticResource ToggleCreateModal}">
+
+
+                <local:ModalAddGrade x:Name="ModalAddGrade" />
+            </Grid>
+
+
+
+            <!--  Add Modal  -->
+
 
             <Grid>
-
-
 
                 <Grid.RowDefinitions>
                     <RowDefinition Height="Auto" />
@@ -82,39 +108,39 @@
                                         <Grid Cursor="Hand">
                                             <Border Background="#EEE6E2" CornerRadius="5">
                                                 <Button
-                                                Padding="0"
-                                                Background="Transparent"
-                                                BorderBrush="Transparent"
-                                                BorderThickness="0"
-                                                Command="{Binding ToggleComboBoxFilterCommand}">
+                                                    Padding="0"
+                                                    Background="Transparent"
+                                                    BorderBrush="Transparent"
+                                                    BorderThickness="0"
+                                                    Command="{Binding ToggleComboBoxFilterCommand}">
                                                     <StackPanel
-                                                    Width="60"
-                                                    HorizontalAlignment="Center"
-                                                    Orientation="Horizontal">
+                                                        Width="60"
+                                                        HorizontalAlignment="Center"
+                                                        Orientation="Horizontal">
                                                         <ContentPresenter
-                                                        x:Name="Content"
-                                                        Margin="10,0,0,0"
-                                                        VerticalAlignment="Center"
-                                                        Content="{TemplateBinding SelectionBoxItem}"
-                                                        ContentTemplate="{TemplateBinding SelectionBoxItemTemplate}" />
+                                                            x:Name="Content"
+                                                            Margin="10,0,0,0"
+                                                            VerticalAlignment="Center"
+                                                            Content="{TemplateBinding SelectionBoxItem}"
+                                                            ContentTemplate="{TemplateBinding SelectionBoxItemTemplate}" />
                                                         <ui:SymbolIcon
-                                                        Margin="20,0,0,0"
-                                                        Filled="True"
-                                                        FontSize="8"
-                                                        Symbol="ChevronDown16" />
+                                                            Margin="20,0,0,0"
+                                                            Filled="True"
+                                                            FontSize="8"
+                                                            Symbol="ChevronDown16" />
                                                     </StackPanel>
                                                 </Button>
                                             </Border>
                                             <Popup
-                                            x:Name="Popup"
-                                            Placement="Bottom"
-                                            PopupAnimation="Fade"
-                                            StaysOpen="False">
+                                                x:Name="Popup"
+                                                Placement="Bottom"
+                                                PopupAnimation="Fade"
+                                                StaysOpen="False">
                                                 <Border
-                                                x:Name="ComboBoxItemSelected"
-                                                Background="#FFFFFF"
-                                                BorderBrush="#EEE6E2"
-                                                BorderThickness="0.3">
+                                                    x:Name="ComboBoxItemSelected"
+                                                    Background="#FFFFFF"
+                                                    BorderBrush="#EEE6E2"
+                                                    BorderThickness="0.3">
 
                                                     <ItemsPresenter x:Name="SelectedNumber" Margin="5" />
                                                 </Border>
@@ -127,11 +153,11 @@
                                                     <BeginStoryboard>
                                                         <Storyboard>
                                                             <DoubleAnimation
-                                                            Storyboard.TargetName="Popup"
-                                                            Storyboard.TargetProperty="Opacity"
-                                                            From="0"
-                                                            To="1"
-                                                            Duration="0:0:0.3" />
+                                                                Storyboard.TargetName="Popup"
+                                                                Storyboard.TargetProperty="Opacity"
+                                                                From="0"
+                                                                To="1"
+                                                                Duration="0:0:0.3" />
                                                         </Storyboard>
                                                     </BeginStoryboard>
                                                 </DataTrigger.EnterActions>
@@ -149,11 +175,11 @@
                     </Grid.Resources>
                     <StackPanel Orientation="Horizontal">
                         <ComboBox
-                        x:Name="SelectionFilterBox"
-                        Width="70"
-                        Height="40"
-                        Margin="0,0,10,0"
-                        BorderThickness="0">
+                            x:Name="SelectionFilterBox"
+                            Width="70"
+                            Height="40"
+                            Margin="0,0,10,0"
+                            BorderThickness="0">
                             <i:Interaction.Triggers>
                                 <i:EventTrigger EventName="SelectionChanged">
                                     <i:InvokeCommandAction Command="{Binding ChangePageSizeCommand}" CommandParameter="{Binding SelectedValue, ElementName=SelectionFilterBox}" />
@@ -165,14 +191,14 @@
                                         <Setter.Value>
                                             <ControlTemplate TargetType="ComboBoxItem">
                                                 <Border
-                                                Width="70"
-                                                Height="40"
-                                                Background="{TemplateBinding Background}"
-                                                Cursor="Hand">
+                                                    Width="70"
+                                                    Height="40"
+                                                    Background="{TemplateBinding Background}"
+                                                    Cursor="Hand">
                                                     <ContentPresenter
-                                                    Margin="10,5,0,5"
-                                                    HorizontalAlignment="Left"
-                                                    VerticalAlignment="Center" />
+                                                        Margin="10,5,0,5"
+                                                        HorizontalAlignment="Left"
+                                                        VerticalAlignment="Center" />
 
                                                     <i:Interaction.Triggers>
                                                         <i:EventTrigger EventName="MouseUp">
@@ -203,25 +229,25 @@
 
                         <Grid Margin="0,0,0,0">
                             <ui:SymbolIcon
-                            Margin="15,0,0,0"
-                            HorizontalAlignment="Left"
-                            FontSize="18"
-                            Symbol="Search24" />
+                                Margin="15,0,0,0"
+                                HorizontalAlignment="Left"
+                                FontSize="18"
+                                Symbol="Search24" />
 
                             <Border
-                            BorderBrush="#EEE6E2"
-                            BorderThickness="1"
-                            CornerRadius="8">
+                                BorderBrush="#EEE6E2"
+                                BorderThickness="1"
+                                CornerRadius="8">
                                 <TextBox
-                                Width="340"
-                                Padding="50,8,20,8"
-                                materialDesign:HintAssist.Hint="Tìm kiếm lớp học"
-                                materialDesign:TextFieldAssist.HasClearButton="True"
-                                materialDesign:TextFieldAssist.UnderlineBrush="Transparent"
-                                BorderBrush="Transparent"
-                                FontFamily="{StaticResource PoppinsRegular}"
-                                FontSize="14"
-                                Text="{Binding SearchText, UpdateSourceTrigger=PropertyChanged}">
+                                    Width="340"
+                                    Padding="50,8,20,8"
+                                    materialDesign:HintAssist.Hint="Tìm kiếm lớp học"
+                                    materialDesign:TextFieldAssist.HasClearButton="True"
+                                    materialDesign:TextFieldAssist.UnderlineBrush="Transparent"
+                                    BorderBrush="Transparent"
+                                    FontFamily="{StaticResource PoppinsRegular}"
+                                    FontSize="14"
+                                    Text="{Binding SearchText, UpdateSourceTrigger=PropertyChanged}">
                                     <i:Interaction.Triggers>
                                         <i:EventTrigger EventName="KeyUp">
                                             <i:InvokeCommandAction Command="{Binding SearchTextCommand}" />
@@ -238,18 +264,19 @@
                     </StackPanel>
 
                     <Button
-                    Width="140"
-                    Height="40"
-                    HorizontalAlignment="Right"
-                    HorizontalContentAlignment="Center"
-                    VerticalContentAlignment="Center">
+                        Width="140"
+                        Height="40"
+                        HorizontalAlignment="Right"
+                        HorizontalContentAlignment="Center"
+                        VerticalContentAlignment="Center"
+                        Command="{Binding OpenCreateGradeModalCommand}">
                         <StackPanel Orientation="Horizontal">
                             <ui:SymbolIcon Symbol="PeopleAdd24" />
                             <TextBlock
-                            Margin="5,2,0,0"
-                            FontFamily="{StaticResource PoppinsMedium}"
-                            FontSize="12"
-                            Text="Thêm học viên" />
+                                Margin="5,2,0,0"
+                                FontFamily="{StaticResource PoppinsMedium}"
+                                FontSize="12"
+                                Text="Thêm lớp học" />
                         </StackPanel>
 
                         <Button.Template>
@@ -269,10 +296,10 @@
                     <Grid>
                         <Grid Panel.ZIndex="20" Background="White">
                             <ui:ProgressRing
-                            HorizontalAlignment="Center"
-                            VerticalAlignment="Center"
-                            Foreground="#1A1A1A"
-                            IsIndeterminate="True" />
+                                HorizontalAlignment="Center"
+                                VerticalAlignment="Center"
+                                Foreground="#1A1A1A"
+                                IsIndeterminate="True" />
 
                             <Grid.Style>
                                 <Style TargetType="Grid">
@@ -293,10 +320,10 @@
                         <Grid Panel.ZIndex="20" Background="White">
                             <Image Source="/Assets/Img/not-found-data.jpg" Stretch="Uniform" />
                             <TextBlock
-                            HorizontalAlignment="Center"
-                            VerticalAlignment="Center"
-                            FontSize="16"
-                            Text="Không tìm thấy dữ liệu!">
+                                HorizontalAlignment="Center"
+                                VerticalAlignment="Center"
+                                FontSize="16"
+                                Text="Không tìm thấy dữ liệu!">
                                 <TextBlock.RenderTransform>
                                     <TranslateTransform Y="150" />
                                 </TextBlock.RenderTransform>
@@ -317,18 +344,18 @@
                         </Grid>
                         <!--  Data table  -->
                         <DataGrid
-                        AlternationCount="2"
-                        AutoGenerateColumns="False"
-                        Background="Transparent"
-                        BorderBrush="Transparent"
-                        CanUserAddRows="False"
-                        CanUserResizeColumns="True"
-                        CanUserResizeRows="False"
-                        FontSize="14"
-                        IsReadOnly="True"
-                        ItemsSource="{Binding Grades, UpdateSourceTrigger=PropertyChanged}"
-                        ScrollViewer.CanContentScroll="True"
-                        ScrollViewer.VerticalScrollBarVisibility="Hidden">
+                            AlternationCount="2"
+                            AutoGenerateColumns="False"
+                            Background="Transparent"
+                            BorderBrush="Transparent"
+                            CanUserAddRows="False"
+                            CanUserResizeColumns="True"
+                            CanUserResizeRows="False"
+                            FontSize="14"
+                            IsReadOnly="True"
+                            ItemsSource="{Binding Grades, UpdateSourceTrigger=PropertyChanged}"
+                            ScrollViewer.CanContentScroll="True"
+                            ScrollViewer.VerticalScrollBarVisibility="Hidden">
                             <DataGrid.Resources>
                                 <Style TargetType="DataGridColumnHeader">
                                     <Setter Property="FontSize" Value="14" />
@@ -384,10 +411,10 @@
                             </DataGrid.Resources>
                             <DataGrid.Columns>
                                 <DataGridTextColumn
-                                Width="Auto"
-                                Binding="{Binding ClassCode}"
-                                ElementStyle="{StaticResource DataGridTextStyle}"
-                                Header="Mã lớp">
+                                    Width="Auto"
+                                    Binding="{Binding ClassCode}"
+                                    ElementStyle="{StaticResource DataGridTextStyle}"
+                                    Header="Mã lớp">
                                     <DataGridTextColumn.CellStyle>
                                         <Style TargetType="DataGridCell">
                                             <Setter Property="Cursor" Value="Hand" />
@@ -404,66 +431,66 @@
                                     </DataGridTextColumn.CellStyle>
                                 </DataGridTextColumn>
                                 <DataGridTextColumn
-                                Width="*"
-                                Binding="{Binding ClassName}"
-                                ElementStyle="{StaticResource DataGridTextStyle}"
-                                Header="Tên lớp" />
+                                    Width="*"
+                                    Binding="{Binding ClassName}"
+                                    ElementStyle="{StaticResource DataGridTextStyle}"
+                                    Header="Tên lớp" />
                                 <DataGridTextColumn
-                                Width="Auto"
-                                Binding="{Binding StartDate, StringFormat='dd/MM/yyyy'}"
-                                ElementStyle="{StaticResource DataGridTextStyle}"
-                                Header="Ngày bắt đầu" />
+                                    Width="Auto"
+                                    Binding="{Binding StartDate, StringFormat='dd/MM/yyyy'}"
+                                    ElementStyle="{StaticResource DataGridTextStyle}"
+                                    Header="Ngày bắt đầu" />
                                 <DataGridTextColumn
-                                Width="Auto"
-                                Binding="{Binding EndDate, StringFormat='dd/MM/yyyy'}"
-                                ElementStyle="{StaticResource DataGridTextStyle}"
-                                Header="Ngày kết thúc" />
+                                    Width="Auto"
+                                    Binding="{Binding EndDate, StringFormat='dd/MM/yyyy'}"
+                                    ElementStyle="{StaticResource DataGridTextStyle}"
+                                    Header="Ngày kết thúc" />
                                 <DataGridTextColumn
-                                Width="*"
-                                Binding="{Binding CourseId}"
-                                ElementStyle="{StaticResource DataGridTextStyle}"
-                                Header="Tên  khóa học" />
-          
+                                    Width="*"
+                                    Binding="{Binding CourseName}"
+                                    ElementStyle="{StaticResource DataGridTextStyle}"
+                                    Header="Tên  khóa học" />
+
                                 <DataGridTextColumn
-                                Width="*"
-                                Binding="{Binding TeacherId}"
-                                ElementStyle="{StaticResource DataGridTextStyle}"
-                                Header="Tên giảng viên" />
+                                    Width="*"
+                                    Binding="{Binding FullName}"
+                                    ElementStyle="{StaticResource DataGridTextStyle}"
+                                    Header="Tên giảng viên" />
                                 <DataGridTemplateColumn Width="*" Header="Thao tác">
                                     <DataGridTemplateColumn.CellTemplate>
                                         <DataTemplate>
                                             <StackPanel
-                                            HorizontalAlignment="Left"
-                                            VerticalAlignment="Center"
-                                            Orientation="Horizontal">
+                                                HorizontalAlignment="Left"
+                                                VerticalAlignment="Center"
+                                                Orientation="Horizontal">
                                                 <Border
-                                                Width="40"
-                                                Height="40"
-                                                Margin="0,0,20,0"
-                                                Background="#B2D1B2"
-                                                CornerRadius="20">
+                                                    Width="40"
+                                                    Height="40"
+                                                    Margin="0,0,20,0"
+                                                    Background="#B2D1B2"
+                                                    CornerRadius="20">
                                                     <Button
-                                                    Padding="0"
-                                                    HorizontalContentAlignment="Center"
-                                                    VerticalContentAlignment="Center"
-                                                    Background="Transparent"
-                                                    BorderBrush="Transparent">
+                                                        Padding="0"
+                                                        HorizontalContentAlignment="Center"
+                                                        VerticalContentAlignment="Center"
+                                                        Background="Transparent"
+                                                        BorderBrush="Transparent">
                                                         <ui:SymbolIcon FontSize="18" Symbol="DocumentEdit24" />
                                                     </Button>
                                                 </Border>
 
                                                 <Border
-                                                Width="40"
-                                                Height="40"
-                                                Margin="0,0,20,0"
-                                                Background="#EAB8B0"
-                                                CornerRadius="20">
+                                                    Width="40"
+                                                    Height="40"
+                                                    Margin="0,0,20,0"
+                                                    Background="#EAB8B0"
+                                                    CornerRadius="20">
                                                     <Button
-                                                    Padding="0"
-                                                    HorizontalContentAlignment="Center"
-                                                    VerticalContentAlignment="Center"
-                                                    Background="Transparent"
-                                                    BorderBrush="Transparent">
+                                                        Padding="0"
+                                                        HorizontalContentAlignment="Center"
+                                                        VerticalContentAlignment="Center"
+                                                        Background="Transparent"
+                                                        BorderBrush="Transparent">
                                                         <ui:SymbolIcon FontSize="18" Symbol="DeleteDismiss24" />
                                                     </Button>
                                                 </Border>
@@ -478,74 +505,74 @@
                 </Grid>
 
                 <StackPanel
-                Grid.Row="2"
-                Margin="0,0,20,10"
-                HorizontalAlignment="Right"
-                Orientation="Horizontal">
+                    Grid.Row="2"
+                    Margin="0,0,20,10"
+                    HorizontalAlignment="Right"
+                    Orientation="Horizontal">
                     <Border
-                    Width="40"
-                    Margin="5,0,5,0"
-                    Background="#EEE6E2"
-                    CornerRadius="5">
+                        Width="40"
+                        Margin="5,0,5,0"
+                        Background="#EEE6E2"
+                        CornerRadius="5">
                         <Button
-                        Padding="0"
-                        Background="Transparent"
-                        BorderBrush="Transparent"
-                        Command="{Binding FirstPageCommand}">
+                            Padding="0"
+                            Background="Transparent"
+                            BorderBrush="Transparent"
+                            Command="{Binding FirstPageCommand}">
                             <ui:SymbolIcon FontSize="15" Symbol="ChevronDoubleLeft20" />
                         </Button>
                     </Border>
                     <Border
-                    Width="40"
-                    Margin="5,0,10,0"
-                    Background="#EEE6E2"
-                    CornerRadius="5">
+                        Width="40"
+                        Margin="5,0,10,0"
+                        Background="#EEE6E2"
+                        CornerRadius="5">
                         <Button
-                        Padding="0"
-                        Background="Transparent"
-                        BorderBrush="Transparent"
-                        Command="{Binding PrevPageCommand}">
+                            Padding="0"
+                            Background="Transparent"
+                            BorderBrush="Transparent"
+                            Command="{Binding PrevPageCommand}">
                             <ui:SymbolIcon FontSize="15" Symbol="ChevronLeft24" />
                         </Button>
                     </Border>
 
                     <Border
-                    Width="40"
-                    BorderBrush="#EEE6E2"
-                    BorderThickness="1"
-                    CornerRadius="5">
+                        Width="40"
+                        BorderBrush="#EEE6E2"
+                        BorderThickness="1"
+                        CornerRadius="5">
                         <TextBox
-                        HorizontalContentAlignment="Center"
-                        VerticalContentAlignment="Center"
-                        materialDesign:TextFieldAssist.UnderlineBrush="Transparent"
-                        BorderBrush="Transparent"
-                        Text="{Binding Page, UpdateSourceTrigger=PropertyChanged}" />
+                            HorizontalContentAlignment="Center"
+                            VerticalContentAlignment="Center"
+                            materialDesign:TextFieldAssist.UnderlineBrush="Transparent"
+                            BorderBrush="Transparent"
+                            Text="{Binding Page, UpdateSourceTrigger=PropertyChanged}" />
                     </Border>
 
                     <Border
-                    Width="40"
-                    Margin="10,0,5,0"
-                    Background="#EEE6E2"
-                    CornerRadius="5">
+                        Width="40"
+                        Margin="10,0,5,0"
+                        Background="#EEE6E2"
+                        CornerRadius="5">
                         <Button
-                        Padding="0"
-                        Background="Transparent"
-                        BorderBrush="Transparent"
-                        Command="{Binding NextPageCommand}">
+                            Padding="0"
+                            Background="Transparent"
+                            BorderBrush="Transparent"
+                            Command="{Binding NextPageCommand}">
                             <ui:SymbolIcon FontSize="15" Symbol="ChevronRight24" />
                         </Button>
                     </Border>
                     <Border
-                    Width="40"
-                    Height="30"
-                    Margin="5,0,5,0"
-                    Background="#EEE6E2"
-                    CornerRadius="5">
+                        Width="40"
+                        Height="30"
+                        Margin="5,0,5,0"
+                        Background="#EEE6E2"
+                        CornerRadius="5">
                         <Button
-                        Padding="0"
-                        Background="Transparent"
-                        BorderBrush="Transparent"
-                        Command="{Binding LastPageCommand}">
+                            Padding="0"
+                            Background="Transparent"
+                            BorderBrush="Transparent"
+                            Command="{Binding LastPageCommand}">
                             <ui:SymbolIcon FontSize="15" Symbol="ChevronDoubleRight20" />
                         </Button>
                     </Border>
