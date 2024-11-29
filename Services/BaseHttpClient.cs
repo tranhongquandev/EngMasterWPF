@@ -37,7 +37,6 @@ namespace EngMasterWPF.Services
         {
             var content = new StringContent(JsonConvert.SerializeObject(data), Encoding.UTF8, "application/json");
             var response = await _httpClient.PostAsync(url, content);
-            response.EnsureSuccessStatusCode();
             var jsonResponse = await response.Content.ReadAsStringAsync();
             return JsonConvert.DeserializeObject<T>(jsonResponse);
         }
@@ -46,7 +45,6 @@ namespace EngMasterWPF.Services
         {
             var content = new StringContent(JsonConvert.SerializeObject(data), Encoding.UTF8, "application/json");
             var response = await _httpClient.PutAsync(url, content);
-            response.EnsureSuccessStatusCode();
             var jsonResponse = await response.Content.ReadAsStringAsync();
             return JsonConvert.DeserializeObject<T>(jsonResponse);
         }

@@ -303,7 +303,7 @@ namespace EngMasterWPF.ViewModel
             Application.Current.Dispatcher.Invoke(async () =>
             {
 
-                var loadData = LoadData(Page, PageSize);
+                var loadData = LoadData(null,Page, PageSize);
                 var countItems = CountItems();
 
                 await Task.WhenAll(loadData, countItems);
@@ -314,10 +314,10 @@ namespace EngMasterWPF.ViewModel
             ToggleComboBoxFilterCommand = new RelayCommand(_canExecute => true, _execute => { IsComboBoxOpen = !IsComboBoxOpen; });
             ChangePageSizeCommand = new RelayCommand<ComboBoxItem>(_canExecute => true, async _execute => await ChangePageSizeCommandHandler(_execute!));
 
-            FirstPageCommand = new RelayCommand(_canExecute => true, async _execute => { Page = 1; await LoadData(Page, PageSize); });
-            PrevPageCommand = new RelayCommand(_canExecute => true, async _execute => { if (Page > 1) Page--; await LoadData(Page, PageSize); });
-            NextPageCommand = new RelayCommand(_canExecute => true, async _execute => { if (Page < TotalPages) Page++; await LoadData(Page, PageSize); });
-            LastPageCommand = new RelayCommand(_canExecute => true, async _execute => { Page = TotalPages; await LoadData(Page, PageSize); });
+            FirstPageCommand = new RelayCommand(_canExecute => true, async _execute => { Page = 1; await LoadData(SearchText,Page, PageSize); });
+            PrevPageCommand = new RelayCommand(_canExecute => true, async _execute => { if (Page > 1) Page--; await LoadData(SearchText,Page, PageSize); });
+            NextPageCommand = new RelayCommand(_canExecute => true, async _execute => { if (Page < TotalPages) Page++; await LoadData(SearchText, Page, PageSize); });
+            LastPageCommand = new RelayCommand(_canExecute => true, async _execute => { Page = TotalPages; await LoadData(SearchText, Page, PageSize); });
             OpenModalAddCommand = new RelayCommand(_canExecute => true, _execute => OpenDialogModal());
 
             CloseModalCommand = new RelayCommand(_canExecute => true, _execute => CloseModal());
@@ -363,14 +363,14 @@ namespace EngMasterWPF.ViewModel
 
         #region Method Handler
 
-        private async Task LoadData(int page, int pageSize)
+        private async Task LoadData(string? name,int page, int pageSize)
         {
             IsLoading = true;
 
             try
             {
                 StudentService studentService = Installer.InstallServices.Instance.serviceProvider.GetRequiredService<StudentService>();
-                var studentInDb = await studentService.GetStudentsByPageAsync(page, pageSize);
+                var studentInDb = await studentService.GetStudentByFilter(name,page, pageSize);
 
                 if (!studentInDb.Any())
                 {
@@ -441,7 +441,7 @@ namespace EngMasterWPF.ViewModel
             {
                 PageSize = newSize;
                 TotalPages = (int)Math.Ceiling((double)TotalItems / PageSize);
-                await LoadData(Page, PageSize);
+                await LoadData(SearchText, Page, PageSize);
             }
 
         }
@@ -490,7 +490,7 @@ namespace EngMasterWPF.ViewModel
                 if (isDeleted)
                 {
                     MessageBox.Show("Student deleted successfully.");
-                    await LoadData(Page, PageSize);
+                    await LoadData(SearchText, Page, PageSize);
                 }
                 else
                 {
@@ -513,7 +513,7 @@ namespace EngMasterWPF.ViewModel
 
             if(name.IsNullOrEmpty())
             {
-                await LoadData(Page, PageSize);
+                await LoadData(null,Page, PageSize);
                 IsDataFound = false;
                 return;
             }
@@ -523,7 +523,7 @@ namespace EngMasterWPF.ViewModel
                 await Task.Delay(2000, token);
 
                 StudentService studentService = Installer.InstallServices.Instance.serviceProvider.GetRequiredService<StudentService>();
-                var studentInDb = await studentService.GetByName(name);
+                var studentInDb = await studentService.GetStudentByFilter(name, Page,PageSize);
                 if (studentInDb.Any())
                 {
                     Students = studentInDb;

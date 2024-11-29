@@ -215,7 +215,7 @@ namespace EngMasterWPF.ViewModel
             Application.Current.Dispatcher.Invoke(async () =>
             {
 
-                var loadData = LoadData(Page, PageSize);
+                var loadData = LoadData(SearchText, Page, PageSize);
                 var countItems = CountItems();
 
                 await Task.WhenAll(loadData, countItems);
@@ -226,10 +226,10 @@ namespace EngMasterWPF.ViewModel
             ToggleComboBoxFilterCommand = new RelayCommand(_canExecute => true, _execute => { IsComboBoxOpen = !IsComboBoxOpen; });
             ChangePageSizeCommand = new RelayCommand<ComboBoxItem>(_canExecute => true, async _execute => await ChangePageSizeCommandHandler(_execute!));
 
-            FirstPageCommand = new RelayCommand(_canExecute => true, async _execute => { Page = 1; await LoadData(Page, PageSize); });
-            PrevPageCommand = new RelayCommand(_canExecute => true, async _execute => { if (Page > 1) Page--; await LoadData(Page, PageSize); });
-            NextPageCommand = new RelayCommand(_canExecute => true, async _execute => { if (Page < TotalPages) Page++; await LoadData(Page, PageSize); });
-            LastPageCommand = new RelayCommand(_canExecute => true, async _execute => { Page = TotalPages; await LoadData(Page, PageSize); });
+            FirstPageCommand = new RelayCommand(_canExecute => true, async _execute => { Page = 1; await LoadData(SearchText, Page, PageSize); });
+            PrevPageCommand = new RelayCommand(_canExecute => true, async _execute => { if (Page > 1) Page--; await LoadData(SearchText, Page, PageSize); });
+            NextPageCommand = new RelayCommand(_canExecute => true, async _execute => { if (Page < TotalPages) Page++; await LoadData(SearchText, Page, PageSize); });
+            LastPageCommand = new RelayCommand(_canExecute => true, async _execute => { Page = TotalPages; await LoadData(SearchText, Page, PageSize); });
 
             SearchTextCommand = new RelayCommand<string>(_canExecute => true, async _execute => await SearchTeacherCommandHandler(SearchText));
 
@@ -274,14 +274,14 @@ namespace EngMasterWPF.ViewModel
 
         #region Method Handler
 
-        private async Task LoadData(int page, int pageSize)
+        private async Task LoadData(string? name,int page, int pageSize)
         {
             IsLoading = true;
 
             try
             {
                 TeacherService teacherService = Installer.InstallServices.Instance.serviceProvider.GetRequiredService<TeacherService>();
-                var teacherInDb = await teacherService.GetTeachersByPageAsync(page, pageSize);
+                var teacherInDb = await teacherService.GetTeacherByFilter(name, page, pageSize);
 
                 if (!teacherInDb.Any())
                 {
@@ -327,7 +327,7 @@ namespace EngMasterWPF.ViewModel
                 if (isDeleted)
                 {
                     MessageBox.Show("Teacher deleted successfully.");
-                    await LoadData(Page, PageSize);
+                    await LoadData(SearchText,Page, PageSize);
                 }
                 else
                 {
@@ -445,7 +445,7 @@ namespace EngMasterWPF.ViewModel
             {
                 PageSize = newSize;
                 TotalPages = (int)Math.Ceiling((double)TotalItems / PageSize);
-                await LoadData(Page, PageSize);
+                await LoadData(SearchText, Page, PageSize);
             }
 
         }
@@ -461,7 +461,7 @@ namespace EngMasterWPF.ViewModel
 
             if (name.IsNullOrEmpty())
             {
-                await LoadData(Page, PageSize);
+                await LoadData(SearchText, Page, PageSize);
                 IsDataFound = false;
                 return;
             }
@@ -471,7 +471,7 @@ namespace EngMasterWPF.ViewModel
                 await Task.Delay(2000, token);
 
                 TeacherService teacherService = Installer.InstallServices.Instance.serviceProvider.GetRequiredService<TeacherService>();
-                var teacherInDb = await teacherService.GetByName(name);
+                var teacherInDb = await teacherService.GetTeacherByFilter(name, Page, PageSize);
                 if (teacherInDb.Any())
                 {
                     Teachers = teacherInDb;

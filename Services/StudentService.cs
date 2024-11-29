@@ -1,4 +1,5 @@
 ﻿using EngMasterWPF.DTOs;
+using Microsoft.IdentityModel.Tokens;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -11,9 +12,16 @@ namespace EngMasterWPF.Services
     public class StudentService : BaseHttpClient
     {
         private const string _baseURL = "https://englabapi.onrender.com/api/v1/student/";
-        public async Task<ObservableCollection<StudentDTO>?> GetStudentsByPageAsync(int page, int pageSize)
+        public async Task<ObservableCollection<StudentDTO>?> GetStudentByFilter(string? name, int page, int pageSize)
         {
-            var urlRequest = _baseURL + "get-by-filter" + $"?page={page}&pagesize={pageSize}";
+
+            var urlRequest = _baseURL + "get-by-filter?";
+
+            if (!name.IsNullOrEmpty())
+            {
+                urlRequest += $"name={name}&";
+            }
+             urlRequest += $"page={page}&pagesize={pageSize}";
             var result = await GetAsync<ObservableCollection<StudentDTO>>(urlRequest);
             return result ?? new ObservableCollection<StudentDTO>();
         }
@@ -24,12 +32,7 @@ namespace EngMasterWPF.Services
             return await GetAsync<int>(urlRequest);
         }
 
-        public async Task<ObservableCollection<StudentDTO>> GetByName(string name)
-        {
-            var urlRequest = _baseURL + "get-by-name" + $"?name={name}";
-            var result = await GetAsync<ObservableCollection<StudentDTO>>(urlRequest);
-            return result ?? new ObservableCollection<StudentDTO>();
-        }
+       
 
         public async Task<AddStudentDTO> AddStudentAsync(AddStudentDTO student)
         {
