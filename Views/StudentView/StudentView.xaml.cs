@@ -24,5 +24,15 @@ namespace EngMasterWPF.Views.StudentView
         {
             InitializeComponent();
         }
+
+        private void DatePicker_SelectedDateChanged(object sender, SelectionChangedEventArgs e)
+        {
+
+        }
+
+        private void Rectangle_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+            this.Visibility = Visibility.Collapsed;
+        }
     }
 }

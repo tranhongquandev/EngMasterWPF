@@ -13,6 +13,13 @@ namespace EngMasterWPF.DTOs
         [JsonProperty("fullName")]
         public string? FullName { get; set; }
 
+        [JsonProperty("studentCode")]
+        public string? StudentCode { get; set; }
+
+        [JsonProperty("enrollmentDate")]
+        public string? EnrollmentDate { get; set; }
+
+
         [JsonProperty("gender")]
         public string? Gender { get; set; }
 

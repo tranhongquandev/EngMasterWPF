@@ -129,6 +129,44 @@ mc:Ignorable="d">
 
 
                     <StackPanel Grid.Column="0" Margin="0,0,10,0" Orientation="Vertical">
+                        <Label Content="Trình độ" FontFamily="{StaticResource FZ-PoppinsRegular}" FontSize="16" />
+                        <Border Background="#EEE6E2" BorderThickness="0.5" CornerRadius="4">
+                            <TextBox Height="46" Padding="15,0,15,0"
+                     materialDesign:HintAssist.Background="Transparent"
+                     materialDesign:HintAssist.FontFamily="{StaticResource FZ-PoppinsRegular}"
+                     materialDesign:HintAssist.Foreground="Gray"
+                     materialDesign:HintAssist.Hint="Nhập trình độ"
+                     materialDesign:TextFieldAssist.UnderlineBrush="Transparent"
+                     BorderBrush="Transparent" FontFamily="{StaticResource FZ-PoppinsRegular}"
+                     FontSize="14" TabIndex="3" 
+                     Text="{Binding LevelName}"/>
+                        </Border>
+                    </StackPanel>
+
+                    <StackPanel Grid.Column="1" Margin="0,0,0,0" Orientation="Vertical">
+                        <Label Content="Học phí" FontFamily="{StaticResource FZ-PoppinsRegular}" FontSize="16" />
+                        <Border Background="#EEE6E2" BorderThickness="0.5" CornerRadius="4">
+                            <TextBox Height="46" Padding="15,0,15,0"
+                     materialDesign:HintAssist.Background="Transparent"
+                     materialDesign:HintAssist.FontFamily="{StaticResource FZ-PoppinsRegular}"
+                     materialDesign:HintAssist.Foreground="Gray"
+                     materialDesign:HintAssist.Hint="Nhập học phí"
+                     materialDesign:TextFieldAssist.UnderlineBrush="Transparent"
+                     BorderBrush="Transparent" FontFamily="{StaticResource FZ-PoppinsRegular}"
+                     FontSize="14" TabIndex="4" 
+                     Text="{Binding LevelId}"/>
+                        </Border>
+                    </StackPanel>
+                </Grid>
+
+                <Grid Grid.Row="5" Margin="0,20,0,0">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+
+
+                    <StackPanel Grid.Column="0" Margin="0,0,10,0" Orientation="Vertical">
                         <Label Content="Khuyến mãi" FontFamily="{StaticResource FZ-PoppinsRegular}" FontSize="16" />
                         <Border Background="#EEE6E2" BorderThickness="0.5" CornerRadius="4">
                             <TextBox Height="46" Padding="15,0,15,0"

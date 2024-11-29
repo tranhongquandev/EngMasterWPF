@@ -89,6 +89,17 @@ namespace EngMasterWPF.ViewModel
             }
         }
 
+        private string _enrollmentDate;
+        public string EnrollmentDate
+        {
+            get => _enrollmentDate;
+            set
+            {
+                _enrollmentDate = value;
+                OnPropertyChanged();
+            }
+        }
+
         private string _status;
         public string Status
         {
@@ -160,6 +171,8 @@ namespace EngMasterWPF.ViewModel
                 Email = Email ?? string.Empty,
                 PhoneNumber = PhoneNumber ?? string.Empty,
                 DateOfBirth = NormalizeDateOfBirth(DateOfBirth),
+                StudentCode = StudentCode ?? string.Empty,
+                EnrollmentDate = NormalizeDateOfBirth(EnrollmentDate),
                 Status = Status ?? string.Empty,
             };
 

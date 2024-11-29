@@ -35,7 +35,7 @@ namespace EngMasterWPF.Services
         {
             try
             {
-                var urlRequest = _baseURL + "/create-student";
+                var urlRequest = _baseURL + "create-student";
                 var result = await PostAsync<AddStudentDTO>(urlRequest, student);
                 if (result == null)
                 {

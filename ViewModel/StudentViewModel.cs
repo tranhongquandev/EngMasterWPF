@@ -23,6 +23,18 @@ namespace EngMasterWPF.ViewModel
     {
         #region Property
 
+
+        private StudentDTO _currentStudent;
+        public StudentDTO CurrentStudent
+        {
+            get { return _currentStudent; }
+            set
+            {
+                _currentStudent = value;
+                OnPropertyChanged(nameof(CurrentStudent));
+            }
+        }
+
         private string _searchText = "";
         public string SearchText
         {
@@ -30,6 +42,94 @@ namespace EngMasterWPF.ViewModel
             set
             {
                 _searchText = value;
+                OnPropertyChanged();
+            }
+        }
+
+        private string _fullName;
+        public string FullName
+        {
+            get => _fullName;
+            set
+            {
+                _fullName = value;
+                OnPropertyChanged();
+            }
+        }
+
+        private string studentCode;
+        public string StudentCode
+        {
+            get => studentCode;
+            set
+            {
+                studentCode = value;
+                OnPropertyChanged();
+            }
+        }
+
+        private string _email;
+        public string Email
+        {
+            get => _email;
+            set
+            {
+                _email = value;
+                OnPropertyChanged();
+            }
+        }
+
+        private string _gender;
+        public string Gender
+        {
+            get => _gender;
+            set
+            {
+                _gender = value;
+                OnPropertyChanged();
+            }
+        }
+
+        private string _phoneNumber;
+        public string PhoneNumber
+        {
+            get => _phoneNumber;
+            set
+            {
+                _phoneNumber = value;
+                OnPropertyChanged();
+            }
+        }
+
+        private string _dateOfBirth;
+        public string DateOfBirth
+        {
+            get => _dateOfBirth;
+            set
+            {
+                _dateOfBirth = value;
+                OnPropertyChanged();
+            }
+        }
+
+        private string _enrollmentDate;
+        public string EnrollmentDate
+        {
+            get => _enrollmentDate;
+            set
+            {
+                _enrollmentDate = value;
+                OnPropertyChanged();
+            }
+        }
+
+        private string _status;
+        public string Status
+        {
+            get => _status;
+            set
+            {
+                _status = value;
                 OnPropertyChanged();
             }
         }
@@ -222,7 +322,7 @@ namespace EngMasterWPF.ViewModel
 
             CloseModalCommand = new RelayCommand(_canExecute => true, _execute => CloseModal());
 
-            //OpenModalUpdateCommand = new RelayCommand(_canExecute => true, _execute => OpenModalUpdate(CurrentCourse));
+            OpenModalUpdateCommand = new RelayCommand(_canExecute => true, _execute => OpenModalUpdate(CurrentStudent));
 
             OpenDeletePopupCommand = new RelayCommand(
             _canExecute => true,
@@ -357,9 +457,9 @@ namespace EngMasterWPF.ViewModel
             IsOpenUpdateModal = false;
         }
 
-        private void OpenModalUpdate(CourseDTO currentCourse)
+        private void OpenModalUpdate(StudentDTO currentStudent)
         {
-            //CurrentCourse = currentCourse;
+            CurrentStudent = currentStudent;
             IsOpenUpdateModal = true;
             IsUpdate = true;
         }
