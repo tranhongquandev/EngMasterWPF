@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace EngMasterWPF.ViewModel
 {
-    public class NotificationViewModel : ViewModelBase
+    public class StaffViewModel : ViewModelBase
     {
     }
 }

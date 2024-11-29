@@ -3,7 +3,6 @@ using EngMasterWPF.ViewModel;
 using EngMasterWPF.Views.CourseView;
 using EngMasterWPF.Views.GradeView;
 using EngMasterWPF.Views.HomeView;
-using EngMasterWPF.Views.NotificationView;
 using EngMasterWPF.Views.StudentView;
 using EngMasterWPF.Views.TeacherView;
 using Microsoft.Extensions.DependencyInjection;
@@ -95,7 +94,9 @@ namespace EngMasterWPF.ViewModel
             NavigateTeacherCommand = new RelayCommand(_canExecute => true, _execute => {CurrentView = _service.GetRequiredService<TeacherViewModel>(); Breadcumb = "Giảng viên"; IconBreadcumb = "VideoBackgroundEffect24"; });
             NavigateCourseCommand = new RelayCommand(_canExecute => true, _execute => {CurrentView = _service.GetRequiredService<CourseViewModel>(); Breadcumb = "Khóa học";IconBreadcumb = "TaskListSquareLtr24"; });
             NavigateGradeCommand = new RelayCommand(_canExecute => true, _execute => {CurrentView = _service.GetRequiredService<GradeViewModel>(); Breadcumb = "Lớp học";IconBreadcumb = "Building24"; });
-            NavigateNotificationCommand = new RelayCommand(_canExecute => true, _execute => { CurrentView = _service.GetRequiredService<NotificationViewModel>(); Breadcumb = "Thông báo"; IconBreadcumb = "AlertBadge24"; });
+            NavigateStaffCommand = new RelayCommand(_canExecute => true, _execute => { CurrentView = _service.GetRequiredService<StaffViewModel>(); Breadcumb = "Người dùng"; IconBreadcumb = "People24"; });
+
+
 
             //NavigateToDetailCommand = new RelayCommand(_canExecute => true, _execute => { CurrentView = new AccountView(); Breadcumb = "Chi tiết"; IconBreadcumb = "Info24"; });
             SignOutCommand = new RelayCommand(_canExecute => true, _execute => SignOutCommandHandler());
@@ -112,8 +113,8 @@ namespace EngMasterWPF.ViewModel
         public ICommand NavigateTeacherCommand { get; private set; }
         public ICommand NavigateCourseCommand { get; private set; }
         public ICommand NavigateGradeCommand { get; private set; }
-        public ICommand NavigateNotificationCommand { get; private set; }
         public ICommand NavigateToDetailCommand { get; private set; }
+        public ICommand NavigateStaffCommand { get; private set; }
 
         public ICommand SignOutCommand { get; private set; }
 

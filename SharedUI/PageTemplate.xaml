@@ -4,7 +4,7 @@
     xmlns:course="clr-namespace:EngMasterWPF.Views.CourseView"
     xmlns:grade="clr-namespace:EngMasterWPF.Views.GradeView"
     xmlns:home="clr-namespace:EngMasterWPF.Views.HomeView"
-    xmlns:notification="clr-namespace:EngMasterWPF.Views.NotificationView"
+    xmlns:staff="clr-namespace:EngMasterWPF.Views.StaffView"
     xmlns:student="clr-namespace:EngMasterWPF.Views.StudentView"
     xmlns:teacher="clr-namespace:EngMasterWPF.Views.TeacherView"
     xmlns:vm="clr-namespace:EngMasterWPF.ViewModel">
@@ -29,9 +29,11 @@
         <grade:GradeView />
     </DataTemplate>
 
-    <DataTemplate DataType="{x:Type vm:NotificationViewModel}">
-        <notification:NotificationView />
+    <DataTemplate DataType="{x:Type vm:StaffViewModel}">
+        <staff:StaffHomeView />
     </DataTemplate>
+
+
 
 
 

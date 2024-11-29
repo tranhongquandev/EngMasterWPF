@@ -20,7 +20,6 @@ using EngMasterWPF.Views.StudentView;
 using EngMasterWPF.Views.TeacherView;
 using EngMasterWPF.Views.GradeView;
 using EngMasterWPF.Views.CourseView;
-using EngMasterWPF.Views.NotificationView;
 using EngMasterWPF.Views.AccountView;
 using EngMasterWPF.Services;
 using EngMasterWPF.ViewModel;
@@ -94,8 +93,8 @@ namespace EngMasterWPF.Installer
                 serviceCollection.AddSingleton<TeacherViewModel>();
                 serviceCollection.AddSingleton<GradeViewModel>();
                 serviceCollection.AddSingleton<CourseViewModel>();
-                serviceCollection.AddSingleton<NotificationViewModel>();
                 serviceCollection.AddSingleton<MainWindowViewModel>();
+                serviceCollection.AddSingleton<StaffViewModel>();
 
                 serviceCollection.AddSingleton<MainViewModel>();
                 serviceCollection.AddScoped<AuthViewModel>();

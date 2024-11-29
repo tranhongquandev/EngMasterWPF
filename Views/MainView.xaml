@@ -229,11 +229,11 @@
                         Style="{DynamicResource NavigationButtonStyle}" />
 
                     <button:NavigationButton
-                        Title="Thông báo"
-                        Command="{Binding NavigateNotificationCommand}"
+                        Title="Người dùng"
+                        Command="{Binding NavigateStaffCommand}"
                         FontSize="20"
                         GroupName="NavigationButton"
-                        Icon="AlertBadge24 "
+                        Icon="People24"
                         Style="{DynamicResource NavigationButtonStyle}" />
                 </StackPanel>
                 <!--  Button  -->

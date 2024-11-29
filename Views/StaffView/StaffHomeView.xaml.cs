@@ -13,14 +13,14 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace EngMasterWPF.Views.NotificationView
+namespace EngMasterWPF.Views.StaffView
 {
     /// <summary>
-    /// Interaction logic for NotificationView.xaml
+    /// Interaction logic for StaffHomeView.xaml
     /// </summary>
-    public partial class NotificationView : UserControl
+    public partial class StaffHomeView : UserControl
     {
-        public NotificationView()
+        public StaffHomeView()
         {
             InitializeComponent();
         }
