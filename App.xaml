@@ -14,11 +14,20 @@
                 <ResourceDictionary Source="/Themes/Generic.xaml" />
                 <ResourceDictionary Source="/SharedUI/PageTemplate.xaml" />
 
-                <materialDesign:BundledTheme BaseTheme="Light" PrimaryColor="Indigo" />
+                <materialDesign:BundledTheme
+                    BaseTheme="Light"
+                    PrimaryColor="Indigo"
+                    SecondaryColor="LightBlue" />
 
                 <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesign3.Defaults.xaml" />
                 <ResourceDictionary Source="pack://application:,,,/MaterialDesignColors;component/Themes/Recommended/Primary/MaterialDesignColor.Indigo.xaml" />
-                <ResourceDictionary Source="pack://application:,,,/MaterialDesignColors;component/Themes/Recommended/Secondary/MaterialDesignColor.Indigo.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/MaterialDesignColors;component/Themes/Recommended/Secondary/MaterialDesignColor.LightBlue.xaml" />
+
+                <ResourceDictionary>
+                    <!--  Định nghĩa màu nền mặc định cho Popup  -->
+                    <SolidColorBrush x:Key="MaterialDesignComboBoxPopupBackground" Color="#FFFFFF" />
+                    <SolidColorBrush x:Key="MaterialDesignComboBoxPopupForeground" Color="#000000" />
+                </ResourceDictionary>
 
 
             </ResourceDictionary.MergedDictionaries>

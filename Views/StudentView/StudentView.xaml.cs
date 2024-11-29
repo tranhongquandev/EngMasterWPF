@@ -34,5 +34,15 @@ namespace EngMasterWPF.Views.StudentView
         {
             this.Visibility = Visibility.Collapsed;
         }
+
+        private void TextBox_TextChanged(object sender, TextChangedEventArgs e)
+        {
+
+        }
+
+        private void DataGrid_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+
+        }
     }
 }
