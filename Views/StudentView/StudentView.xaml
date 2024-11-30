@@ -649,10 +649,10 @@
 
             <!--  Update Student Modal  -->
             <Grid
-                Grid.Row="0"
-                Width="Auto"
-                Height="Auto"
-                Panel.ZIndex="1000">
+    Grid.Row="0"
+    Width="Auto"
+    Height="Auto"
+    Panel.ZIndex="1000">
                 <Grid.Style>
                     <Style TargetType="Grid">
                         <Style.Setters>
@@ -669,24 +669,40 @@
                         </Style.Triggers>
                     </Style>
                 </Grid.Style>
+
+                <!--<Grid.Style>
+                        <Style TargetType="Grid">
+                            <Style.Setters>
+                                <Setter Property="Visibility" Value="Visible" />
+                            </Style.Setters>
+                            <Style.Triggers>
+                                <DataTrigger Binding="{Binding IsOpenUpdateModal}" Value="False">
+                                    <Setter Property="Visibility" Value="Collapsed" />
+                                </DataTrigger>
+
+                                <DataTrigger Binding="{Binding IsOpenUpdateModal}" Value="True">
+                                    <Setter Property="Visibility" Value="Visible" />
+                                </DataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </Grid.Style>-->
                 <Grid x:Name="UpdateStudentModal">
                     <Rectangle
-                        Fill="#CCC"
-                        MouseDown="Rectangle_MouseDown"
-                        Opacity="0.5" />
+               Fill="#CCC"
+               Opacity="0.5" />
 
                     <Border
-                        Width="700"
-                        Height="500"
-                        Background="White"
-                        CornerRadius="10">
+               Width="700"
+               Height="500"
+               Background="White"
+               CornerRadius="10">
                         <Border.Effect>
                             <DropShadowEffect
-                                BlurRadius="15"
-                                Direction="270"
-                                Opacity="0.5"
-                                ShadowDepth="10"
-                                Color="Gray" />
+                       BlurRadius="15"
+                       Direction="270"
+                       Opacity="0.5"
+                       ShadowDepth="10"
+                       Color="Gray" />
                         </Border.Effect>
                         <Grid Margin="5">
                             <Grid.RowDefinitions>
@@ -700,19 +716,19 @@
                             </Grid.RowDefinitions>
 
                             <TextBlock
-                                Grid.Row="0"
-                                HorizontalAlignment="Center"
-                                VerticalAlignment="Center"
-                                FontSize="16"
-                                FontWeight="Bold"
-                                Foreground="#000"
-                                Text="Sửa học viên" />
+                       Grid.Row="0"
+                       HorizontalAlignment="Center"
+                       VerticalAlignment="Center"
+                       FontSize="16"
+                       FontWeight="Bold"
+                       Foreground="#000"
+                       Text="Sửa học viên" />
 
                             <Separator
-                                Grid.Row="1"
-                                Margin="0,10"
-                                BorderBrush="Silver"
-                                BorderThickness="1" />
+                       Grid.Row="1"
+                       Margin="0,10"
+                       BorderBrush="Silver"
+                       BorderThickness="1" />
 
                             <Grid Grid.Row="2" Margin="0,20,0,0">
                                 <Grid.ColumnDefinitions>
@@ -721,59 +737,59 @@
                                 </Grid.ColumnDefinitions>
 
                                 <StackPanel
-                                    Grid.Column="0"
-                                    Margin="0,0,10,0"
-                                    Orientation="Vertical">
+                           Grid.Column="0"
+                           Margin="0,0,10,0"
+                           Orientation="Vertical">
                                     <Label
-                                        Content="Họ tên"
-                                        FontFamily="{StaticResource FZ-PoppinsRegular}"
-                                        FontSize="16" />
+                               Content="Họ tên"
+                               FontFamily="{StaticResource FZ-PoppinsRegular}"
+                               FontSize="16" />
                                     <Border
-                                        Background="#EEE6E2"
-                                        BorderThickness="0.5"
-                                        CornerRadius="4">
+                               Background="#EEE6E2"
+                               BorderThickness="0.5"
+                               CornerRadius="4">
                                         <TextBox
-                                            Height="46"
-                                            Padding="15,15,15,15"
-                                            materialDesign:HintAssist.Background="Transparent"
-                                            materialDesign:HintAssist.FontFamily="{StaticResource FZ-PoppinsRegular}"
-                                            materialDesign:HintAssist.Foreground="Gray"
-                                            materialDesign:HintAssist.Hint="Nhập họ tên"
-                                            materialDesign:TextFieldAssist.UnderlineBrush="Transparent"
-                                            BorderBrush="Transparent"
-                                            FontFamily="{StaticResource FZ-PoppinsRegular}"
-                                            FontSize="14"
-                                            TabIndex="1"
-                                            Text="{Binding CurrentStudent.FullName}" />
+                                   Height="46"
+                                   Padding="15,15,15,15"
+                                   materialDesign:HintAssist.Background="Transparent"
+                                   materialDesign:HintAssist.FontFamily="{StaticResource FZ-PoppinsRegular}"
+                                   materialDesign:HintAssist.Foreground="Gray"
+                                   materialDesign:HintAssist.Hint="Nhập họ tên"
+                                   materialDesign:TextFieldAssist.UnderlineBrush="Transparent"
+                                   BorderBrush="Transparent"
+                                   FontFamily="{StaticResource FZ-PoppinsRegular}"
+                                   FontSize="14"
+                                   TabIndex="1"
+                                   Text="{Binding CurrentStudent.FullName}" />
                                     </Border>
                                 </StackPanel>
 
                                 <StackPanel
-                                    Grid.Column="1"
-                                    Margin="0,0,0,0"
-                                    Orientation="Vertical">
+                           Grid.Column="1"
+                           Margin="0,0,0,0"
+                           Orientation="Vertical">
                                     <Label
-                                        Content="Giới tính"
-                                        FontFamily="{StaticResource FZ-PoppinsRegular}"
-                                        FontSize="16" />
+                               Content="Giới tính"
+                               FontFamily="{StaticResource FZ-PoppinsRegular}"
+                               FontSize="16" />
                                     <Border Panel.ZIndex="1200" Background="#EEE6E2">
                                         <ComboBox
-                                            Height="46"
-                                            Padding="15,15,15,15"
-                                            materialDesign:HintAssist.Background="Transparent"
-                                            materialDesign:HintAssist.FontFamily="{StaticResource FZ-PoppinsRegular}"
-                                            materialDesign:HintAssist.Foreground="Gray"
-                                            materialDesign:HintAssist.Hint="Chọn giới tính"
-                                            FontFamily="{StaticResource FZ-PoppinsRegular}"
-                                            FontSize="14"
-                                            Text="{Binding CurrentStudent.Gender}">
+                                   Height="46"
+                                   Padding="15,15,15,15"
+                                   materialDesign:HintAssist.Background="Transparent"
+                                   materialDesign:HintAssist.FontFamily="{StaticResource FZ-PoppinsRegular}"
+                                   materialDesign:HintAssist.Foreground="Gray"
+                                   materialDesign:HintAssist.Hint="Chọn giới tính"
+                                   FontFamily="{StaticResource FZ-PoppinsRegular}"
+                                   FontSize="14"
+                                   Text="{Binding CurrentStudent.Gender}">
                                             <ComboBox.ItemTemplate>
                                                 <DataTemplate>
                                                     <TextBlock
-                                                        Padding="10"
-                                                        Background="White"
-                                                        Foreground="Black"
-                                                        Text="{Binding}" />
+                                               Padding="10"
+                                               Background="White"
+                                               Foreground="Black"
+                                               Text="{Binding}" />
                                                 </DataTemplate>
                                             </ComboBox.ItemTemplate>
 
@@ -814,58 +830,58 @@
 
 
                                 <StackPanel
-                                    Grid.Column="0"
-                                    Margin="0,0,10,0"
-                                    Orientation="Vertical">
+                           Grid.Column="0"
+                           Margin="0,0,10,0"
+                           Orientation="Vertical">
                                     <Label
-                                        Content="Email"
-                                        FontFamily="{StaticResource FZ-PoppinsRegular}"
-                                        FontSize="16" />
+                               Content="Email"
+                               FontFamily="{StaticResource FZ-PoppinsRegular}"
+                               FontSize="16" />
                                     <Border
-                                        Background="#EEE6E2"
-                                        BorderThickness="0.5"
-                                        CornerRadius="4">
+                               Background="#EEE6E2"
+                               BorderThickness="0.5"
+                               CornerRadius="4">
                                         <TextBox
-                                            Height="46"
-                                            Padding="15,15,15,15"
-                                            materialDesign:HintAssist.Background="Transparent"
-                                            materialDesign:HintAssist.FontFamily="{StaticResource FZ-PoppinsRegular}"
-                                            materialDesign:HintAssist.Foreground="Gray"
-                                            materialDesign:HintAssist.Hint="Nhập email"
-                                            materialDesign:TextFieldAssist.UnderlineBrush="Transparent"
-                                            BorderBrush="Transparent"
-                                            FontFamily="{StaticResource FZ-PoppinsRegular}"
-                                            FontSize="14"
-                                            TabIndex="3"
-                                            Text="{Binding CurrentStudent.Email}" />
+                                   Height="46"
+                                   Padding="15,15,15,15"
+                                   materialDesign:HintAssist.Background="Transparent"
+                                   materialDesign:HintAssist.FontFamily="{StaticResource FZ-PoppinsRegular}"
+                                   materialDesign:HintAssist.Foreground="Gray"
+                                   materialDesign:HintAssist.Hint="Nhập email"
+                                   materialDesign:TextFieldAssist.UnderlineBrush="Transparent"
+                                   BorderBrush="Transparent"
+                                   FontFamily="{StaticResource FZ-PoppinsRegular}"
+                                   FontSize="14"
+                                   TabIndex="3"
+                                   Text="{Binding CurrentStudent.Email}" />
                                     </Border>
                                 </StackPanel>
 
                                 <StackPanel
-                                    Grid.Column="1"
-                                    Margin="0,0,0,0"
-                                    Orientation="Vertical">
+                           Grid.Column="1"
+                           Margin="0,0,0,0"
+                           Orientation="Vertical">
                                     <Label
-                                        Content="Số điện thoại"
-                                        FontFamily="{StaticResource FZ-PoppinsRegular}"
-                                        FontSize="16" />
+                               Content="Số điện thoại"
+                               FontFamily="{StaticResource FZ-PoppinsRegular}"
+                               FontSize="16" />
                                     <Border
-                                        Background="#EEE6E2"
-                                        BorderThickness="0.5"
-                                        CornerRadius="4">
+                               Background="#EEE6E2"
+                               BorderThickness="0.5"
+                               CornerRadius="4">
                                         <TextBox
-                                            Height="46"
-                                            Padding="15,15,15,15"
-                                            materialDesign:HintAssist.Background="Transparent"
-                                            materialDesign:HintAssist.FontFamily="{StaticResource FZ-PoppinsRegular}"
-                                            materialDesign:HintAssist.Foreground="Gray"
-                                            materialDesign:HintAssist.Hint="Nhập số điện thoại"
-                                            materialDesign:TextFieldAssist.UnderlineBrush="Transparent"
-                                            BorderBrush="Transparent"
-                                            FontFamily="{StaticResource FZ-PoppinsRegular}"
-                                            FontSize="14"
-                                            TabIndex="4"
-                                            Text="{Binding CurrentStudent.PhoneNumber}" />
+                                   Height="46"
+                                   Padding="15,15,15,15"
+                                   materialDesign:HintAssist.Background="Transparent"
+                                   materialDesign:HintAssist.FontFamily="{StaticResource FZ-PoppinsRegular}"
+                                   materialDesign:HintAssist.Foreground="Gray"
+                                   materialDesign:HintAssist.Hint="Nhập số điện thoại"
+                                   materialDesign:TextFieldAssist.UnderlineBrush="Transparent"
+                                   BorderBrush="Transparent"
+                                   FontFamily="{StaticResource FZ-PoppinsRegular}"
+                                   FontSize="14"
+                                   TabIndex="4"
+                                   Text="{Binding CurrentStudent.PhoneNumber}" />
                                     </Border>
                                 </StackPanel>
                             </Grid>
@@ -878,30 +894,30 @@
 
 
                                 <StackPanel
-                                    Grid.Column="0"
-                                    Margin="0,0,0,0"
-                                    Orientation="Vertical">
+                           Grid.Column="0"
+                           Margin="0,0,0,0"
+                           Orientation="Vertical">
                                     <Label
-                                        Content="Mã học viên"
-                                        FontFamily="{StaticResource FZ-PoppinsRegular}"
-                                        FontSize="16" />
+                               Content="Mã học viên"
+                               FontFamily="{StaticResource FZ-PoppinsRegular}"
+                               FontSize="16" />
                                     <Border
-                                        Background="#EEE6E2"
-                                        BorderThickness="0.5"
-                                        CornerRadius="4">
+                               Background="#EEE6E2"
+                               BorderThickness="0.5"
+                               CornerRadius="4">
                                         <TextBox
-                                            Height="46"
-                                            Padding="15,15,15,15"
-                                            materialDesign:HintAssist.Background="Transparent"
-                                            materialDesign:HintAssist.FontFamily="{StaticResource FZ-PoppinsRegular}"
-                                            materialDesign:HintAssist.Foreground="Gray"
-                                            materialDesign:HintAssist.Hint="Nhập mã học viên"
-                                            materialDesign:TextFieldAssist.UnderlineBrush="Transparent"
-                                            BorderBrush="Transparent"
-                                            FontFamily="{StaticResource FZ-PoppinsRegular}"
-                                            FontSize="14"
-                                            TabIndex="4"
-                                            Text="{Binding CurrentStudent.StudentCode}" />
+                                   Height="46"
+                                   Padding="15,15,15,15"
+                                   materialDesign:HintAssist.Background="Transparent"
+                                   materialDesign:HintAssist.FontFamily="{StaticResource FZ-PoppinsRegular}"
+                                   materialDesign:HintAssist.Foreground="Gray"
+                                   materialDesign:HintAssist.Hint="Nhập mã học viên"
+                                   materialDesign:TextFieldAssist.UnderlineBrush="Transparent"
+                                   BorderBrush="Transparent"
+                                   FontFamily="{StaticResource FZ-PoppinsRegular}"
+                                   FontSize="14"
+                                   TabIndex="4"
+                                   Text="{Binding CurrentStudent.StudentCode}" />
                                     </Border>
                                 </StackPanel>
                             </Grid>
@@ -915,30 +931,30 @@
 
 
                                 <StackPanel
-                                    Grid.Column="0"
-                                    Margin="0,0,10,0"
-                                    Orientation="Vertical">
+                           Grid.Column="0"
+                           Margin="0,0,10,0"
+                           Orientation="Vertical">
                                     <Label
-                                        Content="Ngày sinh"
-                                        FontFamily="{StaticResource FZ-PoppinsRegular}"
-                                        FontSize="16" />
+                               Content="Ngày sinh"
+                               FontFamily="{StaticResource FZ-PoppinsRegular}"
+                               FontSize="16" />
                                     <Border
-                                        Background="#EEE6E2"
-                                        BorderThickness="0.5"
-                                        CornerRadius="4">
+                               Background="#EEE6E2"
+                               BorderThickness="0.5"
+                               CornerRadius="4">
                                         <DatePicker
-                                            Height="46"
-                                            Padding="15,15,15,15"
-                                            materialDesign:HintAssist.Background="Transparent"
-                                            materialDesign:HintAssist.FontFamily="{StaticResource FZ-PoppinsRegular}"
-                                            materialDesign:HintAssist.Foreground="Gray"
-                                            materialDesign:HintAssist.Hint="Chọn ngày sinh"
-                                            BorderBrush="Transparent"
-                                            FontFamily="{StaticResource FZ-PoppinsRegular}"
-                                            FontSize="14"
-                                            SelectedDate="{Binding CurrentStudent.DateOfBirth}"
-                                            SelectedDateChanged="DatePicker_SelectedDateChanged"
-                                            TabIndex="5">
+                                   Height="46"
+                                   Padding="15,15,15,15"
+                                   materialDesign:HintAssist.Background="Transparent"
+                                   materialDesign:HintAssist.FontFamily="{StaticResource FZ-PoppinsRegular}"
+                                   materialDesign:HintAssist.Foreground="Gray"
+                                   materialDesign:HintAssist.Hint="Chọn ngày sinh"
+                                   BorderBrush="Transparent"
+                                   FontFamily="{StaticResource FZ-PoppinsRegular}"
+                                   FontSize="14"
+                                   SelectedDate="{Binding CurrentStudent.DateOfBirth}"
+                                   SelectedDateChanged="DatePicker_SelectedDateChanged"
+                                   TabIndex="5">
                                             <DatePicker.CalendarStyle>
                                                 <Style TargetType="{x:Type Calendar}">
                                                     <Setter Property="Background" Value="Gray" />
@@ -955,27 +971,27 @@
                                 </StackPanel>
 
                                 <StackPanel
-                                    Grid.Column="1"
-                                    Margin="0,0,0,0"
-                                    Orientation="Vertical">
+                           Grid.Column="1"
+                           Margin="0,0,0,0"
+                           Orientation="Vertical">
                                     <Label
-                                        Content="Trạng thái"
-                                        FontFamily="{StaticResource FZ-PoppinsRegular}"
-                                        FontSize="16" />
+                               Content="Trạng thái"
+                               FontFamily="{StaticResource FZ-PoppinsRegular}"
+                               FontSize="16" />
                                     <Border
-                                        Background="#EEE6E2"
-                                        BorderThickness="0.5"
-                                        CornerRadius="4">
+                               Background="#EEE6E2"
+                               BorderThickness="0.5"
+                               CornerRadius="4">
                                         <ComboBox
-                                            Height="46"
-                                            Padding="15,0,15,0"
-                                            materialDesign:HintAssist.Background="Transparent"
-                                            materialDesign:HintAssist.FontFamily="{StaticResource FZ-PoppinsRegular}"
-                                            materialDesign:HintAssist.Foreground="Gray"
-                                            materialDesign:HintAssist.Hint="Chọn trạng thái"
-                                            FontFamily="{StaticResource FZ-PoppinsRegular}"
-                                            FontSize="14"
-                                            Text="{Binding CurrentStudent.Status}">
+                                   Height="46"
+                                   Padding="15,0,15,0"
+                                   materialDesign:HintAssist.Background="Transparent"
+                                   materialDesign:HintAssist.FontFamily="{StaticResource FZ-PoppinsRegular}"
+                                   materialDesign:HintAssist.Foreground="Gray"
+                                   materialDesign:HintAssist.Hint="Chọn trạng thái"
+                                   FontFamily="{StaticResource FZ-PoppinsRegular}"
+                                   FontSize="14"
+                                   Text="{Binding CurrentStudent.Status}">
                                             <ComboBoxItem Content="True" />
                                             <ComboBoxItem Content="False" />
                                         </ComboBox>
@@ -984,70 +1000,70 @@
                             </Grid>
 
                             <!--<Button Grid.Row="5"  Margin="0,15,0,0" Width="130" HorizontalAlignment="Right" VerticalAlignment="Center"
-                            Command="{Binding AddCourseCommand}">
-                    <Button.Style>
-                        <Style TargetType="Button">
-                            <Style.Triggers>
-                                <DataTrigger Binding="{Binding IsUpdate}" Value="True">
-                                    <Setter Property="Content" Value="Update Course"/>
-                                </DataTrigger>
-                                <DataTrigger Binding="{Binding IsUpdate}" Value="False">
-                                    <Setter Property="Content" Value="Add Course"/>
-                                </DataTrigger>
-                            </Style.Triggers>
-                        </Style>
-                    </Button.Style>
-                </Button>-->
+                   Command="{Binding AddCourseCommand}">
+           <Button.Style>
+               <Style TargetType="Button">
+                   <Style.Triggers>
+                       <DataTrigger Binding="{Binding IsUpdate}" Value="True">
+                           <Setter Property="Content" Value="Update Course"/>
+                       </DataTrigger>
+                       <DataTrigger Binding="{Binding IsUpdate}" Value="False">
+                           <Setter Property="Content" Value="Add Course"/>
+                       </DataTrigger>
+                   </Style.Triggers>
+               </Style>
+           </Button.Style>
+       </Button>-->
                             <Grid Grid.Row="6">
                                 <Button
-                                    Width="120"
-                                    Height="30"
-                                    Margin="0,10,0,0"
-                                    HorizontalAlignment="Right"
-                                    VerticalAlignment="Bottom"
-                                    Panel.ZIndex="30"
-                                    Command="{Binding UpdateStudentCommand}"
-                                    CommandParameter="{Binding Id}"
-                                    >
+                           Width="120"
+                           Height="30"
+                           Margin="0,10,0,0"
+                           HorizontalAlignment="Right"
+                           VerticalAlignment="Bottom"
+                           Panel.ZIndex="30"
+                           Command="{Binding UpdateStudentCommand}"
+                           CommandParameter="{Binding Id}"
+                           >
 
                                     <!--<Button.Style>
-                    <Style TargetType="Button">
-                        <Style.Triggers>
-                            <DataTrigger Binding="{Binding IsUpdate}" Value="True">
-                                <Setter Property="Content" Value="Update Course" />
-                            </DataTrigger>
-                            <DataTrigger Binding="{Binding IsUpdate}" Value="False">
-                                <Setter Property="Content" Value="Add Course" />
-                            </DataTrigger>
-                        </Style.Triggers>
-                    </Style>
-                </Button.Style>-->
+           <Style TargetType="Button">
+               <Style.Triggers>
+                   <DataTrigger Binding="{Binding IsUpdate}" Value="True">
+                       <Setter Property="Content" Value="Update Course" />
+                   </DataTrigger>
+                   <DataTrigger Binding="{Binding IsUpdate}" Value="False">
+                       <Setter Property="Content" Value="Add Course" />
+                   </DataTrigger>
+               </Style.Triggers>
+           </Style>
+       </Button.Style>-->
 
                                     <Button.Template>
                                         <ControlTemplate TargetType="Button">
                                             <Border
-                                                BorderBrush="#1A1A1A"
-                                                BorderThickness="1,1,1,1"
-                                                Cursor="Hand">
+                                       BorderBrush="#1A1A1A"
+                                       BorderThickness="1,1,1,1"
+                                       Cursor="Hand">
                                                 <Grid>
                                                     <TextBlock
-                                                        x:Name="ContentText"
-                                                        HorizontalAlignment="Center"
-                                                        VerticalAlignment="Center"
-                                                        FontFamily="{StaticResource PoppinsMedium}"
-                                                        FontSize="12"
-                                                        Foreground="Black"
-                                                        Text="Sửa học viên" />
+                                               x:Name="ContentText"
+                                               HorizontalAlignment="Center"
+                                               VerticalAlignment="Center"
+                                               FontFamily="{StaticResource PoppinsMedium}"
+                                               FontSize="12"
+                                               Foreground="Black"
+                                               Text="Sửa học viên" />
 
                                                     <ProgressBar
-                                                        x:Name="ButtonSpinner"
-                                                        Width="30"
-                                                        Height="30"
-                                                        Background="Transparent"
-                                                        Foreground="#1A1A1A"
-                                                        IsIndeterminate="True"
-                                                        Style="{StaticResource MaterialDesignCircularProgressBar}"
-                                                        Visibility="Collapsed" />
+                                               x:Name="ButtonSpinner"
+                                               Width="30"
+                                               Height="30"
+                                               Background="Transparent"
+                                               Foreground="#1A1A1A"
+                                               IsIndeterminate="True"
+                                               Style="{StaticResource MaterialDesignCircularProgressBar}"
+                                               Visibility="Collapsed" />
                                                 </Grid>
                                             </Border>
 
@@ -1083,6 +1099,7 @@
                     </i:Interaction.Triggers>
                 </Rectangle>
             </Grid>
+
             <!--  //Delete popup  -->
             <Grid
                 Grid.Row="0"
