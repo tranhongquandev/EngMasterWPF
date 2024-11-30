@@ -141,6 +141,19 @@ namespace EngMasterWPF.ViewModel
             AddCourseCommand = new RelayCommand(_canExecute => true, async _execute => await AddCourseAsync());
         }
 
+        public void ResetForm()
+        {
+            CourseName = string.Empty;
+            Duration = string.Empty;
+            Fee = 0;
+            Discount = 0;
+            Description = string.Empty;
+            //TotalFee = Fee - Discount * Fee, 
+            IsActive = true;
+            //LevelId = 22;
+            CourseCode = string.Empty;
+        }
+
 
         private async Task AddCourseAsync()
         {
@@ -173,6 +186,7 @@ namespace EngMasterWPF.ViewModel
                 var result  = await courseService.AddCourseAsync(newCourse);
 
                 MessageBox.Show( "Course added successfully.");
+                ResetForm();
                 IsSubmit = false;
 
             }

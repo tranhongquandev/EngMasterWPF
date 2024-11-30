@@ -60,13 +60,13 @@ namespace EngMasterWPF.Services
                 var result = await PutAsync<UpdateStudentDTO>(urlRequest, student);
                 if (result == null)
                 {
-                    throw new Exception("Failed to update the course: the API returned no data.");
+                    throw new Exception("Failed to update the student: the API returned no data.");
                 }
                 return result;
             }
             catch (Exception ex)
             {
-                throw new Exception("Failed to update the course.", ex);
+                throw new Exception("Failed to update the student.", ex);
             }
         }
 

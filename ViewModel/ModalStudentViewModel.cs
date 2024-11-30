@@ -161,6 +161,17 @@ namespace EngMasterWPF.ViewModel
             return new DateTime(2000, 1, 1).ToString("yyyy-MM-ddTHH:mm:ss.fffZ");
         }
 
+        public void ResetForm()
+        {
+            FullName = string.Empty;
+            Gender = string.Empty;
+            DateOfBirth = null;
+            Email = string.Empty;
+            PhoneNumber = string.Empty;
+            StudentCode = string.Empty;
+            EnrollmentDate = null;
+            Status = string.Empty;
+        }
         private async Task AddStudentAsync()
         {
             IsSubmit = true;
@@ -191,6 +202,7 @@ namespace EngMasterWPF.ViewModel
                 var result = await studentService.AddStudentAsync(newStudent);
 
                 MessageBox.Show("Student added successfully.");
+                ResetForm();
                 IsSubmit = false;
 
             }

@@ -15,11 +15,11 @@ namespace EngMasterWPF.Services
     {
         private const string _baseURL = "https://englabapi.onrender.com/api/v1/course/";
 
-        public async Task<ObservableCollection<CourseDTO>?> GetCourseByFilter(string? name,int page, int pageSize)
+        public async Task<ObservableCollection<CourseDTO>?> GetCourseByFilter(string? name, int page, int pageSize)
         {
             var urlRequest = _baseURL + "get-by-filter" + $"?page={page}&pagesize={pageSize}";
 
-            if(!string.IsNullOrEmpty(name))
+            if (!string.IsNullOrEmpty(name))
             {
                 urlRequest += $"&name={name}";
             }
@@ -35,14 +35,14 @@ namespace EngMasterWPF.Services
         }
 
 
-      
+
 
         public async Task<AddCourseDTO> AddCourseAsync(AddCourseDTO course)
         {
             try
             {
-                var urlRequest = _baseURL + "/create-course";
-                var result = await PostAsync<AddCourseDTO>(_baseURL, course);
+                var urlRequest = _baseURL + "create-course";
+                var result = await PostAsync<AddCourseDTO>(urlRequest, course);
                 if (result == null)
                 {
                     throw new Exception("Failed to add the course: the API returned no data.");

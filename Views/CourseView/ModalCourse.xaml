@@ -144,7 +144,7 @@ mc:Ignorable="d">
                     </StackPanel>
 
                     <StackPanel Grid.Column="1" Margin="0,0,0,0" Orientation="Vertical">
-                        <Label Content="Học phí" FontFamily="{StaticResource FZ-PoppinsRegular}" FontSize="16" />
+                        <Label Content="Trạng thái" FontFamily="{StaticResource FZ-PoppinsRegular}" FontSize="16" />
                         <Border Background="#EEE6E2" BorderThickness="0.5" CornerRadius="4">
                             <ComboBox Height="46" Padding="15,0,15,0"
               materialDesign:HintAssist.Background="Transparent"

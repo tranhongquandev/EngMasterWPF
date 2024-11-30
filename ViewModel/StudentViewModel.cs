@@ -334,7 +334,8 @@ namespace EngMasterWPF.ViewModel
 
             CloseModalCommand = new RelayCommand(_canExecute => true, _execute => CloseModal());
 
-            OpenModalUpdateCommand = new RelayCommand(_canExecute => true, _execute => OpenModalUpdate(CurrentStudent));
+            OpenModalUpdateCommand = new RelayCommand(_canExecute => true, _execute => OpenModalUpdate(CurrentStudent, Id));
+
 
             OpenDeletePopupCommand = new RelayCommand(
             _canExecute => true,
@@ -348,13 +349,13 @@ namespace EngMasterWPF.ViewModel
             }
             );
 
-            CloseModalCommand = new RelayCommand(_canExecute => true, _execute => CloseModal());
+            CloseModalUpdateCommand = new RelayCommand(_canExecute => true, _execute => CloseModalUpdate());
 
             CloseDeletePopupCommand = new RelayCommand(_canExecute => true, _execute => CloseDeleteDialog());
 
             SearchTextCommand = new RelayCommand<string>(_canExecute => true, async _execute => await SearchStudentCommandHandler(SearchText));
 
-            UpdateStudentCommand = new RelayCommand(_canExecute => true, async _execute => await UpdateStudentAsyncMethod(Id));
+            UpdateStudentCommand = new RelayCommand(_canExecute => true, async _execute => await UpdateStudentAsyncMethod(CurrentStudent.Id));
 
             DeleteStudentCommand = new RelayCommand(
                 _canExecute => true,
@@ -431,6 +432,8 @@ namespace EngMasterWPF.ViewModel
         public ICommand OpenModalAddCommand { get; private set; }
 
         public ICommand CloseModalCommand { get; private set; }
+
+        public ICommand CloseModalUpdateCommand { get; private set; }
         public ICommand OpenModalUpdateCommand { get; private set; }
 
         public ICommand OpenDeletePopupCommand { get; private set; }
@@ -468,42 +471,33 @@ namespace EngMasterWPF.ViewModel
             return new DateTime(2000, 1, 1).ToString("yyyy-MM-ddTHH:mm:ss.fffZ");
         }
 
-        private async Task UpdateStudentAsyncMethod(object param)
+        private async Task UpdateStudentAsyncMethod(int studentId)
         {
             IsSubmit = true;
             var updateStudent = new UpdateStudentDTO
             {
-                FullName = FullName ?? string.Empty,
-                Gender = Gender ?? string.Empty,
-                Email = Email ?? string.Empty,
-                PhoneNumber = PhoneNumber ?? string.Empty,
-                DateOfBirth = NormalizeDateOfBirth(DateOfBirth),
-                StudentCode = StudentCode ?? string.Empty,
-                EnrollmentDate = NormalizeDateOfBirth(EnrollmentDate),
-                Status = Status ?? string.Empty,
+                FullName = CurrentStudent.FullName ?? string.Empty,
+                Gender = CurrentStudent.Gender ?? string.Empty,
+                Email = CurrentStudent.Email ?? string.Empty,
+                PhoneNumber = CurrentStudent.PhoneNumber ?? string.Empty,
+                DateOfBirth = NormalizeDateOfBirth(CurrentStudent.DateOfBirth),
+                StudentCode = CurrentStudent.StudentCode ?? string.Empty,
+                //EnrollmentDate = NormalizeDateOfBirth(CurrentStudent.EnrollmentDate),
+                Status = CurrentStudent.Status ?? string.Empty,
             };
 
             string jsonCourse = JsonConvert.SerializeObject(updateStudent);
             try
             {
                 StudentService studentService = Installer.InstallServices.Instance.serviceProvider.GetRequiredService<StudentService>();
+                var result = await studentService.UpdateStudentAsync(updateStudent, studentId);
 
-                if (param is int studentId)
-                {
-                    var result = await studentService.UpdateStudentAsync(updateStudent, studentId);
-
-                    MessageBox.Show("Student updated successfully.");
-                    IsSubmit = false;
-                }
-                else
-                {
-                    MessageBox.Show("Invalid student id.");
-                }
-
+                MessageBox.Show("Student updated successfully.");
+                IsSubmit = false;
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Something went wrong. Error: {ex.Message}\n{ex.StackTrace}");
+                MessageBox.Show($"Something {jsonCourse} went wrong. Error: {ex.Message}\n{ex.StackTrace}");
                 IsSubmit = false;
                 return;
             }
@@ -520,11 +514,18 @@ namespace EngMasterWPF.ViewModel
             IsOpenUpdateModal = false;
         }
 
-        private void OpenModalUpdate(StudentDTO currentStudent)
+        private void CloseModalUpdate()
         {
+            IsOpenUpdateModal = false;
+        }
+
+        private void OpenModalUpdate(StudentDTO currentStudent, int id)
+        {
+
+            Id = id;
             CurrentStudent = currentStudent;
             IsOpenUpdateModal = true;
-            IsUpdate = true;
+            //IsUpdate = true;
         }
 
         private void OpenDeletePopup()

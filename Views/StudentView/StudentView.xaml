@@ -486,7 +486,6 @@
                                                         Background="Transparent"
                                                         BorderBrush="Transparent"
                                                         Command="{Binding DataContext.OpenModalUpdateCommand, RelativeSource={RelativeSource AncestorType=DataGrid}}"
-                                                        CommandParameter="{Binding Id}"
                                                         >
                                                         <materialDesign:PackIcon
                                                             Width="20"
@@ -653,7 +652,7 @@
                 Grid.Row="0"
                 Width="Auto"
                 Height="Auto"
-                Panel.ZIndex="1200">
+                Panel.ZIndex="1000">
                 <Grid.Style>
                     <Style TargetType="Grid">
                         <Style.Setters>
@@ -707,7 +706,7 @@
                                 FontSize="16"
                                 FontWeight="Bold"
                                 Foreground="#000"
-                                Text="Thêm học viên" />
+                                Text="Sửa học viên" />
 
                             <Separator
                                 Grid.Row="1"
@@ -871,7 +870,7 @@
                                 </StackPanel>
                             </Grid>
 
-                            <Grid Grid.Row="4" Margin="0,20,0,0">
+                            <Grid Grid.Row="5" Margin="0,20,0,0">
                                 <Grid.ColumnDefinitions>
                                     <ColumnDefinition Width="*" />
                                     <ColumnDefinition Width="*" />
@@ -880,46 +879,6 @@
 
                                 <StackPanel
                                     Grid.Column="0"
-                                    Margin="0,0,10,0"
-                                    Orientation="Vertical">
-                                    <Label
-                                        Content="Ngày tham gia"
-                                        FontFamily="{StaticResource FZ-PoppinsRegular}"
-                                        FontSize="16" />
-                                    <Border
-                                        Background="#EEE6E2"
-                                        BorderThickness="0.5"
-                                        CornerRadius="4">
-                                        <DatePicker
-                                            Height="46"
-                                            Padding="15,15,15,15"
-                                            materialDesign:HintAssist.Background="Transparent"
-                                            materialDesign:HintAssist.FontFamily="{StaticResource FZ-PoppinsRegular}"
-                                            materialDesign:HintAssist.Foreground="Gray"
-                                            materialDesign:HintAssist.Hint="Chọn ngày tham gia"
-                                            BorderBrush="Transparent"
-                                            FontFamily="{StaticResource FZ-PoppinsRegular}"
-                                            FontSize="14"
-                                            SelectedDate="{Binding CurrentStudent.EnrollmentDate}"
-                                            SelectedDateChanged="DatePicker_SelectedDateChanged"
-                                            TabIndex="5">
-                                            <DatePicker.CalendarStyle>
-                                                <Style TargetType="{x:Type Calendar}">
-                                                    <Setter Property="Background" Value="Gray" />
-                                                    <Setter Property="Foreground" Value="White" />
-                                                </Style>
-                                            </DatePicker.CalendarStyle>
-                                            <DatePicker.Resources>
-                                                <Style TargetType="DatePickerTextBox">
-                                                    <Setter Property="Background" Value="White" />
-                                                </Style>
-                                            </DatePicker.Resources>
-                                        </DatePicker>
-                                    </Border>
-                                </StackPanel>
-
-                                <StackPanel
-                                    Grid.Column="1"
                                     Margin="0,0,0,0"
                                     Orientation="Vertical">
                                     <Label
@@ -948,7 +907,7 @@
                             </Grid>
 
 
-                            <Grid Grid.Row="5" Margin="0,20,0,0">
+                            <Grid Grid.Row="4" Margin="0,20,0,0">
                                 <Grid.ColumnDefinitions>
                                     <ColumnDefinition Width="*" />
                                     <ColumnDefinition Width="*" />
@@ -1047,7 +1006,9 @@
                                     HorizontalAlignment="Right"
                                     VerticalAlignment="Bottom"
                                     Panel.ZIndex="30"
-                                    Command="{Binding UpdateStudentCommand}">
+                                    Command="{Binding UpdateStudentCommand}"
+                                    CommandParameter="{Binding Id}"
+                                    >
 
                                     <!--<Button.Style>
                     <Style TargetType="Button">
@@ -1075,7 +1036,8 @@
                                                         VerticalAlignment="Center"
                                                         FontFamily="{StaticResource PoppinsMedium}"
                                                         FontSize="12"
-                                                        Text="Thêm học viên" />
+                                                        Foreground="Black"
+                                                        Text="Sửa học viên" />
 
                                                     <ProgressBar
                                                         x:Name="ButtonSpinner"
@@ -1116,7 +1078,7 @@
                 <Rectangle>
                     <i:Interaction.Triggers>
                         <i:EventTrigger EventName="MouseDown">
-                            <i:InvokeCommandAction Command="{Binding CloseModalCommand}" />
+                            <i:InvokeCommandAction Command="{Binding CloseModalUpdateCommand}" />
                         </i:EventTrigger>
                     </i:Interaction.Triggers>
                 </Rectangle>

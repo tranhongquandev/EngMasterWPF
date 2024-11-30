@@ -11,6 +11,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 
 namespace EngMasterWPF.ViewModel
 {
@@ -188,6 +189,18 @@ namespace EngMasterWPF.ViewModel
             return new DateTime(2000, 1, 1).ToString("yyyy-MM-ddTHH:mm:ss.fffZ");
         }
 
+        public void ResetForm()
+        {
+            FullName = string.Empty;
+            Gender = string.Empty;
+            Email =  string.Empty;
+            PhoneNumber = string.Empty;
+            DateOfBirth = null;
+            HireDate = null;
+            EndDate = null;
+            TeacherCode = string.Empty;
+            Address = string.Empty;
+        }
         private async Task AddTeacherAsync()
         {
             IsSubmit = true;
@@ -220,6 +233,7 @@ namespace EngMasterWPF.ViewModel
                 var result = await teacherService.AddTeacherAsync(newTeacher);
 
                 MessageBox.Show("Teacher added successfully.");
+                ResetForm();
                 IsSubmit = false;
 
             }
