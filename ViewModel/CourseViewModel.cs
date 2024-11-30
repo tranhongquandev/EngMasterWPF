@@ -226,6 +226,17 @@ namespace EngMasterWPF.ViewModel
             }
         }
 
+        private string _levelName;
+        public string LevelName
+        {
+            get => _levelName;
+            set
+            {
+                _levelName = value;
+                OnPropertyChanged();
+            }
+
+        }
         private string _duration;
         public string Duration
         {
@@ -488,10 +499,11 @@ namespace EngMasterWPF.ViewModel
                 Fee = Fee,
                 Discount = Discount,
                 Description = Description,
-                TotalFee = Fee - Discount * Fee,
+                //TotalFee = Fee - Discount * Fee,
                 IsActive = true,
                 LevelId = 22,
-                CourseCode = CourseCode
+                CourseCode = CourseCode,
+                //LevelName  = LevelName ?? string.Empty,
             };
 
             string jsonCourse = JsonConvert.SerializeObject(updateCourse);

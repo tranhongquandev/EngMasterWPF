@@ -15,14 +15,17 @@ namespace EngMasterWPF.DTOs
         [JsonProperty("duration")]
         public string? Duration { get; set; }
 
+        [JsonProperty("courseCode")]
+        public string? CourseCode { get; set; }
+
         [JsonProperty("fee")]
         public double? Fee { get; set; }
 
         [JsonProperty("discount")]
         public double? Discount { get; set; }
 
-        [JsonProperty("totalFee")]
-        public double? TotalFee { get; set; }
+        //[JsonProperty("totalFee")]
+        //public double? TotalFee { get; set; }
 
 
         [JsonProperty("isActive")]
@@ -30,5 +33,7 @@ namespace EngMasterWPF.DTOs
 
         [JsonProperty("levelId")]
         public int? LevelId { get; set; }
+
+
     }
 }

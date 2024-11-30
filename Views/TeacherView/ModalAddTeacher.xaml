@@ -4,9 +4,376 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:EngMasterWPF.Views.TeacherView"
-             mc:Ignorable="d" 
-             d:DesignHeight="450" d:DesignWidth="800">
-    <Grid>
-            
+         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+xmlns:uc="clr-namespace:EngMasterWPF.SharedUI"
+xmlns:ui="http://schemas.lepo.co/wpfui/2022/xaml"
+xmlns:vm="clr-namespace:EngMasterWPF.ViewModel"
+xmlns:converters="clr-namespace:EngMasterWPF.Converter"
+d:DesignHeight="600"
+d:DesignWidth="900"
+FontFamily="{StaticResource PoppinsRegular}"
+Foreground="#1A1A1A"
+mc:Ignorable="d">
+
+    <UserControl.DataContext>
+        <vm:ModalTeacherViewModel />
+    </UserControl.DataContext>
+
+   
+    
+    <Grid x:Name="TeacherModal" >
+        <Rectangle Fill="#CCC" Opacity="0.5" />
+        <!--MouseDown="Rectangle_MouseDown"-->
+        <Border CornerRadius="10" Background="White" Height="700" Width="700">
+            <Border.Effect>
+                <DropShadowEffect Color="Gray" Direction="270" ShadowDepth="10" BlurRadius="15" Opacity="0.5"/>
+            </Border.Effect>
+            <Grid Margin="5">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>
+
+                <TextBlock Grid.Row="0" Foreground="#000" Text="Thêm học viên" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="16" FontWeight="Bold"/>
+
+                <Separator Grid.Row="1" BorderThickness="1" BorderBrush="Silver"  Margin="0,10"/>
+
+                <Grid Grid.Row="2" Margin="0,20,0,0">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+
+                    <StackPanel Grid.Column="0" Margin="0,0,10,0" Orientation="Vertical">
+                        <Label Content="Họ tên" FontFamily="{StaticResource FZ-PoppinsRegular}" FontSize="16" />
+                        <Border Background="#EEE6E2" BorderThickness="0.5" CornerRadius="4">
+                            <TextBox Height="46" Padding="15,0,15,0"
+                                     materialDesign:HintAssist.Background="Transparent"
+                                     materialDesign:HintAssist.FontFamily="{StaticResource FZ-PoppinsRegular}"
+                                     materialDesign:HintAssist.Foreground="Gray"
+                                     materialDesign:HintAssist.Hint="Nhập họ tên"
+                                     materialDesign:TextFieldAssist.UnderlineBrush="Transparent"
+                                     Text="{Binding FullName}"
+                                     BorderBrush="Transparent" FontFamily="{StaticResource FZ-PoppinsRegular}"
+                                     FontSize="14" TabIndex="1" />
+                        </Border>
+                    </StackPanel>
+
+                    <StackPanel Grid.Column="1" Margin="0,0,0,0" Orientation="Vertical">
+                        <Label Content="Giới tính" FontFamily="{StaticResource FZ-PoppinsRegular}" FontSize="16" />
+                        <Border Background="#EEE6E2" Panel.ZIndex="1200" >
+                            <ComboBox Height="46" Padding="15,0,15,0"
+                             materialDesign:HintAssist.Background="Transparent"
+                             materialDesign:HintAssist.FontFamily="{StaticResource FZ-PoppinsRegular}"
+                             materialDesign:HintAssist.Foreground="Gray"
+                             materialDesign:HintAssist.Hint="Chọn giới tính"
+                             Text="{Binding Gender}" FontFamily="{StaticResource FZ-PoppinsRegular}" FontSize="14">
+                                <ComboBox.ItemTemplate>
+                                    <DataTemplate>
+                                        <TextBlock Text="{Binding}" Background="White" Foreground="Black" Padding="10" />
+                                    </DataTemplate>
+                                </ComboBox.ItemTemplate>
+
+                                <ComboBox.ItemContainerStyle>
+                                    <Style TargetType="ComboBoxItem">
+                                        <Setter Property="Background" Value="White"/>
+                                        <Setter Property="Foreground" Value="Black"/>
+                                        <Setter Property="Padding" Value="10"/>
+
+                                        <Style.Triggers>
+                                            <Trigger Property="IsMouseOver" Value="True">
+                                                <Setter Property="Panel.ZIndex" Value="1300"/>
+                                                <Setter Property="Foreground" Value="Black"/>
+                                            </Trigger>
+
+                                            <Trigger Property="IsSelected" Value="True">
+                                                <Setter Property="Background" Value="White"/>
+                                                <Setter Property="Foreground" Value="Black"/>
+                                            </Trigger>
+
+                                        </Style.Triggers>
+                                    </Style>
+                                </ComboBox.ItemContainerStyle>
+
+                                <ComboBoxItem Content="Male"/>
+                                <ComboBoxItem Content="Female"/>
+                            </ComboBox>
+                        </Border>
+                    </StackPanel>
+
+                </Grid>
+
+                <Grid Grid.Row="3" Margin="0,20,0,0">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+
+
+                    <StackPanel Grid.Column="0" Margin="0,0,10,0" Orientation="Vertical">
+                        <Label Content="Email" FontFamily="{StaticResource FZ-PoppinsRegular}" FontSize="16" />
+                        <Border Background="#EEE6E2" BorderThickness="0.5" CornerRadius="4">
+                            <TextBox Height="46" Padding="15,0,15,0"
+                                     materialDesign:HintAssist.Background="Transparent"
+                                     materialDesign:HintAssist.FontFamily="{StaticResource FZ-PoppinsRegular}"
+                                     materialDesign:HintAssist.Foreground="Gray"
+                                     materialDesign:HintAssist.Hint="Nhập email"
+                                     materialDesign:TextFieldAssist.UnderlineBrush="Transparent"
+                                     BorderBrush="Transparent" FontFamily="{StaticResource FZ-PoppinsRegular}"
+                                     FontSize="14" TabIndex="3" 
+                                     Text="{Binding Email}"
+                                     />
+                        </Border>
+                    </StackPanel>
+
+                    <StackPanel Grid.Column="1" Margin="0,0,0,0" Orientation="Vertical">
+                        <Label Content="Số điện thoại" FontFamily="{StaticResource FZ-PoppinsRegular}" FontSize="16" />
+                        <Border Background="#EEE6E2" BorderThickness="0.5" CornerRadius="4">
+                            <TextBox Height="46" Padding="15,0,15,0"
+                                     materialDesign:HintAssist.Background="Transparent"
+                                     materialDesign:HintAssist.FontFamily="{StaticResource FZ-PoppinsRegular}"
+                                     materialDesign:HintAssist.Foreground="Gray"
+                                     materialDesign:HintAssist.Hint="Nhập số điện thoại"
+                                     materialDesign:TextFieldAssist.UnderlineBrush="Transparent"
+                                     BorderBrush="Transparent" FontFamily="{StaticResource FZ-PoppinsRegular}"
+                                     FontSize="14" TabIndex="4" Text="{Binding PhoneNumber}"
+                                     />
+                        </Border>
+                    </StackPanel>
+                </Grid>
+
+                <Grid Grid.Row="4" Margin="0,20,0,0">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+
+
+                    <StackPanel Grid.Column="0" Margin="0,0,10,0" Orientation="Vertical">
+                        <Label Content="Ngày tham gia" FontFamily="{StaticResource FZ-PoppinsRegular}" FontSize="16" />
+                        <Border Background="#EEE6E2" BorderThickness="0.5" CornerRadius="4">
+                            <DatePicker Height="46" Padding="15,15,15,15" 
+                    materialDesign:HintAssist.Background="Transparent"
+                    materialDesign:HintAssist.FontFamily="{StaticResource FZ-PoppinsRegular}"
+                    materialDesign:HintAssist.Foreground="Gray"
+                    materialDesign:HintAssist.Hint="Chọn ngày tham gia"
+                    BorderBrush="Transparent" FontFamily="{StaticResource FZ-PoppinsRegular}"
+                    FontSize="14" TabIndex="5" SelectedDate="{Binding HireDate}"
+                    SelectedDateChanged="DatePicker_SelectedDateChanged"
+                    >
+                                <DatePicker.CalendarStyle>
+                                    <Style TargetType="{x:Type Calendar}">
+                                        <Setter Property="Background" Value="Gray" />
+                                        <Setter Property="Foreground" Value="White" />
+                                    </Style>
+                                </DatePicker.CalendarStyle>
+                                <DatePicker.Resources>
+                                    <Style TargetType="DatePickerTextBox">
+                                        <Setter Property="Background" Value="White" />
+                                    </Style>
+                                </DatePicker.Resources>
+                            </DatePicker>
+                        </Border>
+                    </StackPanel>
+
+                    <StackPanel Grid.Column="1" Margin="0,0,0,0" Orientation="Vertical">
+                        <Label Content="Mã học viên" FontFamily="{StaticResource FZ-PoppinsRegular}" FontSize="16" />
+                        <Border Background="#EEE6E2" BorderThickness="0.5" CornerRadius="4">
+                            <TextBox Height="46" Padding="15,0,15,0"
+                     materialDesign:HintAssist.Background="Transparent"
+                     materialDesign:HintAssist.FontFamily="{StaticResource FZ-PoppinsRegular}"
+                     materialDesign:HintAssist.Foreground="Gray"
+                     materialDesign:HintAssist.Hint="Nhập mã học viên"
+                     materialDesign:TextFieldAssist.UnderlineBrush="Transparent"
+                     BorderBrush="Transparent" FontFamily="{StaticResource FZ-PoppinsRegular}"
+                     FontSize="14" TabIndex="4" Text="{Binding TeacherCode}"
+                     />
+                        </Border>
+                    </StackPanel>
+                </Grid>
+
+
+                <Grid Grid.Row="5" Margin="0,20,0,0">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+
+
+                    <StackPanel Grid.Column="0" Margin="0,0,10,0" Orientation="Vertical">
+                        <Label Content="Ngày tham gia" FontFamily="{StaticResource FZ-PoppinsRegular}" FontSize="16" />
+                        <Border Background="#EEE6E2" BorderThickness="0.5" CornerRadius="4">
+                            <DatePicker Height="46" Padding="15,15,15,15" 
+     materialDesign:HintAssist.Background="Transparent"
+     materialDesign:HintAssist.FontFamily="{StaticResource FZ-PoppinsRegular}"
+     materialDesign:HintAssist.Foreground="Gray"
+     materialDesign:HintAssist.Hint="Chọn ngày tham gia"
+     BorderBrush="Transparent" FontFamily="{StaticResource FZ-PoppinsRegular}"
+     FontSize="14" TabIndex="5" SelectedDate="{Binding EndDate}"
+     SelectedDateChanged="DatePicker_SelectedDateChanged"
+     >
+                                <DatePicker.CalendarStyle>
+                                    <Style TargetType="{x:Type Calendar}">
+                                        <Setter Property="Background" Value="Gray" />
+                                        <Setter Property="Foreground" Value="White" />
+                                    </Style>
+                                </DatePicker.CalendarStyle>
+                                <DatePicker.Resources>
+                                    <Style TargetType="DatePickerTextBox">
+                                        <Setter Property="Background" Value="White" />
+                                    </Style>
+                                </DatePicker.Resources>
+                            </DatePicker>
+                        </Border>
+                    </StackPanel>
+
+                    <StackPanel Grid.Column="1" Margin="0,0,0,0" Orientation="Vertical">
+                        <Label Content="Mã học viên" FontFamily="{StaticResource FZ-PoppinsRegular}" FontSize="16" />
+                        <Border Background="#EEE6E2" BorderThickness="0.5" CornerRadius="4">
+                            <TextBox Height="46" Padding="15,0,15,0"
+      materialDesign:HintAssist.Background="Transparent"
+      materialDesign:HintAssist.FontFamily="{StaticResource FZ-PoppinsRegular}"
+      materialDesign:HintAssist.Foreground="Gray"
+      materialDesign:HintAssist.Hint="Nhập mã học viên"
+      materialDesign:TextFieldAssist.UnderlineBrush="Transparent"
+      BorderBrush="Transparent" FontFamily="{StaticResource FZ-PoppinsRegular}"
+      FontSize="14" TabIndex="4" Text="{Binding Address}"
+      />
+                        </Border>
+                    </StackPanel>
+                </Grid>
+                
+                <Grid Grid.Row="6" Margin="0,20,0,0">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+
+
+                    <StackPanel Grid.Column="0" Margin="0,0,10,0" Orientation="Vertical">
+                        <Label Content="Ngày sinh" FontFamily="{StaticResource FZ-PoppinsRegular}" FontSize="16" />
+                        <Border Background="#EEE6E2" BorderThickness="0.5" CornerRadius="4">
+                            <DatePicker Height="46" Padding="15,15,15,15" 
+                                        materialDesign:HintAssist.Background="Transparent"
+                                        materialDesign:HintAssist.FontFamily="{StaticResource FZ-PoppinsRegular}"
+                                        materialDesign:HintAssist.Foreground="Gray"
+                                        materialDesign:HintAssist.Hint="Chọn ngày sinh"
+                                        BorderBrush="Transparent" FontFamily="{StaticResource FZ-PoppinsRegular}"
+                                        FontSize="14" TabIndex="5" SelectedDate="{Binding DateOfBirth}"
+                                        SelectedDateChanged="DatePicker_SelectedDateChanged"
+                                        >
+                                <DatePicker.CalendarStyle>
+                                    <Style TargetType="{x:Type Calendar}">
+                                        <Setter Property="Background" Value="Gray" />
+                                        <Setter Property="Foreground" Value="White" />
+                                    </Style>
+                                </DatePicker.CalendarStyle>
+                                <DatePicker.Resources>
+                                    <Style TargetType="DatePickerTextBox">
+                                        <Setter Property="Background" Value="White" />
+                                    </Style>
+                                </DatePicker.Resources>
+                            </DatePicker>
+                        </Border>
+                    </StackPanel>
+
+                    <StackPanel Grid.Column="1" Margin="0,0,0,0" Orientation="Vertical">
+                        <Label Content="Trạng thái" FontFamily="{StaticResource FZ-PoppinsRegular}" FontSize="16" />
+                        <Border Background="#EEE6E2" BorderThickness="0.5" CornerRadius="4">
+                            <ComboBox Height="46" Padding="15,0,15,0"
+                                      materialDesign:HintAssist.Background="Transparent"
+                                      materialDesign:HintAssist.FontFamily="{StaticResource FZ-PoppinsRegular}"
+                                      materialDesign:HintAssist.Foreground="Gray"
+                                      materialDesign:HintAssist.Hint="Chọn trạng thái"
+                                      Text="{Binding IsActive}" FontFamily="{StaticResource FZ-PoppinsRegular}" FontSize="14">
+                                <ComboBoxItem Content="True"/>
+                                <ComboBoxItem Content="False"/>
+                            </ComboBox>
+                        </Border>
+                    </StackPanel>
+                </Grid>
+
+                <!--<Button Grid.Row="5"  Margin="0,15,0,0" Width="130" HorizontalAlignment="Right" VerticalAlignment="Center" 
+                            Command="{Binding AddCourseCommand}">
+                    <Button.Style>
+                        <Style TargetType="Button">
+                            <Style.Triggers>
+                                <DataTrigger Binding="{Binding IsUpdate}" Value="True">
+                                    <Setter Property="Content" Value="Update Course"/>
+                                </DataTrigger>
+                                <DataTrigger Binding="{Binding IsUpdate}" Value="False">
+                                    <Setter Property="Content" Value="Add Course"/>
+                                </DataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </Button.Style>
+                </Button>-->
+                <Grid Grid.Row="6">
+                    <Button
+Width="120"
+Height="30"
+Margin="0,10,0,0"
+HorizontalAlignment="Right"
+VerticalAlignment="Bottom"
+Panel.ZIndex="30"
+Command="{Binding AddTeacherCommand}">
+
+
+                        <Button.Template>
+                            <ControlTemplate TargetType="Button">
+                                <Border
+            BorderBrush="#1A1A1A"
+            BorderThickness="1,1,1,1"
+            Cursor="Hand">
+                                    <Grid>
+                                        <TextBlock
+                    x:Name="ContentText"
+                    HorizontalAlignment="Center"
+                    VerticalAlignment="Center"
+                    FontFamily="{StaticResource PoppinsMedium}"
+                    FontSize="12"
+                    Foreground="Black"
+                    Text="Thêm học viên" />
+
+                                        <ProgressBar
+                    x:Name="ButtonSpinner"
+                    Width="30"
+                    Height="30"
+                    Background="Transparent"
+                    Foreground="#1A1A1A"
+                    IsIndeterminate="True"
+                    Style="{StaticResource MaterialDesignCircularProgressBar}"
+                    Visibility="Collapsed" />
+                                    </Grid>
+                                </Border>
+
+                                <ControlTemplate.Triggers>
+                                    <DataTrigger Binding="{Binding IsSubmit}" Value="True">
+                                        <Setter TargetName="ButtonSpinner" Property="Visibility" Value="Visible" />
+                                        <Setter TargetName="ContentText" Property="Visibility" Value="Collapsed" />
+
+                                    </DataTrigger>
+
+                                    <DataTrigger Binding="{Binding IsSubmit}" Value="False">
+                                        <Setter TargetName="ContentText" Property="Visibility" Value="Visible" />
+                                        <Setter TargetName="ButtonSpinner" Property="Visibility" Value="Collapsed" />
+                                    </DataTrigger>
+                                </ControlTemplate.Triggers>
+                            </ControlTemplate>
+                        </Button.Template>
+                    </Button>
+                </Grid>
+
+
+
+            </Grid>
+        </Border>
+
+
     </Grid>
 </UserControl>

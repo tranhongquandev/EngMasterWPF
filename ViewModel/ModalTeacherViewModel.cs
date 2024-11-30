@@ -93,6 +93,18 @@ namespace EngMasterWPF.ViewModel
             }
         }
 
+
+        private string _teacherCode;
+        public string TeacherCode
+        {
+            get => _teacherCode;
+            set
+            {
+                _teacherCode = value;
+                OnPropertyChanged();
+            }
+        }
+
         private string _hireDate;
         public string HireDate
         {
@@ -186,15 +198,17 @@ namespace EngMasterWPF.ViewModel
                 Email = Email ?? string.Empty,
                 PhoneNumber = PhoneNumber ?? string.Empty,
                 DateOfBirth = NormalizeDateOfBirth(DateOfBirth),
-                HireDate = NormalizeDateOfBirth(DateOfBirth),
-                EndDate = NormalizeDateOfBirth(DateOfBirth),
+                HireDate = NormalizeDateOfBirth(HireDate),
+                EndDate = NormalizeDateOfBirth(EndDate),
                 IsActive = IsActive,
+                TeacherCode = TeacherCode,
+                Address = Address
             };
 
             if (IsUpdate)
             {
 
-                MessageBox.Show("Updating student...");
+                MessageBox.Show("Updating teacher...");
 
             }
 

@@ -733,7 +733,7 @@
                                         CornerRadius="4">
                                         <TextBox
                                             Height="46"
-                                            Padding="15,0,15,0"
+                                            Padding="15,15,15,15"
                                             materialDesign:HintAssist.Background="Transparent"
                                             materialDesign:HintAssist.FontFamily="{StaticResource FZ-PoppinsRegular}"
                                             materialDesign:HintAssist.Foreground="Gray"
@@ -743,7 +743,7 @@
                                             FontFamily="{StaticResource FZ-PoppinsRegular}"
                                             FontSize="14"
                                             TabIndex="1"
-                                            Text="{Binding FullName}" />
+                                            Text="{Binding CurrentStudent.FullName}" />
                                     </Border>
                                 </StackPanel>
 
@@ -758,14 +758,14 @@
                                     <Border Panel.ZIndex="1200" Background="#EEE6E2">
                                         <ComboBox
                                             Height="46"
-                                            Padding="15,0,15,0"
+                                            Padding="15,15,15,15"
                                             materialDesign:HintAssist.Background="Transparent"
                                             materialDesign:HintAssist.FontFamily="{StaticResource FZ-PoppinsRegular}"
                                             materialDesign:HintAssist.Foreground="Gray"
                                             materialDesign:HintAssist.Hint="Chọn giới tính"
                                             FontFamily="{StaticResource FZ-PoppinsRegular}"
                                             FontSize="14"
-                                            Text="{Binding Gender}">
+                                            Text="{Binding CurrentStudent.Gender}">
                                             <ComboBox.ItemTemplate>
                                                 <DataTemplate>
                                                     <TextBlock
@@ -826,7 +826,7 @@
                                         CornerRadius="4">
                                         <TextBox
                                             Height="46"
-                                            Padding="15,0,15,0"
+                                            Padding="15,15,15,15"
                                             materialDesign:HintAssist.Background="Transparent"
                                             materialDesign:HintAssist.FontFamily="{StaticResource FZ-PoppinsRegular}"
                                             materialDesign:HintAssist.Foreground="Gray"
@@ -836,7 +836,7 @@
                                             FontFamily="{StaticResource FZ-PoppinsRegular}"
                                             FontSize="14"
                                             TabIndex="3"
-                                            Text="{Binding Email}" />
+                                            Text="{Binding CurrentStudent.Email}" />
                                     </Border>
                                 </StackPanel>
 
@@ -854,7 +854,7 @@
                                         CornerRadius="4">
                                         <TextBox
                                             Height="46"
-                                            Padding="15,0,15,0"
+                                            Padding="15,15,15,15"
                                             materialDesign:HintAssist.Background="Transparent"
                                             materialDesign:HintAssist.FontFamily="{StaticResource FZ-PoppinsRegular}"
                                             materialDesign:HintAssist.Foreground="Gray"
@@ -864,7 +864,7 @@
                                             FontFamily="{StaticResource FZ-PoppinsRegular}"
                                             FontSize="14"
                                             TabIndex="4"
-                                            Text="{Binding PhoneNumber}" />
+                                            Text="{Binding CurrentStudent.PhoneNumber}" />
                                     </Border>
                                 </StackPanel>
                             </Grid>
@@ -898,7 +898,7 @@
                                             BorderBrush="Transparent"
                                             FontFamily="{StaticResource FZ-PoppinsRegular}"
                                             FontSize="14"
-                                            SelectedDate="{Binding EnrollmentDate}"
+                                            SelectedDate="{Binding CurrentStudent.EnrollmentDate}"
                                             SelectedDateChanged="DatePicker_SelectedDateChanged"
                                             TabIndex="5">
                                             <DatePicker.CalendarStyle>
@@ -930,7 +930,7 @@
                                         CornerRadius="4">
                                         <TextBox
                                             Height="46"
-                                            Padding="15,0,15,0"
+                                            Padding="15,15,15,15"
                                             materialDesign:HintAssist.Background="Transparent"
                                             materialDesign:HintAssist.FontFamily="{StaticResource FZ-PoppinsRegular}"
                                             materialDesign:HintAssist.Foreground="Gray"
@@ -940,7 +940,7 @@
                                             FontFamily="{StaticResource FZ-PoppinsRegular}"
                                             FontSize="14"
                                             TabIndex="4"
-                                            Text="{Binding StudentCode}" />
+                                            Text="{Binding CurrentStudent.StudentCode}" />
                                     </Border>
                                 </StackPanel>
                             </Grid>
@@ -975,7 +975,7 @@
                                             BorderBrush="Transparent"
                                             FontFamily="{StaticResource FZ-PoppinsRegular}"
                                             FontSize="14"
-                                            SelectedDate="{Binding DateOfBirth}"
+                                            SelectedDate="{Binding CurrentStudent.DateOfBirth}"
                                             SelectedDateChanged="DatePicker_SelectedDateChanged"
                                             TabIndex="5">
                                             <DatePicker.CalendarStyle>
@@ -1014,7 +1014,7 @@
                                             materialDesign:HintAssist.Hint="Chọn trạng thái"
                                             FontFamily="{StaticResource FZ-PoppinsRegular}"
                                             FontSize="14"
-                                            Text="{Binding Status}">
+                                            Text="{Binding CurrentStudent.Status}">
                                             <ComboBoxItem Content="True" />
                                             <ComboBoxItem Content="False" />
                                         </ComboBox>
@@ -1045,7 +1045,7 @@
                                     HorizontalAlignment="Right"
                                     VerticalAlignment="Bottom"
                                     Panel.ZIndex="30"
-                                    Command="{Binding AddStudentCommand}">
+                                    Command="{Binding UpdateStudentCommand}">
 
                                     <!--<Button.Style>
                     <Style TargetType="Button">
@@ -1184,7 +1184,7 @@
                                 Height="40"
                                 Margin="5,0"
                                 Background="#D6D6D6"
-                                Command="{Binding DeleteCourseCommand}"
+                                Command="{Binding DeleteStudentCommand}"
                                 CommandParameter="{Binding Id}"
                                 Content="Có"
                                 FontWeight="Bold"

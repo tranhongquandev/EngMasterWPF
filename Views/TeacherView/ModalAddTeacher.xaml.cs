@@ -24,5 +24,10 @@ namespace EngMasterWPF.Views.TeacherView
         {
             InitializeComponent();
         }
+
+        private void Rectangle_MouseDown()
+        {
+
+        }
     }
 }

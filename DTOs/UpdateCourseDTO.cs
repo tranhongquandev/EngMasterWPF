@@ -9,7 +9,6 @@ namespace EngMasterWPF.DTOs
 {
     public class UpdateCourseDTO : AddCourseDTO
     {
-        [JsonProperty("courseCode")]
-        public string? CourseCode { get; set; }
+       
     }
 }

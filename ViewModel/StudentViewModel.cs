@@ -5,6 +5,7 @@ using EngMasterWPF.Services;
 using EngMasterWPF.Utilities;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.IdentityModel.Tokens;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -280,8 +281,19 @@ namespace EngMasterWPF.ViewModel
             }
         }
 
+        private bool _isSubmit;
+        public bool IsSubmit
+        {
+            get => _isSubmit;
+            set
+            {
+                _isSubmit = value;
+                OnPropertyChanged();
+            }
+        }
 
-        
+
+
         private readonly IServiceProvider _service;
 
         private readonly IMapper _mapper;
@@ -342,9 +354,9 @@ namespace EngMasterWPF.ViewModel
 
             SearchTextCommand = new RelayCommand<string>(_canExecute => true, async _execute => await SearchStudentCommandHandler(SearchText));
 
-            //UpdateCourseCommand = new RelayCommand(_canExecute => true, async _execute => await UpdateCourseAsyncMethod());
+            UpdateStudentCommand = new RelayCommand(_canExecute => true, async _execute => await UpdateStudentAsyncMethod());
 
-            DeleteCourseCommand = new RelayCommand(
+            DeleteStudentCommand = new RelayCommand(
                 _canExecute => true,
                 async param =>
                 {
@@ -425,9 +437,9 @@ namespace EngMasterWPF.ViewModel
 
         public ICommand CloseDeletePopupCommand { get; private set; }
 
-        public ICommand UpdateCourseCommand { get; private set; }
+        public ICommand UpdateStudentCommand { get; private set; }
 
-        public ICommand DeleteCourseCommand { get; private set; }
+        public ICommand DeleteStudentCommand { get; private set; }
 
             
         #endregion
@@ -444,6 +456,41 @@ namespace EngMasterWPF.ViewModel
                 await LoadData(SearchText, Page, PageSize);
             }
 
+        }
+
+        private async Task UpdateStudentAsyncMethod()
+        {
+            IsSubmit = true;
+            var updateStudent = new UpdateStudentDTO
+            {
+                //CourseName = CourseName,
+                //Duration = Duration,
+                //Fee = Fee,
+                //Discount = Discount,
+                //Description = Description,
+                //TotalFee = Fee - Discount * Fee,
+                //IsActive = true,
+                //LevelId = 22,
+                //CourseCode = CourseCode
+            };
+
+            string jsonCourse = JsonConvert.SerializeObject(updateStudent);
+            try
+            {
+
+                CourseService courseService = Installer.InstallServices.Instance.serviceProvider.GetRequiredService<CourseService>();
+                //var result = await courseService.UpdateCourseAsync(updateStudent);
+
+                MessageBox.Show("Course updated successfully.");
+                IsSubmit = false;
+
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Something went wrong. Error: {ex.Message}\n{ex.StackTrace}");
+                IsSubmit = false;
+                return;
+            }
         }
 
         private void CloseDeleteDialog()

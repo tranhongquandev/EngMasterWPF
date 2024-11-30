@@ -304,6 +304,7 @@ Command="{Binding AddStudentCommand}">
                     VerticalAlignment="Center"
                     FontFamily="{StaticResource PoppinsMedium}"
                     FontSize="12"
+                    Foreground="Black"
                     Text="Thêm học viên" />
 
                                         <ProgressBar

@@ -146,15 +146,15 @@ mc:Ignorable="d">
                     <StackPanel Grid.Column="1" Margin="0,0,0,0" Orientation="Vertical">
                         <Label Content="Học phí" FontFamily="{StaticResource FZ-PoppinsRegular}" FontSize="16" />
                         <Border Background="#EEE6E2" BorderThickness="0.5" CornerRadius="4">
-                            <TextBox Height="46" Padding="15,0,15,0"
-                     materialDesign:HintAssist.Background="Transparent"
-                     materialDesign:HintAssist.FontFamily="{StaticResource FZ-PoppinsRegular}"
-                     materialDesign:HintAssist.Foreground="Gray"
-                     materialDesign:HintAssist.Hint="Nhập học phí"
-                     materialDesign:TextFieldAssist.UnderlineBrush="Transparent"
-                     BorderBrush="Transparent" FontFamily="{StaticResource FZ-PoppinsRegular}"
-                     FontSize="14" TabIndex="4" 
-                     Text="{Binding LevelId}"/>
+                            <ComboBox Height="46" Padding="15,0,15,0"
+              materialDesign:HintAssist.Background="Transparent"
+              materialDesign:HintAssist.FontFamily="{StaticResource FZ-PoppinsRegular}"
+              materialDesign:HintAssist.Foreground="Gray"
+              materialDesign:HintAssist.Hint="Chọn trạng thái"
+              Text="{Binding IsActive}" FontFamily="{StaticResource FZ-PoppinsRegular}" FontSize="14">
+                                <ComboBoxItem Content="True"/>
+                                <ComboBoxItem Content="False"/>
+                            </ComboBox>
                         </Border>
                     </StackPanel>
                 </Grid>
@@ -212,7 +212,7 @@ mc:Ignorable="d">
                         </Style>
                     </Button.Style>
                 </Button>-->
-                <Grid Grid.Row="5">
+                <Grid Grid.Row="6">
                     <Button
 Width="120"
 Height="30"
@@ -248,6 +248,7 @@ Command="{Binding AddCourseCommand}">
                     VerticalAlignment="Center"
                     FontFamily="{StaticResource PoppinsMedium}"
                     FontSize="12"
+                    Foreground="Black"
                     Text="Thêm" />
 
                                         <ProgressBar

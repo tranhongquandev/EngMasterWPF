@@ -112,6 +112,18 @@ namespace EngMasterWPF.ViewModel
             }
         }
 
+        private bool _isActive = false;
+        public bool IsActive
+        {
+            get => _isActive;
+            set
+            {
+                _isActive = value;
+                OnPropertyChanged();
+            }
+        }
+        
+
         private readonly TeacherService _teacherService;
         public ICommand AddCourseCommand { get; set; }
 
@@ -140,9 +152,10 @@ namespace EngMasterWPF.ViewModel
                 Fee = Fee > 0 ? Fee : 0, 
                 Discount = Discount, 
                 Description = Description ?? string.Empty,  
-                TotalFee = Fee - Discount * Fee, 
+                //TotalFee = Fee - Discount * Fee, 
                 IsActive = true,
                 LevelId = 22,
+                CourseCode = CourseCode ?? string.Empty
             };
 
             if (IsUpdate)
