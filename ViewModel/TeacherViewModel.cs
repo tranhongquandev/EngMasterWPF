@@ -24,6 +24,17 @@ namespace EngMasterWPF.ViewModel
     {
         #region Property
 
+        private TeacherDTO _currentTeacher;
+        public TeacherDTO CurrentTeacher
+        {
+            get { return _currentTeacher; }
+            set
+            {
+                _currentTeacher = value;
+                OnPropertyChanged(nameof(CurrentTeacher));
+            }
+        }
+
         private string _searchText = "";
         public string SearchText
         {
@@ -46,6 +57,127 @@ namespace EngMasterWPF.ViewModel
             }
         }
 
+        private string _fullName;
+        public string FullName
+        {
+            get => _fullName;
+            set
+            {
+                _fullName = value;
+                OnPropertyChanged();
+            }
+        }
+
+        private string _imageUrl;
+        public string ImageUrl
+        {
+            get => _imageUrl;
+            set
+            {
+                _imageUrl = value;
+                OnPropertyChanged();
+            }
+        }
+
+        private string _email;
+        public string Email
+        {
+            get => _email;
+            set
+            {
+                _email = value;
+                OnPropertyChanged();
+            }
+        }
+
+        private string _gender;
+        public string Gender
+        {
+            get => _gender;
+            set
+            {
+                _gender = value;
+                OnPropertyChanged();
+            }
+        }
+
+        private string _phoneNumber;
+        public string PhoneNumber
+        {
+            get => _phoneNumber;
+            set
+            {
+                _phoneNumber = value;
+                OnPropertyChanged();
+            }
+        }
+
+        private string _address;
+        public string Address
+        {
+            get => _address;
+            set
+            {
+                _address = value;
+                OnPropertyChanged();
+            }
+        }
+
+        private string _dateOfBirth;
+        public string DateOfBirth
+        {
+            get => _dateOfBirth;
+            set
+            {
+                _dateOfBirth = value;
+                OnPropertyChanged();
+            }
+        }
+
+
+        private string _teacherCode;
+        public string TeacherCode
+        {
+            get => _teacherCode;
+            set
+            {
+                _teacherCode = value;
+                OnPropertyChanged();
+            }
+        }
+
+        private string _hireDate;
+        public string HireDate
+        {
+            get => _hireDate;
+            set
+            {
+                _hireDate = value;
+                OnPropertyChanged();
+            }
+        }
+
+        private string _endDate;
+        public string EndDate
+        {
+            get => _endDate;
+            set
+            {
+                _endDate = value;
+                OnPropertyChanged();
+            }
+        }
+
+        private bool _isActive;
+        public bool IsActive
+        {
+            get => _isActive;
+            set
+            {
+                _isActive = value;
+                OnPropertyChanged();
+            }
+        }
 
 
         private bool _isLoading = false;
@@ -235,7 +367,7 @@ namespace EngMasterWPF.ViewModel
 
             OpenModalAddCommand = new RelayCommand(_canExecute => true, _execute => OpenDialogModal());
 
-            //OpenModalUpdateCommand = new RelayCommand(_canExecute => true, _execute => OpenModalUpdate(CurrentCourse));
+            OpenModalUpdateCommand = new RelayCommand(_canExecute => true, _execute => OpenModalUpdate(CurrentTeacher));
 
             OpenDeletePopupCommand = new RelayCommand(
             _canExecute => true,
@@ -358,9 +490,9 @@ namespace EngMasterWPF.ViewModel
             IsOpenUpdateModal = false;
         }
 
-        private void OpenModalUpdate(CourseDTO currentCourse)
+        private void OpenModalUpdate(TeacherDTO currentTeacher)
         {
-            //CurrentCourse = currentCourse;
+            CurrentTeacher = currentTeacher;
             IsOpenUpdateModal = true;
             IsUpdate = true;
         }

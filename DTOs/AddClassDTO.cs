@@ -15,6 +15,7 @@ namespace EngMasterWPF.DTOs
         [JsonProperty("startDate")]
         public string? StartDate { get; set; }
 
+
         [JsonProperty("endDate")]
         public string? EndDate { get; set; }
 

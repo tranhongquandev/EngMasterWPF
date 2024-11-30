@@ -15,7 +15,7 @@ namespace EngMasterWPF.Services
     {
         private const string _baseURL = "https://englabapi.onrender.com/api/v1/teacher/";
 
-        public async Task<ObservableCollection<TeacherDTO>?> GetTeacherByFilter(string? name,int page, int pageSize)
+        public async Task<ObservableCollection<TeacherDTO>?> GetTeacherByFilter(string? name, int page, int pageSize)
         {
 
             var urlRequest = _baseURL + "get-by-filter" + $"?page={page}&pagesize={pageSize}";
@@ -38,13 +38,13 @@ namespace EngMasterWPF.Services
         }
 
 
-      
+
 
         public async Task<AddTeacherDTO> AddTeacherAsync(AddTeacherDTO student)
         {
             try
             {
-                var urlRequest = _baseURL + "/create-teacher";
+                var urlRequest = _baseURL + "create-teacher";
                 var result = await PostAsync<AddTeacherDTO>(urlRequest, student);
                 if (result == null)
                 {

@@ -19,15 +19,17 @@ mc:Ignorable="d">
         <vm:ModalTeacherViewModel />
     </UserControl.DataContext>
 
-   
-    
+
+
     <Grid x:Name="TeacherModal" >
-        <Rectangle Fill="#CCC" Opacity="0.5" />
-        <!--MouseDown="Rectangle_MouseDown"-->
+        <Rectangle Fill="#CCC" Opacity="0.5" MouseDown="Rectangle_MouseDown" />
+
         <Border CornerRadius="10" Background="White" Height="700" Width="700">
             <Border.Effect>
                 <DropShadowEffect Color="Gray" Direction="270" ShadowDepth="10" BlurRadius="15" Opacity="0.5"/>
             </Border.Effect>
+            
+            <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled">
             <Grid Margin="5">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="Auto"/>
@@ -39,7 +41,7 @@ mc:Ignorable="d">
                     <RowDefinition Height="Auto"/>
                 </Grid.RowDefinitions>
 
-                <TextBlock Grid.Row="0" Foreground="#000" Text="Thêm học viên" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="16" FontWeight="Bold"/>
+                <TextBlock Grid.Row="0" Foreground="#000" Text="Thêm giảng viên" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="16" FontWeight="Bold"/>
 
                 <Separator Grid.Row="1" BorderThickness="1" BorderBrush="Silver"  Margin="0,10"/>
 
@@ -182,13 +184,13 @@ mc:Ignorable="d">
                     </StackPanel>
 
                     <StackPanel Grid.Column="1" Margin="0,0,0,0" Orientation="Vertical">
-                        <Label Content="Mã học viên" FontFamily="{StaticResource FZ-PoppinsRegular}" FontSize="16" />
+                        <Label Content="Mã giảng viên" FontFamily="{StaticResource FZ-PoppinsRegular}" FontSize="16" />
                         <Border Background="#EEE6E2" BorderThickness="0.5" CornerRadius="4">
                             <TextBox Height="46" Padding="15,0,15,0"
                      materialDesign:HintAssist.Background="Transparent"
                      materialDesign:HintAssist.FontFamily="{StaticResource FZ-PoppinsRegular}"
                      materialDesign:HintAssist.Foreground="Gray"
-                     materialDesign:HintAssist.Hint="Nhập mã học viên"
+                     materialDesign:HintAssist.Hint="Nhập mã giảng viên"
                      materialDesign:TextFieldAssist.UnderlineBrush="Transparent"
                      BorderBrush="Transparent" FontFamily="{StaticResource FZ-PoppinsRegular}"
                      FontSize="14" TabIndex="4" Text="{Binding TeacherCode}"
@@ -206,13 +208,13 @@ mc:Ignorable="d">
 
 
                     <StackPanel Grid.Column="0" Margin="0,0,10,0" Orientation="Vertical">
-                        <Label Content="Ngày tham gia" FontFamily="{StaticResource FZ-PoppinsRegular}" FontSize="16" />
+                        <Label Content="Ngày kết thúc" FontFamily="{StaticResource FZ-PoppinsRegular}" FontSize="16" />
                         <Border Background="#EEE6E2" BorderThickness="0.5" CornerRadius="4">
                             <DatePicker Height="46" Padding="15,15,15,15" 
      materialDesign:HintAssist.Background="Transparent"
      materialDesign:HintAssist.FontFamily="{StaticResource FZ-PoppinsRegular}"
      materialDesign:HintAssist.Foreground="Gray"
-     materialDesign:HintAssist.Hint="Chọn ngày tham gia"
+     materialDesign:HintAssist.Hint="Chọn ngày kết thúc hợp đồng"
      BorderBrush="Transparent" FontFamily="{StaticResource FZ-PoppinsRegular}"
      FontSize="14" TabIndex="5" SelectedDate="{Binding EndDate}"
      SelectedDateChanged="DatePicker_SelectedDateChanged"
@@ -233,13 +235,13 @@ mc:Ignorable="d">
                     </StackPanel>
 
                     <StackPanel Grid.Column="1" Margin="0,0,0,0" Orientation="Vertical">
-                        <Label Content="Mã học viên" FontFamily="{StaticResource FZ-PoppinsRegular}" FontSize="16" />
+                        <Label Content="Địa chỉ" FontFamily="{StaticResource FZ-PoppinsRegular}" FontSize="16" />
                         <Border Background="#EEE6E2" BorderThickness="0.5" CornerRadius="4">
                             <TextBox Height="46" Padding="15,0,15,0"
       materialDesign:HintAssist.Background="Transparent"
       materialDesign:HintAssist.FontFamily="{StaticResource FZ-PoppinsRegular}"
       materialDesign:HintAssist.Foreground="Gray"
-      materialDesign:HintAssist.Hint="Nhập mã học viên"
+      materialDesign:HintAssist.Hint="Nhập địa chỉ"
       materialDesign:TextFieldAssist.UnderlineBrush="Transparent"
       BorderBrush="Transparent" FontFamily="{StaticResource FZ-PoppinsRegular}"
       FontSize="14" TabIndex="4" Text="{Binding Address}"
@@ -247,7 +249,7 @@ mc:Ignorable="d">
                         </Border>
                     </StackPanel>
                 </Grid>
-                
+
                 <Grid Grid.Row="6" Margin="0,20,0,0">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="*" />
@@ -313,11 +315,11 @@ mc:Ignorable="d">
                         </Style>
                     </Button.Style>
                 </Button>-->
-                <Grid Grid.Row="6">
+                <Grid Grid.Row="7">
                     <Button
 Width="120"
 Height="30"
-Margin="0,10,0,0"
+Margin="0,0,5,-44"
 HorizontalAlignment="Right"
 VerticalAlignment="Bottom"
 Panel.ZIndex="30"
@@ -338,7 +340,7 @@ Command="{Binding AddTeacherCommand}">
                     FontFamily="{StaticResource PoppinsMedium}"
                     FontSize="12"
                     Foreground="Black"
-                    Text="Thêm học viên" />
+                    Text="Thêm giảng viên" />
 
                                         <ProgressBar
                     x:Name="ButtonSpinner"
@@ -372,6 +374,7 @@ Command="{Binding AddTeacherCommand}">
 
 
             </Grid>
+            </ScrollViewer>
         </Border>
 
 

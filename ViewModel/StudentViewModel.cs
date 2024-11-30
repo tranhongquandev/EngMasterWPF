@@ -315,7 +315,7 @@ namespace EngMasterWPF.ViewModel
             Application.Current.Dispatcher.Invoke(async () =>
             {
 
-                var loadData = LoadData(null,Page, PageSize);
+                var loadData = LoadData(null, Page, PageSize);
                 var countItems = CountItems();
 
                 await Task.WhenAll(loadData, countItems);
@@ -326,8 +326,8 @@ namespace EngMasterWPF.ViewModel
             ToggleComboBoxFilterCommand = new RelayCommand(_canExecute => true, _execute => { IsComboBoxOpen = !IsComboBoxOpen; });
             ChangePageSizeCommand = new RelayCommand<ComboBoxItem>(_canExecute => true, async _execute => await ChangePageSizeCommandHandler(_execute!));
 
-            FirstPageCommand = new RelayCommand(_canExecute => true, async _execute => { Page = 1; await LoadData(SearchText,Page, PageSize); });
-            PrevPageCommand = new RelayCommand(_canExecute => true, async _execute => { if (Page > 1) Page--; await LoadData(SearchText,Page, PageSize); });
+            FirstPageCommand = new RelayCommand(_canExecute => true, async _execute => { Page = 1; await LoadData(SearchText, Page, PageSize); });
+            PrevPageCommand = new RelayCommand(_canExecute => true, async _execute => { if (Page > 1) Page--; await LoadData(SearchText, Page, PageSize); });
             NextPageCommand = new RelayCommand(_canExecute => true, async _execute => { if (Page < TotalPages) Page++; await LoadData(SearchText, Page, PageSize); });
             LastPageCommand = new RelayCommand(_canExecute => true, async _execute => { Page = TotalPages; await LoadData(SearchText, Page, PageSize); });
             OpenModalAddCommand = new RelayCommand(_canExecute => true, _execute => OpenDialogModal());
@@ -345,8 +345,8 @@ namespace EngMasterWPF.ViewModel
                     Id = id;
                     IsOpenDeletePopup = true;
                 }
-            } 
-            ); 
+            }
+            );
 
             CloseModalCommand = new RelayCommand(_canExecute => true, _execute => CloseModal());
 
@@ -354,7 +354,7 @@ namespace EngMasterWPF.ViewModel
 
             SearchTextCommand = new RelayCommand<string>(_canExecute => true, async _execute => await SearchStudentCommandHandler(SearchText));
 
-            UpdateStudentCommand = new RelayCommand(_canExecute => true, async _execute => await UpdateStudentAsyncMethod());
+            UpdateStudentCommand = new RelayCommand(_canExecute => true, async _execute => await UpdateStudentAsyncMethod(Id));
 
             DeleteStudentCommand = new RelayCommand(
                 _canExecute => true,
@@ -375,14 +375,14 @@ namespace EngMasterWPF.ViewModel
 
         #region Method Handler
 
-        private async Task LoadData(string? name,int page, int pageSize)
+        private async Task LoadData(string? name, int page, int pageSize)
         {
             IsLoading = true;
 
             try
             {
                 StudentService studentService = Installer.InstallServices.Instance.serviceProvider.GetRequiredService<StudentService>();
-                var studentInDb = await studentService.GetStudentByFilter(name,page, pageSize);
+                var studentInDb = await studentService.GetStudentByFilter(name, page, pageSize);
 
                 if (!studentInDb.Any())
                 {
@@ -441,7 +441,7 @@ namespace EngMasterWPF.ViewModel
 
         public ICommand DeleteStudentCommand { get; private set; }
 
-            
+
         #endregion
 
         #region Command Handler
@@ -458,31 +458,47 @@ namespace EngMasterWPF.ViewModel
 
         }
 
-        private async Task UpdateStudentAsyncMethod()
+        private string NormalizeDateOfBirth(string dateOfBirth)
+        {
+            if (DateTime.TryParse(dateOfBirth, out DateTime dob))
+            {
+                return dob.ToString("yyyy-MM-ddTHH:mm:ss.fffZ");
+            }
+
+            return new DateTime(2000, 1, 1).ToString("yyyy-MM-ddTHH:mm:ss.fffZ");
+        }
+
+        private async Task UpdateStudentAsyncMethod(object param)
         {
             IsSubmit = true;
             var updateStudent = new UpdateStudentDTO
             {
-                //CourseName = CourseName,
-                //Duration = Duration,
-                //Fee = Fee,
-                //Discount = Discount,
-                //Description = Description,
-                //TotalFee = Fee - Discount * Fee,
-                //IsActive = true,
-                //LevelId = 22,
-                //CourseCode = CourseCode
+                FullName = FullName ?? string.Empty,
+                Gender = Gender ?? string.Empty,
+                Email = Email ?? string.Empty,
+                PhoneNumber = PhoneNumber ?? string.Empty,
+                DateOfBirth = NormalizeDateOfBirth(DateOfBirth),
+                StudentCode = StudentCode ?? string.Empty,
+                EnrollmentDate = NormalizeDateOfBirth(EnrollmentDate),
+                Status = Status ?? string.Empty,
             };
 
             string jsonCourse = JsonConvert.SerializeObject(updateStudent);
             try
             {
+                StudentService studentService = Installer.InstallServices.Instance.serviceProvider.GetRequiredService<StudentService>();
 
-                CourseService courseService = Installer.InstallServices.Instance.serviceProvider.GetRequiredService<CourseService>();
-                //var result = await courseService.UpdateCourseAsync(updateStudent);
+                if (param is int studentId)
+                {
+                    var result = await studentService.UpdateStudentAsync(updateStudent, studentId);
 
-                MessageBox.Show("Course updated successfully.");
-                IsSubmit = false;
+                    MessageBox.Show("Student updated successfully.");
+                    IsSubmit = false;
+                }
+                else
+                {
+                    MessageBox.Show("Invalid student id.");
+                }
 
             }
             catch (Exception ex)
@@ -558,9 +574,9 @@ namespace EngMasterWPF.ViewModel
             _cancellationTokenSource = new CancellationTokenSource();
             var token = _cancellationTokenSource.Token;
 
-            if(name.IsNullOrEmpty())
+            if (name.IsNullOrEmpty())
             {
-                await LoadData(null,Page, PageSize);
+                await LoadData(null, Page, PageSize);
                 IsDataFound = false;
                 return;
             }
@@ -570,7 +586,7 @@ namespace EngMasterWPF.ViewModel
                 await Task.Delay(2000, token);
 
                 StudentService studentService = Installer.InstallServices.Instance.serviceProvider.GetRequiredService<StudentService>();
-                var studentInDb = await studentService.GetStudentByFilter(name, Page,PageSize);
+                var studentInDb = await studentService.GetStudentByFilter(name, Page, PageSize);
                 if (studentInDb.Any())
                 {
                     Students = studentInDb;
@@ -583,7 +599,7 @@ namespace EngMasterWPF.ViewModel
                     IsDataFound = true;
                 }
             }
-            catch(TaskCanceledException)
+            catch (TaskCanceledException)
             {
                 return;
             }

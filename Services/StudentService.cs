@@ -21,7 +21,7 @@ namespace EngMasterWPF.Services
             {
                 urlRequest += $"name={name}&";
             }
-             urlRequest += $"page={page}&pagesize={pageSize}";
+            urlRequest += $"page={page}&pagesize={pageSize}";
             var result = await GetAsync<ObservableCollection<StudentDTO>>(urlRequest);
             return result ?? new ObservableCollection<StudentDTO>();
         }
@@ -32,7 +32,7 @@ namespace EngMasterWPF.Services
             return await GetAsync<int>(urlRequest);
         }
 
-       
+
 
         public async Task<AddStudentDTO> AddStudentAsync(AddStudentDTO student)
         {
@@ -49,6 +49,24 @@ namespace EngMasterWPF.Services
             catch (Exception ex)
             {
                 throw new Exception("Failed to add the student.", ex);
+            }
+        }
+
+        public async Task<UpdateStudentDTO> UpdateStudentAsync(UpdateStudentDTO student, int id)
+        {
+            try
+            {
+                var urlRequest = _baseURL + $"{id}";
+                var result = await PutAsync<UpdateStudentDTO>(urlRequest, student);
+                if (result == null)
+                {
+                    throw new Exception("Failed to update the course: the API returned no data.");
+                }
+                return result;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Failed to update the course.", ex);
             }
         }
 

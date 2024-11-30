@@ -485,7 +485,9 @@
                                                         VerticalContentAlignment="Center"
                                                         Background="Transparent"
                                                         BorderBrush="Transparent"
-                                                        Command="{Binding DataContext.OpenModalUpdateCommand, RelativeSource={RelativeSource AncestorType=DataGrid}}">
+                                                        Command="{Binding DataContext.OpenModalUpdateCommand, RelativeSource={RelativeSource AncestorType=DataGrid}}"
+                                                        CommandParameter="{Binding Id}"
+                                                        >
                                                         <materialDesign:PackIcon
                                                             Width="20"
                                                             Height="20"
