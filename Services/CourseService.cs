@@ -55,11 +55,12 @@ namespace EngMasterWPF.Services
             }
         }
 
-        public async Task<UpdateCourseDTO> UpdateCourseAsync(UpdateCourseDTO course)
+        public async Task<UpdateCourseDTO> UpdateCourseAsync(UpdateCourseDTO course,int id)
         {
             try
             {
-                var result = await PutAsync<UpdateCourseDTO>(_baseURL, course);
+                var urlRequest = _baseURL + $"{id}";
+                var result = await PatchAsync<UpdateCourseDTO>(urlRequest, course);
                 if (result == null)
                 {
                     throw new Exception("Failed to update the course: the API returned no data.");

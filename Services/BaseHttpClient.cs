@@ -6,6 +6,7 @@ using System.Linq;
 using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 
 
 namespace EngMasterWPF.Services
@@ -41,13 +42,23 @@ namespace EngMasterWPF.Services
             return JsonConvert.DeserializeObject<T>(jsonResponse);
         }
 
-        protected async Task<T?> PutAsync<T>(string url, object data)
+        protected async Task<T?> PatchAsync<T>(string url, object data)
         {
-            var content = new StringContent(JsonConvert.SerializeObject(data), Encoding.UTF8, "application/json");
-            var response = await _httpClient.PutAsync(url, content);
+            var jsonData = JsonConvert.SerializeObject(data);
+            var content = new StringContent(jsonData, Encoding.UTF8, "application/json");
+
+            var response = await _httpClient.PatchAsync(url, content);
+
+            if (!response.IsSuccessStatusCode)
+            {
+                var errorMessage = await response.Content.ReadAsStringAsync();
+                throw new HttpRequestException($"HTTP request failed with status code {response.StatusCode}: {errorMessage}");
+            }
+
             var jsonResponse = await response.Content.ReadAsStringAsync();
             return JsonConvert.DeserializeObject<T>(jsonResponse);
         }
+
 
         protected async Task<bool> DeleteAsync(string url)
         {

@@ -482,7 +482,6 @@ namespace EngMasterWPF.ViewModel
                 PhoneNumber = CurrentStudent.PhoneNumber ?? string.Empty,
                 DateOfBirth = NormalizeDateOfBirth(CurrentStudent.DateOfBirth),
                 StudentCode = CurrentStudent.StudentCode ?? string.Empty,
-                //EnrollmentDate = NormalizeDateOfBirth(CurrentStudent.EnrollmentDate),
                 Status = CurrentStudent.Status ?? string.Empty,
             };
 

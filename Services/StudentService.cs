@@ -1,5 +1,6 @@
 ﻿using EngMasterWPF.DTOs;
 using Microsoft.IdentityModel.Tokens;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -57,7 +58,8 @@ namespace EngMasterWPF.Services
             try
             {
                 var urlRequest = _baseURL + $"{id}";
-                var result = await PutAsync<UpdateStudentDTO>(urlRequest, student);
+                var result = await PatchAsync<UpdateStudentDTO>(urlRequest, student);
+
                 if (result == null)
                 {
                     throw new Exception("Failed to update the student: the API returned no data.");

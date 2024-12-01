@@ -369,7 +369,7 @@ namespace EngMasterWPF.ViewModel
 
             SearchTextCommand = new RelayCommand<string>(_canExecute => true, async _execute => await SearchCourseCommandHandler(SearchText));
 
-            UpdateCourseCommand = new RelayCommand(_canExecute => true, async _execute => await UpdateCourseAsyncMethod());
+            UpdateCourseCommand = new RelayCommand(_canExecute => true, async _execute => await UpdateCourseAsyncMethod(CurrentCourse.Id));
 
             DeleteCourseCommand = new RelayCommand(
                 _canExecute => true,
@@ -489,7 +489,7 @@ namespace EngMasterWPF.ViewModel
             IsOpenDeletePopup = true;
         }
 
-        private async Task UpdateCourseAsyncMethod()
+        private async Task UpdateCourseAsyncMethod(int id)
         {
             IsSubmit = true;
             var updateCourse = new UpdateCourseDTO
@@ -511,7 +511,7 @@ namespace EngMasterWPF.ViewModel
             {
 
                 CourseService courseService = Installer.InstallServices.Instance.serviceProvider.GetRequiredService<CourseService>();
-                var result = await courseService.UpdateCourseAsync(updateCourse);
+                var result = await courseService.UpdateCourseAsync(updateCourse,id);
 
                 MessageBox.Show("Course updated successfully.");
                 IsSubmit = false;
