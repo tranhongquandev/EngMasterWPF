@@ -58,6 +58,25 @@ namespace EngMasterWPF.Services
             }
         }
 
+        public async Task<UpdateTeacherDTO> UpdateTeacherAsync(UpdateTeacherDTO teacher, int id)
+        {
+            try
+            {
+                var urlRequest = _baseURL + $"{id}";
+                var result = await PatchAsync<UpdateTeacherDTO>(urlRequest, teacher);
+
+                if (result == null)
+                {
+                    throw new Exception("Failed to update the teacher: the API returned no data.");
+                }
+                return result;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Failed to update the teacher.", ex);
+            }
+        }
+
         public async Task<bool> DeleteTeacherAsync(int id)
         {
             var urlRequest = _baseURL + $"{id}";

@@ -96,7 +96,7 @@
                                 <Setter.Value>
                                     <ControlTemplate TargetType="ComboBox">
                                         <Grid Cursor="Hand">
-                                            <Border Background="#EEE6E2" CornerRadius="5">
+                                            <Border Background="{StaticResource MaterialDesign.Brush.Primary}" CornerRadius="5">
                                                 <Button
                                                     Padding="0"
                                                     Background="Transparent"
@@ -113,11 +113,10 @@
                                                             VerticalAlignment="Center"
                                                             Content="{TemplateBinding SelectionBoxItem}"
                                                             ContentTemplate="{TemplateBinding SelectionBoxItemTemplate}" />
-                                                        <ui:SymbolIcon
+                                                        <materialDesign:PackIcon
                                                             Margin="20,0,0,0"
-                                                            Filled="True"
                                                             FontSize="8"
-                                                            Symbol="ChevronDown16" />
+                                                            Kind="ChevronDown" />
                                                     </StackPanel>
                                                 </Button>
                                             </Border>
@@ -215,11 +214,15 @@
 
 
                         <Grid Margin="0,0,0,0">
-                            <ui:SymbolIcon
+                            <materialDesign:PackIcon
+                                Width="20"
+                                Height="20"
                                 Margin="15,0,0,0"
                                 HorizontalAlignment="Left"
-                                FontSize="18"
-                                Symbol="Search24" />
+                                VerticalAlignment="Center"
+                                Panel.ZIndex="20"
+                                Foreground="Gray"
+                                Kind="Magnify" />
 
                             <Border
                                 BorderBrush="#EEE6E2"
@@ -258,7 +261,7 @@
                         VerticalContentAlignment="Center"
                         Command="{Binding OpenModalAddCommand}">
                         <StackPanel Orientation="Horizontal">
-                            <ui:SymbolIcon Symbol="PeopleAdd24" />
+                            <materialDesign:PackIcon Kind="AccountPlus" />
                             <TextBlock
                                 Margin="5,2,0,0"
                                 FontFamily="{StaticResource PoppinsMedium}"
@@ -268,7 +271,7 @@
 
                         <Button.Template>
                             <ControlTemplate TargetType="Button">
-                                <Border Background="#EEE6E2" CornerRadius="5">
+                                <Border Background="{StaticResource MaterialDesign.Brush.Primary}" CornerRadius="5">
                                     <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" />
                                 </Border>
                             </ControlTemplate>
@@ -466,7 +469,7 @@
                                                     Width="40"
                                                     Height="40"
                                                     Margin="0,0,20,0"
-                                                    Background="#B2D1B2"
+                                                    Background=" #86A586"
                                                     CornerRadius="20">
                                                     <Button
                                                         Padding="0"
@@ -475,7 +478,10 @@
                                                         Background="Transparent"
                                                         BorderBrush="Transparent"
                                                         Command="{Binding DataContext.OpenModalUpdateCommand, RelativeSource={RelativeSource AncestorType=DataGrid}}">
-                                                        <ui:SymbolIcon FontSize="18" Symbol="DocumentEdit24" />
+                                                        <materialDesign:PackIcon
+                                                            Width="20"
+                                                            Height="20"
+                                                            Kind="AccountEdit" />
                                                     </Button>
                                                 </Border>
 
@@ -483,7 +489,7 @@
                                                     Width="40"
                                                     Height="40"
                                                     Margin="0,0,20,0"
-                                                    Background="#EAB8B0"
+                                                    Background=" #D89084"
                                                     CornerRadius="20">
                                                     <Button
                                                         Padding="0"
@@ -493,7 +499,10 @@
                                                         BorderBrush="Transparent"
                                                         Command="{Binding DataContext.OpenDeletePopupCommand, RelativeSource={RelativeSource AncestorType=DataGrid}}"
                                                         CommandParameter="{Binding Id}">
-                                                        <ui:SymbolIcon FontSize="18" Symbol="DeleteDismiss24" />
+                                                        <materialDesign:PackIcon
+                                                            Width="20"
+                                                            Height="20"
+                                                            Kind="AccountOff" />
                                                     </Button>
                                                 </Border>
                                             </StackPanel>
@@ -516,27 +525,29 @@
                     <Border
                         Width="40"
                         Margin="5,0,5,0"
-                        Background="#EEE6E2"
+                        Background="#F3F4F6"
                         CornerRadius="5">
                         <Button
                             Padding="0"
                             Background="Transparent"
                             BorderBrush="Transparent"
-                            Command="{Binding FirstPageCommand}">
-                            <ui:SymbolIcon FontSize="15" Symbol="ChevronDoubleLeft20" />
+                            Command="{Binding FirstPageCommand}"
+                            Foreground="Black">
+                            <materialDesign:PackIcon FontSize="15" Kind="ChevronDoubleLeft" />
                         </Button>
                     </Border>
                     <Border
                         Width="40"
                         Margin="5,0,10,0"
-                        Background="#EEE6E2"
+                        Background="#F3F4F6"
                         CornerRadius="5">
                         <Button
                             Padding="0"
                             Background="Transparent"
                             BorderBrush="Transparent"
+                            Foreground="Black"
                             Command="{Binding PrevPageCommand}">
-                            <ui:SymbolIcon FontSize="15" Symbol="ChevronLeft24" />
+                            <materialDesign:PackIcon FontSize="15" Kind="ChevronLeft" />
                         </Button>
                     </Border>
 
@@ -556,28 +567,30 @@
                     <Border
                         Width="40"
                         Margin="10,0,5,0"
-                        Background="#EEE6E2"
+                        Background="#F3F4F6"
                         CornerRadius="5">
                         <Button
                             Padding="0"
                             Background="Transparent"
                             BorderBrush="Transparent"
+                            Foreground="Black"
                             Command="{Binding NextPageCommand}">
-                            <ui:SymbolIcon FontSize="15" Symbol="ChevronRight24" />
+                            <materialDesign:PackIcon FontSize="15" Kind="ChevronRight" />
                         </Button>
                     </Border>
                     <Border
                         Width="40"
                         Height="30"
                         Margin="5,0,5,0"
-                        Background="#EEE6E2"
+                        Background="#F3F4F6"
                         CornerRadius="5">
                         <Button
                             Padding="0"
                             Background="Transparent"
                             BorderBrush="Transparent"
+                            Foreground="Black"
                             Command="{Binding LastPageCommand}">
-                            <ui:SymbolIcon FontSize="15" Symbol="ChevronDoubleRight20" />
+                            <materialDesign:PackIcon FontSize="15" Kind="ChevronDoubleRight" />
                         </Button>
                     </Border>
                 </StackPanel>

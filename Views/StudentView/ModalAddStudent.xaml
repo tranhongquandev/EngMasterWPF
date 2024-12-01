@@ -105,8 +105,8 @@
                                     </Style>
                                 </ComboBox.ItemContainerStyle>
 
-                                <ComboBoxItem Content="Male"/>
-                                <ComboBoxItem Content="Female"/>
+                                <ComboBoxItem Content="Nam"/>
+                                <ComboBoxItem Content="Nữ"/>
                             </ComboBox>
                         </Border>
                     </StackPanel>

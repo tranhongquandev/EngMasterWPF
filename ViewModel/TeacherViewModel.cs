@@ -385,7 +385,7 @@ namespace EngMasterWPF.ViewModel
 
             CloseDeletePopupCommand = new RelayCommand(_canExecute => true, _execute => CloseDeleteDialog());
 
-            //UpdateTeacherCommand = new RelayCommand(_canExecute => true, async _execute => await UpdateCourseAsyncMethod());
+            UpdateTeacherCommand = new RelayCommand(_canExecute => true, async _execute => await UpdateTeacherAsyncMethod(CurrentTeacher.Id));
 
             DeleteTeacherCommand = new RelayCommand(
                 _canExecute => true,
@@ -502,40 +502,46 @@ namespace EngMasterWPF.ViewModel
             IsOpenDeletePopup = true;
         }
 
-        //private async Task UpdateCourseAsyncMethod()
-        //{
-        //    IsSubmit = true;
-        //    var updateCourse = new UpdateCourseDTO
-        //    {
-        //        CourseName = CourseName,
-        //        Duration = Duration,
-        //        Fee = Fee,
-        //        Discount = Discount,
-        //        Description = Description,
-        //        TotalFee = Fee - Discount * Fee,
-        //        IsActive = true,
-        //        LevelId = 22,
-        //        CourseCode = CourseCode
-        //    };
+        private string NormalizeDateOfBirth(DateTime dateOfBirth)
+        {
+            return dateOfBirth.ToString("yyyy-MM-ddTHH:mm:ss.fffZ");
+        }
 
-        //    string jsonCourse = JsonConvert.SerializeObject(updateCourse);
-        //    try
-        //    {
+        private async Task UpdateTeacherAsyncMethod(int id)
+        {
+            IsSubmit = true;
+            var updateTeacher = new UpdateTeacherDTO
+            {
+                FullName = CurrentTeacher.FullName ?? string.Empty,
+                Gender = CurrentTeacher.Gender ?? string.Empty,
+                Email = CurrentTeacher.Email ?? string.Empty,
+                PhoneNumber = CurrentTeacher.PhoneNumber ?? string.Empty,
+                DateOfBirth = NormalizeDateOfBirth(CurrentTeacher.DateOfBirth ?? new DateTime(2000, 1, 1)),
+                HireDate = NormalizeDateOfBirth(CurrentTeacher.HireDate ?? new DateTime(2024, 1, 1)),
+                EndDate = NormalizeDateOfBirth(CurrentTeacher.EndDate ?? new DateTime(2025, 1, 1)),
+                IsActive = CurrentTeacher.IsActive,
+                TeacherCode = CurrentTeacher.TeacherCode,
+                Address = CurrentTeacher.Address
+            };
 
-        //        CourseService courseService = Installer.InstallServices.Instance.serviceProvider.GetRequiredService<CourseService>();
-        //        var result = await courseService.UpdateCourseAsync(updateCourse);
+            string jsonCourse = JsonConvert.SerializeObject(updateTeacher);
+            try
+            {
 
-        //        MessageBox.Show("Course updated successfully.");
-        //        IsSubmit = false;
+                TeacherService teacherService = Installer.InstallServices.Instance.serviceProvider.GetRequiredService<TeacherService>();
+                var result = await teacherService.UpdateTeacherAsync(updateTeacher,id);
 
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        MessageBox.Show($"Something went wrong. Error: {ex.Message}\n{ex.StackTrace}");
-        //        IsSubmit = false;
-        //        return;
-        //    }
-        //}
+                MessageBox.Show("Teacher updated successfully.");
+                IsSubmit = false;
+
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Something went wrong. Error: {ex.Message}\n{ex.StackTrace}");
+                IsSubmit = false;
+                return;
+            }
+        }
         #endregion
 
 

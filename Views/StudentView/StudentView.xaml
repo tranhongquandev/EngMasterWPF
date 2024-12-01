@@ -722,7 +722,7 @@
                        FontSize="16"
                        FontWeight="Bold"
                        Foreground="#000"
-                       Text="Sửa học viên" />
+                       Text="Cập nhật học viên" />
 
                             <Separator
                        Grid.Row="1"
@@ -814,8 +814,8 @@
                                                 </Style>
                                             </ComboBox.ItemContainerStyle>
 
-                                            <ComboBoxItem Content="Male" />
-                                            <ComboBoxItem Content="Female" />
+                                            <ComboBoxItem Content="Nam" />
+                                            <ComboBoxItem Content="Nữ" />
                                         </ComboBox>
                                     </Border>
                                 </StackPanel>
@@ -1053,7 +1053,7 @@
                                                FontFamily="{StaticResource PoppinsMedium}"
                                                FontSize="12"
                                                Foreground="Black"
-                                               Text="Sửa học viên" />
+                                               Text="Cập nhật" />
 
                                                     <ProgressBar
                                                x:Name="ButtonSpinner"
