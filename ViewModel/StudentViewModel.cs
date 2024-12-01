@@ -492,6 +492,7 @@ namespace EngMasterWPF.ViewModel
                 var result = await studentService.UpdateStudentAsync(updateStudent, studentId);
 
                 MessageBox.Show("Student updated successfully.");
+                await LoadData(SearchText, Page, PageSize);
                 IsSubmit = false;
             }
             catch (Exception ex)

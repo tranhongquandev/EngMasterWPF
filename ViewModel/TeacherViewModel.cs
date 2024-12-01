@@ -532,6 +532,7 @@ namespace EngMasterWPF.ViewModel
                 var result = await teacherService.UpdateTeacherAsync(updateTeacher,id);
 
                 MessageBox.Show("Teacher updated successfully.");
+                await LoadData(SearchText, Page, PageSize);
                 IsSubmit = false;
 
             }

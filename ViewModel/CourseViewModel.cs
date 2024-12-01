@@ -523,6 +523,7 @@ namespace EngMasterWPF.ViewModel
                 var result = await courseService.UpdateCourseAsync(updateCourse,id);
 
                 MessageBox.Show("Course updated successfully.");
+                await LoadData(SearchText, Page, PageSize);
                 IsSubmit = false;
 
             }
