@@ -259,6 +259,17 @@ namespace EngMasterWPF.ViewModel
             }
         }
 
+        private int _levelId;
+        public int LevelId
+        {
+            get => _levelId;
+            set
+            {
+                _levelId = value;
+                OnPropertyChanged();
+            }
+        }
+
         private double _discount;
         public double Discount
         {
@@ -494,16 +505,14 @@ namespace EngMasterWPF.ViewModel
             IsSubmit = true;
             var updateCourse = new UpdateCourseDTO
             {
-                CourseName = CourseName,
-                Duration = Duration,
-                Fee = Fee,
-                Discount = Discount,
-                Description = Description,
-                //TotalFee = Fee - Discount * Fee,
-                IsActive = true,
-                LevelId = 22,
-                CourseCode = CourseCode,
-                //LevelName  = LevelName ?? string.Empty,
+                CourseName = CurrentCourse.CourseName ?? string.Empty,
+                Duration = CurrentCourse.Duration ?? string.Empty,
+                Fee = CurrentCourse.Fee ?? 0,
+                Discount = CurrentCourse.Discount ?? 0,
+                Description = CurrentCourse.Description ?? string.Empty,
+                IsActive = CurrentCourse.IsActive ?? true,
+                LevelId = CurrentCourse.LevelId ?? 0,
+                CourseCode = CurrentCourse.CourseCode ?? string.Empty,
             };
 
             string jsonCourse = JsonConvert.SerializeObject(updateCourse);

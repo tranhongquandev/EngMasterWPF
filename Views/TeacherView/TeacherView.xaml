@@ -270,11 +270,14 @@
                 <Grid Grid.Row="1" Margin="20,0,20,20">
                     <Grid>
                         <Grid Panel.ZIndex="20" Background="White">
-                            <ui:ProgressRing
+                            <ProgressBar
+                                Width="65"
+                                Height="65"
                                 HorizontalAlignment="Center"
                                 VerticalAlignment="Center"
-                                Foreground="#1A1A1A"
-                                IsIndeterminate="True" />
+                                IsIndeterminate="True"
+                                Style="{StaticResource MaterialDesignCircularProgressBar}"
+                                Value="35" />
 
                             <Grid.Style>
                                 <Style TargetType="Grid">
@@ -733,8 +736,8 @@
                                                 </Style>
                                             </ComboBox.ItemContainerStyle>
 
-                                            <ComboBoxItem Content="Male"/>
-                                            <ComboBoxItem Content="Female"/>
+                                            <ComboBoxItem Content="Nam"/>
+                                            <ComboBoxItem Content="Nữ"/>
                                         </ComboBox>
                                     </Border>
                                 </StackPanel>

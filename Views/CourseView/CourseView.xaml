@@ -285,11 +285,14 @@
                 <Grid Grid.Row="1" Margin="20,0,20,20">
                     <Grid>
                         <Grid Panel.ZIndex="20" Background="White">
-                            <ui:ProgressRing
+                            <ProgressBar
+                                Width="65"
+                                Height="65"
                                 HorizontalAlignment="Center"
                                 VerticalAlignment="Center"
-                                Foreground="#1A1A1A"
-                                IsIndeterminate="True" />
+                                IsIndeterminate="True"
+                                Style="{StaticResource MaterialDesignCircularProgressBar}"
+                                Value="35" />
 
                             <Grid.Style>
                                 <Style TargetType="Grid">
@@ -697,7 +700,7 @@
                                 FontSize="16"
                                 FontWeight="Bold"
                                 Foreground="#000"
-                                Text="Update Course" />
+                                Text="Cập nhật khóa học" />
 
                             <Separator
                                 Grid.Row="1"
@@ -947,7 +950,8 @@
                                                         VerticalAlignment="Center"
                                                         FontFamily="{StaticResource PoppinsMedium}"
                                                         FontSize="12"
-                                                        Text="Update course" />
+                                                        Foreground="Black"
+                                                        Text="Cập nhật" />
 
                                                     <ProgressBar
                                                         x:Name="ButtonSpinner"

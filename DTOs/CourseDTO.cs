@@ -31,7 +31,7 @@ namespace EngMasterWPF.DTOs
         public int? Fee { get; set; }
 
         [JsonProperty("discount")]
-        public decimal? Discount { get; set; }
+        public double? Discount { get; set; }
 
         public double TotalFee => (double)(Fee - (Fee * Discount ?? 0));
 
