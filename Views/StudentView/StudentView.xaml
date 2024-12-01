@@ -693,7 +693,7 @@
 
                     <Border
                Width="700"
-               Height="500"
+               Height="540"
                Background="White"
                CornerRadius="10">
                         <Border.Effect>
@@ -723,6 +723,24 @@
                        FontWeight="Bold"
                        Foreground="#000"
                        Text="Cập nhật học viên" />
+
+                            <Border
+ Width="40"
+ Height="40"
+ Background="LightGray"
+ VerticalAlignment="Center" HorizontalAlignment="Right" Margin="5,0,0,0" Grid.Row="0"
+ CornerRadius="20">
+                                <Button
+     Padding="0"
+     HorizontalContentAlignment="Center"
+     VerticalContentAlignment="Center"
+     Background="Transparent"
+     BorderBrush="Transparent"
+     Command="{Binding CloseModalCommand}">
+                                    <materialDesign:PackIcon Kind="Close" />
+                                </Button>
+
+                            </Border>
 
                             <Separator
                        Grid.Row="1"

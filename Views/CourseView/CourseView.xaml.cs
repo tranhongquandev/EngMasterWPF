@@ -38,7 +38,7 @@ namespace EngMasterWPF.Views.CourseView
 
         private void Rectangle_MouseDown(object sender, MouseButtonEventArgs e)
         {
-            this.Visibility = Visibility.Collapsed;
+            //this.Visibility = Visibility.Collapsed;
         }
 
         private void ModalCourse_Loaded(object sender, RoutedEventArgs e)

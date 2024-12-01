@@ -646,7 +646,7 @@
                 Grid.Row="0"
                 Width="Auto"
                 Height="Auto"
-                Panel.ZIndex="1200">
+                Panel.ZIndex="1000">
                 <Grid.Style>
                     <Style TargetType="Grid">
                         <Style.Setters>
@@ -664,11 +664,7 @@
                     </Style>
                 </Grid.Style>
                 <Grid x:Name="UpdateCourse">
-                    <Rectangle
-                        Fill="#CCC"
-                        MouseDown="Rectangle_MouseDown"
-                        Opacity="0.5" />
-
+                    <Rectangle Fill="#CCC" Opacity="0.5" />
                     <Border
                         Width="700"
                         Height="500"
@@ -693,14 +689,28 @@
                                 <RowDefinition Height="Auto" />
                             </Grid.RowDefinitions>
 
-                            <TextBlock
-                                Grid.Row="0"
-                                HorizontalAlignment="Center"
-                                VerticalAlignment="Center"
-                                FontSize="16"
-                                FontWeight="Bold"
-                                Foreground="#000"
-                                Text="Cập nhật khóa học" />
+                            <StackPanel Grid.Row="0" Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
+                                <TextBlock FontSize="16" FontWeight="Bold" Foreground="#000" Text="Cập nhật khóa học" VerticalAlignment="Center"/>
+                            </StackPanel>
+
+                            <Border
+                            Width="40"
+                            Height="40"
+                            Background="LightGray"
+                            VerticalAlignment="Center" HorizontalAlignment="Right" Margin="5,0,0,0" Grid.Row="0"
+                            CornerRadius="20">
+                                <Button
+                                Padding="0"
+                                HorizontalContentAlignment="Center"
+                                VerticalContentAlignment="Center"
+                                Background="Transparent"
+                                BorderBrush="Transparent"
+                                Command="{Binding CloseModalCommand}">
+                                    <materialDesign:PackIcon Kind="Close" />
+                                </Button>
+                                
+                            </Border>
+                            
 
                             <Separator
                                 Grid.Row="1"
