@@ -24,9 +24,9 @@ namespace EngMasterWPF.DTOs
 
         public string? PhoneNumber { get; set; }
 
-        public string? DateOfBirth { get; set; }
+        public DateTime? DateOfBirth { get; set; }
 
-        public string? EnrollmentDate { get; set; }
+        public DateTime? EnrollmentDate { get; set; }
 
         public string? Status { get; set; }
 

@@ -34,12 +34,16 @@ namespace EngMasterWPF.Services
            
         }
 
-        protected async Task<T?> PostAsync<T>(string url, object data)
+        protected async Task<bool> PostAsync<T>(string url, object data)
         {
             var content = new StringContent(JsonConvert.SerializeObject(data), Encoding.UTF8, "application/json");
             var response = await _httpClient.PostAsync(url, content);
             var jsonResponse = await response.Content.ReadAsStringAsync();
-            return JsonConvert.DeserializeObject<T>(jsonResponse);
+            if (!response.IsSuccessStatusCode)
+            {
+                throw new Exception($"API request failed. StatusCode: {response.StatusCode}, Response: {jsonResponse}");
+            }
+            return true;
         }
 
         protected async Task<T?> PatchAsync<T>(string url, object data)

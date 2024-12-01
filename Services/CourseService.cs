@@ -37,17 +37,17 @@ namespace EngMasterWPF.Services
 
 
 
-        public async Task<AddCourseDTO> AddCourseAsync(AddCourseDTO course)
+        public async Task<bool> AddCourseAsync(AddCourseDTO course)
         {
             try
             {
                 var urlRequest = _baseURL + "create-course";
                 var result = await PostAsync<AddCourseDTO>(urlRequest, course);
-                if (result == null)
+                if (!result)
                 {
                     throw new Exception("Failed to add the course: the API returned no data.");
                 }
-                return result;
+                return true;
             }
             catch (Exception ex)
             {

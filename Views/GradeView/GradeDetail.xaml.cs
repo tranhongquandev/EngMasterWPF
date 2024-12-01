@@ -16,15 +16,13 @@ using System.Windows.Shapes;
 namespace EngMasterWPF.Views.GradeView
 {
     /// <summary>
-    /// Interaction logic for GradeView.xaml
+    /// Interaction logic for GradeDetail.xaml
     /// </summary>
-    public partial class GradeView : UserControl
+    public partial class GradeDetail : UserControl
     {
-        public GradeView()
+        public GradeDetail()
         {
             InitializeComponent();
         }
-
-       
     }
 }

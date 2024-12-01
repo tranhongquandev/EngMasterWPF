@@ -12,7 +12,7 @@ namespace EngMasterWPF.Converter
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            if (value is decimal discount)
+            if (value is double discount)
             {
                 return (discount * 100).ToString("0.##") + "%";
             }

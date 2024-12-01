@@ -10,6 +10,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Net.Http;
+using System.Runtime.InteropServices.Marshalling;
 using System.Security.Cryptography.Pkcs;
 using System.Text;
 using System.Threading.Tasks;
@@ -146,7 +147,7 @@ namespace EngMasterWPF.ViewModel
                 if (_isOpenCreateModal != value)
                 {
                     _isOpenCreateModal = value;
-                    OnPropertyChanged(); 
+                    OnPropertyChanged();
                 }
             }
         }
@@ -161,10 +162,145 @@ namespace EngMasterWPF.ViewModel
 
         #endregion
 
+        #region Property AddModalClass
+
+        private string _classCode;
+        public string ClassCode
+        {
+            get => _classCode;
+            set
+            {
+                _classCode = value;
+                OnPropertyChanged();
+            }
+        }
+
+        private string _className;
+        public string ClassName
+        {
+            get => _className;
+            set
+            {
+                _className = value;
+                OnPropertyChanged();
+            }
+        }
+
+        private DateTime _startDate = DateTime.UtcNow;
+        public DateTime StartDate
+        {
+            get => _startDate;
+            set
+            {
+                _startDate = value;
+                OnPropertyChanged();
+            }
+        }
+
+        private DateTime _endDate = DateTime.UtcNow.AddMonths(2);
+        public DateTime EndDate
+        {
+            get => _endDate;
+            set
+            {
+                _endDate = value;
+                OnPropertyChanged();
+            }
+        }
+
+        private string _courseId;
+        public string CourseId
+        {
+            get => _courseId;
+            set
+            {
+                _courseId = value;
+                OnPropertyChanged();
+            }
+        }
+
+        private string _teacherId;
+        public string TeacherId
+        {
+            get => _teacherId;
+            set
+            {
+                _teacherId = value;
+                OnPropertyChanged();
+            }
+        }
+
+
+        private ObservableCollection<TeacherDTO> _teacherList;
+        public ObservableCollection<TeacherDTO> TeacherList
+        {
+            get => _teacherList;
+            set
+            {
+                _teacherList = value;
+                OnPropertyChanged();
+            }
+        }
+
+        private ObservableCollection<CourseDTO> _courseList;
+        public ObservableCollection<CourseDTO> CourseList
+        {
+            get => _courseList;
+            set
+            {
+                _courseList = value;
+                OnPropertyChanged();
+            }
+        }
+
+
+        #endregion
+
+        #region Modals
+        private bool _isOpenClassDetail = false;
+        public bool IsOpenClassDetail
+        {
+            get => _isOpenClassDetail;
+            set
+            {
+                _isOpenClassDetail = value;
+                OnPropertyChanged();
+            }
+        }
+
+        private string? setClassNameForDetail;
+        public string? SetClassNameForDetail
+        {
+            get => setClassNameForDetail;
+            set
+            {
+                setClassNameForDetail = value;
+                OnPropertyChanged();
+            }
+        }
+
+
+
+        #endregion
+
+        #region ClassDetail
+
+        private ObservableCollection<StudentDTO> _studentInClass;
+        public ObservableCollection<StudentDTO> StudentInClass
+        {
+            get => _studentInClass;
+            set
+            {
+                _studentInClass = value;
+                OnPropertyChanged();
+            }
+        }
+
+        #endregion
         public GradeViewModel()
         {
             Page = 1;
-            PageSize = 10;
+            PageSize = 9;
 
             _service = Installer.InstallServices.Instance.serviceProvider;
 
@@ -173,10 +309,12 @@ namespace EngMasterWPF.ViewModel
             Application.Current.Dispatcher.Invoke(async () =>
             {
 
-                var loadData = LoadData(SearchText,Page, PageSize);
+                var loadData = LoadData(SearchText, Page, PageSize);
                 var countItems = CountItems();
+                var loadTeacher = LoadingTeacher();
+                var loadCourse = LoadingCourse();
 
-                await Task.WhenAll(loadData, countItems);
+                await Task.WhenAll(loadData, countItems, loadTeacher, loadCourse);
 
             });
 
@@ -184,27 +322,47 @@ namespace EngMasterWPF.ViewModel
             ToggleComboBoxFilterCommand = new RelayCommand(_canExecute => true, _execute => { IsComboBoxOpen = !IsComboBoxOpen; });
             ChangePageSizeCommand = new RelayCommand<ComboBoxItem>(_canExecute => true, async _execute => await ChangePageSizeCommandHandler(_execute!));
 
-            FirstPageCommand = new RelayCommand(_canExecute => true, async _execute => { Page = 1; await LoadData(SearchText,Page, PageSize); });
-            PrevPageCommand = new RelayCommand(_canExecute => true, async _execute => { if (Page > 1) Page--; await LoadData(SearchText,Page, PageSize); });
-            NextPageCommand = new RelayCommand(_canExecute => true, async _execute => { if (Page < TotalPages) Page++; await LoadData(SearchText,Page, PageSize); });
-            LastPageCommand = new RelayCommand(_canExecute => true, async _execute => { Page = TotalPages; await LoadData(SearchText,Page, PageSize); });
+            FirstPageCommand = new RelayCommand(_canExecute => true, async _execute => { Page = 1; await LoadData(SearchText, Page, PageSize); });
+            PrevPageCommand = new RelayCommand(_canExecute => true, async _execute => { if (Page > 1) Page--; await LoadData(SearchText, Page, PageSize); });
+            NextPageCommand = new RelayCommand(_canExecute => true, async _execute => { if (Page < TotalPages) Page++; await LoadData(SearchText, Page, PageSize); });
+            LastPageCommand = new RelayCommand(_canExecute => true, async _execute => { Page = TotalPages; await LoadData(SearchText, Page, PageSize); });
 
             SearchTextCommand = new RelayCommand<string>(_canExecute => true, async _execute => await SearchGradeCommandHandler(SearchText));
 
 
             OpenCreateGradeModalCommand = new RelayCommand(_canExecute => true, _execute => { IsOpenCreateModal = !IsOpenCreateModal; });
+            OpenDetailClassCommand = new RelayCommand<int>(_canExecute => true, async _execute => {  IsOpenClassDetail = !IsOpenClassDetail; await GetStudentInClass(_execute); });
+            CreateClassCommand = new RelayCommand(_canExecute => true, async _execute =>
+            {
+
+                var entity = new AddClassDTO
+                {
+                    ClassCode = this.ClassCode,
+                    ClassName = this.ClassName,
+                    StartDate = this.StartDate.ToUniversalTime().ToString("o"),
+                    EndDate = this.EndDate.ToUniversalTime().ToString("o"),
+                    CourseId = long.Parse(this.CourseId),
+                    TeacherId = long.Parse(this.TeacherId)
+                };
+                await CreateClassAsync(entity);
+
+            });
+            DeleteClassCommand = new RelayCommand<int>(
+                 _canExecute => true,
+                 async id => { await DeleteClassAsync(id); }
+             );
         }
 
         #region Method Handler
 
-        private async Task LoadData(string? name,int page, int pageSize)
+        private async Task LoadData(string? name, int page, int pageSize)
         {
             IsLoading = true;
 
             try
             {
                 GradeService gradeService = Installer.InstallServices.Instance.serviceProvider.GetRequiredService<GradeService>();
-                var gradeInitDb = await gradeService.GetGradeByFilter(name,page, pageSize);
+                var gradeInitDb = await gradeService.GetGradeByFilter(name, page, pageSize);
 
                 if (!gradeInitDb.Any())
                 {
@@ -250,7 +408,11 @@ namespace EngMasterWPF.ViewModel
         public ICommand NextPageCommand { get; private set; }
         public ICommand LastPageCommand { get; private set; }
 
+        // CreateCommand
         public ICommand OpenCreateGradeModalCommand { get; private set; }
+        public ICommand CreateClassCommand { get; private set; }
+        public ICommand DeleteClassCommand { get; private set; }
+        public ICommand OpenDetailClassCommand { get; private set; }
 
 
         #endregion
@@ -264,7 +426,7 @@ namespace EngMasterWPF.ViewModel
             {
                 PageSize = newSize;
                 TotalPages = (int)Math.Ceiling((double)TotalItems / PageSize);
-                await LoadData(SearchText,Page, PageSize);
+                await LoadData(SearchText, Page, PageSize);
             }
 
         }
@@ -280,7 +442,7 @@ namespace EngMasterWPF.ViewModel
 
             if (name.IsNullOrEmpty())
             {
-                await LoadData(SearchText,Page, PageSize);
+                await LoadData(SearchText, Page, PageSize);
                 IsDataFound = false;
                 return;
             }
@@ -290,7 +452,7 @@ namespace EngMasterWPF.ViewModel
                 await Task.Delay(2000, token);
 
                 GradeService gradeService = Installer.InstallServices.Instance.serviceProvider.GetRequiredService<GradeService>();
-                var gradeInDb = await gradeService.GetGradeByFilter(name,Page,PageSize);
+                var gradeInDb = await gradeService.GetGradeByFilter(name, Page, PageSize);
                 if (gradeInDb.Any())
                 {
                     Grades = gradeInDb;
@@ -310,6 +472,88 @@ namespace EngMasterWPF.ViewModel
 
             #endregion
 
+
+        }
+
+        public async Task LoadingTeacher()
+        {
+            var _teacherService = Installer.InstallServices.Instance.serviceProvider.GetRequiredService<TeacherService>();
+            var teacherList = await _teacherService.GetTeacherByFilter("", 1, 100);
+
+            if (teacherList!.Any())
+            {
+                TeacherList = teacherList;
+            }
+        }
+
+        public async Task LoadingCourse()
+        {
+            var _courseServices = Installer.InstallServices.Instance.serviceProvider.GetRequiredService<CourseService>();
+            var _courseList = await _courseServices.GetCourseByFilter("", 1, 100);
+
+            if (_courseList!.Any())
+            {
+                CourseList = _courseList;
+            }
+        }
+
+        public async Task CreateClassAsync(AddClassDTO classDTO)
+        {
+            var _classService = _service.GetRequiredService<GradeService>();
+
+            //MessageBox.Show(classDTO.ToString());
+
+
+            var result = await _classService.AddClassAsync(classDTO);
+            if (result)
+            {
+                MessageBox.Show("Tạo lớp học thành công");
+                IsOpenCreateModal = false;
+                await CountItems();
+                await LoadData(SearchText, Page, PageSize);
+            }
+            else
+            {
+                MessageBox.Show("Có lỗi xảy ra vui lòng thử lại");
+            }
+        }
+
+        public async Task DeleteClassAsync(int id)
+        {
+
+            var _classService = _service.GetRequiredService<GradeService>();
+            var result = await _classService.DeleteClassAsync(id);
+            if (!result)
+            {
+                MessageBox.Show("Có lỗi xảy ra vui lòng thử lại");
+                return;
+            }
+
+            await LoadData(SearchText, Page, PageSize);
+            await CountItems();
+            MessageBox.Show("Xóa lớp học thành công");
+        }
+
+        public async Task GetStudentInClass(int id)
+        {
+            var _classService = _service.GetRequiredService<GradeService>();
+            var _classInfo = await _classService.GetById(id);
+
+            if( _classInfo != null )
+            {
+                setClassNameForDetail = _classInfo.ClassName;
+            }
+
+            var _studentInClass = await _classService.GetStudentByClassId(id);
+            if (_studentInClass != null)
+            {
+                StudentInClass = _studentInClass;
+
+            }
+            else
+            {
+                return;
+            }
 
         }
     }

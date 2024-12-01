@@ -480,7 +480,7 @@ namespace EngMasterWPF.ViewModel
                 Gender = CurrentStudent.Gender ?? string.Empty,
                 Email = CurrentStudent.Email ?? string.Empty,
                 PhoneNumber = CurrentStudent.PhoneNumber ?? string.Empty,
-                DateOfBirth = NormalizeDateOfBirth(CurrentStudent.DateOfBirth),
+                DateOfBirth = NormalizeDateOfBirth(CurrentStudent.DateOfBirth.ToString()!),
                 StudentCode = CurrentStudent.StudentCode ?? string.Empty,
                 Status = CurrentStudent.Status ?? string.Empty,
             };

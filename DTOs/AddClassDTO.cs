@@ -9,6 +9,9 @@ namespace EngMasterWPF.DTOs
 {
     public class AddClassDTO
     {
+        [JsonProperty("classCode")]
+        public string? ClassCode { get; set; }
+
         [JsonProperty("className")]
         public string? ClassName { get; set; }
 
@@ -20,9 +23,14 @@ namespace EngMasterWPF.DTOs
         public string? EndDate { get; set; }
 
         [JsonProperty("courseId")]
-        public int? CourseId { get; set; }
+        public long? CourseId { get; set; }
 
         [JsonProperty("teacherId")]
-        public int? TeacherId { get; set; }
+        public long? TeacherId { get; set; }
+
+        public override string ToString()
+        {
+            return $"ClassCode: {ClassCode}, ClassName: {ClassName}, StartDate: {StartDate}, EndDate: {EndDate}, CourseId: {CourseId}, TeacherId: {TeacherId}";
+        }
     }
 }
