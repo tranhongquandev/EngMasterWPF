@@ -246,8 +246,8 @@
                                       materialDesign:HintAssist.Foreground="Gray"
                                       materialDesign:HintAssist.Hint="Chọn trạng thái"
                                       Text="{Binding Status}" FontFamily="{StaticResource FZ-PoppinsRegular}" FontSize="14">
-                                <ComboBoxItem Content="True"/>
-                                <ComboBoxItem Content="False"/>
+                                <ComboBoxItem Content="Đang hoạt động"/>
+                                <ComboBoxItem Content="Đã tạm ngưng"/>
                             </ComboBox>
                         </Border>
                     </StackPanel>
