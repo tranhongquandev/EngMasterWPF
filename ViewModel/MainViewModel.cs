@@ -1,4 +1,6 @@
-﻿using EngMasterWPF.Utilities;
+﻿using EngMasterWPF.DTOs;
+using EngMasterWPF.Services;
+using EngMasterWPF.Utilities;
 using EngMasterWPF.ViewModel;
 using EngMasterWPF.Views.CourseView;
 using EngMasterWPF.Views.GradeView;
@@ -12,6 +14,7 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 using System.Windows.Input;
 using Wpf.Ui.Controls;
 
@@ -22,6 +25,30 @@ namespace EngMasterWPF.ViewModel
         #region Property
 
         IServiceProvider _service = Installer.InstallServices.Instance.serviceProvider;
+
+        private int? _userId = Installer.InstallServices.Instance.userId;
+
+       
+
+        private StaffDTO _userInfo = new StaffDTO
+        {
+            FullName = "Chế độ nhà phát triển",
+            Email = "developer@gmail.com"
+        };
+         
+        public StaffDTO UserInfo
+        {
+            get => _userInfo;
+            set
+            {
+                _userInfo = value;
+                OnPropertyChanged();
+            }
+        }
+
+
+
+
 
         private bool _isExpand = true;
         public bool IsExpand
@@ -88,9 +115,22 @@ namespace EngMasterWPF.ViewModel
             NavigateStaffCommand = new RelayCommand(_canExecute => true, _execute => { CurrentView = _service.GetRequiredService<StaffViewModel>(); Breadcumb = "Người dùng";  });
 
 
+            if (_userId != null)
+            {
+                Application.Current.Dispatcher.Invoke(async () =>
+                {
+                    var loadUserInfo = GetUserInfo(_userId);
+                    await Task.WhenAll(loadUserInfo);
+                });
+            }
+
+
+            //System.Windows.MessageBox.Show($"UserIdInLogin: {UserIdInLogin}");
+
+
 
             //NavigateToDetailCommand = new RelayCommand(_canExecute => true, _execute => { CurrentView = new AccountView(); Breadcumb = "Chi tiết"; IconBreadcumb = "Info24"; });
-            SignOutCommand = new RelayCommand(_canExecute => true, _execute => SignOutCommandHandler());
+            SignOutCommand = new RelayCommand(_canExecute => true, async _execute => await SignOutCommandHandler());
         }
 
 
@@ -115,9 +155,38 @@ namespace EngMasterWPF.ViewModel
 
         #region Command Execute Handler
 
-        private void SignOutCommandHandler()
+        private async Task SignOutCommandHandler()
         {
-            MainWindowViewModel.Instance.CurrentView = _service.GetRequiredService<AuthViewModel>();
+            var _authService = _service.GetRequiredService<AuthService>();
+            var _isLogout = await _authService.LogoutAsync();
+
+            if(_isLogout)
+            {
+                MainWindowViewModel.Instance.CurrentView = _service.GetRequiredService<AuthViewModel>();
+
+            }
+            else
+            {
+                return;
+            }
+
+        }
+
+        public async Task GetUserInfo(int? id)
+        {
+            var userService = _service.GetRequiredService<StaffService>();
+
+            var user = await userService.GetById(id);
+
+            if (user != null)
+            {
+                UserInfo = user;
+            }
+
+            else
+            {
+                return;
+            }
         }
         #endregion
     }

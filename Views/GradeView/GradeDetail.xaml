@@ -30,22 +30,24 @@
             HorizontalAlignment="Stretch"
             VerticalAlignment="Top">
             <StackPanel Cursor="Hand" Orientation="Horizontal">
-                <i:Interaction.Triggers>
-                    <i:EventTrigger EventName="MouseLeftButtonDown">
-                        <i:InvokeCommandAction Command="{Binding DataContext.OpenDetailClassCommand, RelativeSource={RelativeSource AncestorType=UserControl}}" />
-                    </i:EventTrigger>
-                </i:Interaction.Triggers>
+
                 <materialDesign:PackIcon
                     Width="25"
                     Height="25"
                     VerticalAlignment="Center"
-                    Kind="ArrowLeft" />
+                    Kind="ArrowLeft">
+                    <i:Interaction.Triggers>
+                        <i:EventTrigger EventName="MouseLeftButtonDown">
+                            <i:InvokeCommandAction Command="{Binding DataContext.OpenDetailClassCommand, RelativeSource={RelativeSource AncestorType=UserControl}}" />
+                        </i:EventTrigger>
+                    </i:Interaction.Triggers>
+                </materialDesign:PackIcon>
                 <TextBlock
                     Margin="5,1,0,0"
                     VerticalAlignment="Center"
                     FontFamily="{StaticResource FZ-PoppinsMedium}"
                     FontSize="16"
-                    Text="{Binding DataContext.SetClassNameForDetail, RelativeSource={RelativeSource AncestorType=UserControl}}" />
+                    Text="{Binding DataContext.SetClassNameForDetail, UpdateSourceTrigger=PropertyChanged, RelativeSource={RelativeSource AncestorType=UserControl}}" />
             </StackPanel>
             <Button
                 Width="140"

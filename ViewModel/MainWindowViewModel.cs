@@ -9,6 +9,8 @@ using System.Windows.Media.Animation;
 using System.Windows.Media;
 using System.Windows;
 using Microsoft.Extensions.DependencyInjection;
+using EngMasterWPF.Services;
+using EngMasterWPF.DTOs;
 
 namespace EngMasterWPF.ViewModel
 {
@@ -39,7 +41,9 @@ namespace EngMasterWPF.ViewModel
 
 
         private ViewModelBase? _currentView;
-        
+
+       
+
 
         public ViewModelBase CurrentView
         {
@@ -58,6 +62,9 @@ namespace EngMasterWPF.ViewModel
         }
 
         #endregion
+
+
+       
 
 
 

@@ -5,6 +5,7 @@ using EngMasterWPF.Services;
 using EngMasterWPF.Utilities;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.IdentityModel.Tokens;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -331,7 +332,20 @@ namespace EngMasterWPF.ViewModel
 
 
             OpenCreateGradeModalCommand = new RelayCommand(_canExecute => true, _execute => { IsOpenCreateModal = !IsOpenCreateModal; });
-            OpenDetailClassCommand = new RelayCommand<int>(_canExecute => true, async _execute => {  IsOpenClassDetail = !IsOpenClassDetail; await GetStudentInClass(_execute); });
+            OpenDetailClassCommand = new RelayCommand<object>(_canExecute => true, async param =>
+            {
+                IsOpenClassDetail = !IsOpenClassDetail;
+
+                if (param is int id)
+                {
+                    await GetStudentInClass(id);
+                }
+                else if (param is string strId && int.TryParse(strId, out int parsedId))
+                {
+                    await GetStudentInClass(parsedId);
+                }
+
+            });
             CreateClassCommand = new RelayCommand(_canExecute => true, async _execute =>
             {
 
@@ -534,14 +548,17 @@ namespace EngMasterWPF.ViewModel
             MessageBox.Show("Xóa lớp học thành công");
         }
 
-        public async Task GetStudentInClass(int id)
+        public async Task GetStudentInClass(int? id)
         {
+
+
             var _classService = _service.GetRequiredService<GradeService>();
             var _classInfo = await _classService.GetById(id);
 
-            if( _classInfo != null )
+            if (_classInfo != null)
             {
-                setClassNameForDetail = _classInfo.ClassName;
+               
+                SetClassNameForDetail = _classInfo.ClassName;
             }
 
             var _studentInClass = await _classService.GetStudentByClassId(id);
@@ -550,10 +567,10 @@ namespace EngMasterWPF.ViewModel
                 StudentInClass = _studentInClass;
 
             }
-            else
-            {
-                return;
-            }
+        
+    
+           
+        
 
         }
     }

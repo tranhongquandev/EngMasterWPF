@@ -63,8 +63,8 @@
         <uc:ControlBarUI Grid.Row="0" Background="#FBF7F4" />
 
 
-        
-        
+
+
         <Grid Grid.Row="1" Background="#FBF7F4">
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto" />
@@ -103,6 +103,7 @@
                                         VerticalAlignment="Center"
                                         FontFamily="{StaticResource PoppinsMedium}"
                                         FontSize="12"
+                                        Foreground="Black"
                                         Text="DEVELOPER MODE" />
                                     <ProgressBar
                                         x:Name="ButtonSpinner"

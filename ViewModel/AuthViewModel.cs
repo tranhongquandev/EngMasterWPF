@@ -1,4 +1,5 @@
 ﻿
+using EngMasterWPF.Services;
 using EngMasterWPF.Utilities;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.IdentityModel.Tokens;
@@ -152,72 +153,43 @@ namespace EngMasterWPF.ViewModel
             }
             
         }
-        #endregion
-
-        #region Execute Handler
-
         private async Task SubmitCommandExecute()
         {
-
             IsSubmitting = true;
 
-            //try
-            //{
+            var _authService = Installer.InstallServices.Instance.serviceProvider.GetRequiredService<AuthService>();
+            var result = await _authService.LoginAsync(Email!, Password!);
 
-            //    var service = Installer.InstallServices.Instance.serviceProvider;
+            if (result != null && result.GetType().GetProperty("status") != null && (int)result.GetType().GetProperty("status").GetValue(result) == 200)
+            {
+                var serviceProvider = Installer.InstallServices.Instance.serviceProvider;
+                MainWindowViewModel mainWindowViewModel = MainWindowViewModel.Instance;
+                MainViewModel mainViewModel = serviceProvider.GetRequiredService<MainViewModel>();
+                var service = Installer.InstallServices.Instance;
+                service.userId  = (int)result.GetType().GetProperty("userId").GetValue(result);
+                mainWindowViewModel.CurrentView = mainViewModel;
 
-            //    IAuthRepository authRepository = service.GetRequiredService<IAuthRepository>();
-
-            //    var userInDb = await authRepository.Find(x => x.Email == Email);
-
-            //    if (userInDb.Any())
-            //    {
-            //        var passwordInDb = userInDb.Select(x => x.PasswordHash);
-
-            //        if (BCrypt.Net.BCrypt.EnhancedVerify(Password, passwordInDb.First()))
-            //        {
-
-            //            await Task.Delay(1000);
-            //            MainWindowViewModel mainWindowViewModel = MainWindowViewModel.Instance;
-            //            mainWindowViewModel.CurrentView = service.GetRequiredService<MainViewModel>();
-            //            return;
-            //        }
-            //        else
-            //        {
-            //            await Task.Delay(1000);
-            //            IsSubmitting = false;
-            //            ErrorMessage = "Mật khẩu không chính xác. Vui lòng thử lại!";
-            //            return;
-
-            //        }
-
-            //    }
-            //    else
-            //    {
-            //        await Task.Delay(1000);
-            //        ErrorMessage = "Tài khoản không tồn tại trên hệ thống.";
-            //        IsSubmitting = false;
-            //        return;
-            //    }
-
-            //} catch (Exception )
-            //{
-            //    ErrorMessage = "Không thể kết nối đến CDSL!";
-            //    IsSubmitting = false;
-            //    return;
-            //}
-
-           
-            
+                return;
+            }
+            else
+            {
+                ErrorMessage = "Email hoặc mật khẩu không đúng!";
+            }
+            IsSubmitting = false;
         }
 
         private async void DeveloperModeCommandExecute()
         {
-            var service = Installer.InstallServices.Instance.serviceProvider;
+            var serviceProvider = Installer.InstallServices.Instance.serviceProvider;
             IsDeveloperModeSubmit = true;
             MainWindowViewModel mainWindowViewModel = MainWindowViewModel.Instance;
             await Task.Delay(1000);
-            mainWindowViewModel.CurrentView = service.GetRequiredService<MainViewModel>();
+            MainViewModel mainViewModel = serviceProvider.GetRequiredService<MainViewModel>();
+            
+           
+
+
+            mainWindowViewModel.CurrentView = mainViewModel;
             return;
         }
 

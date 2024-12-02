@@ -52,7 +52,7 @@ namespace EngMasterWPF.Services
             return result;
         }
 
-        public async Task <ClassDTO> GetById(int id)
+        public async Task <ClassDTO> GetById(int? id)
         {
             var urlRequest = _baseURL + $"get-by-id/{id}";
 
@@ -61,7 +61,7 @@ namespace EngMasterWPF.Services
         }
 
 
-        public async Task<ObservableCollection<StudentDTO>> GetStudentByClassId(int id)
+        public async Task<ObservableCollection<StudentDTO>> GetStudentByClassId(int? id)
         {
             var urlRequest = _baseURL + $"get-student-by-class-id/{id}";
 

@@ -372,8 +372,8 @@
                                                     <TextBlock
                                                         FontFamily="{StaticResource FZ-PoppinsMedium}"
                                                         FontSize="13"
-                                                        Text="Tran Hong Quan" />
-                                                    <TextBlock FontSize="10" Text="tranhongquan.dev@gmail.com" />
+                                                        Text="{Binding UserInfo.FullName, UpdateSourceTrigger=PropertyChanged}" />
+                                                    <TextBlock FontSize="10" Text="{Binding UserInfo.Email, UpdateSourceTrigger=PropertyChanged}" />
                                                 </StackPanel>
                                             </StackPanel>
                                         </Border>

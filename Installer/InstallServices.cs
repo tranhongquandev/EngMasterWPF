@@ -48,6 +48,8 @@ namespace EngMasterWPF.Installer
 
         public IServiceProvider serviceProvider { get; set; } = ConfigureServices;
 
+        public int? userId { get; set; }
+
         private static IServiceProvider ConfigureServices
         {
             get
@@ -76,6 +78,10 @@ namespace EngMasterWPF.Installer
 
                 serviceCollection.AddScoped<GradeService>();
 
+                serviceCollection.AddScoped<AuthService>();
+
+                serviceCollection.AddScoped<StaffService>();
+
                 //Add AutoMapper
                 var configurationMapper = new MapperConfiguration(cfg =>
                 {
@@ -97,7 +103,8 @@ namespace EngMasterWPF.Installer
                 serviceCollection.AddSingleton<StaffViewModel>();
 
                 serviceCollection.AddSingleton<MainViewModel>();
-                serviceCollection.AddScoped<AuthViewModel>();
+                serviceCollection.AddSingleton<AuthViewModel>();
+                
 
 
 
