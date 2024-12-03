@@ -54,7 +54,9 @@
                 Height="40"
                 HorizontalAlignment="Right"
                 HorizontalContentAlignment="Center"
-                VerticalContentAlignment="Center">
+                VerticalContentAlignment="Center"
+                Command="{Binding DataContext.OpenAddStudentToClassCommand, RelativeSource={RelativeSource AncestorType=UserControl}}">
+
                 <StackPanel Orientation="Horizontal">
                     <materialDesign:PackIcon Kind="Add" />
                     <TextBlock
@@ -223,7 +225,7 @@
                                         VerticalContentAlignment="Center"
                                         Background="Transparent"
                                         BorderBrush="Transparent"
-                                        Command="{Binding DataContext.OpenDeletePopupCommand, RelativeSource={RelativeSource AncestorType=DataGrid}}"
+                                        Command="{Binding DataContext.RemoveStudentInClassCommand, RelativeSource={RelativeSource AncestorType=UserControl}}"
                                         CommandParameter="{Binding Id}">
 
                                         <materialDesign:PackIcon

@@ -63,6 +63,18 @@
                     </Style.Triggers>
                 </Style>
 
+                <Style x:Key="ToggleAddStudentToClass" TargetType="Grid">
+                    <Style.Triggers>
+                        <DataTrigger Binding="{Binding IsOpenAddStudentModal, UpdateSourceTrigger=PropertyChanged}" Value="True">
+                            <Setter Property="Visibility" Value="Visible" />
+                        </DataTrigger>
+                        <DataTrigger Binding="{Binding IsOpenAddStudentModal, UpdateSourceTrigger=PropertyChanged}" Value="False">
+                            <Setter Property="Visibility" Value="Collapsed" />
+                        </DataTrigger>
+                    </Style.Triggers>
+                </Style>
+
+
 
 
                 <Style x:Key="MainContentStyle" TargetType="Grid">
@@ -90,7 +102,7 @@
                 x:Name="OpenCreateModal"
                 HorizontalAlignment="Stretch"
                 VerticalAlignment="Stretch"
-                Panel.ZIndex="999"
+                Panel.ZIndex="555"
                 DataContext="{Binding}"
                 Style="{StaticResource ToggleCreateModal}">
                 <local:ModalAddGrade x:Name="ModalAddGrade" />
@@ -100,10 +112,20 @@
                 x:Name="ModalClassDetail"
                 HorizontalAlignment="Stretch"
                 VerticalAlignment="Stretch"
-                Panel.ZIndex="999"
+                Panel.ZIndex="777"
                 DataContext="{Binding}"
                 Style="{StaticResource ToggleClassDetail}">
                 <local:GradeDetail x:Name="ModalClassDetailUC" />
+            </Grid>
+
+            <Grid
+                x:Name="ModalAddStudentToClass"
+                HorizontalAlignment="Stretch"
+                VerticalAlignment="Stretch"
+                Panel.ZIndex="999"
+                DataContext="{Binding}"
+                Style="{StaticResource ToggleAddStudentToClass}">
+                <local:ModalAddStudentToGrade x:Name="ModalAddStudentToGradeUC" />
             </Grid>
 
 

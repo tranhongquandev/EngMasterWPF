@@ -269,6 +269,17 @@ namespace EngMasterWPF.ViewModel
             }
         }
 
+        private bool _isOpenAddStudentModal = false;
+        public bool IsOpenAddStudentModal
+        {
+            get => _isOpenAddStudentModal;
+            set
+            {
+                _isOpenAddStudentModal = value;
+                OnPropertyChanged();
+            }
+        }
+
         private string? setClassNameForDetail;
         public string? SetClassNameForDetail
         {
@@ -280,7 +291,10 @@ namespace EngMasterWPF.ViewModel
             }
         }
 
+        private int? classIdInParam { get; set; }
 
+        public string Background { get; set; } = "#D89084";
+        public string IconKind { get; set; } = "UserAdd";
 
         #endregion
 
@@ -293,6 +307,32 @@ namespace EngMasterWPF.ViewModel
             set
             {
                 _studentInClass = value;
+                OnPropertyChanged();
+            }
+        }
+
+        private ObservableCollection<StudentDTO> _studentNotInClass;
+        public ObservableCollection<StudentDTO> StudentNotInClass
+        {
+            get => _studentNotInClass;
+            set
+            {
+                _studentNotInClass = value;
+                OnPropertyChanged();
+            }
+        }
+
+        private List<int?> _studentListPendingAdd = new List<int?>();
+
+        public List<int?> StudentListPendingAdd
+        {
+            get => _studentListPendingAdd;
+            set
+            {
+                if (value != null)
+                {
+                    _studentListPendingAdd.AddRange(value); 
+                }
                 OnPropertyChanged();
             }
         }
@@ -365,6 +405,44 @@ namespace EngMasterWPF.ViewModel
                  _canExecute => true,
                  async id => { await DeleteClassAsync(id); }
              );
+            RemoveStudentInClassCommand = new RelayCommand<object>(
+                _canExecute => true,
+                async param =>
+                {
+                    if (param is int id)
+                    {
+                        await RemoveStudentInClassAsync(id);
+                    }
+                    else if (param is string strId && int.TryParse(strId, out int parsedId))
+                    {
+                        await RemoveStudentInClassAsync(parsedId);
+                    }
+                }
+                );
+            OpenAddStudentToClassCommand = new RelayCommand(_canExecute => true, async param =>
+            {
+                IsOpenAddStudentModal = !IsOpenAddStudentModal;
+
+
+                await GetStudentNotInClass();
+
+
+            });
+            AddStudentToListCommand = new RelayCommand<object>(_canExecute => true, _execute =>
+            {
+                if (_execute is int id)
+                {
+                    StudentListPendingAdd.Add(id);
+
+                }
+                else if (_execute is string strId && int.TryParse(strId, out int parsedId))
+                {
+                    StudentListPendingAdd.Add(parsedId);
+
+                }
+            });
+            AddStudentToClassCommand = new RelayCommand(_canExecute => true, async _execute => await AddStudentToClassAsync());
+
         }
 
         #region Method Handler
@@ -427,6 +505,11 @@ namespace EngMasterWPF.ViewModel
         public ICommand CreateClassCommand { get; private set; }
         public ICommand DeleteClassCommand { get; private set; }
         public ICommand OpenDetailClassCommand { get; private set; }
+        public ICommand RemoveStudentInClassCommand { get; private set; }
+        public ICommand OpenAddStudentToClassCommand { get; private set; }
+
+        public ICommand AddStudentToListCommand { get; private set; }
+        public ICommand AddStudentToClassCommand { get; private set; }
 
 
         #endregion
@@ -551,13 +634,16 @@ namespace EngMasterWPF.ViewModel
         public async Task GetStudentInClass(int? id)
         {
 
+            classIdInParam = id;
+
 
             var _classService = _service.GetRequiredService<GradeService>();
             var _classInfo = await _classService.GetById(id);
 
+
             if (_classInfo != null)
             {
-               
+
                 SetClassNameForDetail = _classInfo.ClassName;
             }
 
@@ -567,11 +653,66 @@ namespace EngMasterWPF.ViewModel
                 StudentInClass = _studentInClass;
 
             }
-        
-    
-           
-        
 
+
+
+
+
+        }
+
+        public async Task RemoveStudentInClassAsync(int? StudentId)
+        {
+
+            var service = _service.GetRequiredService<GradeService>();
+            var result = await service.RemoveStudentInClass(classIdInParam, StudentId);
+            var _classService = _service.GetRequiredService<GradeService>();
+
+            if (result)
+            {
+                var _studentInClass = await _classService.GetStudentByClassId(classIdInParam);
+                if (_studentInClass != null)
+                {
+                    StudentInClass = _studentInClass;
+
+                }
+                MessageBox.Show("Xóa học viên thành công");
+            }
+            else
+            {
+                MessageBox.Show("Có lỗi xảy ra vui lòng thử lại");
+            }
+        }
+
+        public async Task GetStudentNotInClass()
+        {
+            var _classService = _service.GetRequiredService<GradeService>();
+            var _studentNotInClass = await _classService.GetStudentNotInClass(classIdInParam);
+            if (_studentNotInClass != null)
+            {
+                StudentNotInClass = _studentNotInClass;
+            }
+            return;
+        }
+  
+        public async Task AddStudentToClassAsync()
+        {
+
+
+
+            var _classService = _service.GetRequiredService<GradeService>();
+            var result = await _classService.AddStudentToClass(classIdInParam, StudentListPendingAdd);
+
+            if (result)
+            {
+                MessageBox.Show("Thêm học viên thành công");
+                await GetStudentInClass(classIdInParam);
+                await GetStudentNotInClass();
+                IsOpenAddStudentModal = false;
+            }
+            else
+            {
+                MessageBox.Show("Có lỗi xảy ra vui lòng thử lại");
+            }
         }
     }
 }
