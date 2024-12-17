@@ -6,11 +6,12 @@ using System.Threading.Tasks;
 
 namespace EngMasterWPF.DTOs
 {
-    public class StaffDTO
+    public class GetStaffDTO
     {
         public int Id { get; set; }
 
         public string? StaffCode { get; set; }
+
         public string? FullName { get; set; }
 
         public string? Gender { get; set; }
@@ -33,6 +34,14 @@ namespace EngMasterWPF.DTOs
 
         public string? RoleName { get; set; }
 
+        public int Rank { get; set; }
+    }
+
+
+    public class  GetAllRoleDTO 
+    {
+        public int Id { get; set; }
+        public string? RoleName { get; set; }
         public int Rank { get; set; }
     }
 }

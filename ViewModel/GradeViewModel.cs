@@ -546,7 +546,7 @@ namespace EngMasterWPF.ViewModel
 
             try
             {
-                await Task.Delay(2000, token);
+                await Task.Delay(500, token);
 
                 GradeService gradeService = Installer.InstallServices.Instance.serviceProvider.GetRequiredService<GradeService>();
                 var gradeInDb = await gradeService.GetGradeByFilter(name, Page, PageSize);

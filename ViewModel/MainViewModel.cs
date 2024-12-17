@@ -30,13 +30,13 @@ namespace EngMasterWPF.ViewModel
 
        
 
-        private StaffDTO _userInfo = new StaffDTO
+        private GetStaffDTO _userInfo = new GetStaffDTO
         {
             FullName = "Chế độ nhà phát triển",
             Email = "developer@gmail.com"
         };
          
-        public StaffDTO UserInfo
+        public GetStaffDTO UserInfo
         {
             get => _userInfo;
             set
